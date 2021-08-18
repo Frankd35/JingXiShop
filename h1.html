@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <!--网页尺寸在不同设备上实现自适应-->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!--每 5 秒刷新一下浏览器并跳转到指定页面-->
+    <meta http-equiv="refresh" content="500;http://bbs.fishc.com">
+    <title>你看这里干啥</title>
+    <script type="text/javascript">
+        document.write("一二最可爱呀!");
+    </script>
+</head>
+<body background="D:\BOT\野萌君.jpeg">
+    <!--我的第一个网页主体-->
+    <h1><i>我的第一个网页哈</i></h1>
+    <!--点击图片跳转链接-->
+    <a href="http://www.baidu.com/" target="_blank">
+    <img src="http://www.baidu.com/img/bd_logo1.png" alt="百度图片" title="百度图片" width="128"/>
+    </a>
+    <br/>
+    <h5><i>我的第一个网页哈</i></h5>
+    <ol type="I">
+        <li>学车</li>
+        <li>BOT</li>
+        <li>编程</li>
+        <li>选B就完了</li>
+    </ol>
+    <h2><i>表格定制</i></h2>
+    <table border="1" width="500" cellspacing="0" cellpadding="8">
+        <caption><h2>学生信息表</h2></caption>
+        <thead align="center">
+            <tr>
+                <th>学号</th>
+                <th>姓名</th>
+                <th>年龄</th>
+                <th>班级</th>
+            </tr>
+        </thead>
+        <tbody align="center">
+            <tr>
+                <td>20194119</td>
+                <td>张涛</td>
+                <td>19</td>
+                <td>02班</td>
+            </tr> 
+            <tr>
+                <td>20194142</td>
+                <td>夏闻远</td>
+                <td>20</td>
+                <td rowspan="2" align="center" valign="center">03班</td>
+            </tr>
+            <tr>
+                <td>20194144</td>
+                <td>王麻子</td>
+                <td>20</td>
+
+            </tr>         
+        </tbody>
+    </table>
+    <h2><i>表单定制</i></h2>
+    <form action="h2.html" method="post">
+        昵称: <input type="text" name="username"><br/>
+        密码: <input type="password" name="password"><!--密码字段中的字符是隐藏的(显示为星号或圆圈)-->
+        <br/>
+        头像:<input type="file" name="picture"><br/>
+        <br/><input type="radio" name="serveagreement" value="1"><b>已阅读用户服务协议</b>
+        <br/><input type="radio" name="serveagreement" value="1"><a href="http://www.189.cn/yhxy/" target="_blank">已阅读用户服务协议</a>
+        <br/><input type="submit" value="登录"/> 
+        <br/><input type="reset" value="重新填写" readonly/>     
+    </form>
+
+
+    <iframe src="h2.html" name="iframe_a" width="800" height="500" target="_self"></iframe>
+    <p>
+        <a download = "QQ" href="https://im.qq.com/index">点我下载QQ联系作者</a>
+    </p>
+    <p><a href="https://www.baidu.com" target="iframe_a">BAIDU.COM</a></p>
+    <p>
+        <img src="C:\Users\DELL\Pictures\1566478682648.jpeg" alt="头像" title="头像" width="128"/>
+        <br/>
+    <a href="https://mail.qq.com/" target="_blank">联系我(3302523993@qq.com)</a>
+    </p>   
+</body>
+</html>
