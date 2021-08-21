@@ -127,3 +127,15 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+WebProject/static/detail.html
+WebProject/static/index.html
+WebProject/static/list.html
+WebProject/static/login.html
+WebProject/static/place_order.html
+WebProject/static/register.html
+WebProject/static/user_center_info.html
+WebProject/static/user_center_order.html
+WebProject/static/user_center_site.html
+WebProject/templates/search/search.html
+WebProject/templates/search/search1.html
+WebProject/templates/search/indexes/goods/goodssku_text.txt
