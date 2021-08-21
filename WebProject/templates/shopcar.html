@@ -11,6 +11,7 @@
     <script src="../static/js/jquery.min.js"></script>
     <script src="../static/js/base.js"></script>
     <script src="../static/js/cart.js"></script>
+    <script src="../static/js/addSub.js"></script>
     <style>
         .welcome, .login_info, .login_btn, .user_link {
             line-height: 29px;
@@ -31,7 +32,7 @@
 <body>
     <div class="search">
 		<a href="index.html" class="logo fl"><img src="../static/images/logo.png" width="150" height="59"></a>
-		<a class="sub_page_name fl" onclick="alert('购买成功')">|&nbsp;&nbsp;&nbsp;&nbsp;提交订单</a>		
+		<a class="sub_page_name fl" onclick="alert('购买成功')">|&nbsp;&nbsp;&nbsp;&nbsp;提交订单</a>
 	</div>
 
     	<div class="header_con">
@@ -54,13 +55,12 @@
 					<a href="user_center_order.html">我的订单</a>
 				</div>
 			</div>
-		</div>		
+		</div>
 	</div>
     <div class="py-container">
         <div class="w">
             <div class="allgoods">
-                <!-- <h4>全部商品                    
-                </h4>        -->
+
                 <div class="cart-main">
                     <div class="cart-th clearfix">
                         <div><input type="checkbox">全选</div>
@@ -112,7 +112,7 @@
                                         <div class="youhuo">有货</div>
                                     </li>
                                     <li class="yui3-u-1-8">
-                                        <span class="sum">8848.00</span>
+                                        <span class="sum" id='sumPrice'>8848.00</span>
                                     </li>
                                     <li class="yui3-u-1-8">
                                         <div class="del1">
@@ -215,7 +215,7 @@
                                 <span>
                                     已选择
                                     <strong>0</strong> 件商品</span>
-                                <span>
+                                </span>
                                 <em>总价（不含运费）：</em>
                                 <i class="summoney">￥<span>44240.00</span></i>
                             </div>
