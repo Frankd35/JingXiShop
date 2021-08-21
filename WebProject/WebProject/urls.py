@@ -13,18 +13,18 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
-from django.conf.urls import url, include
+
+from user import views
+from cart import views as c_views
 from django.contrib import admin
 from django.urls import path
-from user import views
-from django.contrib import admin
-from django.urls import path, re_path, include
+from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-
-
-
+    path('cart',c_views.cart_view),
+    path('favorite',c_views.collect_view),
+    path('orderplace',c_views.orderplace_view),
 
 
     path('register', views.reg_view),
@@ -35,3 +35,6 @@ urlpatterns = [
 
     # url(r'index/',include('index.urls')),
 ]
+
+#设置静态文件路径
+urlpatterns += staticfiles_urlpatterns()
