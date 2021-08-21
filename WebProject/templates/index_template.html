@@ -1,0 +1,601 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+	<title>京西商城-首页</title>
+	<link rel="stylesheet" type="text/css" href="../static/css/reset.css">
+	<link rel="stylesheet" type="text/css" href="../static/css/mainzls.css">
+	<script type="text/javascript" src="../static/js/jquery-1.12.4.min.js"></script>
+	<script type="text/javascript" src="../static/js/jquery-ui.min.js"></script>
+	<script type="text/javascript" src="../static/js/slidezls.js"></script>
+	<script type="text/javascript" src="../static/js/login.js"></script>
+</head>
+<body>
+	<div class="header_con">
+		<div class="header">
+			<div class="welcome fl">欢迎来到京西商城!</div>
+			<div class="fr">
+				{% user %}
+				<div class="login_zls1">
+                    <!-- 获取用户状态 -->
+					<li><input type="text" value={{user.state}}></li>
+				</div>
+                <!-- 未登录状态 -->
+				<div class="login_zls fl">
+					<div class="login_btn fl">
+						<a href="#"><img src="../static/images/my1.png" alt="">&nbsp;&nbsp;</a>				
+					</div>
+					<div class="login_btn fl">
+						<p>您还未登录..</p>
+						
+					</div>
+					<div class="login_btn fl"><span>|</span></div>
+				</div>
+                <!-- 登录状态下 -->
+				<div class="login_zls2 fl">
+					<div class="login_btn fl">
+                        <!-- 传入用户头像 -->
+						<a href="#"><img src={{user.img.url}} alt="">&nbsp;&nbsp;</a>				
+					</div>
+					<div class="login_btn fl">
+                        <!-- 传入用户姓名 -->
+						<p>欢迎您：<em>{{user.name}}</em></p>
+						
+					</div>
+					<div class="login_btn fl"><span>|</span></div>
+				</div>
+				<div class="login_btn fl">
+					
+					<a href="login">登录</a>
+					
+				</div>
+				<div class="login_btn fl">
+					<span>|</span>
+					<a href="register">注册</a>
+				</div>
+				<div class="user_link fl">
+					<span>|</span>
+					<a href="user_center_info">用户中心</a>
+					<span>|</span>
+					<a href="cart">我的购物车</a>
+					<span>|</span>
+					<a href="user_center_order">我的订单</a>
+					<span>|</span>
+					<a href="cart">收藏夹</a>
+				</div>
+			</div>
+		</div>		
+	</div>
+
+	<div class="search_bar clearfix">
+		<a href="index" class="logo fl"><img src="../static/images/jx.png"></a>
+		<div class="search_con fl">
+			<input type="text" class="input_text fl" name="" placeholder="搜索商品">
+			<!-- 搜索商品类型 -->
+			<form action="demo.php" method="POST" name="name1">
+                <input type="submit" class="input_btn fr" name="goods.type" value="搜索">
+                </form>
+		</div>
+		<div class="guest_cart fr">
+			<a href="cart" class="cart_name fl">我的购物车</a>
+			<div class="goods_count fl" id="show_count">1</div>
+		</div>
+	</div>
+
+	<div class="navbar_con">
+		<div class="navbar">
+			<h1 class="fl">全部商品分类</h1>
+			<ul class="navlist fl">
+				<li><a href="index">首页</a></li>
+				
+                 <!-- 商品类型 6个-->
+			{% for GoodsCategory in GoodsCategory %}
+                <li class="interval">|</li> 
+				<li><a href="{% url 'list'  GoodsCategory.id %}">{{GoodsCategory.name}}</a></li>
+                {%endfor%}   
+			</ul>
+		</div>
+	</div>
+
+	<div class="center_con clearfix">
+		<ul class="subnav fl" id="navi">
+            <!-- 商品类型 6个-->
+			{% for GoodsCategory in GoodsCategory %}
+			<li><a href="#model0{{forloop.counter}}" >{{GoodsCategory.name}} &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&gt;</a></li>
+            {%endfor%}
+		<div class="content">
+			<div>
+				<div class="channel">
+					<a href="#">家电馆  ></a>
+					<a href="#">家电专卖店  ></a>
+					<a href="#">家电服务  ></a>
+					<a href="#">企业采购  ></a>
+					<a href="#">商用电器  ></a>
+					<a href="#">以旧换新  ></a>
+				</div>
+				<div class="cate_detail">
+					<dl>
+						<dt><a href="#">电视  ></a></dt>
+						<div>
+							<dd><a href="#">超薄电视</a></dd>
+							<dd><a href="#">全面屏电视</a></dd>
+							<dd><a href="#">智能电视</a></dd>
+							<dd><a href="#">OLED电视</a></dd>
+							<dd><a href="#">智慧屏</a></dd>
+							<dd><a href="#">4K超清电视</a></dd>
+							<dd><a href="#">55英寸</a></dd>
+							<dd><a href="#">65英寸</a></dd>
+							<dd><a href="#">电视配件</a></dd>
+						</div>
+					</dl>
+				</div>
+				<div class="cate_detail">
+					<dl>    
+						<dt><a href="#">空调  ></a></dt>
+						<div>
+							<dd><a href="#">空调挂机</a></dd>
+							<dd><a href="#">空调柜机</a></dd>
+							<dd><a href="#">中央空调</a></dd>
+							<dd><a href="#">变频空调</a></dd>
+							<dd><a href="#">一级能效</a></dd>
+							<dd><a href="#">移动空调</a></dd>
+							<dd><a href="#">以旧换新</a></dd>
+						</div>
+					</dl>
+				</div>
+				<div class="cate_detail">
+					<dl>
+						<dt><a href="#">洗衣机  ></a></dt>
+						<div>
+							<dd><a href="#">以旧换新</a></dd>
+							<dd><a href="#">滚筒洗衣机</a></dd>
+							<dd><a href="#">洗烘一体机</a></dd>
+							<dd><a href="#">波轮洗衣机</a></dd>
+							<dd><a href="#">迷你洗衣机</a></dd>
+							<dd><a href="#">烘干机</a></dd>
+							<dd><a href="#">洗衣机配件</a></dd>
+						</div>
+					</dl>
+				</div>
+				<div class="cate_detail">
+					<dl>      
+						<dt><a href="#">冰箱  ></a></dt>
+						<div>
+							<dd><a href="#">多门</a></dd>
+							<dd><a href="#">对开门</a></dd>
+							<dd><a href="#">三门</a></dd>
+							<dd><a href="#">双门</a></dd>
+							<dd><a href="#">冷柜/冰吧</a></dd>
+							<dd><a href="#">酒柜</a></dd>
+							<dd><a href="#">冰箱配件</a></dd>
+						</div>
+					</dl>
+				</div>
+				
+				
+			</div>
+			<div>
+					<div class="channel">
+						<a href="#">玩3C  ></a>
+						<a href="#">手机频道  ></a>
+						<a href="#">网上营业厅  ></a>
+						<a href="#">配件频道  ></a>
+						<a href="#">智能数码  ></a>
+						<a href="#">影像Club  ></a>
+					</div>
+					<div class="cate_detail">
+						<dl>
+							<dt><a href="#">手机通讯  ></a></dt>
+							<div>
+								<dd><a href="#">手机</a></dd>
+								<dd><a href="#">游戏手机</a></dd>
+								<dd><a href="#">老人机</a></dd>
+								<dd><a href="#">对讲机</a></dd>
+								<dd><a href="#">以旧换新</a></dd>
+								<dd><a href="#">手机维修</a></dd>
+							</div>
+						</dl>
+					</div>
+					<div class="cate_detail">
+						<dl>    
+							<dt><a href="#">运营商  ></a></dt>
+							<div>	 
+								<dd><a href="#">合约机</a></dd>
+								<dd><a href="#">手机卡</a></dd>
+								<dd><a href="#">宽带</a></dd>
+								<dd><a href="#">办套餐</a></dd>
+								<dd><a href="#">充话费/流量</a></dd>
+								<dd><a href="#">中国电信</a></dd>
+								<dd><a href="#">中国移动</a></dd>
+								<dd><a href="#">中国联通</a></dd>
+								<dd><a href="#">京东通信</a></dd>
+								<dd><a href="#">挑靓号</a></dd>
+							</div>
+						</dl>
+					</div>
+					<div class="cate_detail">
+						<dl>
+							<dt><a href="#">洗衣机  ></a></dt>
+							<div>
+								<dd><a href="#">以旧换新</a></dd>
+								<dd><a href="#">滚筒洗衣机</a></dd>
+								<dd><a href="#">洗烘一体机</a></dd>
+								<dd><a href="#">波轮洗衣机</a></dd>
+								<dd><a href="#">迷你洗衣机</a></dd>
+								<dd><a href="#">烘干机</a></dd>
+								<dd><a href="#">洗衣机配件</a></dd>
+							</div>
+						</dl>
+					</div>
+					<div class="cate_detail">
+						<dl>      
+							<dt><a href="#">手机配件  ></a></dt>
+							<div>
+								<dd><a href="#">手机壳</a></dd>
+								<dd><a href="#">贴膜</a></dd>
+								<dd><a href="#">手机存储卡</a></dd>
+								<dd><a href="#">数据线</a></dd>
+								<dd><a href="#">充电器</a></dd>
+								<dd><a href="#">手机耳机</a></dd>
+								<dd><a href="#">创意配件</a></dd>
+								<dd><a href="#">手机饰品</a></dd>
+								<dd><a href="#">手机电池</a></dd>
+								<dd><a href="#">苹果周边</a></dd>
+								<dd><a href="#">移动电源</a></dd>
+								<dd><a href="#">蓝牙耳机</a></dd>
+								<dd><a href="#">手机支架</a></dd>
+								<dd><a href="#">车载配件</a></dd>
+								<dd><a href="#">拍照配件</a></dd>
+							</div>
+						</dl>
+					</div>
+					
+			</div>
+			<div>
+					<div class="channel">
+						<a href="#">玩3C  ></a>
+						<a href="#">电脑办公  ></a>
+						<a href="#">企业采购  ></a>
+						<a href="#">GAME+  ></a>
+						<a href="#">装机大师  ></a>
+						<a href="#">私人定制  ></a>
+					</div>
+					<div class="cate_detail">
+						<dl>
+							<dt><a href="#">电脑整机  ></a></dt>
+							<div>
+								<dd><a href="#">笔记本</a></dd>
+								<dd><a href="#">游戏本</a></dd>
+								<dd><a href="#">平板电脑</a></dd>
+								<dd><a href="#">平板电脑配件</a></dd>
+								<dd><a href="#">台式机</a></dd>
+								<dd><a href="#">一体机</a></dd>
+								<dd><a href="#">服务器/工作站</a></dd>
+								<dd><a href="#">笔记本配件</a></dd>
+							</div>
+						</dl>
+					</div>
+					<div class="cate_detail">
+						<dl>    
+							<dt><a href="#">电脑配件  ></a></dt>
+							<div>
+								<dd><a href="#">显示器</a></dd>
+								<dd><a href="#">CPU</a></dd>
+								<dd><a href="#">主板</a></dd>
+								<dd><a href="#">显卡</a></dd>
+								<dd><a href="#">硬盘</a></dd>
+								<dd><a href="#">内存</a></dd>
+								<dd><a href="#">机箱</a></dd>
+								<dd><a href="#">电源</a></dd>
+								<dd><a href="#">散热器</a></dd>
+								<dd><a href="#">显示器</a></dd>
+								<dd><a href="#">支架</a></dd>
+								<dd><a href="#">刻录机/光驱</a></dd>
+								<dd><a href="#">声卡/扩展卡</a></dd>
+								<dd><a href="#">装机配件</a></dd>
+								<dd><a href="#">SSD固态硬盘</a></dd>
+								<dd><a href="#">组装电脑</a></dd>
+								<dd><a href="#">USB分线器</a></dd>
+								<dd><a href="#">主板CPU套装</a></dd>
+							</div>
+						</dl>
+					</div>
+					<div class="cate_detail">
+						<dl>
+							<dt><a href="#">外设产品  ></a></dt>
+							<div>
+								<dd><a href="#">鼠标键盘</a></dd>
+								<dd><a href="#">键鼠套装</a></dd>
+								<dd><a href="#">网络仪表仪器</a></dd>
+								<dd><a href="#">U盘</a></dd>
+								<dd><a href="#">移动硬盘</a></dd>
+								<dd><a href="#">鼠标垫</a></dd>
+								<dd><a href="#">摄像头</a></dd>
+								<dd><a href="#">线缆</a></dd>
+								<dd><a href="#">手写板</a></dd>
+								<dd><a href="#">硬盘盒</a></dd>
+								<dd><a href="#">电脑工具</a></dd>
+								<dd><a href="#">电脑清洁</a></dd>
+								<dd><a href="#">UPS电源插座</a></dd>
+							</div>
+						</dl>
+					</div>
+					
+					
+			</div>
+			<div>
+					<div class="channel">
+						<a href="#">男装  ></a>
+						<a href="#">女装  ></a>
+						<a href="#">内衣  ></a>
+						<a href="#">童装童鞋  ></a>
+						
+					</div>
+					<div class="cate_detail">
+						<dl>
+							<dt><a href="#">女装  ></a></dt>
+							<div>
+								<dd><a href="#">当季热卖</a></dd>
+								<dd><a href="#">新品推荐</a></dd>
+								<dd><a href="#">商场同款</a></dd>
+								<dd><a href="#">时尚套装</a></dd>
+								<dd><a href="#">连衣裙</a></dd>
+								<dd><a href="#">半身裙</a></dd>
+								<dd><a href="#">T恤</a></dd>
+								<dd><a href="#">牛仔裤</a></dd>
+								<dd><a href="#">卫衣</a></dd>
+							</div>
+						</dl>
+					</div>
+					<div class="cate_detail">
+						<dl>    
+							<dt><a href="#">男装  ></a></dt>
+							<div>
+								<dd><a href="#">当季热卖</a></dd>
+								<dd><a href="#">新品推荐</a></dd>
+								<dd><a href="#">时尚套装</a></dd>
+								<dd><a href="#">T恤</a></dd>
+								<dd><a href="#">休闲裤</a></dd>
+								<dd><a href="#">衬衫</a></dd>
+								<dd><a href="#">短裤</a></dd>
+							</div>
+						</dl>
+					</div>
+					<div class="cate_detail">
+						<dl>
+							<dt><a href="#">童装  ></a></dt>
+							<div>
+								<dd><a href="#">套装</a></dd>
+								<dd><a href="#">卫衣</a></dd>
+								<dd><a href="#">裤子</a></dd>
+								<dd><a href="#">外套/大衣</a></dd>
+								<dd><a href="#">毛衣/针织衫</a></dd>
+								<dd><a href="#">衬衫</a></dd>
+								<dd><a href="#">户外/运动服</a></dd>
+							</div>
+						</dl>
+					</div>
+					<div class="cate_detail">
+						<dl>      
+							<dt><a href="#">内衣  ></a></dt>
+							<div>
+								<dd><a href="#">文胸</a></dd>
+								<dd><a href="#">睡衣</a></dd>
+								<dd><a href="#">男士内裤</a></dd>
+								<dd><a href="#">女士内裤</a></dd>
+								<dd><a href="#">吊带/背心</a></dd>
+								<dd><a href="#">情侣睡衣</a></dd>
+								<dd><a href="#">休闲棉袄</a></dd>
+							</div>
+						</dl>
+					</div>
+					
+			</div>
+			<div>
+					<div class="channel">
+						<a href="#">天天5折  ></a>
+						<a href="#">家电馆  ></a>
+						<a href="#">家电专卖店  ></a>
+						<a href="#">家电服务  ></a>
+						<a href="#">企业采购  ></a>
+						<a href="#">商用电器  ></a>
+						<a href="#">以旧换新  ></a>
+					</div>
+					<div class="cate_detail">
+						<dl>
+							<dt><a href="#">电视  ></a></dt>
+							<div>
+								<dd><a href="#">超薄电视</a></dd>
+								<dd><a href="#">全面屏电视</a></dd>
+								<dd><a href="#">智能电视</a></dd>
+								<dd><a href="#">OLED电视</a></dd>
+								<dd><a href="#">智慧屏</a></dd>
+								<dd><a href="#">4K超清电视</a></dd>
+								<dd><a href="#">55英寸</a></dd>
+								<dd><a href="#">65英寸</a></dd>
+								<dd><a href="#">电视配件</a></dd>
+							</div>
+						</dl>
+					</div>
+					<div class="cate_detail">
+						<dl>    
+							<dt><a href="#">空调  ></a></dt>
+							<div>
+								<dd><a href="#">空调挂机</a></dd>
+								<dd><a href="#">空调柜机</a></dd>
+								<dd><a href="#">中央空调</a></dd>
+								<dd><a href="#">变频空调</a></dd>
+								<dd><a href="#">一级能效</a></dd>
+								<dd><a href="#">移动空调</a></dd>
+								<dd><a href="#">以旧换新</a></dd>
+							</div>
+						</dl>
+					</div>
+					<div class="cate_detail">
+						<dl>
+							<dt><a href="#">洗衣机  ></a></dt>
+							<div>
+								<dd><a href="#">以旧换新</a></dd>
+								<dd><a href="#">滚筒洗衣机</a></dd>
+								<dd><a href="#">洗烘一体机</a></dd>
+								<dd><a href="#">波轮洗衣机</a></dd>
+								<dd><a href="#">迷你洗衣机</a></dd>
+								<dd><a href="#">烘干机</a></dd>
+								<dd><a href="#">洗衣机配件</a></dd>
+							</div>
+						</dl>
+					</div>
+					<div class="cate_detail">
+						<dl>      
+							<dt><a href="#">冰箱  ></a></dt>
+							<div>
+								<dd><a href="#">多门</a></dd>
+								<dd><a href="#">对开门</a></dd>
+								<dd><a href="#">三门</a></dd>
+								<dd><a href="#">双门</a></dd>
+								<dd><a href="#">冷柜/冰吧</a></dd>
+								<dd><a href="#">酒柜</a></dd>
+								<dd><a href="#">冰箱配件</a></dd>
+							</div>
+						</dl>
+					</div>
+					
+			</div>
+			<div>
+				<div class="channel">
+					<a href="#">天天5折  ></a>
+					<a href="#">家电馆  ></a>
+					<a href="#">家电专卖店  ></a>
+					<a href="#">家电服务  ></a>
+					<a href="#">企业采购  ></a>
+					<a href="#">商用电器  ></a>
+					<a href="#">以旧换新  ></a>
+				</div>
+				<div class="cate_detail">
+					<dl>
+						<dt><a href="#">电视  ></a></dt>
+						<div>
+							<dd><a href="#">超薄电视</a></dd>
+							<dd><a href="#">全面屏电视</a></dd>
+							<dd><a href="#">智能电视</a></dd>
+							<dd><a href="#">OLED电视</a></dd>
+							<dd><a href="#">智慧屏</a></dd>
+							<dd><a href="#">4K超清电视</a></dd>
+							<dd><a href="#">55英寸</a></dd>
+							<dd><a href="#">65英寸</a></dd>
+							<dd><a href="#">电视配件</a></dd>
+						</div>
+					</dl>
+				</div>
+				<div class="cate_detail">
+					<dl>    
+						<dt><a href="#">空调  ></a></dt>
+						<div>
+							<dd><a href="#">空调挂机</a></dd>
+							<dd><a href="#">空调柜机</a></dd>
+							<dd><a href="#">中央空调</a></dd>
+							<dd><a href="#">变频空调</a></dd>
+							<dd><a href="#">一级能效</a></dd>
+							<dd><a href="#">移动空调</a></dd>
+							<dd><a href="#">以旧换新</a></dd>
+						</div>
+					</dl>
+				</div>
+				<div class="cate_detail">
+					<dl>
+						<dt><a href="#">洗衣机  ></a></dt>
+						<div>
+							<dd><a href="#">以旧换新</a></dd>
+							<dd><a href="#">滚筒洗衣机</a></dd>
+							<dd><a href="#">洗烘一体机</a></dd>
+							<dd><a href="#">波轮洗衣机</a></dd>
+							<dd><a href="#">迷你洗衣机</a></dd>
+							<dd><a href="#">烘干机</a></dd>
+							<dd><a href="#">洗衣机配件</a></dd>
+						</div>
+					</dl>
+				</div>
+				<div class="cate_detail">
+					<dl>      
+						<dt><a href="#">冰箱  ></a></dt>
+						<div>
+							<dd><a href="#">多门</a></dd>
+							<dd><a href="#">对开门</a></dd>
+							<dd><a href="#">三门</a></dd>
+							<dd><a href="#">双门</a></dd>
+							<dd><a href="#">冷柜/冰吧</a></dd>
+							<dd><a href="#">酒柜</a></dd>
+							<dd><a href="#">冰箱配件</a></dd>
+						</div>
+					</dl>
+				</div>
+				
+		</div>
+			<div>
+			</div>
+		</div>
+		<div class="slide fl">
+			<ul class="slide_pics">
+                <!-- 轮播图 4张-->
+                {% for hotgoods in hotgoods}
+				<li><img src="{{hotgoods.img.url}}" alt="幻灯片"></li>
+                {%endfor%}
+			</ul>
+			<div class="prev"></div>
+			<div class="next"></div>
+			<ul class="points"></ul>
+		</div>
+		<div class="adv fl">
+            <!-- 热点图 两张 -->
+            {%for hotgod in hotgod}
+			<a href="#"><img src="{{hotgod.img.url}}"></a>
+            {%endfor%}
+		</div>
+	</div>
+    <!-- 商品类型展示 -->
+	{% for GoodsCategory in GoodsCategory %}
+	<div class="list_model">
+        
+		<div class="list_title clearfix">
+			<h3 class="fl" id="model0{{forloop.counter}}">{{GoodsCategory.name}}</h3>
+			<div class="subtitle fl">
+				<span>|</span>
+                <!-- 实例链接 -->
+                {% for kind in GoodsCategory.kands %}
+				<a href="{% url 'detail' kand.goods_id %}">kind.name</a>
+                {%endfor%}
+			</div>
+			<a href="{% url 'list'  GoodsCategory.id %}" class="goods_more fr" id="fruit_more">查看更多 ></a>
+		</div>
+
+		<div class="goods_con clearfix">
+			<div class="goods_banner fl"><a href="{% url 'list'  GoodsCategory.id %}"><img src="{{ GoodsCategory.img.url}}"></a></div>
+			<ul class="goods_list fl">
+                <!-- 展示这一类型的商品 4个 -->
+				{% for goods in GoodsCategory.kands %}
+				<li>
+					<h4><a href="{% url 'detail' goods.goods_id %}">{{goods.name}}</a></h4>
+					<a href="{% url 'detail' goods.goods_id %}"><img src={{goods.img.url}}></a>
+					<div class="prize">¥{{goods.price}}</div>
+				</li>
+                {%endfor%}
+				
+			</ul>
+		</div>
+	</div>
+    {%endfor%}
+	<div class="footer">
+		<div class="foot_link">
+			<a href="#">关于我们</a>
+			<span>|</span>
+			<a href="#">联系我们</a>
+			<span>|</span>
+			<a href="#">招聘人才</a>
+			<span>|</span>
+			<a href="#">友情链接</a>		
+		</div>
+		<p>CopyRight © 2021 重庆大学-CQU-University</p>
+		<p>电话：010-****888    渝ICP备*******8号</p>
+	</div>			
+</body>
+</html>
