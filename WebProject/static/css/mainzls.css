@@ -16,7 +16,9 @@ html,body{height:100%}
 .welcome,.login_info,.login_btn,.user_link{
 	line-height:29px;
 }
-
+.login_zls1 {
+	display: none;
+}
 .login_info{
 	 display:none; 
 }
@@ -93,9 +95,15 @@ html,body{height:100%}
 .subnav li{height:44px;border-bottom:0 px solid #eee;
 	background-color: gray;}
 
-.subnav li a{display:block;height:44px;line-height:44px;text-indent:71px;font-size:14px;color:#333}
+.subnav li a{display:inline-block;height:44px;line-height:44px;text-indent:71px;font-size:14px;color:#333}
 .subnav li a:hover{color:#ff8800}
-
+.subnav li  div {
+	display: inline;
+	height:44px;
+	line-height:44px;
+	text-indent:71px;
+	margin-right: 10px;
+}
 /* .subnav li .fruit{background:url(../images/icons.png) 28px 0px no-repeat;}
 .subnav li .seafood{background:url(../images/icons.png) 28px -43px no-repeat;}
 .subnav li .meet{background:url(../images/icons.png) 28px -86px no-repeat;}
@@ -345,17 +353,30 @@ html,body{height:100%}
 
 .detail_tab{
 	height:35px;
-	/* border-bottom:1px solid skyblue; */
+	 border-bottom:1px solid #c40000; 
 }
 
 .detail_tab li{height:34px;line-height:34px;padding:0 30px;font-size:14px;color:#333333;float:left;border:1px solid #e8e8e8;border-bottom:1px solid #e8e8e8;cursor:pointer;background-color:#faf8f8}
 
-.detail_tab li.active{border-top:2px solid skyblue;position:relative;background-color:#fff;border-left:1px solid skyblue;border-right:1px solid skyblue;top:-1px;height:35px;}
-
-.tab_content dt{margin-top:10px;font-size:16px;color:orange}
-.tab_content dd{line-height:24px;margin-top:5px;}
-
-
+.detail_tab li.active{border-top:0px solid red;position:relative;background-color:#fff;border-left:0px solid red;border-right:0px solid red;border-bottom:0px solid red;top:-1px;height:35px;background-color: #c40000;}
+.tab_content {
+	background-color: rgb(246, 249, 250);
+}
+.tab_content dt{margin-top:10px;font-size:24px;color:red}
+.tab_content dd{text-indent:1.5em;line-height:20px;margin-top:5px;font-size:16px}
+.tab_content .num1 {
+	text-indent:0em;
+	color:red
+}
+.tab_content .num2 {
+	text-indent:3em;
+	font-size:20px;
+	color:black;
+}
+.tab_content .num3 {
+	text-indent:80em;
+	font-size:10px
+}
 /* 登录页 */
 
 .login_top{width:960px;height:130px;margin:0 auto;}
