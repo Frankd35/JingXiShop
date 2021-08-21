@@ -1,6 +1,7 @@
-#coding=utf-8
+# coding=utf-8
 
 from django.conf.urls import url
+from django.urls import path
 from . import views
 
 urlpatterns = [
