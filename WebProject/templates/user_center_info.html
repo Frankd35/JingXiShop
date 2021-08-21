@@ -56,16 +56,13 @@
 				<div class="info_con clearfix">
 				<h3 class="common_title2">基本信息</h3>
 						<ul class="user_info_list">
-							{% for user in user_list %}
-							<li><span>用户名：</span>{{ user.username }}</li>
-                            {% if address %}
-							<li><span>邮编：</span>{{ address.email }}</li>
-							<li><span>联系地址：</span>{{ address.addr }}</li>
-                            {% else %}
-                                <li><span>创建时间：</span>{{address.createtime}}</li>
-							<li><span>是否是商家：</span>{{address.is_merchant}}</li>
-                            {% endif %}			
-							{% endfor %}		
+							<li><span>用户名：</span>{{ user.name }}</li>
+                            <li><span>邮箱：</span>{{ user.email }}</li>
+							{% if address %}
+							<li><span>联系地址：</span>{{ address }}</li>
+							{% endif %}
+							<li><span>创建时间：</span>{{user.createtime}}</li>
+							<li><span>是否是商家：</span>{{user.is_merchant}}</li>
 						</ul>
 				</div>
 				

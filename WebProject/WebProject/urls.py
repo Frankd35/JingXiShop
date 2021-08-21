@@ -34,7 +34,7 @@ urlpatterns = [
     path('register', usr_views.reg_view, name='register'),
     path('login', usr_views.login_view),
     path('user_center_info', usr_views.usr_info_view),
-    path('user_site_info', usr_views.usr_site_view)
+    path('user_center_site', usr_views.usr_site_view)
     # path('logout', views.logout_view)
 
     # path('user/', include('user.urls')),
