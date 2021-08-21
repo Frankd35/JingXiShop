@@ -621,8 +621,10 @@ article section .edit_form input[type="file"]{
 }
 
 .table_list tr .shop_pic{
+	display:block;
 	max-width:80%;
-	max-height:100px;
+	max-height:80%;
+	margin-top: auto;
 }
 
 .table_list tr a{
@@ -992,6 +994,7 @@ article section .edit_form input[type="file"]{
 	border:none;
 	width:50%;
 }
+
 
 
 
