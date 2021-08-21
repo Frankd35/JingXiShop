@@ -22,12 +22,11 @@ from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('cart',c_views.cart_view),
-    path('favorite',c_views.collect_view),
-    path('orderplace',c_views.orderplace_view),
+    path('cart', c_views.cart_view),
+    path('favorite', c_views.collect_view),
+    path('orderplace', c_views.orderplace_view),
 
-
-    path('register', views.reg_view),
+    path('register', views.reg_view, name='register'),
     path('login', views.login_view),
     # path('logout', views.logout_view)
 
@@ -36,5 +35,5 @@ urlpatterns = [
     # url(r'index/',include('index.urls')),
 ]
 
-#设置静态文件路径
+# 设置静态文件路径
 urlpatterns += staticfiles_urlpatterns()
