@@ -1,17 +1,17 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8">
     <title>综合网购首选-正品低价、品质保障、配送及时、轻松购物！</title>
     <link rel="shortcut icon" href="favicon.ico" type="image/x-icon"/>
-    <link rel="stylesheet" type="text/css" href="../static/css/main2.css">
-    <link rel="stylesheet" href="../static/css/normalize2.css" />
-    <link rel="stylesheet" href="../static/css/base2.css" />
-    <link rel="stylesheet" href="../static/css/cart2.css">
-    <script src="../static/js/jquery.min.js"></script>
-    <script src="../static/js/base.js"></script>
-    <script src="../static/js/cart.js"></script>
-    <script src="../static/js/addSub.js"></script>
+    <link rel="stylesheet" type="text/css" href="css/main2.css">
+    <link rel="stylesheet" href="css/normalize2.css" />
+    <link rel="stylesheet" href="css/base2.css" />
+    <link rel="stylesheet" href="css/cart2.css">
+    <script src="js/jquery.min.js"></script>
+    <script src="js/base.js"></script>
+    <script src="js/cart.js"></script>
+    <script src="js/addSub.js"></script>
     <style>
         .welcome, .login_info, .login_btn, .user_link {
             line-height: 29px;
@@ -31,7 +31,7 @@
 </head>
 <body>
     <div class="search">
-		<a href="index.html" class="logo fl"><img src="../static/images/logo.png" width="150" height="59"></a>
+		<a href="index.html" class="logo fl"><img src="images/logo.png" width="150" height="59"></a>
 		<a class="sub_page_name fl" onclick="alert('购买成功')">|&nbsp;&nbsp;&nbsp;&nbsp;提交订单</a>
 	</div>
 
@@ -60,7 +60,8 @@
     <div class="py-container">
         <div class="w">
             <div class="allgoods">
-
+                <!-- <h4>全部商品
+                </h4>        -->
                 <div class="cart-main">
                     <div class="cart-th clearfix">
                         <div><input type="checkbox">全选</div>
@@ -80,14 +81,15 @@
                     <div class="cart-item-list">
                         <div class="cart-body">
                             <div class="cart-list">
+                                {% for good in goodsList %}
                                 <ul class="goods-list yui3-g">
                                     <li class="yui3-u-3-8 pr">
                                         <input type="checkbox" class="good-checkbox">
                                         <div class="good-item">
                                             <div class="item-img">
-                                                <img src="../static/images/goods/b5.jpg">
+                                                <img src="images/goods/b5.jpg">
                                             </div>
-                                            <div class="item-msg">Apple Macbook Air 13.3英寸笔记本电脑 银色（Corei5）处理器/8GB内存</div>
+                                            <div class="item-msg">{{good.name}}</div>
                                         </div>
                                     </li>
                                     <li class="yui3-u-1-8">
@@ -101,7 +103,7 @@
                                         <br>
                                     </li>
                                     <li class="yui3-u-1-8">
-                                        <span class="price">8848.00</span>
+                                        <span class="price">{{good.price}}</span>
                                     </li>
                                     <li class="yui3-u-1-8">
                                         <div class="clearfix">
@@ -112,7 +114,7 @@
                                         <div class="youhuo">有货</div>
                                     </li>
                                     <li class="yui3-u-1-8">
-                                        <span class="sum" id='sumPrice'>8848.00</span>
+                                        <span class="sum" id='sumPrice'>{{good.sum}}</span>
                                     </li>
                                     <li class="yui3-u-1-8">
                                         <div class="del1">
@@ -121,89 +123,8 @@
                                         <!-- <div>移到我的关注</div> -->
                                     </li>
                                 </ul>
-                                <ul class="goods-list yui3-g">
-                                    <li class="yui3-u-3-8 pr">
-                                        <input type="checkbox" class="good-checkbox">
-                                        <div class="good-item">
-                                            <div class="item-img">
-                                                <img src="../static/images/goods/goods003.jpg">
-                                            </div>
-                                            <div class="item-msg">大兴安岭草莓 有机肥 零激素零添加 天然 健康 颗粒大味道鲜美 值得信赖</div>
-                                        </div>
-                                    </li>
-                                    <li class="yui3-u-1-8">
-                                        <span> </span>
-                                        <br>
-                                        <span> </span>
-                                        <br>
-                                        <span> </span>
-                                        <br>
-                                        <span> </span>
-                                        <br>
-                                    </li>
-                                    <li class="yui3-u-1-8">
-                                        <span class="price">16.00</span>
-                                    </li>
-                                    <li class="yui3-u-1-8">
-                                        <div class="clearfix">
-                                            <a href="javascript:;" class="increment mins">-</a>
-                                            <input autocomplete="off" type="text" value="1" minnum="1" class="itxt">
-                                            <a href="javascript:;" class="increment plus">+</a>
-                                        </div>
-                                        <div class="youhuo">有货</div>
-                                    </li>
-                                    <li class="yui3-u-1-8">
-                                        <span class="sum">8848.00</span>
-                                    </li>
-                                    <li class="yui3-u-1-8">
-                                        <div class="del1">
-                                            <a href="javascript:;">删除</a>
-                                        </div>
-                                        <!-- <div>移到我的关注</div> -->
-                                    </li>
-                                </ul>
-                                <ul class="goods-list active yui3-g">
-                                    <li class="yui3-u-3-8 pr">
-                                        <input type="checkbox" class="good-checkbox">
-                                        <div class="good-item">
-                                            <div class="item-img">
-                                                <img src="../static/images/goods/b5.jpg">
-                                            </div>
-                                            <div class="item-msg">Apple Macbook Air 13.3英寸笔记本电脑 银色（Corei5）处理器/8GB内存</div>
-                                        </div>
-                                    </li>
-                                    <li class="yui3-u-1-8">
-                                        <span></span>
-                                        <br>
-                                        <span></span>
-                                        <br>
-                                        <span></span>
-                                        <br>
-                                        <span></span>
-                                        <br>
-                                    </li>
-                                    <li class="yui3-u-1-8">
-                                        <span class="price">8848.00</span>
-                                    </li>
-                                    <li class="yui3-u-1-8">
-                                        <div class="clearfix">
-                                            <a href="javascript:;" class="increment mins">-</a>
-                                            <input autocomplete="off" type="text" value="1" minnum="1" class="itxt">
-                                            <a href="javascript:;" class="increment plus">+</a>
-                                        </div>
-                                        <div class="youhuo">有货</div>
-                                    </li>
-                                    <li class="yui3-u-1-8">
-                                        <span class="sum">8848.00</span>
-                                    </li>
-                                    <li class="yui3-u-1-8">
-                                        <div class="del1">
-                                            <a href="javascript:;">删除</a>
-                                        </div>
-                                        <!-- <div>移到我的关注</div> -->
-                                    </li>
-                                </ul>
-                                
+                                {% endfor %}
+
                             </div>
                         </div>
                     </div>
@@ -248,7 +169,7 @@
                 <span>|</span>
                 <a href="#">招聘人才</a>
                 <span>|</span>
-                <a href="#">友情链接</a>		
+                <a href="#">友情链接</a>
             </div>
             <p>CopyRight © 2021 重庆京西科技有限公司 All Rights Reserved</p>
             <p>电话：023-****888    京ICP备*******8号</p>
