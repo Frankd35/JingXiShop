@@ -31,7 +31,7 @@ def dealRequest(user_id, flag, gid, isChosen):
     total_price = 0
     if flag == 0:
         # 每次进入页面（GET 请求）重置is_chosen为0
-        cart_model.Cart.objects.filter(user_id=user_id).update(is_chosen=0)
+        cart_model.Cart.objects.filter(user_id=user_id).update(is_chosen=0, goods_num=0)
     elif flag == 1:  # 选中 or 不选中
         if isChosen:  # 该商品被选中
             cart_model.Cart.objects.filter(user_id=user_id, goods_id=gid).update(is_chosen=1)
