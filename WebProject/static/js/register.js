@@ -97,7 +97,7 @@ $(function(){
 		}
 		else
 		{
-			$('#email').next().html('你输入的邮箱格式不正确')
+			$('#email').next().html('输入的邮箱格式不正确')
 			$('#email').next().show();
 			error_check_password = true;
 		}
