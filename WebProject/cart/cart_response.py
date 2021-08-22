@@ -20,20 +20,20 @@ def dealRequest(user_id, flag, gid, isChosen):
     if user_id == -1:
         return []
     goodsList = []
+    # 根据user_id获取用户信息
     tempList = cart_model.Cart.objects.filter(user_id=user_id)
     total_price = 0
     if flag == 0:
         # 每次进入页面（GET 请求）重置is_chosen为0
-        books = cart_model.Cart.objects.filter(user_id=user_id).update(is_chosen=0)
-    if flag == 1:  # 选中 or 不选中
-        if isChosen:
-            a = 0
-        else:
-            a = 1
+        cart_model.Cart.objects.filter(user_id=user_id).update(is_chosen=0)
+    elif flag == 1:  # 选中 or 不选中
+        if isChosen:  # 该商品被选中
+            cart_model.Cart.objects.filter(user_id=user_id, goods_id=gid).update(is_chosen=1)
+        else:  # 该商品未被选中
+            cart_model.Cart.objects.filter(user_id=user_id, goods_id=gid).update(is_chosen=0)
     for i in tempList:
         tempGoods = goods_model.Goods.objects.filter(id=i.goods_id)[0]
-
-        # tempShop =
+        # 从数据库获取店铺信息
         tempShopName = '哈哈哈店铺'
         tempName = tempGoods.name
         tempImg = tempGoods.img
