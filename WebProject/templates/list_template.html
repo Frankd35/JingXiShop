@@ -134,9 +134,9 @@
 		<div class="r_wrap fr clearfix">
 			<div class="sort_bar">
                 <!-- 选择对商品排序 -->
-				<a href="{% url 'goods:list' type.id 1 %}" {% if sort == 'default' %}class="active">{% endif %}默认</a>
-				<a href="{% url 'goods:list' type.id 1 %}?sort=price" {% if sort == 'price' %}class="active">{% endif %}>价格</a>
-				<a href="{% url 'goods:list' type.id 1 %}?sort=hot" {% if sort == 'hot' %}class="active">{% endif %}>人气</a>
+				<a href="{% url 'goods:list' type.id 1 %}" {% if sort =='default' %}class="active">{% endif %}默认</a>
+				<a href="{% url 'goods:list' type.id 1 %}?sort=price" {% if sort =='price' %}class="active">{% endif %}>价格</a>
+				<a href="{% url 'goods:list' type.id 1 %}?sort=hot" {% if sort =='hot' %}class="active">{% endif %}>人气</a>
 			</div>
               <!-- 将该类型下的商品展示出来 每次展示5个-->
               {% for goods in goods_list &&  i=1 to GoodsCategory.num/5+1 %}
@@ -154,7 +154,7 @@
 				
 			</ul>
 			<div class="pagenation">
-				<a href="#"><上一页</a>
+				<a href="#">上一页</a>
 				<a href="#" class="active">1</a>
 				<a href="#">2</a>
 				<a href="#">3</a>

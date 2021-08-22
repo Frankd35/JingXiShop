@@ -81,7 +81,7 @@
 		</div>
 		<div class="guest_cart fr">
 			<a href="cart.html" class="cart_name fl">我的购物车</a>
-			<div class="goods_count fl" id="show_count">0</div>
+			<div class="goods_count fl" id="show_count1">0</div>
             <div class="goods_count1 fl" id="show_count">{{ user.cart.goods_num}}</div>
 		</div>
 	</div>
@@ -144,8 +144,8 @@
 			<div class="total">总价：<em>{{ goods.price }}元</em></div>
 			<div class="operate_btn">
 				<a href="javascript:;" class="buy_btn">立即购买</a>
-				<a href="javascript:;" class="add_cart" id="add_cart">加入购物车</a>
-				<a href="javascript:;" class="add_shou" id="add_shou">加入收藏夹</a>				
+				<a href="javascript:;" class="add_cart" id="add_cart" onclick="alert('添加成功！')">加入购物车</a>
+				<a href="javascript:;" class="add_shou" id="add_shou" onclick="alert('添加成功！')">加入收藏夹</a>
 			</div>
 		</div>
 	</div>
