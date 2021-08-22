@@ -5,6 +5,12 @@
 	<title>京西商城-用户中心</title>
 	<link rel="stylesheet" type="text/css" href="../static/css/reset.css">
 	<link rel="stylesheet" type="text/css" href="../static/css/main3.css">
+	<link rel="stylesheet" href="../static/css/normalize2.css" />
+    <link rel="stylesheet" href="../static/css/base2.css" />
+    <link rel="stylesheet" href="../static/css/cart2.css">
+    <script src="../static/js/jquery.min.js"></script>
+    <script src="../static/js/base.js"></script>
+    <script src="../static/js/cart.js"></script>
 </head>
 <body>
 	<div class="header_con">
@@ -15,24 +21,24 @@
 					欢迎您：<em>张 山</em>
 				</div>
 				<div class="login_btn fl">
-					<a href="login.html">登录</a>
+					<a href="login">登录</a>
 					<span>|</span>
-					<a href="register.html">注册</a>
+					<a href="register">注册</a>
 				</div>
 				<div class="user_link fl">
 					<span>|</span>
-					<a href="user_center_info.html">用户中心</a>
+					<a href="user_center_info">用户中心</a>
 					<span>|</span>
-					<a href="cart.html">我的购物车</a>
+					<a href="cart">我的购物车</a>
 					<span>|</span>
-					<a href="user_center_order.html">我的订单</a>
+					<a href="user_center_order">我的订单</a>
 				</div>
 			</div>
 		</div>		
 	</div>
 
 	<div class="search_bar clearfix">
-		<a href="index.html" class="logo fl"><img src="../static/images/logo.png"></a>
+		<a href="index.html" class="logo fl"><img src="../static/images/jx.png"></a>
 		<div class="sub_page_name fl">|&nbsp;&nbsp;&nbsp;&nbsp;用户中心</div>
 		<div class="search_con fr">
 			<input type="text" class="input_text fl" name="" placeholder="搜索商品">
@@ -49,7 +55,7 @@
 				<li><a href="shopcar">· 购物车</a></li>
 				<li><a href="user_center_order">· 全部订单</a></li>
 				<li><a href="user_center_site" class="active">· 收货地址</a></li>
-				<li><a href="shop_item">· 商家入驻</a></li>
+				<li><a href="merchant_register">· 商家入驻</a></li>
 			</ul>
 		</div>
 		<div class="right_content clearfix">
@@ -59,7 +65,13 @@
 						<dt>当前地址：</dt>
 						{% if address %}
 						<dd>{{ address.addr }} （{{ address.receiver }} 收） {{ address.phone }}</dd>
-						<d><button id="btn" type="submit">删除</button></d>
+						<!-- <d><button id="btn" type="submit">删除</button></d> -->
+						<dd class="yui3-u-1-8">
+							<div class="del1">
+								<a href="javascript:;">删除</a> 
+							</div>
+							<!-- <div>移到我的关注</div> -->
+						</dd>
                         {% else %}
                         <dd>无默认地址</dd>
                         {% endif %}

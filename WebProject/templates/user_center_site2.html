@@ -5,6 +5,12 @@
 	<title>京西商城-用户中心</title>
 	<link rel="stylesheet" type="text/css" href="../static/css/reset.css">
 	<link rel="stylesheet" type="text/css" href="../static/css/main3.css">
+    <link rel="stylesheet" href="../static/css/normalize2.css" />
+    <link rel="stylesheet" href="../static/css/base2.css" />
+    <link rel="stylesheet" href="../static/css/cart2.css">
+    <script src="../static/js/jquery.min.js"></script>
+    <script src="../static/js/base.js"></script>
+    <script src="../static/js/cart.js"></script>
 </head>
 <body>
 	<div class="header_con">
@@ -59,6 +65,15 @@
 						<dt>当前地址：</dt>
 						{% if address %}
 						<dd>{{ address.addr }} （{{ address.receiver }} 收） {{ address.phone }}</dd>
+<<<<<<< HEAD
+=======
+                        <dd class="yui3-u-1-8">
+                            <div class="del1">
+                                <a href="javascript:;">删除</a> 
+                            </div>
+                            <!-- <div>移到我的关注</div> -->
+                        </dd>
+>>>>>>> origin/main
 						<!-- <d><button id="btn" type="submit">删除</button></d> -->
                         {% else %}
                         <dd>无默认地址</dd>

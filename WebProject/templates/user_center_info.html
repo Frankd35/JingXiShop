@@ -49,20 +49,21 @@
 				<li><a href="shopcar">· 购物车</a></li>
 				<li><a href="user_center_order">· 全部订单</a></li>
 				<li><a href="user_center_site">· 收货地址</a></li>
-				<li><a href="shop_item">· 商家入驻</a></li>
+				<li><a href="merchant_register">· 商家入驻</a></li>
 			</ul>
 		</div>
 		<div class="right_content clearfix">
-				<div class="info_con clearfix">
+				<div class="info_con clearfix">	
 				<h3 class="common_title2">基本信息</h3>
 						<ul class="user_info_list">
 							<li><span>用户名：</span>{{ user.name }}</li>
+							<li><span>用户头像：</span>{{ user.img }}</li>
                             <li><span>邮箱：</span>{{ user.email }}</li>
 							{% if address %}
-							<li><span>联系地址：</span>{{ address }}</li>
+							<li><span>联系地址：</span>{{ user.address }}</li>
 							{% endif %}
 							<li><span>创建时间：</span>{{user.createtime}}</li>
-							<li><span>是否是商家：</span>{{user.is_merchant}}</li>
+							<li><span>是否商家：</span>{{user.is_merchant}}</li>
 						</ul>
 				</div>
 				
