@@ -10,7 +10,7 @@ class User(models.Model):
     email = models.EmailField(max_length=200)
     createtime = models.DateField(auto_now=True)
     updatetime = models.DateField(auto_now_add=True)
-    is_merchant = models.IntegerField()
+    is_merchant = models.IntegerField(default=0)
 
     def __str__(self):
         return u"User:%s's name" % self.name
@@ -24,7 +24,7 @@ class Address(models.Model):
     tel = models.CharField(max_length=20)
 
     def __str__(self):
-        return u"user id:%d\tname:%s\ttext:%s\tzipcode:s%s\ttelphone:s%s" % \
+        return u"user id:%d\tname:%s\ttext:%s\tzipcode:%s\ttelphone:s%s" % \
                (self.user_id, self.name, self.text, self.zipcode, self.tel)
 
 

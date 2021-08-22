@@ -36,8 +36,8 @@ def reg_view(request):
         #     user = User.objects.get(username=username)
         # except User.DoesNotExist:
         #     user = None
-        old_user = User.objects.filter(name=username)
-        if old_user:
+        user_exist = len(User.objects.filter(name=username))
+        if user_exist:
             return render(request, 'register.html', {'errmsg': '您的用户名已经被注册，请重新注册'})
             # return HttpResponse('用户名已经注册')
 
@@ -53,7 +53,7 @@ def reg_view(request):
         password_m = m.hexdigest()
         # 可能存在并发写入问题 捕获异常
         try:
-            user = User.objects.create(name=username, pwd=password_m, email=email, img=img)
+            user = User.objects.create(name=username, pwd=password_m, email=email, img=img, is_merchant=0)
         except Exception as e:
             # 有可能报错，唯一索引注意并发写入问题
             print('--create user error %s' % e)
@@ -100,12 +100,13 @@ def login_view(request):
         m.update(password.encode())
 
         if m.hexdigest() != user.pwd:
+            print("密码错误",m.hexdigest())
             return render(request, 'login.html', {'errmsg': '您的用户名和密码有错误'})
         # 记录会话状态
         request.session['username'] = username
         request.session['uid'] = user.id
         request.session['userimg'] = user.img
-        resp = HttpResponseRedirect('/index')
+        resp = HttpResponseRedirect('index')
         # 判断用户是否点选了 记住用户名
         # 点选了 --> Cookies 存储username uid 3天
         if 'remember' in request.POST:
@@ -133,16 +134,22 @@ def logout_view(request):
 
 def usr_info_view(request):
     # 获取cookies里的当前登录用户id
-    usr_id = int(request.session.get('uid', ''))
+    usr_id = request.session.get('uid', '')
     # 若usr_id不存在或为默认值，则应该报错
     if not usr_id:
         return HttpResponseRedirect('err_handling_page')  # not defined
-    user = User.objects.get(name='zhangsan')
+    print(usr_id,type(usr_id))
+    user = User.objects.get(id=int(usr_id))
     # address 选择实现
     return render(request, 'user_center_info.html', {'user': user, 'address': None})
 
 
 def usr_site_view(request):
+    # 获取cookies里的当前登录用户id
+    usr_id = int(request.session.get('uid', ''))
+    # 若usr_id不存在或为默认值，则应该报错
+    if not usr_id:
+        return HttpResponseRedirect('err_handling_page')  # not defined
     address = {}
     return render(request, 'user_center_site.html', address)
 
@@ -150,6 +157,7 @@ def usr_site_view(request):
 def merchant_register_view(request):
     # 访问商家注册页
     if request.method == 'GET':
+        # 若已经是商家 给出提示
         return render(request, 'merchant_register.html')
     # 提交注册请求
     elif request.method == 'POST':

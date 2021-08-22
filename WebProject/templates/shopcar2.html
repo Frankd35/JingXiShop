@@ -11,7 +11,6 @@
     <script src="../static/js/jquery.min.js"></script>
     <script src="../static/js/base.js"></script>
     <script src="../static/js/cart.js"></script>
-    <script src="../static/js/addSub.js"></script>
     <style>
         .welcome, .login_info, .login_btn, .user_link {
             line-height: 29px;
@@ -40,6 +39,11 @@
 			<div class="fr">
 				<div class="login_info fl">
 					欢迎来到京西商场!
+				</div>
+                <div class="login_btn fl">
+					欢迎您：<em>{{ user.username }}</em>
+                    <span>|</span>
+					<a href="{% url 'user:logout' %}">退出</a>
 				</div>
 				<div class="login_btn fl">
 					<a href="login.html">登录</a>
@@ -81,49 +85,40 @@
 
                     <!--前端传后端数据ajax-->
                     <script>
-<!--                        document.activeElement.addEventListener("click", function()-->
-<!--                        {-->
-<!--                            document.getElementById("demo").innerHTML = document.getElementsByClassName("a")[2].innerHTML;-->
-
-<!--                        });-->
                         $(".goods-list .plus").click(function() {
+                            var itGid=$(this).attr('goodid');
                             $.ajax({
-                            url:"",
+                            url:"/cart",
                             type:"POST",
-                            data:JSON.stringify({'gid':{{gid}},'flag':'plus'}),
+                            data:JSON.stringify({'gid':itGid,'flag':'plus'}),
                             dataType : "text"
                             })
                         });
                         $(".goods-list .mins").click(function() {
+                            var itGid=$(this).attr('goodid');
                             $.ajax({
-                            url:"",
+                            url:"/cart",
                             type:"POST",
                             data:JSON.stringify({'gid':{{gid}},'flag':'sub'}),
                             dataType : "text"
                             })
                         });
                         $(".good-checkbox").click(function() {
-                            var checkCon = true;
-                            var iCount = 0;
-                            for (var i = 0; i < $(".good-checkbox").length; i++) {
-                                iCount++;
-                                if (! $(".good-checkbox")[i].checked) {
-                                    checkCon = false;
-                                    break;
-                                }
-                            }
+                            var itGid=$(this).attr('goodid');
+                            var checkCon = this.checked;
                             $.ajax({
-                            url:"",
+                            url:"/cart",
                             type:"POST",
-                            data:JSON.stringify({'gid':iCount,'flag':'check','checed':checkCon}),
+                            data:JSON.stringify({'gid':iCount,'flag':'check','checked':checkCon}),
                             dataType : "text"
                             })
                         });
                         $(".del1 a").click(function() {
+                            var itGid=$(this).attr('goodid');
                             $.ajax({
-                            url:"",
+                            url:"/cart",
                             type:"POST",
-                            data:JSON.stringify({'gid':{{gid}},'flag':'delete'}),
+                            data:JSON.stringify({'gid':itGid,'flag':'delete'}),
                             dataType : "text"
                             })
                         });
@@ -159,9 +154,9 @@
                                     </li>
                                     <li class="yui3-u-1-8">
                                         <div class="clearfix">
-                                            <a href="javascript1:;" class="increment mins">-</a>
-                                            <input autocomplete="off" type="text" value="0" minnum="0" class="itxt">
-                                            <a href="javascript1:;" class="increment plus">+</a>
+                                            <a href="javascript:;" class="increment mins" goodid="{{good.gid}}">-</a>
+                                            <input autocomplete="off" type="text" goodid="{{good.gid}}" value="0" minnum="0" class="itxt">
+                                            <a href="javascript:;" class="increment plus" goodid="{{good.gid}}">+</a>
                                         </div>
                                         <div class="youhuo">有货</div>
                                     </li>
@@ -170,7 +165,7 @@
                                     </li>
                                     <li class="yui3-u-1-8">
                                         <div class="del1">
-                                            <a href="javascript:;">删除</a> 
+                                            <a href="javascript:;" goodid="{{good.gid}}">删除</a>
                                         </div>
                                         <!-- <div>移到我的关注</div> -->
                                     </li>
