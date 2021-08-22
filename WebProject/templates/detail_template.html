@@ -1,0 +1,356 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+	<title>京西商城-商品详情</title>
+	<link rel="stylesheet" type="text/css" href="../static/css/reset.css">
+	<link rel="stylesheet" type="text/css" href="../static/css/mainzls.css">
+	<script type="text/javascript" src="../static/js/jquery-1.12.4.min1.js"></script>
+	<script type="text/javascript" src="../static/js/w2.js"></script>
+	<script type="text/javascript" src="../static/js/slidezls.js"></script>
+	<script src="../static/js/detail.js"></script>
+	<script type="text/javascript" src="../static/js/login.js"></script>
+</head>
+<body>
+	<div class="header_con">
+		<div class="header">
+			<div class="welcome fl">欢迎来到京西商城!</div>
+			<div class="fr">
+				{% user %}
+				<div class="login_zls1">
+					<li><input type="text" value={{user.state}}></li>
+				</div>
+				<div class="login_zls fl">
+					<div class="login_btn fl">
+						<a href="#"><img src="../static/images/my1.png" alt="">&nbsp;&nbsp;</a>				
+					</div>
+					<div class="login_btn fl">
+						<!-- <a href="login.html">您还未登录..</a>
+											 -->
+						<p>您还未登录..</p>
+						
+					</div>
+					<div class="login_btn fl"><span>|</span></div>
+				</div>
+				<div class="login_zls2 fl">
+					<div class="login_btn fl">
+						<!-- 登录状态下获取用户头像名字 -->
+						<a href="#"><img src={{user.img.url}} alt="">&nbsp;&nbsp;</a>				
+					</div>
+					<div class="login_btn fl">
+						<!-- <a href="login.html">您还未登录..</a>
+											 -->
+						<p>欢迎您：<em>{{user.name}}</em></p>
+						
+					</div>
+					<div class="login_btn fl"><span>|</span></div>
+				</div>
+                <div class="login_btn1 fl">
+					
+					<a href="login.html">登录</a>
+					
+				</div>
+				<div class="login_btn2 fl">
+					
+					<a href="login.html">退出登录</a>
+					
+				</div>
+				<div class="login_btn fl">				
+					<span>|</span>
+					<a href="register.html">注册</a>
+				</div>
+				<div class="user_link fl">
+					<span>|</span>
+					<a href="user_center_info.html">用户中心</a>
+					<span>|</span>
+					<a href="cart.html">我的购物车</a>
+					<span>|</span>
+					<a href="user_center_order.html">我的订单</a>
+					<span>|</span>
+					<a href="cart.html">收藏夹</a>
+				</div>
+			</div>
+		</div>		
+	</div>
+
+	<div class="search_bar clearfix">
+		<a href="index.html" class="logo fl" title="京西"><img src="images/jx.png"></a>
+		<div class="search_con fl">
+			<input type="text" class="input_text fl" name="" placeholder="搜索商品">
+			<input type="button" class="input_btn fr" name="" value="搜索">
+		</div>
+		<div class="guest_cart fr">
+			<a href="cart.html" class="cart_name fl">我的购物车</a>
+			<div class="goods_count fl" id="show_count">0</div>
+            <div class="goods_count1 fl" id="show_count">{{ user.cart.goods_num}}</div>
+		</div>
+	</div>
+
+	<div class="navbar_con">
+		<div class="navbar clearfix">
+			<div class="subnav_con fl">
+				<h1>全部商品分类</h1>	
+				<span></span>			
+				<ul class="subnav">
+                    {% for GoodsCategory in GoodsCategory %}
+                    <!-- 展示六种商品类型 -->
+			        <li><a href="{% url 'list'  GoodsCategory.id %}" >{{GoodsCategory.name}} &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&gt;</a></li>
+                    {%endfor%}
+					
+				</ul>
+			</div>
+			<ul class="navlist fl">
+				<li><a href="">首页</a></li>
+				
+                 <!-- 商品类型 6个-->
+			{% for GoodsCategory in GoodsCategory %}
+            <li class="interval">|</li> 
+            <li><a href="{% url 'list'  GoodsCategory.id %}">{{GoodsCategory.name}}</a></li>
+            {%endfor%}   
+			</ul>
+		</div>
+        </div>
+        {% good %}
+	<div class="breadcrumb">
+		<a href="#">全部分类</a>
+		<span>></span>
+        <!-- 商品所属类型 -->
+		<a href="{% url 'list' goods.style.id %}">{{ goods.style.name}}</a>
+		<span>></span>
+		<a href="#">商品详情</a>
+	</div>
+
+	<div class="goods_detail_con clearfix">
+         <!-- 商品图片，名字，描述，价格，单位 -->
+		<div class="goods_detail_pic fl"><img src="{{ goods.img.url }}"></div>
+		<div class="goods_detail_list fr">
+           
+			<h3>{{ goods.name }}</h3>
+			<p>{{ good.text }}</p>
+			<div class="prize_bar">
+				<span class="show_pirze">¥<em>{{ goods.price }}</em></span>
+				<span class="show_unit">单  位：{{ goods.unite }}</span>
+			</div>
+			<div class="goods_num clearfix">
+				<div class="num_name fl">数 量：</div>
+				<div class="num_add">
+					<input type="text" class="num_show fl"  name="price" value="1">
+					<a href="javascript:;" class="adder">+</a>
+					<a href="javascript:;" class="reducer">-</a>	
+				</div> 
+				
+            </div>
+			
+			<div class="total">总价：<em>{{ goods.price }}元</em></div>
+			<div class="operate_btn">
+				<a href="javascript:;" class="buy_btn">立即购买</a>
+				<a href="javascript:;" class="add_cart" id="add_cart">加入购物车</a>
+				<a href="javascript:;" class="add_shou" id="add_shou">加入收藏夹</a>				
+			</div>
+		</div>
+	</div>
+
+	<div class="main_wrap clearfix">
+		<div class="l_wrap fl clearfix">
+			<div class="new_goods">
+				<h3>新品推荐</h3>
+				<ul>
+                    <!-- 新品推荐商品 2-->
+                    {% for goods in new_goods %}
+					<li>
+						<a href="{% url 'goods:detail' goods.id %}"><img src={{goods.img.url}}></a>
+						<h4><a href="#">{{ goods.name }}</a></h4>
+						<div class="prize">￥{{goods.price}}</div>
+					</li>
+					{% endfor %}
+				</ul>
+			</div>
+		</div>
+
+		<div class="r_wrap fr clearfix">
+			<ul class="detail_tab clearfix">
+				<li class="jieshao">商品介绍</li>
+				<li class="pinglun">商品评论(99+)</li>
+			</ul>
+
+			<div class="tab_content" id="tab_detail">
+				<dl>
+					<!-- 商品详情 -->
+					<dd class="num4">----宝贝详情----</dd>
+					<div class="num6">
+						<div class="num7 fl"><img src="../static/images/ai.png" alt=""></div>
+						<div class="num8 fl">
+							<dt>公益宝贝</dt>
+							<p>每笔成交将为<strong>爱心包裹贫困儿童关爱行动</strong>捐赠<strong>0.1元</strong>，已累计捐赠<strong>1911</strong>笔。</p>
+						
+						</div>
+					</div>
+					<!-- 商品名字和详情 -->
+					<dt>{{ goods.name}}</dt>
+					<dd>{{ goods.detail}} </dd>
+					<div class='num5'></div>
+				</dl>
+			</div>
+			<div class="tab_content" id="tab_comment" style="display: none">
+				<dl>
+					<!-- 该商品评论 -->
+                    {% for comment in comments %}
+                    
+					<dd class="num1">
+						<img src="{{ comment.users.img.url }}" alt=""><span>&nbsp;{{ comment.users.name }}:</span>
+					</dd>
+                    <dt class="num2">{{ comment }}</dt>
+					<dd class="num3">{{ comment.creattime }}</dd>
+					
+				{% endfor %}
+				</dl>
+			</div>
+
+		</div>
+	</div>
+
+	<div class="footer">
+		<div class="foot_link">
+			<a href="#">关于我们</a>
+			<span>|</span>
+			<a href="#">联系我们</a>
+			<span>|</span>
+			<a href="#">招聘人才</a>
+			<span>|</span>
+			<a href="#">友情链接</a>		
+		</div>
+		<p>CopyRight © 2021 重庆大学-CQU-University All Rights Reserved</p>
+		<p>电话：010-****888    京ICP备*******8号</p>
+	</div>
+	<div class="add_jump"></div>
+	
+	<script type="text/javascript" src="js/jquery-1.12.2.js"></script>
+	<script type="text/javascript">
+        $('.jieshao').click(function () {
+            $('.pinglun').removeClass('active')
+            $(this).addClass('active')
+            $('#tab_detail').show()
+            $('#tab_comment').hide()
+        })
+
+        $('.pinglun').click(function () {
+            $('.jieshao').removeClass('active')
+            $(this).addClass('active')
+            $('#tab_detail').hide()
+            $('#tab_comment').show()
+        })
+        //立即购买
+        $('.buy_btn').click(function () {
+            sku_id = $(this).attr('sku_id')
+            count = $('.num_show').val()
+            csrf = $('input[name="csrfmiddlewaretoken"]').val()
+            // 组织参数
+            params = {'sku_id':sku_id, 'count':count, 'csrfmiddlewaretoken':csrf}
+            // 发起ajax post请求，访问/cart/add, 传递参数:sku_id count
+            $.post('/cart/add', params, function (data) {
+                if (data.res == 5){
+                    // 添加成功
+                    window.location.href = "/order/buy_now?sku_id="+sku_id+"&count="+count;
+                }
+                else{
+                    // 添加失败
+                    alert(data.errmsg)
+                }
+            })
+        })
+        update_goods_amount()
+        // 计算商品的总价格
+        function update_goods_amount() {
+            // 获取商品的单价和数量
+            price = $('.show_pirze').children('em').text()
+            count = $('.num_show').val()
+            // 计算商品的总价
+            price = parseFloat(price)
+            count = parseInt(count)
+            amount = price*count
+            // 设置商品的总价
+            $('.total').children('em').text(amount.toFixed(2)+'元')
+        }
+
+        // 增加商品的数量
+        $('.adder').click(function () {
+            // 获取商品原有的数目
+            count = $('.num_show').val()
+            // 加1
+            count = parseInt(count)+1
+            // 重新设置商品的数目
+            $('.num_show').val(count)
+            // 更新商品的总价
+            update_goods_amount()
+        })
+
+        // 减少商品的数量
+        $('.reducer').click(function () {
+            // 获取商品原有的数目
+            count = $('.num_show').val()
+            // 减1
+            count = parseInt(count)-1
+            if (count <= 0){
+                count = 1
+            }
+            // 重新设置商品的数目
+            $('.num_show').val(count)
+            // 更新商品的总价
+            update_goods_amount()
+        })
+
+        // 手动输入商品的数量
+        $('.num_show').blur(function () {
+            // 获取用户输入的数目
+            count = $(this).val()
+            // 校验count是否合法
+            if (isNaN(count) || count.trim().length==0 || parseInt(count) <=0){
+                count = 1
+            }
+            // 重新设置商品的数目
+            $(this).val(parseInt(count))
+            // 更新商品的总价
+            update_goods_amount()
+        })
+
+        // 获取add_cart div元素左上角的坐标
+		var $add_x = $('#add_cart').offset().top;
+		var $add_y = $('#add_cart').offset().left;
+
+        // 获取show_count div元素左上角的坐标
+		var $to_x = $('#show_count').offset().top;
+		var $to_y = $('#show_count').offset().left;
+
+
+		$('#add_cart').click(function(){
+            // 获取商品id和商品数量
+            sku_id = $(this).attr('sku_id') // attr prop
+            count = $('.num_show').val()
+            csrf = $('input[name="csrfmiddlewaretoken"]').val()
+            // 组织参数
+            params = {'sku_id':sku_id, 'count':count, 'csrfmiddlewaretoken':csrf}
+            // 发起ajax post请求，访问/cart/add, 传递参数:sku_id count
+            $.post('/cart/add', params, function (data) {
+                if (data.res == 5){
+                    // 添加成功
+                    $(".add_jump").css({'left':$add_y+80,'top':$add_x+10,'display':'block'})
+                    $(".add_jump").stop().animate({
+                        'left': $to_y+7,
+                        'top': $to_x+7},
+                        "fast", function() {
+                            $(".add_jump").fadeOut('fast',function(){
+                                // 重新设置用户购物车中商品的条目数
+                                $('#show_count').html(data.total_count);
+                            });
+			        });
+                }
+                else{
+                    // 添加失败
+                    alert(data.errmsg)
+                }
+            })
+		})
+	</script>
+	
+</body>
+</html>
