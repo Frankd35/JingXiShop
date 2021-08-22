@@ -10,7 +10,7 @@ class User(models.Model):
     email = models.EmailField(max_length=200)
     createtime = models.DateField(auto_now=True)
     updatetime = models.DateField(auto_now_add=True)
-    is_merchant = models.BooleanField(default=False)
+    is_merchant = models.IntegerField()
 
     def __str__(self):
         return u"User:%s's name" % self.name
@@ -36,7 +36,7 @@ class Shop(models.Model):
     mark = models.IntegerField()
     total_income = models.DecimalField(max_digits=10, decimal_places=2, blank=True)
     access_times = models.IntegerField()
-    create_money = models.IntegerField()
+    create_money = models.IntegerField(default=5000)
     creattime = models.DateField(auto_now=True)
 
     def __str__(self):
