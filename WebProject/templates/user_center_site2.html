@@ -66,7 +66,7 @@
 					<dl>
 						<dt>当前地址：</dt>
 						{% if address %}
-						<dd>{{ address.addr }} （{{ address.receiver }} 收） {{ address.phone }}</dd>
+						<dd>{{ address.text }} （{{ address.name }} 收） {{ address.tel }}</dd>
                         <dd class="yui3-u-1-8">
                             <div class="del1">
                                 <a href="javascript:;">删除</a> 
@@ -85,7 +85,7 @@
                         {% csrf_token %}
 						<div class="form_group">
 							<label>收件人：</label>
-							<input type="text" name="reciever">
+							<input type="text" name="receiver">
 						</div>
 						<div class="form_group form_group2">
 							<label>详细地址：</label>

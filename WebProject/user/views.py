@@ -151,9 +151,23 @@ def usr_site_view(request):
     # 若用户未登录
     if not isLogin:
         return HttpResponseRedirect('err_handling_page')  # not defined
+    # 若为地址修改请求，则处理修改请求
+    if request.method == 'POST':
+        receiver = request.POST.get('receiver')
+        addr = request.POST.get('text')
+        zip_code = request.POST.get('zip_code')
+        phone = request.POST.get('phone')
+        # 数据缺失
+        if not all([receiver, addr, zip_code,phone]):
+            # 未实现的报错接口
+            return render(request, 'usr_site_view.html', {'errmsg': '您填写的数据不全'})
+        try:
+            Address(user_id=usr_id, name=receiver, text=addr, zipcode=zip_code, tel=phone).save()
+        except Exception as e:
+            print(e)
     user = User.objects.get(id=usr_id)
     try:
-        address = Address.objects.get(user_id=usr_id)
+        address = Address.objects.filter(user_id=usr_id).first()
     except Exception as e:
         address = None
     return render(request, 'user_center_site2.html', {'user': user, 'address': address, 'isLogin': isLogin})
