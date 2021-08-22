@@ -1,5 +1,6 @@
 import json
 
+from django.http import JsonResponse
 from django.shortcuts import render
 
 from django.shortcuts import render
@@ -62,7 +63,8 @@ def cart_view(request):
             total_price = goodsList[len(goodsList) - 1].tttprice
         else:
             total_price = 0
-        return render(request, 'shopcar2.html', {'goodsList': goodsList, 'user': user, 'total_price':total_price})
+        print("恭喜恭喜，ajax请求响应成功！")
+        return JsonResponse({"res": 1})
 
 
 def collect_view(request):

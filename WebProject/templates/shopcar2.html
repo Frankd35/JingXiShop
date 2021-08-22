@@ -82,6 +82,7 @@
                     <script>
                         $(".goods-list .plus").click(function() {
                             var itGid=$(this).attr('goodid');
+                            var token = $('[name="csrfmiddlewaretoken"]').attr("value");
                             $.ajax({
                             url:"/cart",
                             type:"POST",
