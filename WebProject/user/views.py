@@ -134,24 +134,29 @@ def logout_view(request):
 
 def usr_info_view(request):
     # 获取cookies里的当前登录用户id
-    usr_id = request.session.get('uid', '')
-    # 若usr_id不存在或为默认值，则应该报错
-    if not usr_id:
+    usr_id = int(request.session.get('uid', -1))
+    isLogin = usr_id != -1
+    # 若用户未登录
+    if not isLogin:
         return HttpResponseRedirect('err_handling_page')  # not defined
-    print(usr_id,type(usr_id))
-    user = User.objects.get(id=int(usr_id))
+    user = User.objects.get(id=usr_id)
     # address 选择实现
-    return render(request, 'user_center_info.html', {'user': user, 'address': None})
+    return render(request, 'user_center_info2.html', {'user': user, 'address': None, 'isLogin': isLogin})
 
 
 def usr_site_view(request):
     # 获取cookies里的当前登录用户id
-    usr_id = int(request.session.get('uid', ''))
-    # 若usr_id不存在或为默认值，则应该报错
-    if not usr_id:
+    usr_id = int(request.session.get('uid', -1))
+    isLogin = usr_id != -1
+    # 若用户未登录
+    if not isLogin:
         return HttpResponseRedirect('err_handling_page')  # not defined
-    address = {}
-    return render(request, 'user_center_site.html', address)
+    user = User.objects.get(id=usr_id)
+    try:
+        address = Address.objects.get(user_id=usr_id)
+    except Exception as e:
+        address = None
+    return render(request, 'user_center_site2.html', {'user': user, 'address': address, 'isLogin': isLogin})
 
 
 def merchant_register_view(request):
