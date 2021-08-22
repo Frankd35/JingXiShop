@@ -5,7 +5,7 @@ from django.db import models
 class Goods(models.Model):
     category_id = models.IntegerField()
     name = models.CharField(max_length=200)
-    price = models.DecimalField(max_digits=10, decimal_places=4)
+    price = models.DecimalField(max_digits=10, decimal_places=2)
     number = models.IntegerField()
     img = models.CharField(max_length=200)
     text = models.TextField(blank=True)

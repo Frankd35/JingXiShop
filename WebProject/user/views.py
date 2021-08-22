@@ -63,7 +63,55 @@ def reg_view(request):
 
 
 def login_view(request):
-    return render(request, 'login.html')
+    if request.method == 'GET':
+        # 获取登录页面
+        if request.session.get('username') and request.session.get('uid'):
+            return HttpResponseRedirect('/index')
+            # return HttpResponse('已登录')
+        # 检查cookies
+        c_username = request.COOKIES.get('username')
+        c_uid = request.COOKIES.get('uid')
+        checked = 'unchecked'
+        if c_username and c_uid:
+            # 回写session
+            request.session['username'] = c_username
+            request.session['uid'] = c_uid
+            checked = 'checked'
+            return HttpResponseRedirect('/index')
+            # return HttpResponse('已登录')
+
+        return render(request, 'login.html', {'username': c_username, 'checked': checked})
+
+    elif request.method == 'POST':
+        # 处理数据
+        username = request.POST.get('username')
+        password = request.POST.get('pwd')
+        # 校验数据
+        if not all([username, password]):
+            return render(request, 'login.html', {'errmsg': '数据不完整'})
+        try:
+            user = User.objects.get(name=username)
+        except Exception as e:
+            print('--login user error %s' % e)
+            return HttpResponse('您的用户名或者密码有错误')
+        # 比对密码
+        m = hashlib.md5()
+        m.update(password.encode())
+
+        if m.hexdigest() != user.pwd:
+            return render(request, 'login.html', {'errmsg': '您的用户名和密码有错误'})
+        # 记录会话状态
+        request.session['username'] = username
+        request.session['uid'] = user.id
+        resp = HttpResponseRedirect('/index')
+        # 判断用户是否点选了 记住用户名
+        # 点选了 --> Cookies 存储username uid 3天
+        if 'remember' in request.POST:
+            resp.set_cookie('username', username, 3600 * 24 * 3)
+            resp.set_cookie('uid', user.id, 3600 * 24 * 3)
+        return resp
+
+    # return render(request, 'login.html')
 
 
 def logout_view(request):
@@ -73,10 +121,10 @@ def logout_view(request):
 def usr_info_view(request):
     # 获取cookies里的当前登录用户id
     usr_id = 1
-        #int(request.session.get('user_id',''))
+    # int(request.session.get('user_id',''))
     # 若usr_id不存在或为默认值，则应该报错
     if not usr_id:
-        return HttpResponseRedirect('err_handling_page')    # not defined
+        return HttpResponseRedirect('err_handling_page')  # not defined
     user = User.objects.get(name='zhangsan')
     # address 选择实现
     return render(request, 'user_center_info.html', {'user': user, 'address': None})

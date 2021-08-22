@@ -9,11 +9,10 @@ from .orderplace_response import *
 # Create your views here.
 def cart_view(request):
     m = request.method
-    user_id = 1
+    user_id = 2
     if m == 'GET':
         goodsList = dealRequest(user_id)
-        print(goodsList)
-        return render(request, 'shopcar.html', {'goodsList': goodsList})
+        return render(request, 'shopcar2.html', {'goodsList': goodsList})
     else:
         flag = request.POST.get('flag', '')
         if flag == 'check':  # check逻辑
