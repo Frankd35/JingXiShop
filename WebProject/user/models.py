@@ -10,7 +10,7 @@ class User(models.Model):
     email = models.EmailField(max_length=200)
     createtime = models.DateField(auto_now=True)
     updatetime = models.DateField(auto_now_add=True)
-    is_merchant = models.IntegerField()
+    is_merchant = models.IntegerField(default=0)
 
     def __str__(self):
         return u"User:%s's name" % self.name
