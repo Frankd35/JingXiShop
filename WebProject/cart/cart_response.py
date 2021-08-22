@@ -29,23 +29,42 @@ def dealRequest(user_id, flag, gid, isChosen):
     # 根据user_id获取用户信息
     tempList = cart_model.Cart.objects.filter(user_id=user_id)
     total_price = 0
+    print("flag="+str(flag))
     if flag == 0:
         # 每次进入页面（GET 请求）重置is_chosen为0
         cart_model.Cart.objects.filter(user_id=user_id).update(is_chosen=0, goods_num=0)
+        print("GET请求重置")
     elif flag == 1:  # 选中 or 不选中
         if isChosen:  # 该商品被选中
             cart_model.Cart.objects.filter(user_id=user_id, goods_id=gid).update(is_chosen=1)
+            print("商品选中")
         else:  # 该商品未被选中
             cart_model.Cart.objects.filter(user_id=user_id, goods_id=gid).update(is_chosen=0)
+            print("商品取消选中")
+        return []
     elif flag == 2:  # 增加
-        ori_num = cart_model.Cart.objects.filter(ser_id=user_id, goods_id=gid)[0].goods_num
+        ori_num = cart_model.Cart.objects.filter(user_id=user_id, goods_id=gid)[0].goods_num
         cart_model.Cart.objects.filter(user_id=user_id, goods_id=gid).update(goods_num=(ori_num+1))
+        print("商品增加")
+        return []
     elif flag == 3: # 减少
-        ori_num = cart_model.Cart.objects.filter(ser_id=user_id, goods_id=gid)[0].goods_num
-        if ori_num > 0:
+        ori_num = cart_model.Cart.objects.filter(user_id=user_id, goods_id=gid)[0].goods_num
+        if ori_num > 1:
             cart_model.Cart.objects.filter(user_id=user_id, goods_id=gid).update(goods_num=(ori_num - 1))
+        print("商品减少")
+        return []
     elif flag == 4: # 删除
         cart_model.Cart.objects.filter(user_id=user_id, goods_id=gid).first().delete()
+        print("商品删除")
+        return []
+    elif flag == 5: # 全选 or 取消全选
+        if isChosen:
+            cart_model.Cart.objects.filter(user_id=user_id).update(is_chosen=1)
+            print("全选")
+        else:
+            cart_model.Cart.objects.filter(user_id=user_id).update(is_chosen=0)
+            print("取消全选")
+        return []
     for i in tempList:
         tempGoods = goods_model.Goods.objects.filter(id=i.goods_id)[0]
         # 从数据库获取店铺信息

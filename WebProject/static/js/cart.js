@@ -12,7 +12,62 @@ $(function() {
         me_sum();
     });
 
+    $("#allSellect").click(function (){
+        var isChecked = this.checked;
+        var token = $('[name="csrfmiddlewaretoken"]').attr("value");
+        $.ajax({
+        url:"/cart",
+        type:"POST",
+        data:JSON.stringify({'flag':'allSellect', 'checked':isChecked, "csrfmiddlewaretoken": token}),
+        dataType : "text", async: true
+        })
+    })
+
+    // 发送ajax POST 请求
+    $(".goods-list .plus").click(function() {
+        console.log("加一")
+        var itGid=$(this).attr('goodid');
+        var token = $('[name="csrfmiddlewaretoken"]').attr("value");
+        $.ajax({
+        url:"/cart",
+        type:"POST",
+        data:JSON.stringify({'gid':itGid,'flag':'plus', "csrfmiddlewaretoken": token}),
+        dataType : "text"
+        })
+    });
+    $(".goods-list .mins").click(function() {
+        console.log("减一")
+        var itGid=$(this).attr('goodid');
+        var token = $('[name="csrfmiddlewaretoken"]').attr("value");
+        $.ajax({
+        url:"/cart",
+        type:"POST",
+        data:JSON.stringify({'gid':itGid,'flag':'sub', "csrfmiddlewaretoken": token}),
+        dataType : "text"
+        })
+    });
+    $(".del1 a").click(function() {
+        console.log("删除")
+        var itGid=$(this).attr('goodid');
+        var token = $('[name="csrfmiddlewaretoken"]').attr("value");
+        $.ajax({
+        url:"/cart",
+        type:"POST",
+        data:JSON.stringify({'gid':itGid,'flag':'delete', "csrfmiddlewaretoken": token}),
+        dataType : "text"
+        })
+    });
+
     $(".good-checkbox").click(function() {
+        var itGid=$(this).attr('goodid');
+        var checkCon = this.checked;
+        var token = $('[name="csrfmiddlewaretoken"]').attr("value");
+        $.ajax({
+        url:"/cart",
+        type:"POST",
+        data:JSON.stringify({'gid':itGid,'flag':'check', 'checked':checkCon, "csrfmiddlewaretoken": token}),
+        dataType : "text", async: true
+        })
         me_sum();
         var flag = true;
         for (var i = 0; i < $(".good-checkbox").length; i++) {
@@ -40,6 +95,7 @@ $(function() {
                 sum = sum + Number($(".goods-list").eq(i).children(".yui3-u-1-8").eq(3).children().html());
             }
         }
+        console.log("hhh");
         console.log(sum);
         $(".summoney span").html(sum.toFixed(2));
     };
