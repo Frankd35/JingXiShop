@@ -36,6 +36,7 @@ class Shop(models.Model):
     mark = models.IntegerField()
     total_income = models.DecimalField(max_digits=10, decimal_places=2, blank=True)
     access_times = models.IntegerField()
+    create_money = models.IntegerField()
     creattime = models.DateField(auto_now=True)
 
     def __str__(self):
