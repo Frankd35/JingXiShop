@@ -150,6 +150,7 @@ def usr_site_view(request):
 def merchant_register_view(request):
     # 访问商家注册页
     if request.method == 'GET':
+        # 若已经是商家 给出提示
         return render(request, 'merchant_register.html')
     # 提交注册请求
     elif request.method == 'POST':
