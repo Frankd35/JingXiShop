@@ -5,20 +5,53 @@
 	<title>京西商城-首页</title>
 	<link rel="stylesheet" type="text/css" href="../static/css/reset.css">
 	<link rel="stylesheet" type="text/css" href="../static/css/mainzls.css">
-	<script type="text/javascript" src="../static/js/jquery-1.12.4.min.js"></script>
-	<script type="text/javascript" src="../static/js/jquery-ui.min.js"></script>
+	<script type="text/javascript" src="../static/js/jquery-1.12.4.min1.js"></script>
+	<script type="text/javascript" src="../static/js/w2.js"></script>
 	<script type="text/javascript" src="../static/js/slidezls.js"></script>
+	<script type="text/javascript" src="../static/js/login.js"></script>
 </head>
 <body>
 	<div class="header_con">
 		<div class="header">
 			<div class="welcome fl">欢迎来到京西商城!</div>
 			<div class="fr">
-				<div class="login_info fl">
-					欢迎您：<em>张 山</em>
+				<!-- <div class="login_info fl">
+					欢迎您：<em>张 山<img src="my.png" alt=""></em>					
+				</div> -->
+				{% user %}
+				<div class="login_zls1">
+					<li><input type="text" value={{user.state}}></li>
+				</div>
+				<div class="login_zls fl">
+					<div class="login_btn fl">
+						<a href="#"><img src="../static/images/my1.png" alt="">&nbsp;&nbsp;</a>				
+					</div>
+					<div class="login_btn fl">
+						<!-- <a href="login.html">您还未登录..</a>
+											 -->
+						<p>您还未登录..</p>
+						
+					</div>
+					<div class="login_btn fl"><span>|</span></div>
+				</div>
+				<div class="login_zls2 fl">
+					<div class="login_btn fl">
+						<a href="#"><img src={{user.img.url}} alt="">&nbsp;&nbsp;</a>				
+					</div>
+					<div class="login_btn fl">
+						<!-- <a href="login.html">您还未登录..</a>
+											 -->
+						<p>欢迎您：<em>{{user.name}}</em></p>
+						
+					</div>
+					<div class="login_btn fl"><span>|</span></div>
 				</div>
 				<div class="login_btn fl">
+					
 					<a href="login.html">登录</a>
+					
+				</div>
+				<div class="login_btn fl">
 					<span>|</span>
 					<a href="register.html">注册</a>
 				</div>
@@ -40,7 +73,10 @@
 		<a href="index.html" class="logo fl"><img src="../static/images/jx.png"></a>
 		<div class="search_con fl">
 			<input type="text" class="input_text fl" name="" placeholder="搜索商品">
-			<input type="button" class="input_btn fr" name="" value="搜索">
+			<!-- 搜索商品类型 -->
+			<form action="demo.php" method="POST" name="name1">
+			<input type="submit" class="input_btn fr" name="goods.type" value="搜索">
+			</form>
 		</div>
 		<div class="guest_cart fr">
 			<a href="cart.html" class="cart_name fl">我的购物车</a>
@@ -65,11 +101,12 @@
 
 	<div class="center_con clearfix">
 		<ul class="subnav fl" id="navi">
-			<li><a href="#model01" class="fruit">家用电器 &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&gt;</a></li>
-			<li><a href="#model02" class="seafood">手机-运营商&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&gt;</a></li>
-			<li><a href="#model03" class="meet">电脑-办公&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&gt;</a></li>
+			
+			<li><a href="#model01">赛课件撒&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&gt;</a></li>
+			<li><a href="#model02" >手机营商&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&gt;</a></li>
+			<li><a href="#model03" class="meet">电脑办公&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&gt;</a></li>
 			<li><a href="#model04" class="egg">各类服装&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&gt;</a></li>
-			<li><a href="#model05" class="vegetables">美妆-护肤&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&gt;</a></li>
+			<li><a href="#model05" class="vegetables">美妆护肤&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&gt;</a></li>
 			<li><a href="#model06" class="ice">女鞋-箱包&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&gt;</a></li>
 		</ul>
 		<div class="content">
@@ -522,7 +559,7 @@
 
 	<div class="list_model">
 		<div class="list_title clearfix">
-			<h3 class="fl" id="model01">家用电器</h3>
+			<h3 class="fl" id="model01">{{GoodsCategory.name}}</h3>
 			<div class="subtitle fl">
 				<span>|</span>
 				<a href="#">电视</a>
@@ -536,9 +573,9 @@
 			<div class="goods_banner fl"><a href="list.html"><img src="../static/images/banner01.jpg"></a></div>
 			<ul class="goods_list fl">
 				<li>
-					<h4><a href="detail.html">草莓</a></h4>
-					<a href="list.html"><img src="../static/images/goods/goods003.jpg"></a>
-					<div class="prize">¥ 10.00</div>
+					<h4><a href="detail.html">{{goods.name}}</a></h4>
+					<a href="list.html"><img src={{goods.img}}></a>
+					<div class="prize">{{goods.price}}</div>
 				</li>
 				<li>
 					<h4><a href="#">葡萄</a></h4>
