@@ -24,7 +24,7 @@ class Address(models.Model):
     tel = models.CharField(max_length=20)
 
     def __str__(self):
-        return u"user id:%d\tname:%s\ttext:%s\tzipcode:s%s\ttelphone:s%s" % \
+        return u"user id:%d\tname:%s\ttext:%s\tzipcode:%s\ttelphone:s%s" % \
                (self.user_id, self.name, self.text, self.zipcode, self.tel)
 
 
