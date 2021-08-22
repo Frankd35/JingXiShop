@@ -694,7 +694,7 @@ html,body{height:100%}
 	margin: 40px 0 40px 0;
 	padding-left: 200px;
 	z-index: 1;
-	width:800px;
+	width:auto;
 	background:#fff;
 	border: 1px solid #ddd;
 }

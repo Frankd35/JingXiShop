@@ -58,6 +58,17 @@
 					</li>
 				</ul>				
 				</form>
+			{% if errmsg %}
+                <script type="text/javascript">
+                    alert("{{ errmsg}}");
+                    window.location.href = "login";
+                </script>
+                {% elif success %}
+                    <script type="text/javascript">
+                    alert("登陆成功！");
+                    window.location.href = "/usermng/index.html";
+                </script>
+            {% endif %}
 			</div>
 
 		</div>

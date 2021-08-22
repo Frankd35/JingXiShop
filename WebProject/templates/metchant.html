@@ -3,86 +3,330 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>商家界面</title>
-<link rel="stylesheet" type="text/css" href="statics/css/global.css" />
-<script type="text/javascript" src="statics/js/jquery3.js"></script>
-<link rel="stylesheet" type="text/css" href="../static/css/reset.css">
-<link rel="stylesheet" type="text/css" href="../static/css/main3.css">
+<link rel="stylesheet" type="text/css" href="../static/css/global.css"/>
+<link rel="stylesheet" type="text/css" href="../static/css/main3.css"/>
+<script type="text/javascript" src="../static/js/jquery3.js"></script>
 <script>
 $(function(){
 })
 </script>
 </head>
-<body style="background-color: rgb(215, 249, 250)"
+<body style="background-color: rgb(215, 249, 250)">
     <div class="header_con">
 		<div class="header">
 			<div class="welcome fl">欢迎来到京西商城!</div>
 			<div class="fr">
-				<div class="login_info fl">
-					欢迎您：<em>张 山</em>
-				</div>
+				{% if isLogin %}
 				<div class="login_btn fl">
-					<a href="login.html">登录</a>
-					<span>|</span>
-					<a href="register.html">注册</a>
+					欢迎您：<em>{{ user.username }}</em>
+                    <span>|</span>
+					<a href="{% url 'user:logout' %}">退出</a>
 				</div>
+                {% else %}
+				<div class="login_btn fl">
+					<a href="{% url 'user:login' %}">登录</a>
+					<span>|</span>
+					<a href="{% url 'user:register' %}">注册</a>
+				</div>
+                {% endif %}
 				<div class="user_link fl">
 					<span>|</span>
-					<a href="user_center_info.html">用户中心</a>
+					<a href="user_center_info">用户中心</a>
 					<span>|</span>
-					<a href="cart.html">我的购物车</a>
+					<a href="cart">我的购物车</a>
 					<span>|</span>
-					<a href="user_center_order.html">我的订单</a>
+					<a href="user_center_order">我的订单</a>
 				</div>
 			</div>
 		</div>		
 	</div>
+
 <article>
+  <a href="index.html" class="login_logo"><img src="../static/images/jx.png"></a>
   <section>
-	<a href="index.html" class="login_logo"><img src="../static/images/jx.png"></a>
     <dl class="shop_item_info cf">
-      <dt><img class="shop_pic" src="https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fimage.biaobaiju.com%2Fuploads%2F20191101%2F23%2F1572621763-jmQqtMKpUJ.jpg&refer=http%3A%2F%2Fimage.biaobaiju.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=jpeg?sec=1632058881&t=ce7ebae683a89acb186809b659e4c2a7"></dt>
-      <dd>
+      <dt><img class="shop_pic" src="statics/images/222.jpg"></dt>
+	  <dd>
         <h3>
           <label>商户名称：</label>
-             重庆京西商城 </h3>
+             {{shop.usr_id}} </h3>
       </dd>
-      <dd>
-        <label>店铺介绍：</label>
-        11111111111</dd>
-      <dd>
+	  <dd>
         <label>店铺评分：</label>
-        100</dd>
+        {{shop.mark}}</dd>
       <dd>
         <label>营业额：</label>
-        1000000000000000
+        {{shop.total_income}}
       </dd>
       <dd>
         <label>店铺关注：</label>
-        100万
+        {{shop.foucs}}
       </dd>
 	  <dd>
         <label>注册资金：</label>
-        10000000000000</dd>
+        {{shop.create_money}}</dd>
       <dd>
         <label>注册时间：</label>
-        2021-8-15 16:31</dd>
+        {{shop.createtime}}</dd>
+	<dd>
+		<label>店铺介绍：</label>
+		{{shop.text}}</dd>
       <a class="edit">编辑资料</a>
     </dl>
-    </section>
-    </article>
-    <div class="footer no-mp">
-		<div class="foot_link">
-			<a href="#">关于我们</a>
-			<span>|</span>
-			<a href="#">联系我们</a>
-			<span>|</span>
-			<a href="#">招聘人才</a>
-			<span>|</span>
-			<a href="#">友情链接</a>		
-		</div>
-		<p>CopyRight © 2021 重庆京西商城 All Rights Reserved</p>
-		<p>电话：999-****888    渝ICP备*******8号</p>
-	</div>
     
+    
+    <div class="shop_item_list cf" id="wrap">
+      <div class="out" id="outWrap" >
+        <ul>
+          <li class="cut current cate ">
+            <p><span>商品</span></p>
+            <div class="inner">
+              <ul>
+             	<div class="cate_func"><label>该分类正常显示</label><span><a class="edit_cate_name_btn">修改名称</a><a class="cate_on_off">下架</a><a class="cate_delete">删除</a></span></div>
+                <li>
+                  <dl>
+                    <dd>
+                      <h4 class="cut">华为p80</h4><s>￥10000.0</s>
+                    </dd>
+                    <dd>
+                    	<a class="edit_item_btn">修改</a>
+                    	<a class="item_on_off_btn">下架</a>
+                        <a class="item_delete_btn">删除</a>
+                    </dd>
+                  </dl>
+                </li>
+                <li>
+                  <dl>
+                    <dd>
+                      <h4 class="cut">馒头</h4><s>￥0.8</s>
+                    </dd>
+                    <dd>
+                    	<a class="edit_item_btn">修改</a>
+                    	<a class="item_on_off_btn">下架</a>
+                        <a class="item_delete_btn">删除</a>
+                    </dd>
+                  </dl>
+                </li>
+                
+              </ul>
+              <a class="add_item_btn">添加菜品</a>
+            </div>
+          </li>
+          
+          
+          <li class="cut cate ">
+            <p><span>炒菜</span><i>已下架</i></p>
+            <div class="inner">
+              <ul>
+             	<div class="cate_func"><label>该分类已下架</label><span><a class="edit_cate_name_btn">修改名称</a><a class="cate_on_off">上架</a><a class="cate_delete">删除</a></span></div>
+                <li>
+                  <dl>
+                    <dd>
+                      <h4 class="cut">宫保鸡丁</h4><s>￥18.0</s>
+                    </dd>
+                    <dd>
+                    	<a class="edit_item_btn">修改</a>
+                    	<a class="item_on_off_btn">下架</a>
+                        <a class="item_delete_btn">删除</a>
+                    </dd>
+                  </dl>
+                </li>
+                <li>
+                  <dl>
+                    <dd>
+                      <h4 class="cut">鱼香肉丝</h4><s>￥20.0</s>
+                    </dd>
+                    <dd>
+                    	<a class="edit_item_btn">修改</a>
+                    	<a class="item_on_off_btn">下架</a>
+                        <a class="item_delete_btn">删除</a>
+                    </dd>
+                  </dl>
+                </li>
+                <li>
+                  <dl>
+                    <dd>
+                      <h4 class="cut">酸菜鱼</h4><s>￥26.0</s>
+                    </dd>
+                    <dd>
+                    	<a class="edit_item_btn">修改</a>
+                    	<a class="item_on_off_btn">下架</a>
+                        <a class="item_delete_btn">删除</a>
+                    </dd>
+                  </dl>
+                </li>
+                
+              </ul>
+              <a class="add_item_btn">添加菜品</a>
+            </div>
+          </li>
+          
+          <li class="cut cate ">
+            <p><span>未分类</span></p>
+            <div class="inner">
+              <ul>
+             	<div class="cate_func"><label>该分类默认为隐藏分类</label></div>
+                <li>
+                  <dl>
+                    <dd>
+                      <h4 class="cut">华为P80</h4><s>￥10000.0</s>
+                    </dd>
+                    <dd>
+                    	<a class="edit_item_btn">修改</a>
+                    	<a class="item_on_off_btn">下架</a>
+                        <a class="item_delete_btn">删除</a>
+                    </dd>
+                  </dl>
+                </li>
+              </ul>
+              <a class="add_item_btn">添加商品</a>
+            </div>
+          </li>
+          
+        </ul>
+      </div>
+      <a class="add_cate_btn" id="add_cate_btn">添加主分类</a>
+    </div>
+  </section>
+</article>
+<div class="popup_wrap">
+  <form class="func_wrap cate_popup" id="cate_form">
+    <h3>编辑分类<a id="cate_popup_off">×</a></h3>
+    <input id="cate_ipt" type="text" placeholder="请输入分类名称" />
+    <input type="submit" value="确定" />
+  </form>
+  <form class="func_wrap item_popup" id="item_form">
+    <h3>编辑菜品<a id="item_popup_off">×</a></h3>
+    <select class="cate_select">
+    	<option>主食</option>
+    	<option>炒菜</option>
+    	<option>未分类</option>
+    </select>
+    <input id="item_ipt" type="text" placeholder="请输入菜品名称" />
+    <input id="item_price" type="text" placeholder="请输入价格" />
+    <input type="submit" value="确定" />
+  </form>
+</div>
+<script>
+$(function(){
+	var leftHeight =  $("#outWrap").height();
+	$(".inner").show();
+	var rightHeight = 0;
+	$(".inner").each(function(){
+		var thisHeight = $(this).find("ul").height();
+		rightHeight=((thisHeight >= rightHeight)?thisHeight:rightHeight);
+	})
+	var wrapHeight=((leftHeight > rightHeight)?leftHeight:rightHeight);
+	$("#outWrap").height(wrapHeight + 60);
+	$(".inner").hide();
+	$("#outWrap").find(".current .inner").show();
+	
+	$("#outWrap .cate p").click(function(){
+		var $parentNode = $(this).parent();
+		$parentNode.addClass("current");
+		$parentNode.find(".inner").show();
+		$parentNode.siblings().removeClass("current");
+		$parentNode.siblings().find(".inner").hide();
+	})
+	
+	$("#cate_popup_off,#item_popup_off").click(function(){
+		$(".popup_wrap").hide(); 
+		$(this).parents("form").hide();
+		$(this).parents("form").find("input:text").val("");
+	})
+	
+	$("#add_cate_btn").click(function(){
+		$(".popup_wrap, .popup_wrap .cate_popup").show();
+	})
+	
+	$(".add_item_btn").click(function(){
+		var cateName = $(this).parents(".inner").prev().find("span").text();
+		$(".popup_wrap .item_popup option").each(function(){
+			var optVal = $(this).val();
+			if(optVal == cateName){
+				$(this).attr("selected","selected");
+			}
+		})
+		$(".popup_wrap, .popup_wrap .item_popup").show();
+	})
+	
+	$(".edit_cate_name_btn").click(function(){
+		var cateName = $(this).parents(".inner").prev().find("span").text();
+		$("#cate_ipt").val(cateName);
+		$(".popup_wrap, .popup_wrap .cate_popup").show();
+	})
+	
+	$(".edit_item_btn").click(function(){
+		var cateName = $(this).parents(".inner").prev().find("span").text();
+		$(".popup_wrap .item_popup option").each(function(){
+			var optVal = $(this).val();
+			if(optVal == cateName){
+				$(this).attr("selected","selected");
+			}
+		})
+		var itemName = $(this).parents("dl").find("h4").text();
+		var itemPrice = $(this).parents("dl").find("s").text().replace("￥","");
+		$("#item_ipt").val(itemName);
+		$("#item_price").val(itemPrice);
+		$(".popup_wrap, .popup_wrap .item_popup").show();
+	})
+	
+	$(".cate_on_off").click(function(){
+		if($(this).text() == "下架"){
+			if(confirm("真的要下架该分类吗？下架后分类及包含商品将不再显示。")){
+				$(this).text("上架");
+				$(this).parents(".cate_func").find("label").text("该分类已下架");
+				var stateTxt = "<i>已下架</i>";
+				$(this).parents(".inner").prev().append(stateTxt);
+			}
+		}else{
+			if(confirm("确认要上架该分类吗？")){
+				$(this).text("下架");
+				$(this).parents(".cate_func").find("label").text("该分类正常显示");
+				$(this).parents(".inner").prev().find("i").remove();
+			}
+		}
+	})
+	
+	$(".cate_delete").click(function(){
+		if(confirm("真的要删除该分类吗？删除后分类包含的商品将变为”未分类“。")){
+			var $parentNode = $(this).parents(".cate");
+			$parentNode.slideUp();
+			$parentNode.removeClass("current");
+			$parentNode.find(".inner").hide();
+			$parentNode.next().addClass("current");
+			$parentNode.next().find(".inner").slideDown();
+			$parentNode.remove();
+		}
+	})
+	
+	$(".item_on_off_btn").click(function(){
+		if($(this).text() == "下架"){
+			if(confirm("真的要下架该商品吗？")){
+				$(this).text("已下架");
+			}
+		}else{
+			if(confirm("确认要上架该商品品吗？")){
+				$(this).text("下架");
+			}
+		}
+	})
+	
+	$(".item_delete_btn").click(function(){
+		if(confirm("真的要删除该商品吗？")){
+			var $parentNode = $(this).parents("li:first");
+			$parentNode.slideUp();
+			setTimeout(function(){
+				$parentNode.remove();
+			},500)
+		}
+	})
+	
+
+
+})
+</script>
+
+
 </body>
 </html>
