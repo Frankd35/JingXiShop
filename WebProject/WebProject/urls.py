@@ -13,7 +13,7 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
-
+from django.http import HttpResponseRedirect
 from user import views as usr_views
 from cart import views as c_views
 from index import views as in_views
@@ -22,6 +22,8 @@ from django.urls import path
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 
 urlpatterns = [
+    # 设置初始跳转
+    path(r'',lambda req: HttpResponseRedirect('/index')),
     path('admin/', admin.site.urls),
 
     # cart 模块路由转发
@@ -34,7 +36,8 @@ urlpatterns = [
     path('register', usr_views.reg_view, name='register'),
     path('login', usr_views.login_view),
     path('user_center_info', usr_views.usr_info_view),
-    path('user_center_site', usr_views.usr_site_view)
+    path('user_center_site', usr_views.usr_site_view),
+    path('merchant_register', usr_views.merchant_register_view)
     # path('logout', views.logout_view)
 
     # path('user/', include('user.urls')),

@@ -7,20 +7,18 @@
 	<link rel="stylesheet" type="text/css" href="../static/css/mainzls.css">
 	<script type="text/javascript" src="../static/js/jquery-1.12.4.min1.js"></script>
 	<script type="text/javascript" src="../static/js/w2.js"></script>
-	<script type="text/javascript" src="../static/js/slidezls.js"></script>
+	<script type="text/javascript" src="../static/js/slidezls1.js"></script>
 	<script type="text/javascript" src="../static/js/login.js"></script>
+	<!-- <script type="text/javascript" src="../static/js/w1.js"></script> -->
 </head>
 <body>
 	<div class="header_con">
 		<div class="header">
 			<div class="welcome fl">欢迎来到京西商城!</div>
 			<div class="fr">
-				<!-- <div class="login_info fl">
-					欢迎您：<em>张 山<img src="my.png" alt=""></em>					
-				</div> -->
-{#				{% user %}#}
+				{% user %}
 				<div class="login_zls1">
-					<li><input type="text" value={{user.state}}></li>
+					<li><input type="text" value=1></li>
 				</div>
 				<div class="login_zls fl">
 					<div class="login_btn fl">
@@ -36,19 +34,22 @@
 				</div>
 				<div class="login_zls2 fl">
 					<div class="login_btn fl">
-						<a href="#"><img src={{user.img.url}} alt="">&nbsp;&nbsp;</a>				
+						<a href="#"><img src="../static/images/my2.png" alt="">&nbsp;&nbsp;</a>				
 					</div>
 					<div class="login_btn fl">
-						<!-- <a href="login.html">您还未登录..</a>
-											 -->
-						<p>欢迎您：<em>{{user.name}}</em></p>
+						<p>欢迎您：<em>张山</em></p>
 						
 					</div>
 					<div class="login_btn fl"><span>|</span></div>
 				</div>
-				<div class="login_btn fl">
+				<div class="login_btn1 fl">
 					
 					<a href="login.html">登录</a>
+					
+				</div>
+				<div class="login_btn2 fl">
+					
+					<a href="login.html">退出登录</a>
 					
 				</div>
 				<div class="login_btn fl">
@@ -80,7 +81,8 @@
 		</div>
 		<div class="guest_cart fr">
 			<a href="cart.html" class="cart_name fl">我的购物车</a>
-			<div class="goods_count fl" id="show_count">1</div>
+			<div class="goods_count fl" id="show_count">0</div>
+			<div class="goods_count1 fl" id="show_count">1</div>
 		</div>
 	</div>
 

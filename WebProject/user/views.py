@@ -2,7 +2,7 @@ import hashlib
 import re
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render
-from .models import User, Address
+from .models import User, Address, Shop
 
 
 # Create your views here.
@@ -118,13 +118,22 @@ def login_view(request):
 
 
 def logout_view(request):
-    return None
+    if 'username' in request.session:
+        del request.session['username']
+    if 'uid' in request.session:
+        del request.session['uid']
+    # 删除COOKIES
+    resp = HttpResponseRedirect('/index')
+    if 'username' in request.COOKIES:
+        resp.delete_cookie('username')
+    if 'uid' in request.COOKIES:
+        resp.delete_cookie('uid')
+    return resp
 
 
 def usr_info_view(request):
     # 获取cookies里的当前登录用户id
-    usr_id = 1
-    # int(request.session.get('user_id',''))
+    usr_id = int(request.session.get('uid', ''))
     # 若usr_id不存在或为默认值，则应该报错
     if not usr_id:
         return HttpResponseRedirect('err_handling_page')  # not defined
@@ -136,3 +145,33 @@ def usr_info_view(request):
 def usr_site_view(request):
     address = {}
     return render(request, 'user_center_site.html', address)
+
+
+def merchant_register_view(request):
+    # 访问商家注册页
+    if request.method == 'GET':
+        return render(request, 'merchant_register.html')
+    # 提交注册请求
+    elif request.method == 'POST':
+        # 获取当前登录用户uid
+        usr_id = int(request.session.get('uid'))
+        # 若 usr_id不存在或为默认值，则应该报错
+        if not usr_id:
+            return HttpResponseRedirect('err_handling_page')  # not defined
+        # 若已经是商家则直接进入商家界面
+        elif User.objects.get(id=usr_id).is_merchant:
+            return HttpResponseRedirect('merchant')
+        # 从 form 表单获取数据
+        shop_name = request.POST.get('shop_name')
+        text = request.POST.get('text')
+        create_money = request.POST.get('create_money')
+        allow = request.POST.get('allow')
+        # 数据缺失
+        if not all([shop_name, text, create_money]):
+            return render(request, 'merchant_register.html', {'errmsg': '您填写的数据不全'})
+        # 必须勾选用户协议
+        if allow != 'on':
+            return render(request, 'merchant_register.html', {'errmsg': '请您先勾选同意协议'})
+
+        Shop(user_id=usr_id, name=shop_name, text=text, create_money=int(create_money), access_times=0).save()
+        return render(request, 'merchant_register.html')
