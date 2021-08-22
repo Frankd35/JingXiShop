@@ -16,15 +16,15 @@
 			<div class="fr">
 				{% if isLogin %}
 				<div class="login_btn fl">
-					欢迎您：<em>{{ user.username }}</em>
+					欢迎您：<em>{{ user.name }}</em>
                     <span>|</span>
-					<a href="{logout}">退出</a>
+					<a href="logout">退出</a>
 				</div>
                 {% else %}
 				<div class="login_btn fl">
-					<a href="{login}">登录</a>
+					<a href="login">登录</a>
 					<span>|</span>
-					<a href="{register}">注册</a>
+					<a href="register">注册</a>
 				</div>
                 {% endif %}
 				<div class="user_link fl">
@@ -67,15 +67,12 @@
 						<dt>当前地址：</dt>
 						{% if address %}
 						<dd>{{ address.addr }} （{{ address.receiver }} 收） {{ address.phone }}</dd>
-<<<<<<< HEAD
-=======
                         <dd class="yui3-u-1-8">
                             <div class="del1">
                                 <a href="javascript:;">删除</a> 
                             </div>
                             <!-- <div>移到我的关注</div> -->
                         </dd>
->>>>>>> origin/main
 						<!-- <d><button id="btn" type="submit">删除</button></d> -->
                         {% else %}
                         <dd>无默认地址</dd>

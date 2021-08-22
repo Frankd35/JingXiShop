@@ -6,7 +6,7 @@
 	<link rel="stylesheet" type="text/css" href="../static/css/reset.css">
 	<link rel="stylesheet" type="text/css" href="../static/css/mainzls.css">
 	<script type="text/javascript" src="../static/js/jquery-1.12.4.min.js"></script>
-	<script type="text/javascript" src="../static/js/jquery-ui.min.js"></script>
+	<script type="text/javascript" src="../static/js/w2.js"></script>
 	<script type="text/javascript" src="../static/js/slidezls.js"></script>
 	<script type="text/javascript" src="../static/js/login.js"></script>
 </head>
@@ -84,7 +84,7 @@
 		<div class="guest_cart fr">
 			<!-- 如果为登录状态，获取该用户购物车商品数量,否则为0 -->
 			<a href="cart" class="cart_name fl">我的购物车</a>
-			<div class="goods_count fl" id="show_count">0</div>
+			<div class="goods_count fl" id="show_count1">0</div>
 			<div class="goods_count1 fl" id="show_count">{{ user.cart.goods_num}}</div>
 		</div>
 	</div>
@@ -558,7 +558,7 @@
 			<a href="#"><img src="{{hotgod.img.url}}"></a>
             {%endfor%}
 		</div>
-	</div>
+	<</ul></div>
     <!-- 商品类型展示 -->
 	{% for GoodsCategory in GoodsCategory %}
 	<div class="list_model">

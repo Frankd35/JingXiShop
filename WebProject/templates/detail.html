@@ -18,7 +18,7 @@
 			<div class="fr">
 				{% user %}
 				<div class="login_zls1">
-					<li><input type="text" value={{user.state}}></li>
+					<li><input type="text" value=0></li>
 				</div>
 				<div class="login_zls fl">
 					<div class="login_btn fl">
@@ -77,8 +77,8 @@
 		</div>
 		<div class="guest_cart fr">
 			<a href="cart.html" class="cart_name fl">我的购物车</a>
-			<div class="goods_count fl" id="show_count">0</div>
-			<div class="goods_count1 fl" id="show_count">0</div>
+			<div class="goods_count fl" id="show_count1">0</div>
+			<div class="goods_count1 fl" id="show_count">1</div>
 		</div>
 	</div>
 
@@ -137,8 +137,8 @@
 			<div class="total">总价：<em>16.8</em></div>
 			<div class="operate_btn">
 				<a href="javascript:;" class="buy_btn">立即购买</a>
-				<a href="javascript:;" class="add_cart" id="add_cart">加入购物车</a>
-				<a href="javascript:;" class="add_shou" id="add_shou">加入收藏夹</a>				
+				<a href="javascript:;" class="add_cart" id="add_cart" onclick="alert('添加成功！')">加入购物车</a>
+				<a href="javascript:;" class="add_shou" id="add_shou" onclick="alert('添加成功！')">加入收藏夹</a>
 			</div>
 		</div>
 	</div>
@@ -255,7 +255,7 @@
             $.post('/cart/add', params, function (data) {
                 if (data.res == 5){
                     // 添加成功
-                    window.location.href = "/order/buy_now?sku_id="+sku_id+"&count="+count;
+                    window.location.href = "/order/buy_now?sku_id="+sku_id+"&amp;count="+count;
                 }
                 else{
                     // 添加失败

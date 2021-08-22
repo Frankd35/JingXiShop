@@ -35,6 +35,7 @@ urlpatterns = [
     # user 模块路由转发
     path('register', usr_views.reg_view, name='register'),
     path('login', usr_views.login_view),
+    path('logout', usr_views.logout_view),
     path('user_center_info', usr_views.usr_info_view),
     path('user_center_site', usr_views.usr_site_view),
     path('merchant_register', usr_views.merchant_register_view)
