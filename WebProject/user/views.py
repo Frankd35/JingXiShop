@@ -120,8 +120,7 @@ def logout_view(request):
 
 def usr_info_view(request):
     # 获取cookies里的当前登录用户id
-    usr_id = 1
-    # int(request.session.get('user_id',''))
+    usr_id = int(request.session.get('usid',''))
     # 若usr_id不存在或为默认值，则应该报错
     if not usr_id:
         return HttpResponseRedirect('err_handling_page')  # not defined
