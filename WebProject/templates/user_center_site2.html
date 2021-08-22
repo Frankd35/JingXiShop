@@ -5,9 +5,6 @@
 	<title>京西商城-用户中心</title>
 	<link rel="stylesheet" type="text/css" href="../static/css/reset.css">
 	<link rel="stylesheet" type="text/css" href="../static/css/main3.css">
-    <link rel="stylesheet" href="../static/css/normalize2.css" />
-    <link rel="stylesheet" href="../static/css/base2.css" />
-    <link rel="stylesheet" href="../static/css/cart2.css">
     <script src="../static/js/jquery.min.js"></script>
     <script src="../static/js/base.js"></script>
     <script src="../static/js/cart.js"></script>
@@ -17,14 +14,19 @@
 		<div class="header">
 			<div class="welcome fl">欢迎来到京西商城!</div>
 			<div class="fr">
-				<div class="login_info fl">
-					欢迎您：<em>张 山</em>
-				</div>
+				{% if isLogin %}
 				<div class="login_btn fl">
-					<a href="login">登录</a>
-					<span>|</span>
-					<a href="register">注册</a>
+					欢迎您：<em>{{ user.username }}</em>
+                    <span>|</span>
+					<a href="{% url 'user:logout' %}">退出</a>
 				</div>
+                {% else %}
+				<div class="login_btn fl">
+					<a href="{% url 'user:login' %}">登录</a>
+					<span>|</span>
+					<a href="{% url 'user:register' %}">注册</a>
+				</div>
+                {% endif %}
 				<div class="user_link fl">
 					<span>|</span>
 					<a href="user_center_info">用户中心</a>
@@ -33,6 +35,7 @@
 					<span>|</span>
 					<a href="user_center_order">我的订单</a>
 				</div>
+				
 			</div>
 		</div>		
 	</div>

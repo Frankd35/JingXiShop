@@ -13,7 +13,7 @@ html,body{height:100%}
 	margin:0 auto;
 }
 
-.welcome,.login_info,.login_btn,.user_link{
+.welcome,.login_info,.login_btn,.user_link,.login_btn1,.login_btn2{
 	line-height:29px;
 }
 .login_zls1 {
@@ -25,15 +25,15 @@ html,body{height:100%}
 
 .login_info em{color:#ff8800}
 
-.login_btn a,.user_link a{
+.login_btn a,.user_link a,.login_btn2 a,.login_btn1 a{
 	color:#666;
 }
 
-.login_btn a:hover,.user_link a:hover{
+.login_btn a:hover,.user_link a:hover,.login_btn2 a:hover,.login_btn1 a:hover{
 	color:#ff8800;
 }
 
-.login_btn span,.user_link span{
+.login_btn span,.user_link span,.login_btn1 span,.login_btn2 span{
 	color:#cecece;
 	margin:0 10px;
 }
@@ -63,7 +63,10 @@ html,body{height:100%}
 	width:40px;height:40px;text-align:center;line-height:40px;font-size:18px;
 	font-weight:bold;color:#fff;background-color:red;
 }
-
+.guest_cart .goods_count1{
+	width:40px;height:40px;text-align:center;line-height:40px;font-size:18px;
+	font-weight:bold;color:#fff;background-color:red;
+}
 
 /* 菜单、幻灯片样式 */
 
@@ -277,7 +280,7 @@ html,body{height:100%}
 
 .sort_bar{height:30px;background-color:rgb(250, 238, 240)}
 .sort_bar a{display:block;height:30px;line-height:30px;padding:0 20px;float:left;color:#000}
-/* .sort_bar .active{color:#fff;} */
+.sort_bar .active{color:orange;}
 
 .sort_bar a:hover {
 	background-color:skyblue;
@@ -313,7 +316,7 @@ html,body{height:100%}
 .pagenation{height:32px;text-align:center;font-size:0;margin:30px auto;}
 .pagenation a{display:inline-block;border:1px solid #d2d2d2;background-color:#f8f6f7;font-size:12px;padding:7px 10px;color:#666;margin:5px}
 
-.pagenation .active{background-color:#fff;color:#43a200}
+.pagenation .active{background-color:#fff;color:skyblue}
 
 
 /* 商品详情样式 */
@@ -353,12 +356,12 @@ html,body{height:100%}
 
 .detail_tab{
 	height:35px;
-	 border-bottom:1px solid #c40000; 
+	 border-bottom:1px solid skyblue; 
 }
 
 .detail_tab li{height:34px;line-height:34px;padding:0 30px;font-size:14px;color:#333333;float:left;border:1px solid #e8e8e8;border-bottom:1px solid #e8e8e8;cursor:pointer;background-color:#faf8f8}
 
-.detail_tab li.active{border-top:0px solid red;position:relative;background-color:#fff;border-left:0px solid red;border-right:0px solid red;border-bottom:0px solid red;top:-1px;height:35px;background-color: #c40000;}
+.detail_tab li.active{border-top:0px solid red;position:relative;background-color:#fff;border-left:0px solid red;border-right:0px solid red;border-bottom:0px solid red;top:-1px;height:35px;background-color: skyblue;}
 .tab_content {
 	background-color: rgb(246, 249, 250);
 }
@@ -366,16 +369,56 @@ html,body{height:100%}
 .tab_content dd{text-indent:1.5em;line-height:20px;margin-top:5px;font-size:16px}
 .tab_content .num1 {
 	text-indent:0em;
-	color:red
+	/* line-height: 16px; */
+	font-size: 20px;
+	color:orange
+}
+.tab_content .num1 span {
+	display: inline-block;
+	height: 18px;
+	line-height: 16px;
+	
+}
+.tab_content .num1 img {
+	margin-top: 5px;
 }
 .tab_content .num2 {
-	text-indent:3em;
-	font-size:20px;
+	text-indent:0em;
+	font-size:18px;
 	color:black;
 }
 .tab_content .num3 {
 	text-indent:80em;
 	font-size:10px
+}
+.tab_content .num4 {
+	font-size: 8px;
+	color: gray;
+	text-indent:50em;
+}
+.tab_content .num5 {
+	height: 260px;
+	margin-top: 8px;
+	background-image: url(../images/xiang.png);
+}
+.tab_content .num6 {
+	margin-top: 5px;
+	height: 64px;
+	background-color: rgb(240, 240, 240);
+}
+.tab_content .num7 {
+
+	display: inline-block;
+	
+}
+.tab_content .num8 {
+	
+	display: inline-block;
+	
+}
+.tab_content .num8 dt {
+	font-size: 20px;
+	color: black;
 }
 /* 登录页 */
 
