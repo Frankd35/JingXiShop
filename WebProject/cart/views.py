@@ -52,7 +52,7 @@ def cart_view(request):
         total_price = 0
         if flag == 'check':  # check逻辑
             goodsList = dealRequest(user_id, 1, gid, isChosen)
-        elif flag == 'add':  # add 逻辑
+        elif flag == 'plus':  # add 逻辑
             goodsList = dealRequest(user_id, 2, gid, 0)
         elif flag == 'sub':  # sub 逻辑
             goodsList = dealRequest(user_id, 3, gid, 0)
