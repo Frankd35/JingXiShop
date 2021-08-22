@@ -59,7 +59,7 @@
 						<dt>当前地址：</dt>
 						{% if address %}
 						<dd>{{ address.addr }} （{{ address.receiver }} 收） {{ address.phone }}</dd>
-						<d><button id="btn" type="submit">删除</button></d>
+						<!-- <d><button id="btn" type="submit">删除</button></d> -->
                         {% else %}
                         <dd>无默认地址</dd>
                         {% endif %}
@@ -67,7 +67,8 @@
 				</div>
 				<h3 class="common_title2">编辑地址</h3>
 				<div class="site_con">
-					<form>
+					<form method="post">
+                        {% csrf_token %}
 						<div class="form_group">
 							<label>收件人：</label>
 							<input type="text" name="reciever">
@@ -87,6 +88,7 @@
 
 						<input type="submit" name="" value="提交" class="info_submit">
 					</form>
+                    {{ errmsg }}
 				</div>
 		</div>
 	</div>

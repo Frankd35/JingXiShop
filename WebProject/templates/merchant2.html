@@ -44,28 +44,28 @@ $(function(){
       <dd>
         <h3>
           <label>商户名称：</label>
-             重庆京西商城 </h3>
+             {{shop.usr_id}} </h3>
       </dd>
-      <dd>
-        <label>用户名：</label>
-        admin</dd>
-      <dd>
-        <label>店铺介绍：</label>
-        11111111111</dd>
-      <dd>
+	  <dd>
         <label>店铺评分：</label>
-        100</dd>
+        {{shop.mark}}</dd>
       <dd>
         <label>营业额：</label>
-        1000000000000000
+        {{shop.total_income}}
       </dd>
       <dd>
         <label>店铺关注：</label>
-        100万
+        {{shop.foucs}}
       </dd>
+	  <dd>
+        <label>注册资金：</label>
+        {{shop.create_money}}</dd>
       <dd>
         <label>注册时间：</label>
-        2021-8-15 16:31</dd>
+        {{shop.createtime}}</dd>
+	<dd>
+		<label>店铺介绍：</label>
+		{{shop.text}}</dd>
       <a class="edit">编辑资料</a>
     </dl>
     </section>
