@@ -81,37 +81,27 @@
 
                     <!--前端传后端数据ajax-->
                     <script>
-<!--                        document.activeElement.addEventListener("click", function()-->
-<!--                        {-->
-<!--                            document.getElementById("demo").innerHTML = document.getElementsByClassName("a")[2].innerHTML;-->
-
-<!--                        });-->
                         $(".goods-list .plus").click(function() {
+                            var itGid=$(this).attr('goodid');
                             $.ajax({
-                            url:"",
+                            url:"../cart/cart_response",
                             type:"POST",
-                            data:JSON.stringify({'gid':{{gid}},'flag':'plus'}),
+                            data:JSON.stringify({'gid':itGid,'flag':'plus'}),
                             dataType : "text"
                             })
                         });
                         $(".goods-list .mins").click(function() {
+                            var itGid=$(this).attr('goodid');
                             $.ajax({
-                            url:"",
+                            url:"../cart/cart_response",
                             type:"POST",
                             data:JSON.stringify({'gid':{{gid}},'flag':'sub'}),
                             dataType : "text"
                             })
                         });
                         $(".good-checkbox").click(function() {
-                            var checkCon = true;
-                            var iCount = 0;
-                            for (var i = 0; i < $(".good-checkbox").length; i++) {
-                                iCount++;
-                                if (! $(".good-checkbox")[i].checked) {
-                                    checkCon = false;
-                                    break;
-                                }
-                            }
+                            var itGid=$(this).attr('goodid');
+                            var checkCon = this.checked;
                             $.ajax({
                             url:"",
                             type:"POST",
@@ -120,10 +110,11 @@
                             })
                         });
                         $(".del1 a").click(function() {
+                            var itGid=$(this).attr('goodid');
                             $.ajax({
-                            url:"",
+                            url:"../cart/cart_response",
                             type:"POST",
-                            data:JSON.stringify({'gid':{{gid}},'flag':'delete'}),
+                            data:JSON.stringify({'gid':itGid,'flag':'delete'}),
                             dataType : "text"
                             })
                         });
@@ -159,9 +150,9 @@
                                     </li>
                                     <li class="yui3-u-1-8">
                                         <div class="clearfix">
-                                            <a href="javascript1:;" class="increment mins">-</a>
-                                            <input autocomplete="off" type="text" value="0" minnum="0" class="itxt">
-                                            <a href="javascript1:;" class="increment plus">+</a>
+                                            <a href="javascript1:;" class="increment mins" goodid="{{good.gid}}">-</a>
+                                            <input autocomplete="off" type="text" goodid="{{good.gid}}" value="0" minnum="0" class="itxt">
+                                            <a href="javascript1:;" class="increment plus" goodid="{{good.gid}}">+</a>
                                         </div>
                                         <div class="youhuo">有货</div>
                                     </li>
@@ -170,7 +161,7 @@
                                     </li>
                                     <li class="yui3-u-1-8">
                                         <div class="del1">
-                                            <a href="javascript:;">删除</a> 
+                                            <a href="javascript:;" goodid="{{good.gid}">删除</a>
                                         </div>
                                         <!-- <div>移到我的关注</div> -->
                                     </li>
