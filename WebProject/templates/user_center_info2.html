@@ -1,0 +1,106 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+	<title>京西商城-用户中心</title>
+	<link rel="stylesheet" type="text/css" href="../static/css/reset.css">
+	<link rel="stylesheet" type="text/css" href="../static/css/main3.css">
+</head>
+<body>
+	<div class="header_con">
+		<div class="header">
+			<div class="welcome fl">欢迎来到京西商城!</div>
+			<div class="fr">
+				<div class="login_info fl">
+					欢迎您：<em>张 山</em>
+				</div>
+				<div class="login_btn fl">
+					<a href="login.html">登录</a>
+					<span>|</span>
+					<a href="register.html">注册</a>
+				</div>
+				<div class="user_link fl">
+					<span>|</span>
+					<a href="user_center_info.html">用户中心</a>
+					<span>|</span>
+					<a href="shopcar.html">我的购物车</a>
+					<span>|</span>
+					<a href="user_center_order.html">我的订单</a>
+				</div>
+			</div>
+		</div>		
+	</div>
+
+	<div class="search_bar clearfix">
+		<a href="index.html" class="logo fl"><img src="../static/images/jx.png"></a>
+		<div class="sub_page_name fl">|&nbsp;&nbsp;&nbsp;&nbsp;用户中心</div>
+		<div class="search_con fr">
+			<input type="text" class="input_text fl" name="" placeholder="搜索商品">
+			<input type="button" class="input_btn fr" name="" value="搜索">
+		</div>		
+	</div>
+
+	<div class="main_con clearfix">
+		<div class="left_menu_con clearfix">
+			<h3>用户中心</h3>
+			<ul>
+				<li><a href="user_center_info" class="active">· 个人信息</a></li>
+				<li><a href="user_center_site">· 收藏夹</a></li>
+				<li><a href="shopcar">· 购物车</a></li>
+				<li><a href="user_center_order">· 全部订单</a></li>
+				<li><a href="user_center_site">· 收货地址</a></li>
+				<li><a href="merchant_register">· 商家入驻</a></li>
+			</ul>
+		</div>
+		<div class="right_content clearfix">
+				<div class="info_con clearfix">
+				<h3 class="common_title2">基本信息</h3>
+						<ul class="user_info_list">
+							<li><span>用户名：</span>{{ user.name }}</li>
+                            <li><span>邮箱：</span>{{ user.email }}</li>
+							{% if address %}
+							<li><span>联系地址：</span>{{ user.address }}</li>
+							{% endif %}
+							<li><span>创建时间：</span>{{user.createtime}}</li>
+							<li><span>是否商家：</span>{{user.is_merchant}}</li>
+						</ul>
+				</div>
+				
+        <h3 class="common_title2">最近浏览</h3>
+				<div class="has_view_list">
+					<ul class="goods_type_list clearfix">
+                   {% for goods in goods_li %}
+                   <li>
+					<a href="{% url 'goods:detail' goods.id %}"><img src="{{ goods.image.url }}"></a>
+					<h4><a href="{% url 'goods:detail' goods.id %}">{{ goods.name }}</a></h4>
+					<div class="operate">
+						<span class="prize">￥{{ goods.price }}</span>
+						<span class="unit">{{ goods.price }}/{{ goods.unite }}</span>
+						<a href="#" class="add_goods" title="加入购物车"></a>
+					</div>
+                   </li>
+                       {% empty %}
+                        无历史浏览记录
+                        {% endfor %}
+			    </ul>
+		    </div>
+		</div>
+
+
+
+	<div class="footer">
+		<div class="foot_link">
+			<a href="#">关于我们</a>
+			<span>|</span>
+			<a href="#">联系我们</a>
+			<span>|</span>
+			<a href="#">招聘人才</a>
+			<span>|</span>
+			<a href="#">友情链接</a>		
+		</div>
+		<p>CopyRight © 2021 重庆京西商城 All Rights Reserved</p>
+		<p>电话：010-****888    渝ICP备*******8号</p>
+	</div>
+	
+</body>
+</html>
