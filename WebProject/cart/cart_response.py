@@ -4,23 +4,26 @@ from goods import models as goods_model
 from user import models as user_model
 from cart import models as cart_model
 
-class showGoods:
-    def __init__(self,name,img,num,shop,price):
+class ShowGoods:
+    def __init__(self, name, img, num, price, shopName):
         self.name = name
         self.img = img
         self.num = num
-        self.shop = shop
         self.price = price
+        self.shopName = shopName
 
 
 def dealRequest(user_id):
-    # tempList = cart_model.Cart.objects.all()
-    tempList = user_model.User.objects.filter(id=user_id)
-    for i in tempList:
-        print("hhh:"+str(i.id))
-
-    print(tempList)
-
     goodsList = []
+    tempList = cart_model.Cart.objects.filter(user_id=user_id)
+    for i in tempList:
+        tempGoods = goods_model.Goods.objects.filter(id=i.goods_id)[0]
+        # tempShop =
+        tempShopName = '哈哈哈店铺'
+        tempName = tempGoods.name
+        tempImg = tempGoods.img
+        hhh= ShowGoods(tempName,tempImg,i.goods_num,i.goods_price,tempShopName)
+        goodsList.append(hhh)
+        print("name:%s,img:%s,num:%d,price:%f,shopName:%s"%(hhh.name, hhh.img, hhh.num, hhh.price, hhh.shopName))
 
     return goodsList
