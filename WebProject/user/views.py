@@ -18,6 +18,7 @@ def reg_view(request):
         password_2 = request.POST.get('cpwd')
         email = request.POST.get('email')
         allow = request.POST.get('allow')
+        img = "/static/images/defaultUserImg.png"
         print(allow)
         # 进行数据判断，所有信息均填写-->密码是否一致--> 邮箱格式是否一致-->协议是否勾选
         if not all([username, password_1, password_2, email]):
@@ -52,7 +53,7 @@ def reg_view(request):
         password_m = m.hexdigest()
         # 可能存在并发写入问题 捕获异常
         try:
-            user = User.objects.create(name=username, pwd=password_m, email=email)
+            user = User.objects.create(name=username, pwd=password_m, email=email, img=img)
         except Exception as e:
             # 有可能报错，唯一索引注意并发写入问题
             print('--create user error %s' % e)
@@ -103,12 +104,14 @@ def login_view(request):
         # 记录会话状态
         request.session['username'] = username
         request.session['uid'] = user.id
+        request.session['userimg'] = user.img
         resp = HttpResponseRedirect('/index')
         # 判断用户是否点选了 记住用户名
         # 点选了 --> Cookies 存储username uid 3天
         if 'remember' in request.POST:
             resp.set_cookie('username', username, 3600 * 24 * 3)
             resp.set_cookie('uid', user.id, 3600 * 24 * 3)
+            resp.set_cookie('userimg', user.img, 3600 * 24 * 3)
         return resp
 
     # return render(request, 'login.html')
