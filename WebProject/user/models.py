@@ -24,13 +24,13 @@ class Address(models.Model):
     tel = models.CharField(max_length=20)
 
     def __str__(self):
-        return u"user id:%d\tname:%s\ttext:%s\tzipcode:s%\ttelphone:s%" % \
+        return u"user id:%d\tname:%s\ttext:%s\tzipcode:s%s\ttelphone:s%s" % \
                (self.user_id, self.name, self.text, self.zipcode, self.tel)
 
 
 class Shop(models.Model):
     user_id = models.IntegerField()
-    name = models.CharField(max_length=200,unique=True)
+    name = models.CharField(max_length=200, unique=True)
     text = models.CharField(max_length=200)
     img = models.CharField(max_length=200, blank=True)
     mark = models.IntegerField()
@@ -40,4 +40,4 @@ class Shop(models.Model):
     creattime = models.DateField(auto_now=True)
 
     def __str__(self):
-        return u"%s's shop: %s" % (User.object.get(id=self.user_id).name, self.name)
+        return u"%s's shop: %s" % (User.objects.get(id=self.user_id).name, self.name)

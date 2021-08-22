@@ -5,8 +5,8 @@
 	<title>京西商城-首页</title>
 	<link rel="stylesheet" type="text/css" href="../static/css/reset.css">
 	<link rel="stylesheet" type="text/css" href="../static/css/mainzls.css">
-	<script type="text/javascript" src="../static/js/jquery-1.12.4.min1.js"></script>
-	<script type="text/javascript" src="../static/js/w2.js"></script>
+	<script type="text/javascript" src="../static/js/jquery-1.12.4.min.js"></script>
+	<script type="text/javascript" src="../static/js/jquery-ui.min.js"></script>
 	<script type="text/javascript" src="../static/js/slidezls.js"></script>
 	<script type="text/javascript" src="../static/js/login.js"></script>
 </head>
@@ -18,7 +18,7 @@
 				{% user %}
 				<div class="login_zls1">
                     <!-- 获取用户状态 -->
-					<li><input type="text" value={{user.state}}></li>
+					<li><input type="text" value={{isauth}}></li>
 				</div>
                 <!-- 未登录状态 -->
 				<div class="login_zls fl">
@@ -44,9 +44,14 @@
 					</div>
 					<div class="login_btn fl"><span>|</span></div>
 				</div>
-				<div class="login_btn fl">
+				<div class="login_btn1 fl">
 					
-					<a href="login">登录</a>
+					<a href="login.html">登录</a>
+					
+				</div>
+				<div class="login_btn2 fl">
+					
+					<a href="login.html">退出登录</a>
 					
 				</div>
 				<div class="login_btn fl">
@@ -77,8 +82,10 @@
                 </form>
 		</div>
 		<div class="guest_cart fr">
+			<!-- 如果为登录状态，获取该用户购物车商品数量,否则为0 -->
 			<a href="cart" class="cart_name fl">我的购物车</a>
-			<div class="goods_count fl" id="show_count">1</div>
+			<div class="goods_count fl" id="show_count">0</div>
+			<div class="goods_count1 fl" id="show_count">{{ user.cart.goods_num}}</div>
 		</div>
 	</div>
 
@@ -562,10 +569,10 @@
 				<span>|</span>
                 <!-- 实例链接 -->
                 {% for kind in GoodsCategory.kands %}
-				<a href="{% url 'detail' kand.goods_id %}">kind.name</a>
+				<a href="{% url 'goods:detail' kand.goods_id %}">kind.name</a>
                 {%endfor%}
 			</div>
-			<a href="{% url 'list'  GoodsCategory.id %}" class="goods_more fr" id="fruit_more">查看更多 ></a>
+			<a href="{% url 'GoodsCategory:list'  GoodsCategory.id %}" class="goods_more fr" id="fruit_more">查看更多 ></a>
 		</div>
 
 		<div class="goods_con clearfix">

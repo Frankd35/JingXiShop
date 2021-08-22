@@ -5,18 +5,53 @@
 	<title>京西商城-商品详情</title>
 	<link rel="stylesheet" type="text/css" href="../static/css/reset.css">
 	<link rel="stylesheet" type="text/css" href="../static/css/mainzls.css">
-	<script src="../static/js/detail.js"></script>
+	<script type="text/javascript" src="../static/js/jquery-1.12.4.min1.js"></script>
+	<script type="text/javascript" src="../static/js/w2.js"></script>
+	<script type="text/javascript" src="../static/js/slidezls.js"></script>
+	<script src="js/detail.js"></script>
+	<script type="text/javascript" src="../static/js/login.js"></script>
 </head>
 <body>
 	<div class="header_con">
 		<div class="header">
 			<div class="welcome fl">欢迎来到京西商城!</div>
 			<div class="fr">
-				<div class="login_info fl">
-					欢迎您：<em>张 山</em>
+				{% user %}
+				<div class="login_zls1">
+					<li><input type="text" value={{user.state}}></li>
+				</div>
+				<div class="login_zls fl">
+					<div class="login_btn fl">
+						<a href="#"><img src="../static/images/my1.png" alt="">&nbsp;&nbsp;</a>				
+					</div>
+					<div class="login_btn fl">
+						<!-- <a href="login.html">您还未登录..</a>
+											 -->
+						<p>您还未登录..</p>
+						
+					</div>
+					<div class="login_btn fl"><span>|</span></div>
+				</div>
+				<div class="login_zls2 fl">
+					<div class="login_btn fl">
+						<!-- 登录状态下获取用户头像名字 -->
+						<a href="#"><img src={{user.img.url}} alt="">&nbsp;&nbsp;</a>				
+					</div>
+					<div class="login_btn fl">
+						<!-- <a href="login.html">您还未登录..</a>
+											 -->
+						<p>欢迎您：<em>{{user.name}}</em></p>
+						
+					</div>
+					<div class="login_btn fl"><span>|</span></div>
+				</div>
+				<div class="login_btn1 fl">					
+					<a href="login.html">登录</a>					
+				</div>
+				<div class="login_btn2 fl">					
+					<a href="login.html">退出登录</a>					
 				</div>
 				<div class="login_btn fl">
-					<a href="login.html">登录</a>
 					<span>|</span>
 					<a href="register.html">注册</a>
 				</div>
@@ -42,7 +77,8 @@
 		</div>
 		<div class="guest_cart fr">
 			<a href="cart.html" class="cart_name fl">我的购物车</a>
-			<div class="goods_count fl" id="show_count">1</div>
+			<div class="goods_count fl" id="show_count">0</div>
+			<div class="goods_count1 fl" id="show_count">0</div>
 		</div>
 	</div>
 
@@ -52,7 +88,7 @@
 				<h1>全部商品分类</h1>	
 				<span></span>			
 				<ul class="subnav">
-					<li><a href="#" class="fruit">新鲜水果</a></li>
+					<li><a href="#" class="fruit">新鲜水果&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&gt;</a></li>
 					<li><a href="#" class="seafood">海鲜水产</a></li>
 					<li><a href="#" class="meet">猪牛羊肉</a></li>
 					<li><a href="#" class="egg">禽类蛋品</a></li>
@@ -128,41 +164,50 @@
 
 		<div class="r_wrap fr clearfix">
 			<ul class="detail_tab clearfix">
-				<li>商品介绍</li>
-				<li>商品评论(99+)</li>
+				<li class="jieshao">商品介绍</li>
+				<li class="pinglun">商品评论(99+)</li>
 			</ul>
 
 			<div class="tab_content" id="tab_detail">
 				<dl>
 					<!-- 商品详情 -->
-					<dt>商品详情：</dt>
+					<dd class="num4">----宝贝详情----</dd>
+					<div class="num6">
+						<div class="num7 fl"><img src="../static/images/ai.png" alt=""></div>
+						<div class="num8 fl">
+							<dt>公益宝贝</dt>
+							<p>每笔成交将为<strong>爱心包裹贫困儿童关爱行动</strong>捐赠<strong>0.1元</strong>，已累计捐赠<strong>1911</strong>笔。</p>
+						
+						</div>
+					</div>
+					
+					<dt>大兴大棚草莓：</dt>
 					<dd>草莓采摘园位于北京大兴区 庞各庄镇四各庄村 ，每年1月-6月面向北京以及周围城市提供新鲜草莓采摘和精品礼盒装草莓，草莓品种多样丰富，个大香甜。所有草莓均严格按照有机标准培育，不使用任何化肥和农药。草莓在采摘期间免洗可以直接食用。欢迎喜欢草莓的市民前来采摘，也欢迎各大单位选购精品有机草莓礼盒，有机草莓礼盒是亲朋馈赠、福利送礼的最佳选择。 </dd>
+					<div class='num5'></div>
 				</dl>
 			</div>
 			<div class="tab_content" id="tab_comment" style="display: none">
 				<dl>
+					
                     
-					<dt>评论时间：2021年5月13日 20:15&nbsp;&nbsp;用户名:11111</dt>
-                    <dd>评论内容:太酸了，不过挺甜的</dd>
                     
-					<dt>评论时间：2021年5月18日 02:03&nbsp;&nbsp;用户名:爱嘤嘤嘤斯坦</dt>
-                    <dd>评论内容:老婆说草莓很酸，但我觉得很甜啊！</dd>
+					<dd class="num1">
+						<img src="../static/images/my3.png" alt=""><span>&nbsp;11111:</span>
+					</dd>
+                    <dt class="num2">太酸了，不过挺甜的</dt>
+					<dd class="num3">--2021年5月13日 20:15</dd>
+					
+					<dd class="num1">用户&nbsp;11111:</dd>
+                    <dt class="num2">太酸了，不过挺甜的</dt>
+					<dd class="num3">--2021年5月13日 20:15</dd>
                     
-					<dt>评论时间：2021年5月18日 12:42&nbsp;&nbsp;用户名:美食作家王刚</dt>
-                    <dd>评论内容:用来招待客人，很不错</dd>
-                    
-					<dt>评论时间：2021年5月18日 16:41&nbsp;&nbsp;用户名:aaaaaa</dt>
-                    <dd>评论内容:不够半斤啊，商家真黑心</dd>
-                    
-					<dt>评论时间：2021年5月23日 00:49&nbsp;&nbsp;用户名:聪明的张三</dt>
-                    <dd>评论内容:世人都说我聪明，但是他们不知道的是我喜欢吃草莓。</dd>
-                    
-					<dt>评论时间：2021年5月28日 18:21&nbsp;&nbsp;用户名:smart18</dt>
-                    <dd>评论内容:很甜</dd>
-                    
-					<dt>评论时间：2021年8月4日 21:58&nbsp;&nbsp;用户名:smart</dt>
-                    <dd>评论内容:好</dd>
-                    
+					<dd class="num1">用户&nbsp;11111:</dd>
+                    <dt class="num2">太酸了，不过挺甜的</dt>
+					<dd class="num3">--2021年5月13日 20:15</dd>
+					
+					<dd class="num1">用户&nbsp;11111:</dd>
+                    <dt class="num2">太酸了，不过挺甜的</dt>
+					<dd class="num3">--2021年5月13日 20:15</dd>
 				</dl>
 			</div>
 
@@ -184,17 +229,17 @@
 	</div>
 	<div class="add_jump"></div>
 	
-	<script type="text/javascript" src="../static/js/jquery-1.12.2.js"></script>
+	<script type="text/javascript" src="js/jquery-1.12.2.js"></script>
 	<script type="text/javascript">
-        $('#tag_detail').click(function () {
-            $('#tag_comment').removeClass('active')
+        $('.jieshao').click(function () {
+            $('.pinglun').removeClass('active')
             $(this).addClass('active')
             $('#tab_detail').show()
             $('#tab_comment').hide()
         })
 
-        $('#tag_comment').click(function () {
-            $('#tag_detail').removeClass('active')
+        $('.pinglun').click(function () {
+            $('.jieshao').removeClass('active')
             $(this).addClass('active')
             $('#tab_detail').hide()
             $('#tab_comment').show()
