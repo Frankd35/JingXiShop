@@ -118,7 +118,17 @@ def login_view(request):
 
 
 def logout_view(request):
-    return None
+    if 'username' in request.session:
+        del request.session['username']
+    if 'uid' in request.session:
+        del request.session['uid']
+    # 删除COOKIES
+    resp = HttpResponseRedirect('/index')
+    if 'username' in request.COOKIES:
+        resp.delete_cookie('username')
+    if 'uid' in request.COOKIES:
+        resp.delete_cookie('uid')
+    return resp
 
 
 def usr_info_view(request):
