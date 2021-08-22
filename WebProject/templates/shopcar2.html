@@ -103,9 +103,9 @@
                             var itGid=$(this).attr('goodid');
                             var checkCon = this.checked;
                             $.ajax({
-                            url:"",
+                            url:"../cart",
                             type:"POST",
-                            data:JSON.stringify({'gid':iCount,'flag':'check','checed':checkCon}),
+                            data:JSON.stringify({'gid':iCount,'flag':'check','checked':checkCon}),
                             dataType : "text"
                             })
                         });
@@ -150,9 +150,9 @@
                                     </li>
                                     <li class="yui3-u-1-8">
                                         <div class="clearfix">
-                                            <a href="javascript1:;" class="increment mins" goodid="{{good.gid}}">-</a>
+                                            <a href="javascript:;" class="increment mins" goodid="{{good.gid}}">-</a>
                                             <input autocomplete="off" type="text" goodid="{{good.gid}}" value="0" minnum="0" class="itxt">
-                                            <a href="javascript1:;" class="increment plus" goodid="{{good.gid}}">+</a>
+                                            <a href="javascript:;" class="increment plus" goodid="{{good.gid}}">+</a>
                                         </div>
                                         <div class="youhuo">有货</div>
                                     </li>
