@@ -78,6 +78,57 @@
                             <span>还差￥56.00免运费</span>
                         </div>
                     </div>
+
+                    <!--前端传后端数据ajax-->
+                    <script>
+<!--                        document.activeElement.addEventListener("click", function()-->
+<!--                        {-->
+<!--                            document.getElementById("demo").innerHTML = document.getElementsByClassName("a")[2].innerHTML;-->
+
+<!--                        });-->
+                        $(".goods-list .plus").click(function() {
+                            $.ajax({
+                            url:"",
+                            type:"POST",
+                            data:JSON.stringify({'gid':{{gid}},'flag':'plus'}),
+                            dataType : "text"
+                            })
+                        });
+                        $(".goods-list .mins").click(function() {
+                            $.ajax({
+                            url:"",
+                            type:"POST",
+                            data:JSON.stringify({'gid':{{gid}},'flag':'sub'}),
+                            dataType : "text"
+                            })
+                        });
+                        $(".good-checkbox").click(function() {
+                            var checkCon = true;
+                            var iCount = 0;
+                            for (var i = 0; i < $(".good-checkbox").length; i++) {
+                                iCount++;
+                                if (! $(".good-checkbox")[i].checked) {
+                                    checkCon = false;
+                                    break;
+                                }
+                            }
+                            $.ajax({
+                            url:"",
+                            type:"POST",
+                            data:JSON.stringify({'gid':iCount,'flag':'check','checed':checkCon}),
+                            dataType : "text"
+                            })
+                        });
+                        $(".del1 a").click(function() {
+                            $.ajax({
+                            url:"",
+                            type:"POST",
+                            data:JSON.stringify({'gid':{{gid}},'flag':'delete'}),
+                            dataType : "text"
+                            })
+                        });
+<!--                        因为是原子操作，故submit没有写的必要-->
+                    </script>
                     <div class="cart-item-list">
                         <div class="cart-body">
                             <div class="cart-list">
@@ -92,6 +143,7 @@
                                             <div class="item-msg">{{good.name}}</div>
                                         </div>
                                     </li>
+                                    <p class="unGid" style="visibility: hidden">{{ good.gid }}</p>
                                     <li class="yui3-u-1-8">
                                         <span></span>
                                         <br>
