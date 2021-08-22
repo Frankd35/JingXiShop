@@ -15,13 +15,13 @@
 				<div class="login_btn fl">
 					欢迎您：<em>{{ user.username }}</em>
                     <span>|</span>
-					<a href="{% url 'user:logout' %}">退出</a>
+					<a href="{login}">退出</a>
 				</div>
                 {% else %}
 				<div class="login_btn fl">
-					<a href="{% url 'user:login' %}">登录</a>
+					<a href="{login}">登录</a>
 					<span>|</span>
-					<a href="{% url 'user:register' %}">注册</a>
+					<a href="{register}">注册</a>
 				</div>
                 {% endif %}
 				<div class="user_link fl">
