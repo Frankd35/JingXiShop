@@ -53,10 +53,11 @@
 			</ul>
 		</div>
 		<div class="right_content clearfix">
-				<div class="info_con clearfix">
+				<div class="info_con clearfix">	
 				<h3 class="common_title2">基本信息</h3>
 						<ul class="user_info_list">
 							<li><span>用户名：</span>{{ user.name }}</li>
+							<li><span>用户头像：</span>{{ user.img }}</li>
                             <li><span>邮箱：</span>{{ user.email }}</li>
 							{% if address %}
 							<li><span>联系地址：</span>{{ user.address }}</li>
