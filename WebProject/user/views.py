@@ -137,12 +137,17 @@ def usr_info_view(request):
     # 若usr_id不存在或为默认值，则应该报错
     if not usr_id:
         return HttpResponseRedirect('err_handling_page')  # not defined
-    user = User.objects.get(name='zhangsan')
+    user = User.objects.get(id=usr_id)
     # address 选择实现
     return render(request, 'user_center_info.html', {'user': user, 'address': None})
 
 
 def usr_site_view(request):
+    # 获取cookies里的当前登录用户id
+    usr_id = int(request.session.get('uid', ''))
+    # 若usr_id不存在或为默认值，则应该报错
+    if not usr_id:
+        return HttpResponseRedirect('err_handling_page')  # not defined
     address = {}
     return render(request, 'user_center_site.html', address)
 
