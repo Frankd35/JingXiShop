@@ -1,5 +1,9 @@
 body{font-family:'Microsoft Yahei';font-size:12px;color:#666;}
 html,body{height:100%}
+li.col03 {
+    position: absolute;
+    left: 700px;
+}
 /* 顶部样式 */
 .header_con{
 	background-color:#f7f7f7;
