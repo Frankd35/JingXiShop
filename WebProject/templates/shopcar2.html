@@ -30,7 +30,7 @@
 </head>
 <body>
     <div class="search">
-		<a href="index.html" class="logo fl"><img src="../static/images/logo.png" width="150" height="59"></a>
+		<a href="/index" class="logo fl"><img src="../static/images/logo.png" width="150" height="59"></a>
 		<a class="sub_page_name fl" onclick="alert('购买成功')">|&nbsp;&nbsp;&nbsp;&nbsp;提交订单</a>		
 	</div>
 
@@ -43,20 +43,20 @@
                 <div class="login_btn fl">
 					欢迎您：<em>{{ user.username }}</em>
                     <span>|</span>
-					<a href="{% url 'user:logout' %}">退出</a>
+{#					<a href="{% url 'user:logout' %}">退出</a>#}
 				</div>
 				<div class="login_btn fl">
-					<a href="login.html">登录</a>
+					<a href="/login">登录</a>
 					<span>|</span>
-					<a href="register.html">注册</a>
+					<a href="/register">注册</a>
 				</div>
 				<div class="user_link fl">
 					<span>|</span>
-					<a href="user_center_info.html">用户中心</a>
+					<a href="/user_center_info">用户中心</a>
 					<span>|</span>
-					<a href="cart.html">我的购物车</a>
+					<a href="/cart">我的购物车</a>
 					<span>|</span>
-					<a href="user_center_order.html">我的订单</a>
+					<a href="/order">我的订单</a>
 				</div>
 			</div>
 		</div>		
@@ -68,7 +68,7 @@
                 </h4>        -->
                 <div class="cart-main">
                     <div class="cart-th clearfix">
-                        <div><input type="checkbox">全选</div>
+                        <div><input id="allSellect" type="checkbox">全选</div>
                         <div class="">商品</div>
                         <div class="">单价（元）</div>
                         <div class="">数量</div>
@@ -78,14 +78,15 @@
                     <div class="cart-title clearfix">
                         <h5 class="fl">减免活动</h5>
                         <div class="yunfei fr">
-                            运费：￥20.00
-                            <span>还差￥56.00免运费</span>
+                            京西福利：
+                            <span>满￥50.00免运费</span>
                         </div>
                     </div>
 
                     <!--前端传后端数据ajax-->
                     <script>
                         $(".goods-list .plus").click(function() {
+                            console.log("hhhh")
                             var itGid=$(this).attr('goodid');
                             var token = $('[name="csrfmiddlewaretoken"]').attr("value");
                             $.ajax({
@@ -96,6 +97,7 @@
                             })
                         });
                         $(".goods-list .mins").click(function() {
+                            console.log("hhhh")
                             var itGid=$(this).attr('goodid');
                             $.ajax({
                             url:"/cart",
@@ -105,6 +107,7 @@
                             })
                         });
                         $(".good-checkbox").click(function() {
+                            console.log("哈哈哈哈我被点了")
                             var itGid=$(this).attr('goodid');
                             var checkCon = this.checked;
                             $.ajax({
@@ -131,7 +134,7 @@
                                 {% for good in goodsList %}
                                 <ul class="goods-list yui3-g">
                                     <li class="yui3-u-3-8 pr">
-                                        <input type="checkbox" class="good-checkbox">
+                                        <input type="checkbox" class="good-checkbox" goodid="{{good.gid}}">
                                         <div class="good-item">
                                             <div class="item-img">
                                                 <img src={{good.img}} width="90" height="90">
@@ -182,18 +185,18 @@
                         <div class="sumprice">
                             <div class="sumprice-top">
                                 <span>
-                                    已选择
-                                    <strong>0</strong> 件商品
+{#                                    已选择#}
+{#                                    <strong>0</strong> 件商品#}
                                 </span>
                                 <em>总价（不含运费）：</em>
                                 <i class="summoney">￥<span>44240.00</span></i>
                             </div>
                             <div class="sumprice-bottom">
-                                已节省：￥20.00
+                                已节省：￥0.00
                             </div>
                         </div>
                         <div class="sumbtn">
-                            <a class="sum-btn" href="place_order2.html">结算</a>
+                            <a class="sum-btn" href="/orderplace">结算</a>
                         </div>
                     </div>
                 </div>
