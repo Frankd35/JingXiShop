@@ -25,8 +25,8 @@ def index_template_view(request):
     except:
         user = None
     GoodsCategoryList = Category.objects.filter(state=1)[0:6]
-    hotgoodsList = Goods.objects.filter(id=1).order_by('searching_num')
-
+    hotgoodsList = Goods.objects.filter(id=1).order_by('searching_num')[0:2]
+    slideList = Goods.objects.filter(category_id=0).order_by('searching_num')
     return render(request, 'index_template.html',
                   {'isLogin': isLogin, 'user': user, 'GoodsCategoryList': GoodsCategoryList,
-                   'hotgoodsList': hotgoodsList})
+                   'hotgoodsList': hotgoodsList, 'slideList': slideList})
