@@ -17,6 +17,7 @@ def index_template_view(request):
 
     if not isLogin:
         render(request, 'index_template.html', {'isLogin': isLogin})
+        # HttpResponseRedirect('index_template')
     try:
         user = User.objects.get(id=usr_id)
     except:

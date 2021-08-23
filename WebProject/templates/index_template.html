@@ -23,7 +23,7 @@
             <!-- 未登录状态 -->
             <!-- 登录状态下 -->
             {% if isLogin %}
-                <div class="login_zls2 fl">
+                <div class="login_zls fl">
                     <div class="login_btn fl">
                         <!-- 传入用户头像 -->
                         <a href="#"><img src={{ user.img }} alt="">&nbsp;&nbsp;</a>
@@ -35,8 +35,8 @@
                     <div class="login_btn fl">
                         <span>|</span>
                     </div>
-                    <div class="login_btn2 fl">
-                        <a href="index_template.html">退出登录</a>
+                    <div class="login_btn fl">
+                        <a href="logout">退出登录</a>
                     </div>
                 </div>
             {% else %}
