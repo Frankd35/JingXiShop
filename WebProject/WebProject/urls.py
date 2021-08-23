@@ -29,7 +29,6 @@ urlpatterns = [
     path('order', c_views.orderplace_view),
     path('cart', c_views.cart_view),
     path('favorite', c_views.collect_view),
-    path('order', c_views.orderplace_view),
     # index 模块路由转发
     path('index', in_views.index_view),
     path('index_template', in_views.index_template_view),
