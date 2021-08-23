@@ -94,7 +94,7 @@ def orderplace_view(request):
                       {'goodsList': goodsList, 'addr': addr, 'total_price': total_price, 'user': user, 'count': count,
                        'realPay': realPay})
     else:
-        flag = request.POST.get('settleoder', '')
+        flag = str(request.POST.get('settleorder', ''))
         if flag == 'ok':
             print("结算，提交订单")
             settleOrder(user.id, user.addr_id)
