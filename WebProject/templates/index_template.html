@@ -24,21 +24,23 @@
             <!-- 登录状态下 -->
             {% if isLogin %}
                 <div class="login_zls fl">
-                    <div class="login_btn fl">
+                    <div class="login_btn1 fl">
                         <!-- 传入用户头像 -->
-                        <a href="#"><img src={{ user.img }} alt="">&nbsp;&nbsp;</a>
+{#                        注意看这个图片的信息参数 需要把长宽调好 否则就会影响到下面的界面 #}
+                        {#                        <a href="#"><img src={{ user.img }} alt="">&nbsp;&nbsp;</a>#}
                     </div>
                     <div class="login_btn fl">
                         <!-- 传入用户姓名 -->
                         <p>欢迎您：<em>{{ user.name }}</em></p>
                     </div>
-                    <div class="login_btn fl">
-                        <span>|</span>
-                    </div>
-                    <div class="login_btn fl">
-                        <a href="logout">退出登录</a>
-                    </div>
                 </div>
+                <div class="login_btn fl">
+                    <span>|</span>
+                </div>
+                <div class="login_btn fl">
+                    <a href="logout">退出登录</a>
+                </div>
+
             {% else %}
                 <div class="login_zls fl">
                     <div class="login_btn fl">
@@ -74,12 +76,10 @@
 <div class="search_bar clearfix">
     <a href="index" class="logo fl"><img src="../static/images/jx.png"></a>
     <div class="search_con fl">
-
-        <form action="demo.php" method="POST" name="name1">
-            <input type="text" class="input_text fl" name="goods.type" placeholder="搜索商品">
-            <!-- 搜索商品类型 -->
-            <input type="submit" class="input_btn fr" value="搜索">
-        </form>
+       <!-- 搜索功能 -->
+	<input type="text" class="input_text fl" name="goods.type" placeholder="搜索商品">
+	<!-- 搜索商品类型 -->
+         <a href="detail1.html" id="search1"><input type="submit" class="input_btn fr" value="搜索"></a>
     </div>
     <div class="guest_cart fr">
         <!-- 如果为登录状态，获取该用户购物车商品数量,否则为0 -->
@@ -96,10 +96,11 @@
             <li><a href="index">首页</a></li>
 
             <!-- 商品类型 6个-->
-            {#            {% for GoodsCategory in GoodsCategory %}#}
-            {#                <li class="interval">|</li>#}
-            {#                <li><a href="{% url 'list'  GoodsCategory.id %}">{{ GoodsCategory.name }}</a></li>#}
-            {#            {% endfor %}#}
+            {% for GoodsCategory in GoodsCategoryList %}
+                <li class="interval">|</li>
+{#                                <li><a href="{% url 'list'  GoodsCategory.id %}">{{ GoodsCategory.name }}</a></li>#}
+                <li><a href="#">{{ GoodsCategory.name }}</a></li>
+            {% endfor %}
         </ul>
     </div>
 </div>
@@ -107,10 +108,10 @@
 <div class="center_con clearfix">
     <ul class="subnav fl" id="navi">
         <!-- 商品类型 6个-->
-        {#        {% for GoodsCategory in GoodsCategory %}#}
-        {#            <li><a href="#model0{{ forloop.counter }}">{{ GoodsCategory.name }} &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&gt;</a>#}
-        {#            </li>#}
-        {#        {% endfor %}#}
+        {% for GoodsCategory in GoodsCategoryList %}
+            <li><a href="#model0{{ forloop.counter }}">{{ GoodsCategory.name }} &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&gt;</a>
+            </li>
+        {% endfor %}
         <div class="content">
             <div>
                 <div class="channel">
@@ -545,9 +546,9 @@
         <div class="slide fl">
             <ul class="slide_pics">
                 <!-- 轮播图 4张-->
-                {#                {% for hotgoods in hotgoods}#}
-                {#                    <li><img src="{{ hotgoods.img.url }}" alt="幻灯片"></li>#}
-                {#                {% endfor %}#}
+{#                {% for hotgoods in hotgoodsList %}#}
+{#                    <li><img src="{{ hotgoods.img }}" alt="幻灯片"></li>#}
+{#                {% endfor %}#}
             </ul>
             <div class="prev"></div>
             <div class="next"></div>
@@ -555,46 +556,46 @@
         </div>
         <div class="adv fl">
             <!-- 热点图 两张 -->
-            {#            {% for hotgod in hotgod}#}
-            {#                <a href="#"><img src="{{ hotgod.img.url }}"></a>#}
-            {#            {% endfor %}#}
+{#            {% for hotgoods in hotgoodsList %}#}
+{#                <a href="#"><img src="{{ hotgoods.img }}"></a>#}
+{#            {% endfor %}#}
         </div>
         <
     </ul>
 </div>
 <!-- 商品类型展示 -->
-{#{% for GoodsCategory in GoodsCategory %}#}
-<div class="list_model">
+{% for GoodsCategory in GoodsCategoryList %}
+    <div class="list_model">
 
-    <div class="list_title clearfix">
-        <h3 class="fl" id="model0{{ forloop.counter }}">{{ GoodsCategory.name }}</h3>
-        <div class="subtitle fl">
-            <span>|</span>
-            <!-- 实例链接 -->
-            {#                {% for kind in GoodsCategory.kands %}#}
-            {#                    <a href="{% url 'goods:detail' kand.goods_id %}">kind.name</a>#}
-            {#                {% endfor %}#}
+        <div class="list_title clearfix">
+            <h3 class="fl" id="model0{{ forloop.counter }}">{{ GoodsCategory.name }}</h3>
+            <div class="subtitle fl">
+                <span>|</span>
+                <!-- 实例链接 -->
+                {#                {% for kind in GoodsCategory.kands %}#}
+                {#                    <a href="{% url 'goods:detail' kand.goods_id %}">kind.name</a>#}
+                {#                {% endfor %}#}
+            </div>
+            {#            <a href="{% url 'GoodsCategory:list'  GoodsCategory.id %}" class="goods_more fr" id="fruit_more">查看更多 ></a>#}
         </div>
-        {#            <a href="{% url 'GoodsCategory:list'  GoodsCategory.id %}" class="goods_more fr" id="fruit_more">查看更多 ></a>#}
-    </div>
 
-    <div class="goods_con clearfix">
-        {#            <div class="goods_banner fl"><a href="{% url 'list'  GoodsCategory.id %}"><img#}
-        {#                    src="{{ GoodsCategory.img.url }}"></a></div>#}
-        <ul class="goods_list fl">
-            <!-- 展示这一类型的商品 4个 -->
-            {#                {% for goods in GoodsCategory.kands %}#}
-            {#                    <li>#}
-            {#                        <h4><a href="{% url 'detail' goods.goods_id %}">{{ goods.name }}</a></h4>#}
-            {#                        <a href="{% url 'detail' goods.goods_id %}"><img src={{ goods.img.url }}></a>#}
-            {#                        <div class="prize">¥{{ goods.price }}</div>#}
-            {#                    </li>#}
-            {#                {% endfor %}#}
+        <div class="goods_con clearfix">
+            {#            <div class="goods_banner fl"><a href="{% url 'list'  GoodsCategory.id %}"><img#}
+            {#                    src="{{ GoodsCategory.img.url }}"></a></div>#}
+            <ul class="goods_list fl">
+                <!-- 展示这一类型的商品 4个 -->
+                {#                {% for goods in GoodsCategory.kands %}#}
+                {#                    <li>#}
+                {#                        <h4><a href="{% url 'detail' goods.goods_id %}">{{ goods.name }}</a></h4>#}
+                {#                        <a href="{% url 'detail' goods.goods_id %}"><img src={{ goods.img.url }}></a>#}
+                {#                        <div class="prize">¥{{ goods.price }}</div>#}
+                {#                    </li>#}
+                {#                {% endfor %}#}
 
-        </ul>
+            </ul>
+        </div>
     </div>
-</div>
-{#{% endfor %}#}
+{% endfor %}
 <div class="footer">
     <div class="foot_link">
         <a href="#">关于我们</a>
@@ -608,5 +609,77 @@
     <p>CopyRight © 2021 重庆大学-CQU-University</p>
     <p>电话：010-****888 渝ICP备*******8号</p>
 </div>
+            <script type="text/javascript">
+		// 点击商品类型，进入该商品类型商品列表，向后端传商品类型id
+		$(".list_zls a").click(function() {
+			var itgid=$(this).attr('GoodsCategory.id ');
+			$.ajax({
+				url:"/goods",
+				type:"POST",
+				data:JOSN.stringify ({'gid':itGid}),
+				dataType:"text"
+			})
+		})
+		//点击热点商品图片，进入该商品详情页，向后端传商品id
+		$(".adv a").click(function(){
+			var itgid=$(this).attr('hotgod.gooos_id');
+			$.ajax({
+				url:"/goods",
+				type:"POST",
+				data:JOSN.stringify ({'gid':itGid}),
+				dataType:"text"
+			})
+		})
+		//搜索框输入商品类型，进去该商品类型列表，向后端传用户输入商品类型名称
+		$(".input_btn").click(function() {
+			var type=$(".input_text").val();
+			// 判断用户输入是否为空
+			if(type == ''|| type==null  ) {
+				var aobj = document.getElementById("search1");
+				aobj.href="index.html";
+				alert('未输入商品名称！')
+				
+			}	
+			else{
+				$.ajax({
+					url:"/goods",
+					type:"POST",
+					data:JOSN.stringify({'gname':type}),
+					dataType:"text"
+				})
+			}
+			
+		})
+		// 点击更多，进入该商品类型商品列表，向后端传该商品类型id
+		$(".goods_more a").click(function(){
+			var itgid=$(this).attr('GoodsCategory.id ');
+			$.ajax({
+				url:"/goods",
+				type:"POST",
+				data:JOSN.stringify ({'gid':itGid}),
+				dataType:"text"
+			})
+		})
+		//点击商品类型图片，进入该商品类型商品列表，向后端传该商品类型id
+		$(".goods_banner a").click(function(){
+			var itgid=$(this).attr('GoodsCategory.id ');
+			$.ajax({
+				url:"/goods",
+				type:"POST",
+				data:JOSN.stringify ({'gid':itGid}),
+				dataType:"text"
+			})
+		})
+		// 点击商品图片，进入该商品详情页，向后端传该商品id
+		$(".goods_list a").click(function(){
+			var itgid=$(this).attr('goods.goods_id');
+			$.ajax({
+				url:"/goods",
+				type:"POST",
+				data:JOSN.stringify ({'gid':itGid}),
+				dataType:"text"
+			})
+		})
+	</script>	
 </body>
 </html>

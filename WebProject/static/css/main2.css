@@ -402,7 +402,7 @@ div#onee {
 .common_list_con dt{font-size:14px;font-weight:bold;margin-bottom:10px}
 .common_list_con dd input{vertical-align:bottom;margin-right:10px}
 
-.edit_site{position:absolute; right:20px;top:30px;width:100px;height:30px;background-color:rgb(225, 34, 40);text-align:center;line-height:30px;color:#fff}
+.edit_site{position:absolute; right:20px;top:10px;width:100px;height:30px;background-color:rgb(225, 34, 40);text-align:center;line-height:30px;color:#fff}
 
 .pay_style_con{margin:20px;}
 .pay_style_con input{float:left;margin:14px 7px 0 0;}
