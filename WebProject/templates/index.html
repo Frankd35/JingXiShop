@@ -73,11 +73,10 @@
 		<a href="index.html" class="logo fl"><img src="../static/images/jx.png"></a>
 		<div class="search_con fl">
 
-			<form action="demo.php" method="POST" name="name1">
-					<input type="text" class="input_text fl" name="goods.type" placeholder="搜索商品">
+			<!-- 搜索功能 -->
+				<input type="text" class="input_text fl" name="goods.type" placeholder="搜索商品">
 			<!-- 搜索商品类型 -->
-                <input type="submit" class="input_btn fr" value="搜索">
-			</form>
+               <a href="detail1.html" id="search1"><input type="submit" class="input_btn fr" value="搜索"></a>
 		</div>
 		<div class="guest_cart fr">
 			<a href="cart.html" class="cart_name fl">我的购物车</a>
@@ -822,5 +821,77 @@
 			window.location.href = 'list.html';
 		}
 	</script>
+	<script type="text/javascript">
+		// 点击商品类型，进入该商品类型商品列表，向后端传商品类型id
+		$(".list_zls a").click(function() {
+			var itgid=$(this).attr('GoodsCategory.id ');
+			$.ajax({
+				url:"/goods",
+				type:"POST",
+				data:JOSN.stringify ({'gid':itGid}),
+				dataType:"text"
+			})
+		})
+		//点击热点商品图片，进入该商品详情页，向后端传商品id
+		$(".adv a").click(function(){
+			var itgid=$(this).attr('hotgod.gooos_id');
+			$.ajax({
+				url:"/goods",
+				type:"POST",
+				data:JOSN.stringify ({'gid':itGid}),
+				dataType:"text"
+			})
+		})
+		//搜索框输入商品类型，进去该商品类型列表，向后端传用户输入商品类型名称
+		$(".input_btn").click(function() {
+			var type=$(".input_text").val();
+			// 判断用户输入是否为空
+			if(type == ''|| type==null  ) {
+				var aobj = document.getElementById("search1");
+				aobj.href="index.html";
+				alert('未输入商品名称！')
+				
+			}	
+			else{
+				$.ajax({
+					url:"/goods",
+					type:"POST",
+					data:JOSN.stringify({'gname':type}),
+					dataType:"text"
+				})
+			}
+			
+		})
+		// 点击更多，进入该商品类型商品列表，向后端传该商品类型id
+		$(".goods_more a").click(function(){
+			var itgid=$(this).attr('GoodsCategory.id ');
+			$.ajax({
+				url:"/goods",
+				type:"POST",
+				data:JOSN.stringify ({'gid':itGid}),
+				dataType:"text"
+			})
+		})
+		//点击商品类型图片，进入该商品类型商品列表，向后端传该商品类型id
+		$(".goods_banner a").click(function(){
+			var itgid=$(this).attr('GoodsCategory.id ');
+			$.ajax({
+				url:"/goods",
+				type:"POST",
+				data:JOSN.stringify ({'gid':itGid}),
+				dataType:"text"
+			})
+		})
+		// 点击商品图片，进入该商品详情页，向后端传该商品id
+		$(".goods_list a").click(function(){
+			var itgid=$(this).attr('goods.goods_id');
+			$.ajax({
+				url:"/goods",
+				type:"POST",
+				data:JOSN.stringify ({'gid':itGid}),
+				dataType:"text"
+			})
+		})
+	</script>	
 </body>
 </html>
