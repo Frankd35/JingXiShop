@@ -5,6 +5,7 @@
 	<title>京西商场-提交订单</title>
 	<link rel="stylesheet" type="text/css" href="../static/css/reset.css">
 	<link rel="stylesheet" type="text/css" href="../static/css/main2.css">
+	<script src="../static/js/order.js"></script>
 </head>
 <body>
 	<div class="header_con">
@@ -15,17 +16,27 @@
 					欢迎来到京西商场!
 				</div>
 				<div class="login_btn fl">
+					欢迎您：<em>{{ user.name }}</em>
+                    <span>|</span>
+{#					<a href="{% url 'user:logout' %}">退出</a>#}
+				</div>
+				<div class="login_btn fl">
+					<a href="/login">登录</a>
+					<span>|</span>
+					<a href="/register">注册</a>
+				</div>
+				<div class="login_btn fl">
 					<a href="/login">登录</a>
 					<span>|</span>
 					<a href="/register">注册</a>
 				</div>
 				<div class="user_link fl">
 					<span>|</span>
-					<a href="user_center_info.html">用户中心</a>
+					<a href="user_center_info">用户中心</a>
 					<span>|</span>
 					<a href="/cart">我的购物车</a>
 					<span>|</span>
-					<a href="user_center_order.html">我的订单</a>
+					<a href="user_center_order">我的订单</a>
 				</div>
 			</div>
 		</div>		
@@ -33,7 +44,7 @@
 
 	<div class="search_bar clearfix">
 		<a href="index.html" class="logo fl"><img src="../static/images/logo.png" width="150" height="59"></a>
-		<a class="sub_page_name fl" onclick="alert('购买成功')">|&nbsp;&nbsp;&nbsp;&nbsp;提交订单</a>
+
 		<!-- <div class="search_con fr">
 			<input type="text" class="input_text fl" name="" placeholder="搜索商品">
 			<input type="button" class="input_btn fr" name="" value="搜索">
@@ -66,7 +77,8 @@
 	</div>
 
 	<h3 class="common_title">商品列表</h3>
-	
+
+	<form method="post" name="hhh">
 	<div class="common_list_con clearfix">
 		<ul class="goods_list_th clearfix">
 			<li class="col01">商品名称</li>
@@ -78,7 +90,7 @@
 		{% for good in goodsList %}
 		<ul class="goods_list_td clearfix">
 			<li class="col01">{{ forloop.counter }}</li>
-			<li class="col02"><img src="{{ good.image.url }}"></li>
+			<li class="col02"><img src="{{ good.imag }}"></li>
 			<li class="col03">{{ good.name }}</li>
 			<li class="col05">{{ good.price }}元</li>
 			<li class="col06">{{ good.count }}</li>
@@ -98,9 +110,9 @@
 	</div>
 
 	<div class="order_submit clearfix">
-		<a href="javascript:;" id="order_btn" onclick="alert('订单提交成功')">提交订单</a>
-	</div>	
-
+			<a href="javascript:;" id="order_btn" onclick="alert('订单提交成功')">提交订单</a>
+	</div>
+	</form>>
 	<footer>
         <div class="footer">
             <div class="foot_link">
