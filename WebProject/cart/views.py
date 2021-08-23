@@ -16,6 +16,7 @@ class TempUser:
         self.img = img
         self.isLogin = isLogin
 
+
 def getLoginState(request):
     isLogin = False
     user_id = -1
@@ -60,28 +61,40 @@ def cart_view(request):
             dealRequest(user.id, 3, gid, 0)
         elif flag == 'delete':  # delete 逻辑
             dealRequest(user.id, 4, gid, 0)
-        elif flag == 'allSellect': # 全选 or 全不选
+        elif flag == 'allSellect':  # 全选 or 全不选
             dealRequest(user.id, 5, gid, isChosen)
         return JsonResponse({"res": 1})
+
+
+# Orderplace -> view
+def orderplace_view(request):
+    addr = []
+    goodsList = []
+    total_price = 0
+    user = getLoginState(request)
+    m = request.method
+    # GET请求， 加载页面
+    if m == 'GET':
+        goodsList = OrderPlaceRequest(user.id)
+        addr = GetAddr(user.id)
+        if len(goodsList) != 0:
+            total_price = goodsList[len(goodsList) - 1].tttprice
+        else:
+            total_price = 0
+    return render(request, 'place_order2.html', {'goodsList': goodsList, 'addr': addr, 'total_price': total_price, 'user': user})
+
 
 # Collect  ->  view
 def collect_view(request):
     user = getLoginState(request)
     m = request.method
     # GET请求， 加载页面
-    if m == 'GET':
-        a = OrderPlaceRequest(user.id)
     goodsList = []
+    if m == 'GET':
+        goodsList = OrderPlaceRequest(user.id)
 
     return render(request, 'place_order2.html', {'goodsList': goodsList, 'user': user})
 
-
-def orderplace_view(request):
-    goodsList = []
-    addr = []
-    total_price = 0
-    user = None
-    return render(request,'place_order2.html', {'goodsList': goodsList, 'addr': addr, 'total_price': total_price, 'user': user})
 
 def oder_view(request):
     goodsList = []

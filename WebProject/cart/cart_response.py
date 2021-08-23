@@ -43,8 +43,11 @@ def dealRequest(user_id, flag, gid, isChosen):
             print("商品取消选中")
         return []
     elif flag == 2:  # 增加
-        ori_num = cart_model.Cart.objects.filter(user_id=user_id, goods_id=gid)[0].goods_num
-        cart_model.Cart.objects.filter(user_id=user_id, goods_id=gid).update(goods_num=(ori_num+1))
+        max_num = goods_model.Goods.objects.filter(id=gid)[0].number
+        target_num = cart_model.Cart.objects.filter(user_id=user_id, goods_id=gid)[0].goods_num + 1
+        if target_num > max_num:
+            print("可选商品商量达到上限")
+        cart_model.Cart.objects.filter(user_id=user_id, goods_id=gid).update(goods_num=min(max_num, target_num))
         print("商品增加")
         return []
     elif flag == 3: # 减少
