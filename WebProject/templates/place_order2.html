@@ -57,7 +57,7 @@
         {% for i in addr %}
 		<dl>
 			<dt>寄送到：</dt>
-			<dd><input class="selectAd" type="radio" itad= "{{user.addr_id}}" itte = "{{ i.text }}" itna="{{it.name}}" ittl = "{{i.tel}}" iname="radioCheck" {% if i.id == user.addr_id %}checked{% endif %}>{{ i.text }} （{{ i.name }} 收） {{  i.tel }}</dd>
+			<dd><input class="selectAd" name="radiocheck" type="radio" itad= "{{i.id}}" itte = "{{ i.text }}" itna="{{it.name}}" ittl = "{{i.tel}}" iname="radioCheck" {% if i.id == user.addr_id %}checked{% endif %}>{{ i.text }} （{{ i.name }} 收） {{  i.tel }}</dd>
 		</dl>
 
         {% endfor %}

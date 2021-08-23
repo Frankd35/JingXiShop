@@ -104,7 +104,7 @@ def orderplace_view(request):
             data = request.body.decode("utf-8")
             json_data = json.loads(data)
             print(json_data)
-            addr_id = int(json_data.get('aid', -1))
+            addr_id = int(json_data.get('address', -1))
             setDefaultAddr(user.id, addr_id)
             return JsonResponse({"res": 1})
 

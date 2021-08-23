@@ -24,7 +24,7 @@ def OrderPlaceRequest(user_id):
     goodsList = []
     tempCartList = cart_model.Cart.objects.filter(user_id=user_id, is_chosen=1, goods_num__gt=0)
     for i in tempCartList:
-        tempGoods = goods_model.Goods.objects.filter(id=i.goods_id)[0]
+        tempGoods = goods_model.Goods.objects.filter(id=i.goods_id).first()
         tempName = tempGoods.name
         tempImg = tempGoods.img
         total_price += i.goods_price * i.goods_num
