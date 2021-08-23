@@ -5,6 +5,7 @@
 	<title>京西商场-提交订单</title>
 	<link rel="stylesheet" type="text/css" href="../static/css/reset.css">
 	<link rel="stylesheet" type="text/css" href="../static/css/main2.css">
+	<script src="../static/js/jquery.min.js"></script>
 	<script src="../static/js/order.js"></script>
 </head>
 <body>
@@ -78,7 +79,7 @@
 
 	<h3 class="common_title">商品列表</h3>
 
-	<form method="post" name="hhh">
+
 	<div class="common_list_con clearfix">
 		<ul class="goods_list_th clearfix">
 			<li class="col01">商品名称</li>
@@ -100,19 +101,20 @@
 	</div>
 
 	<h3 class="common_title">总金额结算</h3>
-
+	<form method="post" name="settleoder">
 	<div class="common_list_con clearfix" id="onee">
 		<div class="settle_con">
-			<div class="total_goods_count">共<em>{{ total_count }}</em>件商品，总金额<b>{{ total_price }}</b></div>
+			<div class="total_goods_count">共<em>{{ count }}</em>件商品，总金额<b>{{ total_price }}</b></div>
 			<div class="transit">运费：<b>{{ count }}×10元</b></div>
 			<div class="total_pay">实付款：<b>{{ realPay }}</b></div>
 		</div>
 	</div>
 
 	<div class="order_submit clearfix">
-			<a href="javascript:;" id="order_btn" onclick="alert('订单提交成功')">提交订单</a>
+			<a href="javascript:;" id="order_btn">提交订单了</a>
 	</div>
-	</form>>
+	</form>
+
 	<footer>
         <div class="footer">
             <div class="foot_link">

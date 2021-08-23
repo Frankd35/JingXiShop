@@ -6,6 +6,7 @@ from django.shortcuts import render
 
 from user.models import User
 from goods.models import Category, Comment
+from goods.models import Goods
 
 
 def index_view(request):
@@ -24,5 +25,8 @@ def index_template_view(request):
     except:
         user = None
     GoodsCategoryList = Category.objects.filter(state=1)[0:6]
+    hotgoodsList = Goods.objects.filter(id=1).order_by('searching_num')
 
-    return render(request, 'index_template.html', {'isLogin': isLogin, 'user': user,'GoodsCategoryList':GoodsCategoryList})
+    return render(request, 'index_template.html',
+                  {'isLogin': isLogin, 'user': user, 'GoodsCategoryList': GoodsCategoryList,
+                   'hotgoodsList': hotgoodsList})

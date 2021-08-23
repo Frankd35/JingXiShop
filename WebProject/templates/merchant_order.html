@@ -1,0 +1,212 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>商家界面</title>
+<link rel="stylesheet" type="text/css" href="statics/css/global.css" />
+<script type="text/javascript" src="statics/js/jquery3.js"></script>
+<link rel="stylesheet" type="text/css" href="../static/css/reset.css">
+<link rel="stylesheet" type="text/css" href="../static/css/main3.css">
+<link rel="stylesheet" type="text/css" href="../static/css/main2.css">
+<link rel="stylesheet" href="../static/css/normalize2.css" />
+<link rel="stylesheet" href="../static/css/base2.css" />
+<link rel="stylesheet" href="../static/css/cart2.css">
+<script src="../static/js/jquery.min.js"></script>
+<script src="../static/js/base.js"></script>
+<script src="../static/js/cart.js"></script>
+<style>
+    .welcome, .login_info, .login_btn, .user_link {
+        line-height: 29px;
+    }
+    .fl {
+        float: left;
+    }
+    div {
+        display: block;
+    }
+    body {
+        font-family: 'Microsoft Yahei';
+        font-size: 12px;
+        color: #666;
+    }
+</style>
+<!--前端传后端数据ajax-->
+<script>
+    $(".goods-list .plus").click(function() {
+        console.log("hhhh")
+        var itGid=$(this).attr('goodid');
+        var token = $('[name="csrfmiddlewaretoken"]').attr("value");
+        $.ajax({
+        url:"/cart",
+        type:"POST",
+        data:JSON.stringify({'gid':itGid,'flag':'plus'}),
+        dataType : "text"
+        })
+    });
+    $(".goods-list .mins").click(function() {
+        console.log("hhhh")
+        var itGid=$(this).attr('goodid');
+        $.ajax({
+        url:"/cart",
+        type:"POST",
+        data:JSON.stringify({'gid':{gid},'flag':'sub'}),
+        dataType : "text"
+        })
+    });
+    $(".good-checkbox").click(function() {
+        console.log("哈哈哈哈我被点了")
+        var itGid=$(this).attr('goodid');
+        var checkCon = this.checked;
+        $.ajax({
+        url:"/cart",
+        type:"POST",
+        data:JSON.stringify({'gid':iCount,'flag':'check','checked':checkCon}),
+        dataType : "text"
+        })
+    });
+    $(".del1 a").click(function() {
+        var itGid=$(this).attr('goodid');
+        $.ajax({
+        url:"/cart",
+        type:"POST",
+        data:JSON.stringify({'gid':itGid,'flag':'delete'}),
+        dataType : "text"
+        })
+    });
+</script>
+</head>
+<body style="background-color: rgb(253, 253, 253)">
+    <div class="header_con">
+		<div class="header">
+			<div class="welcome fl">欢迎来到京西商城!</div>
+			<div class="fr">
+				{% if isLogin %}
+				<div class="login_btn fl">
+					欢迎您：<em>{{ user.name }}</em>
+                    <span>|</span>
+					<a href="{logout}">退出</a>
+				</div>
+                {% else %}
+				<div class="login_btn fl">
+					<a href="{login}">登录</a>
+					<span>|</span>
+					<a href="{register}">注册</a>
+				</div>
+                {% endif %}
+				<div class="user_link fl">
+					<span>|</span>
+					<a href="user_center_info">用户中心</a>
+					<span>|</span>
+					<a href="cart">我的购物车</a>
+					<span>|</span>
+					<a href="user_center_order">我的订单</a>
+				</div>
+			</div>
+		</div>		
+	</div>
+
+	<div class="search_bar clearfix">
+		<a href="index" class="logo fl"><img src="../static/images/jx.png"></a>
+		<div class="sub_page_name fl">|&nbsp;&nbsp;&nbsp;&nbsp;商家中心</div>
+		<div class="search_con fr">
+			<input type="text" class="input_text fl" name="" placeholder="搜索商品">
+			<input type="button" class="input_btn fr" name="" value="搜索">
+		</div>		
+	</div>
+
+	<div class="main_con clearfix">
+		<div class="left_menu_con clearfix">
+			<h3>用户中心</h3>
+			<ul>
+				<li><a href="merchant2">· 店铺信息</a></li>
+				<li><a href="merchant_object">· 商品管理</a></li>
+				<li><a href="merchant_order" class="active">· 订单信息</a></li>
+			</ul>
+		</div>
+		<div class="right_content clearfix">
+				<div class="info_con clearfix">
+				<h3 class="common_title2">商品信息</h3>
+                <div class="cart-main">
+                    <div class="cart-th clearfix">
+                        <!-- <div><input id="allSellect" type="checkbox">全选</div> -->
+                        <div class="" >商品</div>
+                        <div class="" >单价（元）</div>
+                        <div class="" >数量</div>
+                        <div class="" >操作</div>
+                    </div>
+                    <div class="cart-title clearfix">
+                        <h5 class="fl">商家操作</h5>
+                        <div class="yunfei fr">
+                            京西提示：
+                            <span>薄利多销</span>
+                        </div>
+                    </div>
+                    <div class="cart-item-list">
+                        <div class="cart-body">
+                            <div class="cart-list">
+                                {% for good in goodsList %}
+                                <ul class="goods-list yui3-g">
+                                    <li class="yui3-u-3-8 pr">
+                                        <!-- <input type="checkbox" class="good-checkbox" goodid="{{good.gid}}"> -->
+                                        <div class="good-item">
+                                            <div class="item-img">
+                                                <img src="{{good.img}}" width="80" height="80">
+                                            </div>
+                                            <div class="item-msg">{{good.name}}</div>
+                                        </div>
+                                    </li>
+                                    <p class="unGid" style="visibility: hidden">{{ good.gid }}</p>
+                                    <li class="yui3-u-1-8">
+                                        <span></span>
+                                        <br>
+                                        <span></span>
+                                        <br>
+                                    </li>
+                                    <li class="yui3-u-1-8">
+                                        <span class="price">{{good.price}}</span>
+                                    </li>
+                                    <li class="yui3-u-1-8">
+                                        <div class="clearfix">
+                                            <a href="javascript:;" class="increment mins" goodid="{{good.gid}}">-</a>
+                                            <input autocomplete="off" type="text" goodid="{{good.gid}}" value="0" minnum="0" class="itxt">
+                                            <a href="javascript:;" class="increment plus" goodid="{{good.gid}}">+</a>
+                                        </div>
+                                        <div class="youhuo">有货</div>
+                                    </li>
+                                    <li class="yui3-u-1-8">
+                                        <span class="sum" id='sumPrice'>{{good.sum}}</span>
+                                    </li>
+                                    <li class="yui3-u-1-8">
+                                        <div class="del1">
+                                            <a href="javascript:;" goodid="{{good.gid}}">删除</a>
+                                        </div>
+                                        <!-- <div>移到我的关注</div> -->
+                                    </li>
+                                </ul>
+                                {% endfor %}
+                                
+                            </div>
+                        </div>
+                    </div>
+                </div>
+				</div>
+
+                
+
+
+    <div class="footer">
+		<div class="foot_link">
+			<a href="#">关于我们</a>
+			<span>|</span>
+			<a href="#">联系我们</a>
+			<span>|</span>
+			<a href="#">招聘人才</a>
+			<span>|</span>
+			<a href="#">友情链接</a>		
+		</div>
+		<p>CopyRight © 2016 北京天天生鲜信息技术有限公司 All Rights Reserved</p>
+		<p>电话：010-****888    京ICP备*******8号</p>
+	</div>
+    
+</body>
+</html>
