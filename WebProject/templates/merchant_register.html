@@ -23,7 +23,7 @@
 		<div class="r_con fr">
 			<div class="reg_title clearfix">
 				<h1>商家注册</h1>
-				<a href="login.html">登录</a>
+				<a href="login">登录</a>
 			</div>
 			<div class="reg_form_1 clearfix">
 				<form method="post">
@@ -63,9 +63,9 @@
                     alert("{{ errmsg}}");
                     window.location.href = "login";
                 </script>
-                {% elif success %}
+            {% elif success %}
                     <script type="text/javascript">
-                    alert("登陆成功！");
+                    alert("商家注册成功！");
                     window.location.href = "/usermng/index.html";
                 </script>
             {% endif %}

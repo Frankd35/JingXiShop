@@ -60,14 +60,14 @@ def reg_view(request):
             return render(request, 'register.html', {'errmsg': '您的用户名已经被注册，请重新注册'})
         # request.session['username'] = username
         # request.session['uid'] = user.id
-        return HttpResponseRedirect('/index')
+        return HttpResponseRedirect('/index_template')
 
 
 def login_view(request):
     if request.method == 'GET':
         # 获取登录页面
         if request.session.get('username') and request.session.get('uid'):
-            return HttpResponseRedirect('/index')
+            return HttpResponseRedirect('/index_template')
             # return HttpResponse('已登录')
         # 检查cookies
         c_username = request.COOKIES.get('username')
@@ -78,7 +78,7 @@ def login_view(request):
             request.session['username'] = c_username
             request.session['uid'] = c_uid
             checked = 'checked'
-            return HttpResponseRedirect('/index')
+            return HttpResponseRedirect('/index_template')
             # return HttpResponse('已登录')
 
         return render(request, 'login.html', {'username': c_username, 'checked': checked})
@@ -106,7 +106,7 @@ def login_view(request):
         request.session['username'] = username
         request.session['uid'] = user.id
         request.session['userimg'] = user.img
-        resp = HttpResponseRedirect('index')
+        resp = HttpResponseRedirect('/index_template')
         # 判断用户是否点选了 记住用户名
         # 点选了 --> Cookies 存储username uid 3天
         if 'remember' in request.POST:
@@ -124,7 +124,7 @@ def logout_view(request):
     if 'uid' in request.session:
         del request.session['uid']
     # 删除COOKIES
-    resp = HttpResponseRedirect('/index')
+    resp = HttpResponseRedirect('/index_template')
     if 'username' in request.COOKIES:
         resp.delete_cookie('username')
     if 'uid' in request.COOKIES:

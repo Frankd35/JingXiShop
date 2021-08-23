@@ -37,7 +37,7 @@
 	</div>
 
 	<div class="search_bar clearfix">
-		<a href="index.html" class="logo fl"><img src="../static/images/jx.png"></a>
+		<a href="index" class="logo fl"><img src="../static/images/jx.png"></a>
 		<div class="sub_page_name fl">|&nbsp;&nbsp;&nbsp;&nbsp;用户中心</div>
 		<div class="search_con fr">
 			<input type="text" class="input_text fl" name="" placeholder="搜索商品">
@@ -51,7 +51,7 @@
 			<ul>
 				<li><a href="user_center_info" class="active">· 个人信息</a></li>
 				<li><a href="user_center_site">· 收藏夹</a></li>
-				<li><a href="shopcar">· 购物车</a></li>
+				<li><a href="cart">· 购物车</a></li>
 				<li><a href="user_center_order">· 全部订单</a></li>
 				<li><a href="user_center_site">· 收货地址</a></li>
 				<li><a href="merchant_register">· 商家入驻</a></li>
@@ -63,8 +63,9 @@
 						<ul class="user_info_list">
 							<li><span>用户名：</span>{{ user.name }}</li>
                             <li><span>邮箱：</span>{{ user.email }}</li>
-							{% if address %}
-							<li><span>联系地址：</span>{{ user.address }}</li>
+							{% if addrlist %}
+							<li><span>联系方式：</span>{{ addrlist.phone}}</li>
+							<li><span>联系地址：</span>{{ addrlist.text}}</li>
 							{% endif %}
 							<li><span>创建时间：</span>{{user.createtime}}</li>
 							<li><span>是否商家：</span>{{user.is_merchant}}</li>
@@ -74,19 +75,19 @@
                 <h3 class="common_title2">最近浏览</h3>
 				<div class="has_view_list">
 					<ul class="goods_type_list clearfix">
-                   {% for goods in goods_li %}
-                   <li>
-					<a href="{% url 'goods:detail' goods.id %}"><img src="{{ goods.image.url }}"></a>
-					<h4><a href="{% url 'goods:detail' goods.id %}">{{ goods.name }}</a></h4>
-					<div class="operate">
-						<span class="prize">￥{{ goods.price }}</span>
-						<span class="unit">{{ goods.price }}/{{ goods.unite }}</span>
-						<a href="#" class="add_goods" title="加入购物车"></a>
-					</div>
-                   </li>
-                       {% empty %}
-                        无历史浏览记录
-                        {% endfor %}
+					{% for goods in goods_list %}
+						<li>
+							<a href="detail"><img src="{{ goods.image.url }}"></a>
+							<h4><a href="detail">{{ goods.name }}</a></h4>
+							<div class="operate">
+								<span class="prize">￥{{ goods.price }}</span>
+								<span class="unit">{{ goods.price }}/{{ goods.unite }}</span>
+								<a href="#" class="add_goods" title="加入购物车"></a>
+							</div>
+						</li>
+						{% empty %}
+						无历史浏览记录
+					{% endfor %}
 			    </ul>
 		    </div>
 		</div>

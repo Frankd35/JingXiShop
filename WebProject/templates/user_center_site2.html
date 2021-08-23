@@ -39,8 +39,21 @@
 		</div>		
 	</div>
 
+	<!--前端传后端数据ajax-->
+	<script>
+		$(".del1 a").click(function() {
+			var itGid=$(this).attr('addrid');
+			$.ajax({
+			url:"/user_center_site2",
+			type:"POST",
+			data:JSON.stringify({'gid':itGid,'flag':'delete'}),
+			dataType : "text"
+			})
+		});
+	</script>
+
 	<div class="search_bar clearfix">
-		<a href="index.html" class="logo fl"><img src="../static/images/jx.png"></a>
+		<a href="index" class="logo fl"><img src="../static/images/jx.png"></a>
 		<div class="sub_page_name fl">|&nbsp;&nbsp;&nbsp;&nbsp;用户中心</div>
 		<div class="search_con fr">
 			<input type="text" class="input_text fl" name="" placeholder="搜索商品">
@@ -65,23 +78,27 @@
 				<div class="site_con">
 					<dl>
 						<dt>当前地址：</dt>
-						{% if address %}
-						<dd>{{ address.text }} （{{ address.name }} 收） {{ address.tel }}</dd>
-                        <dd class="yui3-u-1-8">
-                            <div class="del1">
-                                <a href="javascript:;">删除</a> 
-                            </div>
-                            <!-- <div>移到我的关注</div> -->
-                        </dd>
-						<!-- <d><button id="btn" type="submit">删除</button></d> -->
+						{% for addr in addrlist %}
+						{% if addrlist%}
+						<form method="POST" name="select_addr">
+							<input type="radio" name="addr" value="addr"><dd>{{ addr.text }} （{{ addr.name }} 收） {{ addr.tel }}</dd><br>
+                        	<dd class="yui3-u-1-8">
+                            	<div class="del1">
+                                	<a href="javascript:;" addrid="{{addrid}}">删除</a> 
+                            	</div>
+                        	</dd>
+							<input type="submit" name="select_addr" value="选择地址"></input>
                         {% else %}
                         <dd>无默认地址</dd>
                         {% endif %}
+						{% endfor %}
+						</form>
+						
 					</dl>					
 				</div>
-				<h3 class="common_title2">编辑地址</h3>
+				<h3 class="common_title2">新建地址</h3>
 				<div class="site_con">
-					<form method="post">
+					<form method="post" name="New_address">
                         {% csrf_token %}
 						<div class="form_group">
 							<label>收件人：</label>
@@ -119,8 +136,8 @@
 			<span>|</span>
 			<a href="#">友情链接</a>		
 		</div>
-		<p>CopyRight © 2016 北京天天生鲜信息技术有限公司 All Rights Reserved</p>
-		<p>电话：010-****888    京ICP备*******8号</p>
+		<p>CopyRight © 2021 重庆京西商城 All Rights Reserved</p>
+		<p>电话：010-****888    渝ICP备*******8号</p>
 	</div>
 	
 </body>
