@@ -1,6 +1,6 @@
 import json
 
-from django.http import JsonResponse
+from django.http import JsonResponse, HttpResponseRedirect
 from django.shortcuts import render
 from user import models as user_model
 from django.shortcuts import render
@@ -23,6 +23,7 @@ def getLoginState(request):
     user_id = -1
     user_name = ""
     user_img = ""
+    user_addr_id = -1
     # 判断是否登录, 并从session获取登录状态
     if request.session.get('username') and request.session.get('uid'):
         isLogin = True
@@ -86,8 +87,17 @@ def orderplace_view(request):
             total_price = goodsList[len(goodsList) - 1].tttprice
         else:
             total_price = 0
-        realPay = total_price + (count*10)
-    return render(request, 'place_order2.html', {'goodsList': goodsList, 'addr': addr, 'total_price': total_price, 'user': user, 'count': count, 'realPay': realPay})
+        realPay = total_price + (count * 10)
+        return render(request, 'place_order2.html',
+                      {'goodsList': goodsList, 'addr': addr, 'total_price': total_price, 'user': user, 'count': count,
+                       'realPay': realPay})
+    else:
+        flag = request.POST.get('settleoder', '')
+        if flag == 'ok':
+            settleOrder(user.id, user.addr_id)
+            return HttpResponseRedirect('/cart')
+
+        return HttpResponse("发生了一些错误...")
 
 
 # Collect  ->  view
@@ -102,7 +112,7 @@ def collect_view(request):
     return render(request, 'place_order2.html', {'goodsList': goodsList, 'user': user})
 
 
-def oder_view(request):
+def orderlist_view(request):
     goodsList = []
     user = None
     return HttpResponse("这是订单页")
