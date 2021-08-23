@@ -24,21 +24,23 @@
             <!-- 登录状态下 -->
             {% if isLogin %}
                 <div class="login_zls fl">
-                    <div class="login_btn fl">
+                    <div class="login_btn1 fl">
                         <!-- 传入用户头像 -->
-                        <a href="#"><img src={{ user.img }} alt="">&nbsp;&nbsp;</a>
+{#                        注意看这个图片的信息参数 需要把长宽调好 否则就会影响到下面的界面 #}
+                        {#                        <a href="#"><img src={{ user.img }} alt="">&nbsp;&nbsp;</a>#}
                     </div>
                     <div class="login_btn fl">
                         <!-- 传入用户姓名 -->
                         <p>欢迎您：<em>{{ user.name }}</em></p>
                     </div>
-                    <div class="login_btn fl">
-                        <span>|</span>
-                    </div>
-                    <div class="login_btn fl">
-                        <a href="logout">退出登录</a>
-                    </div>
                 </div>
+                <div class="login_btn fl">
+                    <span>|</span>
+                </div>
+                <div class="login_btn fl">
+                    <a href="logout">退出登录</a>
+                </div>
+
             {% else %}
                 <div class="login_zls fl">
                     <div class="login_btn fl">
@@ -74,7 +76,6 @@
 <div class="search_bar clearfix">
     <a href="index" class="logo fl"><img src="../static/images/jx.png"></a>
     <div class="search_con fl">
-
         <form action="demo.php" method="POST" name="name1">
             <input type="text" class="input_text fl" name="goods.type" placeholder="搜索商品">
             <!-- 搜索商品类型 -->
@@ -94,10 +95,11 @@
         <h1 class="fl">全部商品分类</h1>
         <ul class="navlist fl">
             <li><a href="index">首页</a></li>
+
             <!-- 商品类型 6个-->
             {% for GoodsCategory in GoodsCategoryList %}
                 <li class="interval">|</li>
-                {#                <li><a href="{% url 'list'  GoodsCategory.id %}">{{ GoodsCategory.name }}</a></li>#}
+{#                                <li><a href="{% url 'list'  GoodsCategory.id %}">{{ GoodsCategory.name }}</a></li>#}
                 <li><a href="#">{{ GoodsCategory.name }}</a></li>
             {% endfor %}
         </ul>
@@ -545,9 +547,9 @@
         <div class="slide fl">
             <ul class="slide_pics">
                 <!-- 轮播图 4张-->
-                {% for hotgoods in hotgoodsList %}
-                    <li><img src="{{ hotgoods.img }}" alt="幻灯片"></li>
-                {% endfor %}
+{#                {% for hotgoods in hotgoodsList %}#}
+{#                    <li><img src="{{ hotgoods.img }}" alt="幻灯片"></li>#}
+{#                {% endfor %}#}
             </ul>
             <div class="prev"></div>
             <div class="next"></div>
@@ -555,9 +557,9 @@
         </div>
         <div class="adv fl">
             <!-- 热点图 两张 -->
-            {% for hotgoods in hotgoodsList %}
-                <a href="#"><img src="{{ hotgoods.img }}"></a>
-            {% endfor %}
+{#            {% for hotgoods in hotgoodsList %}#}
+{#                <a href="#"><img src="{{ hotgoods.img }}"></a>#}
+{#            {% endfor %}#}
         </div>
         <
     </ul>
