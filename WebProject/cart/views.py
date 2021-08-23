@@ -65,13 +65,19 @@ def cart_view(request):
 
 
 def collect_view(request):
-    return None
+    goodsList = []
+    user = None
+    return render(request, 'place_order2.html', {'goodsList': goodsList, 'user': user})
 
 
 def orderplace_view(request):
-
-    return HttpResponse("吼！这里是结算")
+    goodsList = []
+    addr = []
+    total_price = 0
+    user = None
+    return render(request,'place_order2.html', {'goodsList': goodsList, 'addr': addr, 'total_price': total_price, 'user': user})
 
 def oder_view(request):
-
-    return HttpResponse("吼！这里是订单")
+    goodsList = []
+    user = None
+    return HttpResponse("这是订单页")
