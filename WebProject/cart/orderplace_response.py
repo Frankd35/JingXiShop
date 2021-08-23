@@ -12,6 +12,7 @@ class tempOrderGoods:
         self.img = img
         self.tttprice = tttprice
 
+
 # class tempAddr:
 #     def __init__(self, ):
 
@@ -30,8 +31,15 @@ def OrderPlaceRequest(user_id):
 
     return goodsList
 
+
 def GetAddr(user_id):
     if user_id == -1:
         return []
     addr = user_model.Address.objects.filter(user_id=user_id)
     return addr
+
+
+def settleOrder(user_id, addr_id):
+    tempOrderList = []
+
+    return None
