@@ -21,5 +21,5 @@ def index_template_view(request):
     try:
         user = User.objects.get(id=usr_id)
     except:
-        user = none
+        user = None
     return render(request, 'index_template.html', {'isLogin': isLogin, 'user': user})
