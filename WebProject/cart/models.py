@@ -14,7 +14,7 @@ class Cart(models.Model):
     is_chosen = models.IntegerField(default=0)
 
     def __str__(self):
-        return u"User:%s's cart" % self.user_id
+        return u"User:%s's cart, goods_id: %d" % (self.user_id, self.goods_id)
 
 
 # 收藏夹
