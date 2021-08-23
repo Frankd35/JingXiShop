@@ -40,7 +40,7 @@
 				<div class="login_info fl">
 					欢迎来到京西商场!
 				</div>
-				{% if isLogin %}
+				{% if user %}
 				<div class="login_btn fl">
 					欢迎您：<em>{{ user.name }}</em>
                     <span>|</span>
@@ -59,7 +59,7 @@
 					<span>|</span>
 					<a href="/cart">我的购物车</a>
 					<span>|</span>
-					<a href="/order">我的订单</a>
+					<a href="/orderlist">我的订单</a>
 				</div>
 			</div>
 		</div>		

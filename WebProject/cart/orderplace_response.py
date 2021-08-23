@@ -4,12 +4,17 @@ from user import models as user_model
 
 
 class tempOrderGoods:
-    def __init__(self, name, price, num, tttprice=0):
+    def __init__(self, name, price, num, img, tttprice=0):
         self.name = name
         self.price = price
         self.num = num
         self.total_price = price * num
+        self.img = img
         self.tttprice = tttprice
+
+
+# class tempAddr:
+#     def __init__(self, ):
 
 
 def OrderPlaceRequest(user_id):
@@ -22,12 +27,19 @@ def OrderPlaceRequest(user_id):
         tempGoods = goods_model.Goods.objects.filter(id=i.goods_id)[0]
         tempName = tempGoods.name
         total_price += i.goods_price * i.goods_num
-        goodsList.append(tempOrderGoods(tempName, i.goods_price, i.goods_num, total_price))
+        goodsList.append(tempOrderGoods(tempName, i.goods_price, i.goods_num, i.goods_img, total_price))
 
     return goodsList
+
 
 def GetAddr(user_id):
     if user_id == -1:
         return []
     addr = user_model.Address.objects.filter(user_id=user_id)
     return addr
+
+
+def settleOrder(user_id, addr_id):
+    tempOrderList = []
+
+    return None
