@@ -151,16 +151,19 @@ def usr_site_view(request):
     # 若用户未登录
     if not isLogin:
         return HttpResponseRedirect('err_handling_page')  # not defined
-    # 若为地址修改请求，则处理修改请求
+    # 若为地址增加请求，则处理增加请求
     if request.method == 'POST':
         receiver = request.POST.get('receiver')
-        addr = request.POST.get('text')
+        addr = request.POST.get('addr')
         zip_code = request.POST.get('zip_code')
         phone = request.POST.get('phone')
+        # 检验数据合法性
         # 数据缺失
-        if not all([receiver, addr, zip_code,phone]):
-            # 未实现的报错接口
-            return render(request, 'usr_site_view.html', {'errmsg': '您填写的数据不全'})
+        if not all([receiver, addr, zip_code, phone]):
+            return render(request, 'user_center_site2.html', {'errmsg': '您填写的数据不全'})
+        # 电话号码格式错误
+        if not re.match(r'^1[3|4|5|7|8|9][0-9]{9}$', phone):
+            return render(request, "user_center_site.html", {"error_msg": "手机号格式不正确"})
         try:
             Address(user_id=usr_id, name=receiver, text=addr, zipcode=zip_code, tel=phone).save()
         except Exception as e:
@@ -174,10 +177,25 @@ def usr_site_view(request):
 
 
 def merchant_register_view(request):
+    # 获取cookies里的当前登录用户id
+    usr_id = int(request.session.get('uid', -1))
+    isLogin = usr_id != -1
+    # 若用户未登录
+    if not isLogin:
+        return HttpResponseRedirect('err_handling_page')  # not defined
     # 访问商家注册页
     if request.method == 'GET':
-        # 若已经是商家 给出提示
-        return render(request, 'merchant_register.html')
+        # 检测商家状态
+        state = User.objects.get(id=usr_id).is_merchant
+        if state == 0:  # 未注册
+            return render(request, 'merchant_register.html')
+        elif state == 1:    # 待审核
+            return render(request, 'merchant_register.html', {'errmsg': "待管理员审核通过"})
+        elif state == 2:    # 若已经是商家
+            # 给出提示
+            return HttpResponseRedirect('merchant')
+        else:
+            render(request, 'merchant_register.html', {'errmsg': "状态错误，请联系管理员"})
     # 提交注册请求
     elif request.method == 'POST':
         # 获取当前登录用户uid
@@ -185,9 +203,6 @@ def merchant_register_view(request):
         # 若 usr_id不存在或为默认值，则应该报错
         if not usr_id:
             return HttpResponseRedirect('err_handling_page')  # not defined
-        # 若已经是商家则直接进入商家界面
-        elif User.objects.get(id=usr_id).is_merchant:
-            return HttpResponseRedirect('merchant')
         # 从 form 表单获取数据
         shop_name = request.POST.get('shop_name')
         text = request.POST.get('text')
@@ -199,6 +214,16 @@ def merchant_register_view(request):
         # 必须勾选用户协议
         if allow != 'on':
             return render(request, 'merchant_register.html', {'errmsg': '请您先勾选同意协议'})
+        try:
+            Shop(user_id=usr_id, name=shop_name, text=text, create_money=int(create_money),
+                 access_times=0, mark=0,total_income=0).save()
+            User.objects.filter(id=usr_id).update(is_merchant=1)   # 设置商家申请状态，提交给管理员审核
+        except Exception as e:
+            print(e)
+            # 提交申请失败
+            return render(request, 'merchant_register.html', {'errmsg': e})
+        return HttpResponseRedirect('merchant_register')
 
-        Shop(user_id=usr_id, name=shop_name, text=text, create_money=int(create_money), access_times=0).save()
-        return render(request, 'merchant_register.html')
+
+def merchant_view(request):
+    return render(request,"merchant2.html")
