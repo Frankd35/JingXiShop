@@ -135,4 +135,8 @@ $(function() {
         $(this).closest('.goods-list').remove();
         me_sum();
     });
+    $(".sumbtn a").click(function (){
+        console.log("我被点了")
+        window.location.replace("/order")
+    })
 });
