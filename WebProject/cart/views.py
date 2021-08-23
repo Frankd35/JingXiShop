@@ -7,6 +7,7 @@ from django.shortcuts import render
 from .cart_response import *
 from .collect_response import *
 from .orderplace_response import *
+from .orderlist_response import *
 
 
 class TempUser:
@@ -122,6 +123,7 @@ def collect_view(request):
 
 
 def orderlist_view(request):
-    orderList = []
-    user = None
-    return render(request,'orderlist.html',{'orderList':orderList, 'user':user})
+    user = getLoginState(request)
+    orderList = getOrderList(user.id)
+
+    return render(request,'orderlist2.html',{'orderList':orderList, 'user':user})

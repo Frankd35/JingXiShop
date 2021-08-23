@@ -40,7 +40,7 @@
 				<div class="login_info fl">
 					欢迎来到京西商场!
 				</div>
-				{% if user %}
+				{% if user.isLogin %}
 				<div class="login_btn fl">
 					欢迎您：<em>{{ user.name }}</em>
                     <span>|</span>

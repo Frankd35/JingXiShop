@@ -11,21 +11,26 @@
 		<div class="header">
 			<div class="welcome fl">欢迎来到京西商城!</div>
 			<div class="fr">
-				<div class="login_info fl">
-					欢迎您：<em>张 山</em>
+				{% if user.isLogin %}
+				<div class="login_btn fl">
+					欢迎您：<em>{{ user.name }}</em>
+                    <span>|</span>
+					<a href="logout">退出</a>
 				</div>
+                {% else %}
 				<div class="login_btn fl">
 					<a href="login">登录</a>
 					<span>|</span>
 					<a href="register">注册</a>
 				</div>
+                {% endif %}
 				<div class="user_link fl">
 					<span>|</span>
 					<a href="user_center_info">用户中心</a>
 					<span>|</span>
-					<a href="shopcar">我的购物车</a>
+					<a href="cart">我的购物车</a>
 					<span>|</span>
-					<a href="user_center_order">我的订单</a>
+					<a href="orderlist">我的订单</a>
 				</div>
 			</div>
 		</div>
@@ -54,11 +59,11 @@
 		</div>
 		<div class="right_content clearfix">
 				<h3 class="common_title2">全部订单</h3>
-				{% for good in goodsList %}
+				{% for good in orderList %}
 				<ul class="order_list_th w978 clearfix">
 					<li class="col01">{{good.time}}</li>
-					<li class="col02">订单号：{{good.order_num}}</li>
-					<li class="col02 stress">运输中</li>
+					<li class="col02">订单号：{{good.order_id}}</li>
+					<li class="col02 stress">{{ good.state }}</li>
 				</ul>
 
 				<table class="order_list_table w980">
@@ -72,8 +77,8 @@
 									<li class="col04">{{good.total_price}}元</li>
 								</ul>
 							</td>
-<!--							货物的地址-->
-							<td width="30%">{{good.url}}</td>
+{#<!--							货物的地址-->#}
+							<td width="30%">{{good.addr}} {{ good.per_name }}收</td>
 						</tr>
 					</tbody>
 				</table>

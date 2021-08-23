@@ -74,9 +74,10 @@ def dealRequest(user_id, flag, gid, isChosen):
         tempShopName = '哈哈哈店铺'
         tempName = tempGoods.name
         tempImg = tempGoods.img
+        tempPrice = tempGoods.price
         if i.is_chosen != 0:
             total_price += i.goods_price * i.goods_num
-        hhh = ShowGoods(i.goods_id, tempName, tempImg, i.goods_num, i.goods_price, tempShopName, total_price)
+        hhh = ShowGoods(i.goods_id, tempName, tempImg, i.goods_num, tempPrice, tempShopName, total_price)
         goodsList.append(hhh)
         print("name:%s,img:%s,num:%d,price:%f,shopName:%s" % (hhh.name, hhh.img, hhh.num, hhh.price, hhh.shopName))
 
