@@ -2,7 +2,7 @@ import json
 
 from django.http import JsonResponse
 from django.shortcuts import render
-
+from user import models as user_model
 from django.shortcuts import render
 from .cart_response import *
 from .collect_response import *
@@ -10,11 +10,12 @@ from .orderplace_response import *
 
 
 class TempUser:
-    def __init__(self, id, name, img, isLogin):
+    def __init__(self, id, name, img, isLogin, addr_id):
         self.id = id
         self.name = name
         self.img = img
         self.isLogin = isLogin
+        self.addr_id = addr_id
 
 
 def getLoginState(request):
@@ -28,7 +29,8 @@ def getLoginState(request):
         user_name = request.session.get('username')
         user_id = request.session.get('uid')
         user_img = request.session.get('userimg')
-    return TempUser(user_id, user_name, user_img, isLogin)
+        user_addr_id = user_model.User.objects.filter(id=user_id)[0].addr_id
+    return TempUser(user_id, user_name, user_img, isLogin, user_addr_id)
 
 
 # Cart  ->  view
@@ -72,16 +74,20 @@ def orderplace_view(request):
     goodsList = []
     total_price = 0
     user = getLoginState(request)
+    count = 0
+    realPay = 0
     m = request.method
     # GET请求， 加载页面
     if m == 'GET':
         goodsList = OrderPlaceRequest(user.id)
+        count = len(goodsList)
         addr = GetAddr(user.id)
         if len(goodsList) != 0:
             total_price = goodsList[len(goodsList) - 1].tttprice
         else:
             total_price = 0
-    return render(request, 'place_order2.html', {'goodsList': goodsList, 'addr': addr, 'total_price': total_price, 'user': user})
+        realPay = total_price + (count*10)
+    return render(request, 'place_order2.html', {'goodsList': goodsList, 'addr': addr, 'total_price': total_price, 'user': user, 'count': count, 'realPay': realPay})
 
 
 # Collect  ->  view

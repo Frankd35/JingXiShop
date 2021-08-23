@@ -11,6 +11,7 @@ class User(models.Model):
     createtime = models.DateField(auto_now=True)
     updatetime = models.DateField(auto_now_add=True)
     is_merchant = models.IntegerField(default=0)
+    addr_id = models.IntegerField(default=-1, blank=True)
 
     def __str__(self):
         return u"User:%s's name" % self.name

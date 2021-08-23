@@ -54,14 +54,16 @@
 	<h3 class="common_title">确认收货地址</h3>
 
 	<div class="common_list_con clearfix">
+    <a href="user_center_site" class="edit_site">编辑收货地址</a>
+        {% for i in addr %}
 		<dl>
 			<dt>寄送到：</dt>
-			<dd><input type="radio" name="" checked="">北京市 海淀区 东北旺西路8号中关村软件园 （李思 收） 182****7528</dd>
+			<dd><input type="radio" name="radioCheck" {% if i.id == user.addr_id %}checked{% endif %}>{{ i.text }} （{{ i.name }} 收） {{  i.tel }}</dd>
 		</dl>
-		<a href="user_center_site.html" class="edit_site">编辑收货地址</a>
 
+        {% endfor %}
 	</div>
-	
+
 	<h3 class="common_title">支付方式</h3>	
 	<div class="common_list_con clearfix">
 		<div class="pay_style_con clearfix">
@@ -90,11 +92,11 @@
 		{% for good in goodsList %}
 		<ul class="goods_list_td clearfix">
 			<li class="col01">{{ forloop.counter }}</li>
-			<li class="col02"><img src="{{ good.imag }}"></li>
+			<li class="col02"><img src="{{ good.img }}"></li>
 			<li class="col03">{{ good.name }}</li>
 			<li class="col05">{{ good.price }}元</li>
-			<li class="col06">{{ good.count }}</li>
-			<li class="col07">{{ good.amount }}元</li>
+			<li class="col06">{{ good.num }}</li>
+			<li class="col07">{{ good.total_price }}元</li>
 		</ul>
 		{% endfor %}	
 	</div>
@@ -104,8 +106,8 @@
 	<div class="common_list_con clearfix" id="onee">
 		<div class="settle_con">
 			<div class="total_goods_count">共<em>{{ total_count }}</em>件商品，总金额<b>{{ total_price }}</b></div>
-			<div class="transit">运费：<b>10元</b></div>
-			<div class="total_pay">实付款：<b>{{ total_pay }}+10</b></div>
+			<div class="transit">运费：<b>{{ count }}×10元</b></div>
+			<div class="total_pay">实付款：<b>{{ realPay }}</b></div>
 		</div>
 	</div>
 
