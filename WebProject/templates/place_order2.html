@@ -57,12 +57,32 @@
         {% for i in addr %}
 		<dl>
 			<dt>寄送到：</dt>
-			<dd><input type="radio" name="radioCheck" {% if i.id == user.addr_id %}checked{% endif %}>{{ i.text }} （{{ i.name }} 收） {{  i.tel }}</dd>
+			<dd><input class="selectAd" type="radio" itad= "{{user.addr_id}}" itte = "{{ i.text }}" itna="{{it.name}}" ittl = "{{i.tel}}" iname="radioCheck" {% if i.id == user.addr_id %}checked{% endif %}>{{ i.text }} （{{ i.name }} 收） {{  i.tel }}</dd>
 		</dl>
 
         {% endfor %}
 	</div>
 
+<!--	收货地址的ajax传输-->
+	<script>
+		 $(function() {
+     	 $(".selectAd").click(function() {
+         	console.log("hhhh")
+            var itAdd=$(this).attr('itad');
+            var itTee=$(this).attr('itte');
+            var itNaa=$(this).attr('itna');
+            var itTll=$(this).attr('ittl');
+        	var token = $('[name="csrfmiddlewaretoken"]').attr("value");
+        	$.ajax({
+        	url:"/order",
+        	type:"POST",
+        	data:JSON.stringify({'address':itAdd,'text':itTee, 'name':itNaa,'telephone':itTll,"csrfmiddlewaretoken": token}),
+        	dataType : "text"
+        	})
+         });
+
+         });
+	</script>
 	<h3 class="common_title">支付方式</h3>	
 	<div class="common_list_con clearfix">
 		<div class="pay_style_con clearfix">
@@ -101,7 +121,9 @@
 	</div>
 
 	<h3 class="common_title">总金额结算</h3>
-	<form method="post" name="settleoder">
+	<form method="post" action="/order">
+        {% csrf_token %}
+        <input name="settleorder" style="visibility: hidden" value="ok">
 	<div class="common_list_con clearfix" id="onee">
 		<div class="settle_con">
 			<div class="total_goods_count">共<em>{{ count }}</em>件商品，总金额<b>{{ total_price }}</b></div>
@@ -111,7 +133,7 @@
 	</div>
 
 	<div class="order_submit clearfix">
-			<a href="javascript:;" id="order_btn">提交订单了</a>
+			<input id="order_btn" type="submit" value="提交订单">
 	</div>
 	</form>
 
@@ -149,18 +171,9 @@
 
 	<script type="text/javascript" src="js/jquery-1.12.2.js"></script>
 	<script type="text/javascript">
-		$('#order_btn').click(function() {
-			localStorage.setItem('order_finish',2);
 
-			$('.popup_con').fadeIn('fast', function() {
-
-				setTimeout(function(){
-					$('.popup_con').fadeOut('fast',function(){
-						window.location.href = 'index.html';
-					});	
-				},3000)
-				
-			});
+        $('#order_btn').click(function() {
+            console.log("提交")
 		});
 	</script>
 </body>
