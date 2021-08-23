@@ -78,7 +78,7 @@
 				<div class="site_con">
 					<dl>
 						<dt>当前地址：</dt>
-						<form method="POST" name="select_addr">
+						<form method="POST" name="new_addr">
 						{% for addr in addrlist %}
 						{% if addrlist%}
 							<input type="radio" name="addr" value="addr"><dd>{{ addr.text }} （{{ addr.name }} 收） {{ addr.tel }}</dd><br>
@@ -98,7 +98,7 @@
 				</div>
 				<h3 class="common_title2">新建地址</h3>
 				<div class="site_con">
-					<form method="post" name="New_address">
+					<form method="post" name="add_addr">
                         {% csrf_token %}
 						<div class="form_group">
 							<label>收件人：</label>
