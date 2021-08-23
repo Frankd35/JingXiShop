@@ -90,11 +90,11 @@
 		{% for good in goodsList %}
 		<ul class="goods_list_td clearfix">
 			<li class="col01">{{ forloop.counter }}</li>
-			<li class="col02"><img src="{{ good.imag }}"></li>
+			<li class="col02"><img src="{{good.img}}"></li>
 			<li class="col03">{{ good.name }}</li>
 			<li class="col05">{{ good.price }}元</li>
-			<li class="col06">{{ good.count }}</li>
-			<li class="col07">{{ good.amount }}元</li>
+			<li class="col06">{{ good.num }}</li>
+			<li class="col07">{{ good.total_price }}元</li>
 		</ul>
 		{% endfor %}	
 	</div>
@@ -103,9 +103,9 @@
 
 	<div class="common_list_con clearfix" id="onee">
 		<div class="settle_con">
-			<div class="total_goods_count">共<em>{{ total_count }}</em>件商品，总金额<b>{{ total_price }}</b></div>
+			<div class="total_goods_count">总金额<b>{{ total_price }}</b></div>
 			<div class="transit">运费：<b>10元</b></div>
-			<div class="total_pay">实付款：<b>{{ total_pay }}+10</b></div>
+			<div class="total_pay">实付款：<b>{{ total_price}}+10</b></div>
 		</div>
 	</div>
 

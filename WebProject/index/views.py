@@ -5,6 +5,7 @@ from django.shortcuts import render
 # from sympy.codegen.ast import none
 
 from user.models import User
+from goods.models import Category, Comment
 
 
 def index_view(request):
@@ -21,5 +22,7 @@ def index_template_view(request):
     try:
         user = User.objects.get(id=usr_id)
     except:
-        user = none
-    return render(request, 'index_template.html', {'isLogin': isLogin, 'user': user})
+        user = None
+    GoodsCategoryList = Category.objects.filter(state=1)[0:6]
+
+    return render(request, 'index_template.html', {'isLogin': isLogin, 'user': user,'GoodsCategoryList':GoodsCategoryList})
