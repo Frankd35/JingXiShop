@@ -23,7 +23,7 @@ from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 
 urlpatterns = [
     # 设置初始跳转
-    path(r'',lambda req: HttpResponseRedirect('/index')),
+    path(r'', lambda req: HttpResponseRedirect('/index')),
     path('admin/', admin.site.urls),
     # cart 模块路由转发
     path('order', c_views.oder_view),
@@ -32,6 +32,7 @@ urlpatterns = [
     path('orderplace', c_views.orderplace_view),
     # index 模块路由转发
     path('index', in_views.index_view),
+    path('index_template', in_views.index_template_view),
     # user 模块路由转发
     path('register', usr_views.reg_view, name='register'),
     path('login', usr_views.login_view),

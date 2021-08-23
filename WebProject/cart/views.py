@@ -16,26 +16,27 @@ class TempUser:
         self.img = img
         self.isLogin = isLogin
 
-
-# Create your views here.
-def cart_view(request):
+def getLoginState(request):
     isLogin = False
     user_id = -1
     user_name = ""
     user_img = ""
-    gid = 0
     # 判断是否登录, 并从session获取登录状态
     if request.session.get('username') and request.session.get('uid'):
         isLogin = True
         user_name = request.session.get('username')
         user_id = request.session.get('uid')
         user_img = request.session.get('userimg')
-    user = TempUser(user_id, user_name, user_img, isLogin)
+    return TempUser(user_id, user_name, user_img, isLogin)
 
+
+# Cart  ->  view
+def cart_view(request):
+    user = getLoginState(request)
     m = request.method
     # GET请求， 加载页面
     if m == 'GET':
-        goodsList = dealRequest(user_id, 0, gid, 0)
+        goodsList = dealRequest(user.id, 0, 0, 0)
         if len(goodsList) != 0:
             total_price = goodsList[len(goodsList) - 1].tttprice
         else:
@@ -52,26 +53,37 @@ def cart_view(request):
         goodsList = []
         total_price = 0
         if flag == 'check':  # check逻辑
-            dealRequest(user_id, 1, gid, isChosen)
+            dealRequest(user.id, 1, gid, isChosen)
         elif flag == 'plus':  # add 逻辑
-            dealRequest(user_id, 2, gid, 0)
+            dealRequest(user.id, 2, gid, 0)
         elif flag == 'sub':  # sub 逻辑
-            dealRequest(user_id, 3, gid, 0)
+            dealRequest(user.id, 3, gid, 0)
         elif flag == 'delete':  # delete 逻辑
-            dealRequest(user_id, 4, gid, 0)
+            dealRequest(user.id, 4, gid, 0)
         elif flag == 'allSellect': # 全选 or 全不选
-            dealRequest(user_id, 5, gid, isChosen)
+            dealRequest(user.id, 5, gid, isChosen)
         return JsonResponse({"res": 1})
 
-
+# Collect  ->  view
 def collect_view(request):
-    return None
+    user = getLoginState(request)
+    m = request.method
+    # GET请求， 加载页面
+    if m == 'GET':
+        a = OrderPlaceRequest(user.id)
+    goodsList = []
+
+    return render(request, 'place_order2.html', {'goodsList': goodsList, 'user': user})
 
 
 def orderplace_view(request):
-
-    return HttpResponse("吼！这里是结算")
+    goodsList = []
+    addr = []
+    total_price = 0
+    user = None
+    return render(request,'place_order2.html', {'goodsList': goodsList, 'addr': addr, 'total_price': total_price, 'user': user})
 
 def oder_view(request):
-
-    return HttpResponse("吼！这里是订单")
+    goodsList = []
+    user = None
+    return HttpResponse("这是订单页")
