@@ -54,9 +54,10 @@
 		</div>
 		<div class="right_content clearfix">
 				<h3 class="common_title2">全部订单</h3>
+				{% for good in goodsList %}
 				<ul class="order_list_th w978 clearfix">
-					<li class="col01">2016-8-21 17:36:24</li>
-					<li class="col02">订单号：56872934</li>
+					<li class="col01">{{good.time}}</li>
+					<li class="col02">订单号：{{good.order_num}}</li>
 					<li class="col02 stress">运输中</li>
 				</ul>
 
@@ -65,60 +66,18 @@
 						<tr>
 							<td width="55%">
 								<ul class="order_goods_list clearfix">
-									<li class="col01"><img src="../static/images/goods02.jpg"></li>
-									<li class="col02">嘎啦苹果嘎啦苹果<em>11.80元/500g</em></li>
-									<li class="col03">1</li>
-									<li class="col04">11.80元</li>
+									<li class="col01"><img src="{{good.img}}"></li>
+									<li class="col02">{{good.name}}<em>{{good.price}}</em></li>
+									<li class="col03">{{good.num}}</li>
+									<li class="col04">{{good.total_price}}元</li>
 								</ul>
 							</td>
-							<td width="30%">地址</td>
+<!--							货物的地址-->
+							<td width="30%">{{good.url}}</td>
 						</tr>
 					</tbody>
 				</table>
-				<ul class="order_list_th w978 clearfix">
-					<li class="col01">2016-8-21 17:36:24</li>
-					<li class="col02">订单号：56872934</li>
-					<li class="col02 stress">运输中</li>
-				</ul>
-
-				<table class="order_list_table w980">
-					<tbody>
-						<tr>
-							<td width="55%">
-								<ul class="order_goods_list clearfix">
-									<li class="col01"><img src="../static/images/goods02.jpg"></li>
-									<li class="col02">嘎啦苹果嘎啦苹果<em>11.80元/500g</em></li>
-									<li class="col03">1</li>
-									<li class="col04">11.80元</li>
-								</ul>
-							</td>
-							<td width="30%">地址</td>
-						</tr>
-					</tbody>
-				</table>
-
-                <ul class="order_list_th w978 clearfix">
-					<li class="col01">2016-8-21 17:36:24</li>
-					<li class="col02">订单号：56872934</li>
-					<li class="col02 stress">运输中</li>
-				</ul>
-
-				<table class="order_list_table w980">
-					<tbody>
-						<tr>
-							<td width="55%">
-								<ul class="order_goods_list clearfix">
-									<li class="col01"><img src="../static/images/goods02.jpg"></li>
-									<li class="col02">嘎啦苹果嘎啦苹果<em>11.80元/500g</em></li>
-									<li class="col03">1</li>
-									<li class="col04">11.80元</li>
-								</ul>
-							</td>
-							<td width="30%">地址</td>
-						</tr>
-					</tbody>
-				</table>
-
+				{% endfor %}
 				<div class="pagenation">
 					<a href="#">&lt;上一页</a>
 					<a href="#" class="active">1</a>
