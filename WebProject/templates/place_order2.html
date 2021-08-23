@@ -57,12 +57,32 @@
         {% for i in addr %}
 		<dl>
 			<dt>寄送到：</dt>
-			<dd><input type="radio" name="radioCheck" {% if i.id == user.addr_id %}checked{% endif %}>{{ i.text }} （{{ i.name }} 收） {{  i.tel }}</dd>
+			<dd><input class="selectAd" type="radio" itad= "{{user.addr_id}}" itte = "{{ i.text }}" itna="{{it.name}}" ittl = "{{i.tel}}" iname="radioCheck" {% if i.id == user.addr_id %}checked{% endif %}>{{ i.text }} （{{ i.name }} 收） {{  i.tel }}</dd>
 		</dl>
 
         {% endfor %}
 	</div>
 
+<!--	收货地址的ajax传输-->
+	<script>
+		 $(function() {
+     	 $(".selectAd").click(function() {
+         	console.log("hhhh")
+            var itAdd=$(this).attr('itad');
+            var itTee=$(this).attr('itte');
+            var itNaa=$(this).attr('itna');
+            var itTll=$(this).attr('ittl');
+        	var token = $('[name="csrfmiddlewaretoken"]').attr("value");
+        	$.ajax({
+        	url:"/order",
+        	type:"POST",
+        	data:JSON.stringify({'address':itAdd,'text':itTee, 'name':itNaa,'telephone':itTll,"csrfmiddlewaretoken": token}),
+        	dataType : "text"
+        	})
+         });
+
+         });
+	</script>
 	<h3 class="common_title">支付方式</h3>	
 	<div class="common_list_con clearfix">
 		<div class="pay_style_con clearfix">
