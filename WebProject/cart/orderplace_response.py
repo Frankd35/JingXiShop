@@ -40,6 +40,17 @@ def GetAddr(user_id):
 
 
 def settleOrder(user_id, addr_id):
-    tempOrderList = []
+    tempAddr = user_model.Address.objects.filter(id=addr_id).first()
+    tempOrderList = cart_model.Cart.objects.filter(user_id=user_id, is_chosen=1, goods_num__gt=0)
+    for i in tempOrderList:
+        tempPrice = i.goods_price * i.goods_num
+        # cart_model.Order.objects.create(user_id=user_id, goods_id=i.goods_id, goods_num=i.goods_num, total_price=tempPrice, addr=tempAddr.text, pay_state=1, delivery_state="未发货")
+        # cart_model.Cart.objects.filter(user_id=user_id, goods_id=i.goods_id).delete()
+        print("哈哈哈settle成功: 商品%s" % i.goods_id)
+
+    return None
+
+
+def setDefaultAddr(user_id, addr_id):
 
     return None
