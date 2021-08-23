@@ -2,7 +2,7 @@ from django.http import HttpResponseRedirect
 from django.shortcuts import render
 
 # Create your views here.
-from sympy.codegen.ast import none
+# from sympy.codegen.ast import none
 
 from user.models import User
 

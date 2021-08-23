@@ -170,10 +170,11 @@ def usr_site_view(request):
             print(e)
     user = User.objects.get(id=usr_id)
     try:
-        address = Address.objects.filter(user_id=usr_id).first()
+        addrlist = Address.objects.filter(user_id=usr_id)
     except Exception as e:
-        address = None
-    return render(request, 'user_center_site2.html', {'user': user, 'address': address, 'isLogin': isLogin})
+        print(e)
+        addrlist = None
+    return render(request, 'user_center_site2.html', {'user': user, 'addrlist': addrlist, 'isLogin': isLogin})
 
 
 def merchant_register_view(request):
