@@ -98,7 +98,7 @@ def orderplace_view(request):
         if flag == 'ok':
             print("结算，提交订单")
             settleOrder(user.id, user.addr_id)
-            return HttpResponseRedirect('/admin/cart/order/')
+            return HttpResponseRedirect('/cart')
         else:
             print("更改默认地址")
             data = request.body.decode("utf-8")
@@ -122,6 +122,6 @@ def collect_view(request):
 
 
 def orderlist_view(request):
-    goodsList = []
+    orderList = []
     user = None
-    return HttpResponse("这是订单页")
+    return render(request,'orderlist.html',{'orderList':orderList, 'user':user})
