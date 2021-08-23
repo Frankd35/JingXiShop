@@ -78,20 +78,20 @@
 				<div class="site_con">
 					<dl>
 						<dt>当前地址：</dt>
+						<form method="POST" name="select_addr">
 						{% for addr in addrlist %}
 						{% if addrlist%}
-						<form method="POST" name="select_addr">
 							<input type="radio" name="addr" value="addr"><dd>{{ addr.text }} （{{ addr.name }} 收） {{ addr.tel }}</dd><br>
                         	<dd class="yui3-u-1-8">
                             	<div class="del1">
                                 	<a href="javascript:;" addrid="{{addrid}}">删除</a> 
                             	</div>
                         	</dd>
-							<input type="submit" name="select_addr" value="选择地址"></input>
                         {% else %}
                         <dd>无默认地址</dd>
                         {% endif %}
 						{% endfor %}
+							<input type="submit" name="select_addr" value="选择地址"></input>
 						</form>
 						
 					</dl>					
