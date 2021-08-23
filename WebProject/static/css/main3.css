@@ -476,7 +476,7 @@ html,body{height:100%}
 }
 
 ul.order_goods_list.clearfix {
-    margin-left:-80px;
+/*    margin-left:-80px;*/
 	display: flex;
     justify-content: space-around;
 }
