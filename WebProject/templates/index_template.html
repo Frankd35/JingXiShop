@@ -26,7 +26,7 @@
                 <div class="login_zls fl">
                     <div class="login_btn1 fl">
                         <!-- 传入用户头像 -->
-                        {#                        注意看这个图片的信息参数 需要把长宽调好 否则就会影响到下面的界面 #}
+{#                        注意看这个图片的信息参数 需要把长宽调好 否则就会影响到下面的界面 #}
                         {#                        <a href="#"><img src={{ user.img }} alt="">&nbsp;&nbsp;</a>#}
                     </div>
                     <div class="login_btn fl">
@@ -61,26 +61,26 @@
             {% endif %}
             <div class="user_link fl">
                 <span>|</span>
-                <a href="user_center_info">用户中心</a>
+                <a href="user_center_info2">用户中心</a>
                 <span>|</span>
                 <a href="cart">我的购物车</a>
                 <span>|</span>
                 <a href="user_center_order">我的订单</a>
                 <span>|</span>
-                <a href="cart">收藏夹</a>
+                <a href="collect2">收藏夹</a>
             </div>
         </div>
     </div>
 </div>
 
 <div class="search_bar clearfix">
-    <a href="index" class="logo fl"><img src="../static/images/jx.png"></a>
+    <a href="index_template" class="logo fl"><img src="../static/images/jx.png"></a>
     <div class="search_con fl">
-        <!-- 搜索功能 -->
-        <!--        //搜索框输入商品类型，进去该商品类型列表，向后端传用户输入商品类型名称-->
-        <input type="text" class="input_text fl" name="goods.type" placeholder="搜索商品">
-        <!-- 搜索商品类型 -->
-        <a href="detail1.html" id="search1"><input type="submit" class="input_btn fr" value="搜索"></a>
+       <!-- 搜索功能 -->
+<!--        //搜索框输入商品类型，进去该商品类型列表，向后端传用户输入商品类型名称-->
+	<input type="text" class="input_text fl" name="goods.type" placeholder="搜索商品">
+	<!-- 搜索商品类型 -->
+         <a href="list_template" id="search1"><input type="submit" class="input_btn fr" value="搜索"></a>
     </div>
     <div class="guest_cart fr">
         <!-- 如果为登录状态，获取该用户购物车商品数量,否则为0 -->
@@ -99,9 +99,9 @@
             <!-- 商品类型 6个-->
             {% for GoodsCategory in GoodsCategoryList %}
                 <li class="interval">|</li>
-                <!--                                    点击商品类型，进入该商品类型商品列表，向后端传商品类型id-->
-                {#                                <li><a href="{% url 'list'  GoodsCategory.id %}">{{ GoodsCategory.name }}</a></li>#}
-                <li><a href="#">{{ GoodsCategory.name }}</a></li>
+<!--                                    点击商品类型，进入该商品类型商品列表，向后端传商品类型id-->
+{#                             <li><a href="list_template">{{ GoodsCategory.name }}</a></li>#}
+
             {% endfor %}
         </ul>
     </div>
@@ -114,7 +114,7 @@
             <li><a href="#model0{{ forloop.counter }}">{{ GoodsCategory.name }} &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&gt;</a>
             </li>
         {% endfor %}
-    </ul>
+        </ul>
         <div class="content">
             <div>
                 <div class="channel">
@@ -549,9 +549,9 @@
         <div class="slide fl">
             <ul class="slide_pics">
                 <!-- 轮播图 4张-->
-                {% for slide in slideList %}
-                    <li><img src="{{ slide.img }}" alt="幻灯片"></li>
-                {% endfor %}
+{#                {% for hotgoods in hotgoodsList %}#}
+{#                    <li><img src="../static/images/sid1.png" alt="幻灯片"></li>#}
+{#                {% endfor %}#}
             </ul>
             <div class="prev"></div>
             <div class="next"></div>
@@ -559,11 +559,13 @@
         </div>
         <div class="adv fl">
             <!-- 热点图 两张 -->
-            {% for hotgoods in hotgoodsList %}
-                <!--            //点击热点商品图片，进入该商品详情页，向后端传商品id-->
-                <a href="#"><img src="{{ hotgoods.img }}"></a>
-            {% endfor %}
+{#            {% for hotgoods in hotgoodsList %}#}
+<!--            //点击热点商品图片，进入该商品详情页，向后端传商品id-->
+{#                <a href="detail_template"><img src="{{ hotgoods.img }}"></a>#}
+{#            {% endfor %}#}
         </div>
+
+
 </div>
 <!-- 商品类型展示 -->
 {% for GoodsCategory in GoodsCategoryList %}
@@ -575,24 +577,24 @@
                 <span>|</span>
                 <!-- 实例链接 -->
                 {#                {% for kind in GoodsCategory.kands %}#}
-                {#                    <a href="{% url 'goods:detail' kand.goods_id %}">kind.name</a>#}
+                {#                    <a href="detail_template">kind.name</a>#}
                 {#                {% endfor %}#}
             </div>
-            <!--            // 点击更多，进入该商品类型商品列表，向后端传该商品类型id-->
-            {#            <a href="{% url 'GoodsCategory:list'  GoodsCategory.id %}" class="goods_more fr" id="fruit_more">查看更多 ></a>#}
+<!--            // 点击更多，进入该商品类型商品列表，向后端传该商品类型id-->
+            {#            <a href="list_template" class="goods_more fr" id="fruit_more">查看更多 ></a>#}
         </div>
 
         <div class="goods_con clearfix">
-            <!--            //点击商品类型图片，进入该商品类型商品列表，向后端传该商品类型id-->
+<!--            //点击商品类型图片，进入该商品类型商品列表，向后端传该商品类型id-->
             {#            <div class="goods_banner fl"><a href="{% url 'list'  GoodsCategory.id %}"><img#}
             {#                    src="{{ GoodsCategory.img.url }}"></a></div>#}
             <ul class="goods_list fl">
                 <!-- 展示这一类型的商品 4个 -->
                 {#                {% for goods in GoodsCategory.kands %}#}
-                <!--                // 点击商品图片，进入该商品详情页，向后端传该商品id-->
+<!--                // 点击商品图片，进入该商品详情页，向后端传该商品id-->
                 {#                    <li>#}
-                {#                        <h4><a href="{% url 'detail' goods.goods_id %}">{{ goods.name }}</a></h4>#}
-                {#                        <a href="{% url 'detail' goods.goods_id %}"><img src={{ goods.img.url }}></a>#}
+                {#                        <h4><a href="detail_template">{{ goods.name }}</a></h4>#}
+                {#                        <a href="detail_template"><img src={{ goods.img.url }}></a>#}
                 {#                        <div class="prize">¥{{ goods.price }}</div>#}
                 {#                    </li>#}
                 {#                {% endfor %}#}
@@ -614,76 +616,77 @@
     <p>CopyRight © 2021 重庆大学-CQU-University</p>
     <p>电话：010-****888 渝ICP备*******8号</p>
 </div>
-<script type="text/javascript">
-    // 点击商品类型，进入该商品类型商品列表，向后端传商品类型id
-    $(".list_zls a").click(function () {
-        var itgid = $(this).attr('GoodsCategory.id ');
-        $.ajax({
-            url: "/goods",
-            type: "POST",
-            data: JOSN.stringify({'gid': itGid}),
-            dataType: "text"
-        })
-    })
-    //点击热点商品图片，进入该商品详情页，向后端传商品id
-    $(".adv a").click(function () {
-        var itgid = $(this).attr('hotgod.gooos_id');
-        $.ajax({
-            url: "/goods",
-            type: "POST",
-            data: JOSN.stringify({'gid': itGid}),
-            dataType: "text"
-        })
-    })
-    //搜索框输入商品类型，进去该商品类型列表，向后端传用户输入商品类型名称
-    $(".input_btn").click(function () {
-        var type = $(".input_text").val();
-        // 判断用户输入是否为空
-        if (type == '' || type == null) {
-            var aobj = document.getElementById("search1");
-            aobj.href = "index.html";
-            alert('未输入商品名称！')
-
-        } else {
-            $.ajax({
-                url: "/goods",
-                type: "POST",
-                data: JOSN.stringify({'gname': type}),
-                dataType: "text"
-            })
-        }
-
-    })
-    // 点击更多，进入该商品类型商品列表，向后端传该商品类型id
-    $(".goods_more a").click(function () {
-        var itgid = $(this).attr('GoodsCategory.id ');
-        $.ajax({
-            url: "/goods",
-            type: "POST",
-            data: JOSN.stringify({'gid': itGid}),
-            dataType: "text"
-        })
-    })
-    //点击商品类型图片，进入该商品类型商品列表，向后端传该商品类型id
-    $(".goods_banner a").click(function () {
-        var itgid = $(this).attr('GoodsCategory.id ');
-        $.ajax({
-            url: "/goods",
-            type: "POST",
-            data: JOSN.stringify({'gid': itGid}),
-            dataType: "text"
-        })
-    })
-    // 点击商品图片，进入该商品详情页，向后端传该商品id
-    $(".goods_list a").click(function () {
-        var itgid = $(this).attr('goods.goods_id');
-        $.ajax({
-            url: "/goods",
-            type: "POST",
-            data: JOSN.stringify({'gid': itGid}),
-            dataType: "text"
-        })
-    })
-</script>
+            <script type="text/javascript">
+		// 点击商品类型，进入该商品类型商品列表，向后端传商品类型id
+		$(".list_zls a").click(function() {
+			var itgid=$(this).attr('GoodsCategory.id ');
+			$.ajax({
+				url:"/goods",
+				type:"POST",
+				data:JOSN.stringify ({'gid':itGid}),
+				dataType:"text"
+			})
+		})
+		//点击热点商品图片，进入该商品详情页，向后端传商品id
+		$(".adv a").click(function(){
+			var itgid=$(this).attr('hotgod.gooos_id');
+			$.ajax({
+				url:"/goods",
+				type:"POST",
+				data:JOSN.stringify ({'gid':itGid}),
+				dataType:"text"
+			})
+		})
+		//搜索框输入商品类型，进去该商品类型列表，向后端传用户输入商品类型名称
+		$(".input_btn").click(function() {
+			var type=$(".input_text").val();
+			// 判断用户输入是否为空
+			if(type == ''|| type==null  ) {
+				var aobj = document.getElementById("search1");
+				aobj.href="";
+				alert('未输入商品名称！')
+				
+			}	
+			else{
+				$.ajax({
+					url:"/goods",
+					type:"POST",
+					data:JOSN.stringify({'gname':type}),
+					dataType:"text"
+				})
+			}
+			
+		})
+		// 点击更多，进入该商品类型商品列表，向后端传该商品类型id
+		$(".goods_more a").click(function(){
+			var itgid=$(this).attr('GoodsCategory.id ');
+			$.ajax({
+				url:"/goods",
+				type:"POST",
+				data:JOSN.stringify ({'gid':itGid}),
+				dataType:"text"
+			})
+		})
+		//点击商品类型图片，进入该商品类型商品列表，向后端传该商品类型id
+		$(".goods_banner a").click(function(){
+			var itgid=$(this).attr('GoodsCategory.id ');
+			$.ajax({
+				url:"/goods",
+				type:"POST",
+				data:JOSN.stringify ({'gid':itGid}),
+				dataType:"text"
+			})
+		})
+		// 点击商品图片，进入该商品详情页，向后端传该商品id
+		$(".goods_list a").click(function(){
+			var itgid=$(this).attr('goods.goods_id');
+			$.ajax({
+				url:"/goods",
+				type:"POST",
+				data:JOSN.stringify ({'gid':itGid}),
+				dataType:"text"
+			})
+		})
+	</script>	
 </body>
 </html>
