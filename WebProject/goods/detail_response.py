@@ -32,26 +32,35 @@ def getCommentList(goods_id):
 
 
 def buyNow(uid, gid, num):
+    errMsg = ""
     cart_model.Cart.objects.all().update(is_chosen=0)
     tempGoods = goods_model.Goods.objects.filter(id=gid).first()
+    if num > tempGoods.number:
+        errMsg = "所选商品数量超过该商品库存，请刷新页面重新选择..."
+        return errMsg
     if cart_model.Cart.objects.filter(user_id=uid, goods_id=gid).count() > 0:
-        cart_model.Cart.objects.filter(user_id=uid, goods_id=gid).update(goods_num=num, is_chosen=1)
+        cart_model.Cart.objects.filter(user_id=uid, goods_id=gid).update(goods_num=min(num, tempGoods.number),
+                                                                         is_chosen=1)
     else:
         cart_model.Cart.objects.create(user_id=uid, shop_id=tempGoods.shop_id, goods_id=gid,
                                        goods_price=tempGoods.price,
                                        goods_num=num, goods_img=tempGoods.img, is_chosen=1)
-    return None
+    return errMsg
 
 
 def addCart(uid, gid, num):
+    errMsg = ""
     tempGoods = goods_model.Goods.objects.filter(id=gid).first()
+    if num > tempGoods.number:
+        errMsg = "所选商品数量超过该商品库存，请刷新页面重新选择..."
+        return errMsg
     if cart_model.Cart.objects.filter(user_id=uid, goods_id=gid).count() > 0:
         cart_model.Cart.objects.filter(user_id=uid, goods_id=gid).update(goods_num=num)
     else:
         cart_model.Cart.objects.create(user_id=uid, shop_id=tempGoods.shop_id, goods_id=gid,
                                        goods_price=tempGoods.price,
                                        goods_num=num, goods_img=tempGoods.img, is_chosen=0)
-    return None
+    return errMsg
 
 
 def addCollect(uid, gid):

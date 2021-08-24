@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from user import models as user_model
-from django.http import JsonResponse, HttpResponseRedirect
+from django.http import JsonResponse, HttpResponseRedirect, HttpResponse
 from .detail_response import *
 
 class TempUser:
@@ -45,11 +45,15 @@ def detail_view(request):
         print("POST method, gid=%d, num=%d" % (gid, num))
         if request.POST.getlist('buynow'):
             if (num >= 0) and (gid >= 0):
-                buyNow(user.id, gid, num)
+                errMsg = buyNow(user.id, gid, num)
+                if errMsg != "":
+                    return HttpResponse(errMsg)
             return HttpResponseRedirect('/order')
         elif request.POST.getlist('addcart'):
             if (num >= 0) and (gid >= 0):
-                addCart(user.id, gid, num)
+                errMsg = addCart(user.id, gid, num)
+                if errMsg != "":
+                    return HttpResponse(errMsg)
             return HttpResponseRedirect('/cart')
         elif request.POST.getlist('addcollect'):
             addCollect(user.id, gid)
