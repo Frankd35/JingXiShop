@@ -67,22 +67,24 @@
 					<dl>
 						<dt>当前地址：</dt>
 						<form method="POST" name="new_addr">
-						{% for addr in addrlist %}
 						{% if addrlist%}
-							<input type="checkbox"  name="addr" value="{{addr.user_id}}">{{ addr.text }} （{{ addr.name }} 收） {{ addr.tel }}
+						{% for addr in addrlist %}
+							<input type="checkbox"  name="addr" value="{{addr.id}}">{{ addr.text }} （{{ addr.name }} 收） {{ addr.tel }}
                         	<!-- <input type="submit" name="delete_addr" value="删除地址"><br> -->
 							
 							<dd class="yui3-u-1-8">
                             	<div class="del">
-                                	<a href="javascript:;" addrid="{{addr.user_id}}">删除</a> 
+                                	<a href="javascript:;" addrid="{{addr.id}}">删除</a> 
                             	</div>
                         	</dd>
+						{% endfor %}
+						<input type="submit" name="select_addr" value="选择地址"></form>
+						</form>
                         {% else %}
                         <dd>无默认地址</dd>
                         {% endif %}
-						{% endfor %}
-							<input type="submit" name="select_addr" value="选择地址"></form>
-						</form>
+						
+
 						
 					</dl>					
 				</div>
