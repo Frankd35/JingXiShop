@@ -117,11 +117,21 @@ def collect_view(request):
     # GET请求， 加载页面
     goodsList = []
     if m == 'GET':
-        goodsList = CollectRequest(user.id)
+        goodsList = collectRequest(user.id)
+        return render(request, "collect.html", {'goodsList': goodsList, 'user':user})
+    else:
+        print("删除收藏商品")
+        data = request.body.decode("utf-8")
+        json_data = json.loads(data)
+        print(json_data)
+        goods_id = int(json_data.get('goods_id', -1))
+        deleteCollect(user.id, goods_id)
+        return JsonResponse({"res": 1})
 
-    return HttpResponse("这是收藏")
 
 
+
+# Orderlist -> view
 def orderlist_view(request):
     user = getLoginState(request)
     orderList = getOrderList(user.id)
