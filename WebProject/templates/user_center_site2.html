@@ -78,7 +78,7 @@
 				<div class="site_con">
 					<dl>
 						<dt>当前地址：</dt>
-						<form method="POST" name="new_addr">
+						<form method="POST" name="select_addr">
 						{% for addr in addrlist %}
 						{% if addrlist%}
 							<input type="radio" name="addr" value="addr"><dd>{{ addr.text }} （{{ addr.name }} 收） {{ addr.tel }}</dd><br>
