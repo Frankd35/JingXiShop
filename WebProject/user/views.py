@@ -4,6 +4,8 @@ import re
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render
 
+import cart.orderlist_response
+from cart.models import Order
 from goods.models import Goods
 from .models import User, Address, Shop
 
@@ -311,9 +313,10 @@ def merchant_order_view(request):
         return render(request, 'merchant_register.html')
     # 获取数据
     user = User.objects.get(id=usr_id)
-    shop_id = Shop.objects.get(user_id=usr_id).id
+    shop = Shop.objects.get(user_id=usr_id)
     try:
-        goodsList = Goods.objects.filter(shop_id=shop_id)
+        orderList = cart.orderlist_response.getOrderList_shopvision(shop.id)
     except:
-        goodsList = None
-    return render(request, 'merchant_order.html', {'isLogin': isLogin, 'user': user, 'goodsList': goodsList})
+        orderList = None
+    return render(request, 'merchant_order.html',
+                  {'isLogin': isLogin, 'user': user, 'orderList': orderList, 'shop': shop})
