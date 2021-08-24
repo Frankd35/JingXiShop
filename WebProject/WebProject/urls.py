@@ -19,7 +19,7 @@ from cart import views as c_views
 from index import views as in_views
 from goods import views as goods_views
 from django.contrib import admin
-from django.urls import path
+from django.urls import path, re_path
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 
 urlpatterns = [
@@ -34,6 +34,7 @@ urlpatterns = [
     # index 模块路由转发
     path('index', in_views.index_view),
     path('index_template', in_views.index_template_view),
+    re_path('list_template/?keyword=.',in_views.search_list_view),
     # user 模块路由转发
     path('register', usr_views.reg_view, name='register'),
     path('login', usr_views.login_view),

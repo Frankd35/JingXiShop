@@ -47,3 +47,25 @@ def index_template_view(request):
                   {'isLogin': isLogin, 'user': user, 'GoodsCategoryList': GoodsCategoryList,
                    'hotgoodsList': hotgoodsList, 'slideList': slideList, 'GoodsList': GoodsList,
                    'bannerList': bannerList})
+
+
+def search_list_view(request):
+    # 获取cookies里的当前登录用户id
+    usr_id = int(request.session.get('uid', -1))
+    isLogin = usr_id != -1
+    try:
+        user = User.objects.get(id=usr_id)
+    except:
+        user = None
+    # kw = request.GET.get('keyword')
+    kw = '测试'
+    # sort_mod = request.GET.get('...')
+    sort_mod = 'hot'
+
+    goodsList = Goods.objects.filter(name__contains=kw)
+    if sort_mod == 'price':
+        goodsList = sorted(goodsList, key=lambda x: x.price)
+    elif sort_mod == 'hot':
+        goodsList = sorted(goodsList, key=lambda x: x.searching_num)
+
+    return render(request,"list_template.html",{'isLogin': isLogin, 'user': user, 'goodsList': goodsList})
