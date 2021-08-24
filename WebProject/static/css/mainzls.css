@@ -364,6 +364,7 @@ html,body{height:100%}
 .detail_tab li.active{border-top:0px solid red;position:relative;background-color:#fff;border-left:0px solid red;border-right:0px solid red;border-bottom:0px solid red;top:-1px;height:35px;background-color: skyblue;}
 .tab_content {
 	background-color: rgb(246, 249, 250);
+	height: 456px;
 }
 .tab_content dt{margin-top:10px;font-size:24px;color:red}
 .tab_content dd{text-indent:1.5em;line-height:20px;margin-top:5px;font-size:16px}
@@ -371,13 +372,16 @@ html,body{height:100%}
 	text-indent:0em;
 	/* line-height: 16px; */
 	font-size: 20px;
-	color:orange
 }
 .tab_content .num1 span {
 	display: inline-block;
 	height: 18px;
 	line-height: 16px;
+	color:rgb(43, 43, 43);
 	
+}
+.tab_content .num1 em {
+    color:red;
 }
 .tab_content .num1 img {
 	margin-top: 5px;
@@ -419,6 +423,28 @@ html,body{height:100%}
 .tab_content .num8 dt {
 	font-size: 20px;
 	color: black;
+}
+.sky1 {
+	font-size: 16px;
+	margin-top: 20px;
+	margin-bottom: 20px;
+}
+.sky1 em {
+	color:rgb(59, 53, 146);
+
+}
+.sky2 {
+	display: inline-block;
+	font-size:15px;
+	width: 240px;
+	height: 20px;
+}
+.sky3 {
+	line-height: 20px;
+	margin-top: 98px;
+}
+.love1 {
+	line-height:51px;
 }
 /* 登录页 */
 
