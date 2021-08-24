@@ -95,7 +95,7 @@ html,body{height:100%}
 
 .center_con{width:1200px;height:270px;margin:0 auto;}
 .subnav{width:198px;height:270px;border-left:1px solid #eee;border-right:1px solid #eee;}
-.subnav li{height:44px;border-bottom:0 solid #eee;
+.subnav li{height:44px;border-bottom:0 px solid #eee;
 	background-color: gray;}
 
 .subnav li a{display:inline-block;height:44px;line-height:44px;text-indent:71px;font-size:14px;color:#333}
@@ -150,7 +150,7 @@ html,body{height:100%}
 }
 .cate_detail {
 	padding: 10px 17px 0 20px;
-	overflow: hidden;
+	overflow: hidden; 699
 }
 .cate_detail dl {
 	display: block;
@@ -279,6 +279,12 @@ html,body{height:100%}
 /* 商品列表样式 */
 
 .sort_bar{height:30px;background-color:rgb(250, 238, 240)}
+/* .sort_bar a{display:block;height:30px;line-height:30px;padding:0 20px;float:left;color:#000}
+.sort_bar .active{color:orange;}
+
+.sort_bar a:hover {
+	background-color:skyblue;
+} */
 .sort_bar div{display:inline-block;height:30px;line-height:30px;padding:0 20px;float:left;color:#000}
 .sort_bar .active{color:orange;}
 
@@ -287,7 +293,7 @@ html,body{height:100%}
 }
 .goods_type_list{
 	width: 1100px;
-	height: 230px;
+	height: 230;
 	margin:10px auto 0;
 }
 
@@ -295,7 +301,7 @@ html,body{height:100%}
 	width:196px;
 	float:left;
 	
-	margin-bottom:10px;
+	margin-bottom:10px
 }
 
 .goods_type_list li img{width:160px;height:160px;display:block;margin:10px auto;}
