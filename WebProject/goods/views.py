@@ -35,6 +35,7 @@ def detail_view(request):
     if m == 'GET':
         goods_id = int(request.GET.get('gid', ''))
         print("得到gid了，gid=%d" % goods_id)
-        goods = getGoodsDetail(goods_id)
-
-        return render(request, 'detail_template.html', {'user': user, 'isLogin': user.isLogin})
+        good = getGoodsDetail(goods_id)
+        shop = getShopDetail(good.shop_id)
+        commentList = getCommentList(goods_id)
+        return render(request, 'detail_template.html', {'user': user, 'isLogin': user.isLogin, 'good': good, 'shop': shop, 'commentList': commentList})
