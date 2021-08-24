@@ -16,8 +16,9 @@ class ShowGoods:
         self.sum = price * num
         self.tttprice = tttprice
 
+
 class ListInt:
-    def __init__(self,goodsList,total_price):
+    def __init__(self, goodsList, total_price):
         self.goodsList = goodsList
         self.total_price = total_price
 
@@ -29,7 +30,7 @@ def dealRequest(user_id, flag, gid, isChosen):
     # 根据user_id获取用户信息
     tempList = cart_model.Cart.objects.filter(user_id=user_id)
     total_price = 0
-    print("flag="+str(flag))
+    print("flag=" + str(flag))
     if flag == 0:
         # 每次进入页面（GET 请求）重置is_chosen为0
         cart_model.Cart.objects.filter(user_id=user_id).update(is_chosen=0, goods_num=0)
@@ -50,17 +51,17 @@ def dealRequest(user_id, flag, gid, isChosen):
         cart_model.Cart.objects.filter(user_id=user_id, goods_id=gid).update(goods_num=min(max_num, target_num))
         print("商品增加")
         return []
-    elif flag == 3: # 减少
+    elif flag == 3:  # 减少
         ori_num = cart_model.Cart.objects.filter(user_id=user_id, goods_id=gid).first().goods_num
         if ori_num > 1:
             cart_model.Cart.objects.filter(user_id=user_id, goods_id=gid).update(goods_num=(ori_num - 1))
         print("商品减少")
         return []
-    elif flag == 4: # 删除
+    elif flag == 4:  # 删除
         cart_model.Cart.objects.filter(user_id=user_id, goods_id=gid).first().delete()
         print("商品删除")
         return []
-    elif flag == 5: # 全选 or 取消全选
+    elif flag == 5:  # 全选 or 取消全选
         if isChosen:
             cart_model.Cart.objects.filter(user_id=user_id).update(is_chosen=1)
             print("全选")
@@ -70,8 +71,10 @@ def dealRequest(user_id, flag, gid, isChosen):
         return []
     for i in tempList:
         tempGoods = goods_model.Goods.objects.filter(id=i.goods_id).first()
-        # 从数据库获取店铺信息
-        tempShopName = '哈哈哈店铺'
+        tempShop = user_model.User.objects.filter(id=i.shop_id).first()
+        tempShopName = ""
+        if tempShop:
+            tempShopName = tempShop.name
         tempName = tempGoods.name
         tempImg = tempGoods.img
         tempPrice = tempGoods.price
@@ -82,9 +85,3 @@ def dealRequest(user_id, flag, gid, isChosen):
         print("name:%s,img:%s,num:%d,price:%f,shopName:%s" % (hhh.name, hhh.img, hhh.num, hhh.price, hhh.shopName))
 
     return goodsList
-
-
-def deleteGoods(uid, gid):
-    # books=models.Book.objects.filter(pk=8).first().delete()
-
-    return None
