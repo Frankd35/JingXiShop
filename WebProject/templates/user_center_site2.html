@@ -65,7 +65,11 @@
 				<h3 class="common_title2">收货地址</h3>
 				<div class="site_con">
 					<dl>
-						<dt>当前地址：</dt>
+						{% if default_addr %}
+							<dt>默认地址：</dt>
+							<dd>{{ default_addr.text }} （{{ default_addr.name }} 收） {{default_addr.tel }}</dd>
+						{% endif %}
+						<dt>地址目录：</dt>
 						<form method="POST" name="new_addr">
 						{% if addrlist%}
 						{% for addr in addrlist %}
@@ -80,9 +84,6 @@
 						{% endfor %}
 						<input type="submit" name="select_addr" value="选择地址"></form>
 						</form>
-						{% elif default_addr %}
-							<dd>默认地址为：</dd>
-							<dd>{{ default_addr.text }} （{{ default_addr.name }} 收） {{default_addr.tel }}</dd>
                         {% else %}
                         	<dd>无默认地址</dd>
                         {% endif %}
