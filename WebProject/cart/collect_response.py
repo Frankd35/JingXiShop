@@ -22,7 +22,10 @@ def collectRequest(user_id):
     for i in tempCollectList:
         tempGoods = goods_model.Goods.objects.filter(id=i.goods_id).first()
         tempShop = user_model.Shop.objects.filter(id=tempGoods.shop_id).first()
-        tempCollectObj = TempCollect(tempGoods.name, tempGoods.id, tempGoods.img, tempGoods.price, tempShop.name)
+        tempShopName = "默认店铺"
+        if tempShop != None:
+            tempShopName = tempShop.name
+        tempCollectObj = TempCollect(tempGoods.name, tempGoods.id, tempGoods.img, tempGoods.price, tempShopName)
         goodsList.append(tempCollectObj)
         print("Shop name: %s, Goods name: %s" % (tempCollectObj.shopName, tempCollectObj.name))
 
