@@ -7,7 +7,7 @@
 	<link rel="stylesheet" type="text/css" href="../static/css/main3.css">
     <script src="../static/js/jquery.min.js"></script>
     <script src="../static/js/base.js"></script>
-    <script src="../static/js/cart.js"></script>
+    <script src="../static/js/user_site.js"></script>
 </head>
 <body>
 	<div class="header_con">
@@ -37,31 +37,7 @@
 				</div>
 			</div>
 		</div>		
-	</div>
-
-	<!--前端传后端数据ajax-->
-	<script>
-		$(".good-checkbox").click(function() {
-            // console.log("哈哈哈哈我被点了")
-            var itGid=$(this).attr('addr.id');
-            var checkCon = this.checked;
-            $.ajax({
-            url:"/user_center_site2",
-            type:"POST",
-            data:JSON.stringify({'gid':iCount,'flag':'check','checked':checkCon}),
-            dataType : "text"
-            })
-        });
-		$(".del1 a").click(function() {
-			var itGid=$(this).attr('addr.id');
-			$.ajax({
-			url:"/user_center_site2",
-			type:"POST",
-			data:JSON.stringify({'gid':itGid,'flag':'delete'}),
-			dataType:"text"
-			})
-		});
-	</script>
+	</div>	
 	
 
 	<div class="search_bar clearfix">
@@ -93,12 +69,12 @@
 						<form method="POST" name="new_addr">
 						{% for addr in addrlist %}
 						{% if addrlist%}
-							<input type="checkbox" class="good-checkbox" name="addr" value="{{ addr.text }} （{{ addr.name }} 收） {{ addr.tel }}">{{ addr.text }} （{{ addr.name }} 收） {{ addr.tel }}
+							<input type="checkbox"  name="addr" value="{{addr.user_id}}">{{ addr.text }} （{{ addr.name }} 收） {{ addr.tel }}
                         	<!-- <input type="submit" name="delete_addr" value="删除地址"><br> -->
 							
 							<dd class="yui3-u-1-8">
-                            	<div class="del1">
-                                	<a href="javascript:;" addr.id="{{addr.id}}">删除</a> 
+                            	<div class="del">
+                                	<a href="javascript:;" addrid="{{addr.user_id}}">删除</a> 
                             	</div>
                         	</dd>
                         {% else %}
