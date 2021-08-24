@@ -16,7 +16,7 @@
 		<div class="header">
 			<div class="welcome fl">欢迎来到京西商城!</div>
 			<div class="fr">
-				{% user %}
+{#				{% user %}#}
 			 {% if isLogin %}
                 <div class="login_zls fl">
                     <div class="login_btn1 fl">
@@ -62,7 +62,7 @@
 					<span>|</span>
 					<a href="user_center_order">我的订单</a>
 					<span>|</span>
-					<a href="collect2">收藏夹</a>
+					<a href="favorite">收藏夹</a>
 				</div>
 			</div>
 		</div>		
@@ -111,7 +111,7 @@
 			</ul>
 		</div>
         </div>
-        {% good %}
+{#        {% good %}#}
 	<div class="breadcrumb">
 		<a href="#">全部分类</a>
 		<span>></span>
@@ -196,7 +196,7 @@
 					</div>
 					<div class="sky1">品牌：<em>采缇（CAITI）</em></div>
 					<div>
-						{% goods %}}
+{#						{% goods %}}#}
 						<div class="sky2">商品名称：{{ goods.name }}</div>
 						<div class="sky2">商品编号：{{ goods.goods_id }}</div>
 						<div class="sky2">店铺：{{ goods.shop_id }}</div>
