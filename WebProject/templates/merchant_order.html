@@ -7,72 +7,21 @@
 <script type="text/javascript" src="statics/js/jquery3.js"></script>
 <link rel="stylesheet" type="text/css" href="../static/css/reset.css">
 <link rel="stylesheet" type="text/css" href="../static/css/main3.css">
-<link rel="stylesheet" type="text/css" href="../static/css/main2.css">
-<link rel="stylesheet" href="../static/css/normalize2.css" />
-<link rel="stylesheet" href="../static/css/base2.css" />
-<link rel="stylesheet" href="../static/css/cart2.css">
-<script src="../static/js/jquery.min.js"></script>
-<script src="../static/js/base.js"></script>
-<script src="../static/js/cart.js"></script>
-<style>
-    .welcome, .login_info, .login_btn, .user_link {
-        line-height: 29px;
-    }
-    .fl {
-        float: left;
-    }
-    div {
-        display: block;
-    }
-    body {
-        font-family: 'Microsoft Yahei';
-        font-size: 12px;
-        color: #666;
-    }
-</style>
-<!--前端传后端数据ajax-->
 <script>
-    $(".goods-list .plus").click(function() {
-        console.log("hhhh")
-        var itGid=$(this).attr('goodid');
+$(function() {
+    // 发送ajax POST 请求
+    $(".col03 a").click(function() {
+        console.log("加一")
+        var itGid=$(this).attr('good_operate');
         var token = $('[name="csrfmiddlewaretoken"]').attr("value");
         $.ajax({
-        url:"/cart",
+        url:"/user_center_site",
         type:"POST",
-        data:JSON.stringify({'gid':itGid,'flag':'plus'}),
+        data:JSON.stringify({'gid':itGid,"csrfmiddlewaretoken": token}),
         dataType : "text"
         })
     });
-    $(".goods-list .mins").click(function() {
-        console.log("hhhh")
-        var itGid=$(this).attr('goodid');
-        $.ajax({
-        url:"/cart",
-        type:"POST",
-        data:JSON.stringify({'gid':{gid},'flag':'sub'}),
-        dataType : "text"
-        })
-    });
-    $(".good-checkbox").click(function() {
-        console.log("哈哈哈哈我被点了")
-        var itGid=$(this).attr('goodid');
-        var checkCon = this.checked;
-        $.ajax({
-        url:"/cart",
-        type:"POST",
-        data:JSON.stringify({'gid':iCount,'flag':'check','checked':checkCon}),
-        dataType : "text"
-        })
-    });
-    $(".del1 a").click(function() {
-        var itGid=$(this).attr('goodid');
-        $.ajax({
-        url:"/cart",
-        type:"POST",
-        data:JSON.stringify({'gid':itGid,'flag':'delete'}),
-        dataType : "text"
-        })
-    });
+});
 </script>
 </head>
 <body style="background-color: rgb(253, 253, 253)">
@@ -82,7 +31,7 @@
 			<div class="fr">
 				{% if isLogin %}
 				<div class="login_btn fl">
-					欢迎您：<em>{{ user.name }}</em>
+					欢迎您：<em>{{ shop.name }}</em>
                     <span>|</span>
 					<a href="{logout}">退出</a>
 				</div>
@@ -123,78 +72,47 @@
 				<li><a href="merchant_order" class="active">· 订单信息</a></li>
 			</ul>
 		</div>
-		<div class="right_content clearfix">
-				<div class="info_con clearfix">
-				<h3 class="common_title2">商品信息</h3>
-                <div class="cart-main">
-                    <div class="cart-th clearfix">
-                        <!-- <div><input id="allSellect" type="checkbox">全选</div> -->
-                        <div class="" >商品</div>
-                        <div class="" >单价（元）</div>
-                        <div class="" >数量</div>
-                        <div class="" >操作</div>
-                    </div>
-                    <div class="cart-title clearfix">
-                        <h5 class="fl">商家操作</h5>
-                        <div class="yunfei fr">
-                            京西提示：
-                            <span>薄利多销</span>
-                        </div>
-                    </div>
-                    <div class="cart-item-list">
-                        <div class="cart-body">
-                            <div class="cart-list">
-                                {% for good in goodsList %}
-                                <ul class="goods-list yui3-g">
-                                    <li class="yui3-u-3-8 pr">
-                                        <!-- <input type="checkbox" class="good-checkbox" goodid="{{good.gid}}"> -->
-                                        <div class="good-item">
-                                            <div class="item-img">
-                                                <img src="{{good.img}}" width="80" height="80">
-                                            </div>
-                                            <div class="item-msg">{{good.name}}</div>
-                                        </div>
-                                    </li>
-                                    <p class="unGid" style="visibility: hidden">{{ good.gid }}</p>
-                                    <li class="yui3-u-1-8">
-                                        <span></span>
-                                        <br>
-                                        <span></span>
-                                        <br>
-                                    </li>
-                                    <li class="yui3-u-1-8">
-                                        <span class="price">{{good.price}}</span>
-                                    </li>
-                                    <li class="yui3-u-1-8">
-                                        <div class="clearfix">
-                                            <a href="javascript:;" class="increment mins" goodid="{{good.gid}}">-</a>
-                                            <input autocomplete="off" type="text" goodid="{{good.gid}}" value="0" minnum="0" class="itxt">
-                                            <a href="javascript:;" class="increment plus" goodid="{{good.gid}}">+</a>
-                                        </div>
-                                        <div class="youhuo">有货</div>
-                                    </li>
-                                    <li class="yui3-u-1-8">
-                                        <span class="sum" id='sumPrice'>{{good.sum}}</span>
-                                    </li>
-                                    <li class="yui3-u-1-8">
-                                        <div class="del1">
-                                            <a href="javascript:;" goodid="{{good.gid}}">删除</a>
-                                        </div>
-                                        <!-- <div>移到我的关注</div> -->
-                                    </li>
-                                </ul>
-                                {% endfor %}
-                                
-                            </div>
-                        </div>
-                    </div>
-                </div>
-				</div>
+	
+        <div class="right_content clearfix">
+            <h3 class="common_title2">全部订单</h3>
+            {% for good in orderList %}
+            <ul class="order_list_th w978 clearfix">
+                <li class="col01">{{good.time}}</li>
+                <li class="col02">订单号：{{good.order_id}}</li>
+                <li class="col02 stress">处理状态：{{ good.state }}</li>
+                <li class="col03"><a href="javascript:;" good_operate="{{good.order_id}}">商家处理</a></li>
+            </ul>
 
-                
+            <table class="order_list_table w980">
+                <tbody>
+                    <tr>
+                        <td width="55%">
+                            <ul class="order_goods_list clearfix">
+                                <li class="col01"><img src="{{good.img}}"></li>
+                                <li class="col02">{{good.name}}<em>{{good.price}}元</em></li>
+                                <li class="col03">{{good.num}}件</li>
+                                <li class="col04">{{good.total_price}}元</li>
+                            </ul>
+                        </td>
+{#<!--							货物的地址-->#}
+                        <td width="30%" class="addr_td">{{good.addr}} {{ good.per_name }}收</td>
+                    </tr>
+                </tbody>
+            </table>
+            {% endfor %}
+            <div class="pagenation">
+                <a href="#">&lt;上一页</a>
+                <a href="#" class="active">1</a>
+                <a href="#">2</a>
+                <a href="#">3</a>
+                <a href="#">4</a>
+                <a href="#">5</a>
+                <a href="#">下一页&gt;</a>
+            </div>
+    </div>
+</div>
 
-
-    <div class="footer">
+    <div class="footer no-mp">
 		<div class="foot_link">
 			<a href="#">关于我们</a>
 			<span>|</span>
@@ -204,8 +122,8 @@
 			<span>|</span>
 			<a href="#">友情链接</a>		
 		</div>
-		<p>CopyRight © 2016 北京天天生鲜信息技术有限公司 All Rights Reserved</p>
-		<p>电话：010-****888    京ICP备*******8号</p>
+		<p>CopyRight © 2021 重庆京西商城 All Rights Reserved</p>
+		<p>电话：999-****888    渝ICP备*******8号</p>
 	</div>
     
 </body>
