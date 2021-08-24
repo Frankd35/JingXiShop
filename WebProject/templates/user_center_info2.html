@@ -63,9 +63,9 @@
 						<ul class="user_info_list">
 							<li><span>用户名：</span>{{ user.name }}</li>
                             <li><span>邮箱：</span>{{ user.email }}</li>
-							{% if addrlist %}
-							<li><span>联系方式：</span>{{ addrlist.tel}}</li>
-							<li><span>联系地址：</span>{{ addrlist.text}}</li>
+							{% if default_addr %}
+							<li><span>联系方式：</span>{{ default_addr.tel}}</li>
+							<li><span>联系地址：</span>{{ default_addr.text}}</li>
 							{% endif %}
 							<li><span>创建时间：</span>{{user.createtime}}</li>
 							<li><span>是否商家：</span>{{user.is_merchant}}</li>

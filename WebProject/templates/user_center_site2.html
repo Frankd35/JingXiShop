@@ -65,15 +65,17 @@
 				<h3 class="common_title2">收货地址</h3>
 				<div class="site_con">
 					<dl>
+						<dt>默认地址：</dt>
 						{% if default_addr %}
-							<dt>默认地址：</dt>
 							<dd>{{ default_addr.text }} （{{ default_addr.name }} 收） {{default_addr.tel }}</dd>
+						{% else %}
+                        	<dd>无默认地址</dd>
 						{% endif %}
 						<dt>地址目录：</dt>
 						<form method="POST" name="select_addr">
 						{% if addrlist%}
 						{% for addr in addrlist %}
-							<input type="checkbox"  name="addr" value="{{addr.id}}">{{ addr.text }} （{{ addr.name }} 收） {{ addr.tel }}
+							<input type="checkbox" class="addr" name="addr" value="{{addr.id}}">{{ addr.text }} （{{ addr.name }} 收） {{ addr.tel }}
                         	<!-- <input type="submit" name="delete_addr" value="删除地址"><br> -->
 							
 							<dd class="yui3-u-1-8">
