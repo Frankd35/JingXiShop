@@ -28,6 +28,8 @@ a.logo.fl {
 	padding: 10px;
 	border: 1px solid #ddd;
 	background: #f5f5f5;
+    display: flex;
+    justify-content: space-between;
 }
 .cart-title h5 {
 	line-height: 20px;
@@ -605,7 +607,7 @@ ul.send-detail li {
 	margin-right: 15px;
 }
 
-.cart-th div:nth-of-type(2) {
+/*.cart-th div:nth-of-type(2) {
 	margin-left: 200px;
 	margin-right: 335px;
 }
@@ -617,7 +619,7 @@ ul.send-detail li {
 
 .cart-th div:nth-of-type(5) {
 	margin-right: 110px;
-}
+}*/
 
 .cart-title {
 	border-bottom: 1px solid #DDDDDD;
@@ -696,7 +698,7 @@ li.yui3-u-3-8.pr {
     /* float: left; */
     width: 300px;
     border: 2px solid;
-    padding: 20px;
+    padding: 0px;
     margin: 10px;
 }
 
