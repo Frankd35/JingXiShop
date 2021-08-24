@@ -38,7 +38,12 @@ def index_template_view(request):
     #     GoodsList = Goods.objects.filter(category_id__gte=category.id).order_by('category_id')
     #     tmp = [tmp, GoodsList]
     # tmp = chain(tmp)
+
+    # 商品
     GoodsList = Goods.objects.filter(category_id__gte=1, searching_num__lte=99999).order_by('category_id')
+    # 介绍
+    bannerList = Goods.objects.filter(category_id__gte=1, searching_num__gte=99999).order_by('category_id')
     return render(request, 'index_template.html',
                   {'isLogin': isLogin, 'user': user, 'GoodsCategoryList': GoodsCategoryList,
-                   'hotgoodsList': hotgoodsList, 'slideList': slideList, 'GoodsList': GoodsList})
+                   'hotgoodsList': hotgoodsList, 'slideList': slideList, 'GoodsList': GoodsList,
+                   'bannerList': bannerList})

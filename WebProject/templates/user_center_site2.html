@@ -80,11 +80,12 @@
 						{% endfor %}
 						<input type="submit" name="select_addr" value="选择地址"></form>
 						</form>
+						{% elif default_addr %}
+							<dd>默认地址为：</dd>
+							<dd>{{ default_addr.text }} （{{ default_addr.name }} 收） {{default_addr.tel }}</dd>
                         {% else %}
-                        <dd>无默认地址</dd>
+                        	<dd>无默认地址</dd>
                         {% endif %}
-						
-
 						
 					</dl>					
 				</div>
