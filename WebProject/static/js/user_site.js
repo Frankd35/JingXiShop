@@ -7,7 +7,7 @@ $(function() {
         $.ajax({
         url:"/user_center_site",
         type:"POST",
-        data:JSON.stringify({'gid':itGid,"csrfmiddlewaretoken": token}),
+        data:JSON.stringify({'id':itGid,"csrfmiddlewaretoken": token}),
         dataType : "text"
         })
     });

@@ -1,7 +1,10 @@
 import hashlib
+import json
 import re
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render
+
+from goods.models import Goods
 from .models import User, Address, Shop
 
 
@@ -100,7 +103,7 @@ def login_view(request):
         m.update(password.encode())
 
         if m.hexdigest() != user.pwd:
-            print("密码错误",m.hexdigest())
+            print("密码错误", m.hexdigest())
             return render(request, 'login.html', {'errmsg': '您的用户名和密码有错误'})
         # 记录会话状态
         request.session['username'] = username
@@ -151,8 +154,22 @@ def usr_site_view(request):
     # 若用户未登录
     if not isLogin:
         return HttpResponseRedirect('err_handling_page')  # not defined
-    # 若为地址增加请求，则处理增加请求
-    if request.method == 'POST':
+    # 获取数据
+    user = User.objects.get(id=usr_id)
+    try:
+        default_addr = Address.objects.get(id=user.addr_id)
+    except Exception as e:
+        print(e)
+        default_addr = None
+    try:
+        addrlist = Address.objects.filter(user_id=usr_id)
+    except Exception as e:
+        print(e)
+        addrlist = None
+    # 新增地址
+    if request.method == 'POST' and request.POST.getlist('add_addr'):
+        print(request.POST)
+        # 从 form 表单获取数据
         receiver = request.POST.get('receiver')
         addr = request.POST.get('addr')
         zip_code = request.POST.get('zip_code')
@@ -160,21 +177,44 @@ def usr_site_view(request):
         # 检验数据合法性
         # 数据缺失
         if not all([receiver, addr, zip_code, phone]):
-            return render(request, 'user_center_site2.html', {'errmsg': '您填写的数据不全'})
+            return render(request, 'user_center_site2.html', {'user': user, 'addrlist': addrlist, 'isLogin': isLogin,
+                                                              'default_addr': default_addr, 'errmsg': '您填写的数据不全'})
         # 电话号码格式错误
         if not re.match(r'^1[3|4|5|7|8|9][0-9]{9}$', phone):
-            return render(request, "user_center_site.html", {"error_msg": "手机号格式不正确"})
+            return render(request, 'user_center_site2.html', {'user': user, 'addrlist': addrlist, 'isLogin': isLogin,
+                                                              'default_addr': default_addr, "errmsg": "手机号格式不正确"})
         try:
             Address(user_id=usr_id, name=receiver, text=addr, zipcode=zip_code, tel=phone).save()
         except Exception as e:
             print(e)
-    user = User.objects.get(id=usr_id)
-    try:
-        addrlist = Address.objects.filter(user_id=usr_id)
-    except Exception as e:
-        print(e)
-        addrlist = None
-    return render(request, 'user_center_site2.html', {'user': user, 'addrlist': addrlist, 'isLogin': isLogin})
+        return HttpResponseRedirect('user_center_site')
+    # 设置默认地址
+    elif request.method == 'POST' and request.POST.getlist('select_addr'):
+        print(request.POST)
+        try:
+            addr_id = int(request.POST.get('addr'))
+            user.addr_id = addr_id
+            user.save()
+        except Exception as e:
+            print(e)
+            render(request, 'user_center_site2.html', {'user': user, 'addrlist': addrlist, 'isLogin': isLogin,
+                                                       'default_addr': default_addr, "errmsg": "设置默认地址失败"})
+        return HttpResponseRedirect('user_center_site')
+    # 删除地址
+    elif request.method == 'POST':
+        print(request.POST)
+        addr_id = int(json.loads(request.body.decode("utf-8")).get('id', -1))
+        try:
+            Address.objects.filter(id=addr_id).delete()
+        except Exception as e:
+            print(e)
+            return render(request, 'user_center_site2.html', {'user': user, 'addrlist': addrlist, 'isLogin': isLogin,
+                                                              'default_addr': default_addr, "errmsg": "删除失败"})
+        print('redirect')
+        return HttpResponseRedirect('user_center_site')
+    # GET 请求
+    return render(request, 'user_center_site2.html',
+                  {'default_addr': default_addr, 'user': user, 'addrlist': addrlist, 'isLogin': isLogin})
 
 
 def merchant_register_view(request):
@@ -190,13 +230,13 @@ def merchant_register_view(request):
         state = User.objects.get(id=usr_id).is_merchant
         if state == 0:  # 未注册
             return render(request, 'merchant_register.html')
-        elif state == 1:    # 待审核
-            return render(request, 'merchant_register.html', {'errmsg': "待管理员审核通过"})
-        elif state == 2:    # 若已经是商家
+        elif state == 1:  # 待审核
+            return render(request, 'merchant_register.html', {'errmsg': "is_merchant = 1\n待管理员审核通过"})
+        elif state == 2:  # 若已经是商家
             # 给出提示
             return HttpResponseRedirect('merchant')
         else:
-            render(request, 'merchant_register.html', {'errmsg': "状态错误，请联系管理员"})
+            render(request, 'merchant_register.html', {'errmsg': "is_merchant = {}\n状态错误，请联系管理员".format(state)})
     # 提交注册请求
     elif request.method == 'POST':
         # 获取当前登录用户uid
@@ -217,8 +257,8 @@ def merchant_register_view(request):
             return render(request, 'merchant_register.html', {'errmsg': '请您先勾选同意协议'})
         try:
             Shop(user_id=usr_id, name=shop_name, text=text, create_money=int(create_money),
-                 access_times=0, mark=0,total_income=0).save()
-            User.objects.filter(id=usr_id).update(is_merchant=1)   # 设置商家申请状态，提交给管理员审核
+                 access_times=0, mark=0, total_income=0).save()
+            User.objects.filter(id=usr_id).update(is_merchant=1)  # 设置商家申请状态，提交给管理员审核
         except Exception as e:
             print(e)
             # 提交申请失败
@@ -227,4 +267,53 @@ def merchant_register_view(request):
 
 
 def merchant_view(request):
-    return render(request,"merchant2.html")
+    # 获取cookies里的当前登录用户id
+    usr_id = int(request.session.get('uid', -1))
+    isLogin = usr_id != -1
+    # 若用户未登录
+    if not isLogin:
+        return HttpResponseRedirect('err_handling_page')  # not defined
+    # 检测是否商家
+    if User.objects.get(id=usr_id).is_merchant != 2:
+        return render(request, 'merchant_register.html')
+    # 获取数据
+    user = User.objects.get(id=usr_id)
+    shop = Shop.objects.get(user_id=usr_id)
+    return render(request, "merchant2.html", {'isLogin': isLogin, 'user': user, 'shop': shop})
+
+
+def merchant_object_view(request):
+    # 获取cookies里的当前登录用户id
+    usr_id = int(request.session.get('uid', -1))
+    isLogin = usr_id != -1
+    # 若用户未登录
+    if not isLogin:
+        return HttpResponseRedirect('err_handling_page')  # not defined
+    # 检测是否商家
+    if User.objects.get(id=usr_id).is_merchant != 2:
+        return render(request, 'merchant_register.html')
+    # 获取数据
+    user = User.objects.get(id=usr_id)
+    shop = Shop.objects.get(user_id=usr_id)
+
+    return render(request, 'merchant_object.html', {'isLogin': isLogin, 'user': user, 'shop': shop})
+
+
+def merchant_order_view(request):
+    # 获取cookies里的当前登录用户id
+    usr_id = int(request.session.get('uid', -1))
+    isLogin = usr_id != -1
+    # 若用户未登录
+    if not isLogin:
+        return HttpResponseRedirect('err_handling_page')  # not defined
+    # 检测是否商家
+    if User.objects.get(id=usr_id).is_merchant != 2:
+        return render(request, 'merchant_register.html')
+    # 获取数据
+    user = User.objects.get(id=usr_id)
+    shop_id = Shop.objects.get(user_id=usr_id).id
+    try:
+        goodsList = Goods.objects.filter(shop_id=shop_id)
+    except:
+        goodsList = None
+    return render(request, 'merchant_order.html', {'isLogin': isLogin, 'user': user, 'goodsList': goodsList})

@@ -49,6 +49,7 @@ def settleOrder(user_id, addr_id):
         tempPrice = tempGoods.price * i.goods_num + 10
         shopId = goods_model.Goods.objects.filter(id=i.goods_id).first().shop_id
         cart_model.Order.objects.create(user_id=user_id, shop_id=shopId, goods_id=i.goods_id, goods_num=i.goods_num, total_price=tempPrice, addr=tempAddr.text, pay_state=1, delivery_state="未发货", per_name=tempAddr.name)
+        goods_model.Goods.objects.filter(id=i.goods_id).update(number=max(0, (tempGoods.number-i.goods_num))) # 商品库存减少
         cart_model.Cart.objects.filter(user_id=user_id, goods_id=i.goods_id).delete()
         print("哈哈哈settle成功: 商品%s" % i.goods_id)
 
