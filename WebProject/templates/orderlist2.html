@@ -63,7 +63,7 @@
 				<ul class="order_list_th w978 clearfix">
 					<li class="col01">{{good.time}}</li>
 					<li class="col02">订单号：{{good.order_id}}</li>
-					<li class="col02 stress">{{ good.state }}</li>
+					<li class="col02 stress">运送状态：{{ good.state }}</li>
 				</ul>
 
 				<table class="order_list_table w980">
@@ -72,9 +72,8 @@
 							<td width="55%">
 								<ul class="order_goods_list clearfix">
 									<li class="col01"><img src="{{good.img}}"></li>
-									<li class="col02">{{good.name}}</li>
-									<li><em>{{good.price}}</em></li>
-									<li class="col03">{{good.num}}</li>
+									<li class="col02">{{good.name}}<em>{{good.price}}元</em></li>
+									<li class="col03">{{good.num}}件</li>
 									<li class="col04">{{good.total_price}}元</li>
 								</ul>
 							</td>
