@@ -34,8 +34,26 @@ def detail_view(request):
     # GET请求， 加载页面
     if m == 'GET':
         goods_id = int(request.GET.get('gid', ''))
-        print("得到gid了，gid=%d" % goods_id)
+        print("GET method ,gid=%d" % goods_id)
         good = getGoodsDetail(goods_id)
         shop = getShopDetail(good.shop_id)
         commentList = getCommentList(goods_id)
         return render(request, 'detail_template.html', {'user': user, 'isLogin': user.isLogin, 'good': good, 'shop': shop, 'commentList': commentList})
+    else:
+        num = int(request.POST.get('num', -1))
+        gid = int(request.POST.get('gid', -1))
+        print("POST method, gid=%d, num=%d" % (gid, num))
+        if request.POST.getlist('buynow'):
+            if (num >= 0) and (gid >= 0):
+                buyNow(user.id, gid, num)
+            return HttpResponseRedirect('/order')
+        elif request.POST.getlist('addcart'):
+            if (num >= 0) and (gid >= 0):
+                addCart(user.id, gid, num)
+            return HttpResponseRedirect('/cart')
+        elif request.POST.getlist('addcollect'):
+            addCollect(user.id, gid)
+            return HttpResponseRedirect('/favorite')
+
+        print("并没有取到POST的表单")
+        return None
