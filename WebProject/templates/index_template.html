@@ -588,9 +588,15 @@
             <!--            //点击商品类型图片，进入该商品类型商品列表，向后端传该商品类型id-->
             <div class="goods_banner fl">
                 {#                <a href="/list?category={{ }}">#}
-                <a href="#">
-                    <img src="{{ GoodsCategory.id }}">
-                </a>
+                {% for banner in bannerList %}
+                    {% if banner.category_id == GoodsCategory.id %}
+                        <a href="#">
+                            <img src="{{ banner.img }}">
+                        </a>
+                    {% endif %}
+                {% endfor %}
+
+
             </div>
             <ul class="goods_list fl">
                 <!-- 展示这一类型的商品 4个 -->
