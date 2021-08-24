@@ -66,7 +66,7 @@
 				<div class="site_con">
 					<dl>
 						<dt>当前地址：</dt>
-						<form method="POST" name="new_addr">
+						<form method="POST" name="select_addr">
 						{% for addr in addrlist %}
 						{% if addrlist%}
 							<input type="checkbox"  name="addr" value="{{addr.user_id}}">{{ addr.text }} （{{ addr.name }} 收） {{ addr.tel }}
@@ -107,7 +107,7 @@
 							<input type="text" name="phone">
 						</div>
 
-						<input type="submit" name="" value="提交" class="info_submit">
+						<input type="submit" name="add_addr" value="提交" class="info_submit">
 					</form>
                 {{errmsg}}
 				</div>

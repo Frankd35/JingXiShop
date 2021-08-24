@@ -156,13 +156,14 @@ def usr_site_view(request):
     # 获取数据
     user = User.objects.get(id=usr_id)
     try:
+        default_addr = Address.objects.get(id=user.addr_id)
         addrlist = Address.objects.filter(user_id=usr_id)
     except Exception as e:
         print(e)
+        default_addr = None
         addrlist = None
     # 新增地址
-    if request.method == 'POST' and request.POST.getlist('new_address'):
-        print("select")
+    if request.method == 'POST' and request.POST.getlist('add_addr'):
         # 从 form 表单获取数据
         receiver = request.POST.get('receiver')
         addr = request.POST.get('addr')
@@ -172,62 +173,35 @@ def usr_site_view(request):
         # 数据缺失
         if not all([receiver, addr, zip_code, phone]):
             return render(request, 'user_center_site2.html', {'user': user, 'addrlist': addrlist, 'isLogin': isLogin,
-                'errmsg': '您填写的数据不全'})
+                'default_addr': default_addr, 'errmsg': '您填写的数据不全'})
         # 电话号码格式错误
         if not re.match(r'^1[3|4|5|7|8|9][0-9]{9}$', phone):
             return render(request, 'user_center_site2.html', {'user': user, 'addrlist': addrlist, 'isLogin': isLogin,
-                "errmsg": "手机号格式不正确"})
+                'default_addr': default_addr, "errmsg": "手机号格式不正确"})
         try:
             Address(user_id=usr_id, name=receiver, text=addr, zipcode=zip_code, tel=phone).save()
         except Exception as e:
             print(e)
-    # 修改地址
+    # 设置默认地址
     elif request.method == 'POST' and request.POST.getlist('select_addr'):
-        #
-        return HttpResponseRedirect('err_page_not_found')
+        try:
+            addr_id = int(request.POST.get('addr'))
+            user.addr_id = addr_id
+            user.save()
+        except Exception as e:
+            print(e)
+            render(request, 'user_center_site2.html', {'user': user, 'addrlist': addrlist, 'isLogin': isLogin,
+                    'default_addr': default_addr, "errmsg": "设置默认地址失败"})
+        return render(request, 'user_center_site2.html', {'default_addr': default_addr, 'user': user, 'addrlist': addrlist, 'isLogin': isLogin})
     # 更新 addrlist
     try:
+        default_addr = Address.objects.get(id=user.addr_id)
         addrlist = Address.objects.filter(user_id=usr_id)
     except Exception as e:
         print(e)
+        default_addr = None
         addrlist = None
-    return render(request, 'user_center_site2.html', {'user': user, 'addrlist': addrlist, 'isLogin': isLogin})
-
-
-def usr_site_add_view(request):
-    # 获取cookies里的当前登录用户id
-    usr_id = int(request.session.get('uid', -1))
-    isLogin = usr_id != -1
-    # 若用户未登录
-    if not isLogin:
-        return HttpResponseRedirect('err_handling_page')  # not defined
-
-    # 获取返回给前端的数据
-    user = User.objects.get(id=usr_id)
-    try:
-        addrlist = Address.objects.filter(user_id=usr_id)
-    except Exception as e:
-        print(e)
-        addrlist = None
-    return render(request, 'user_center_site2.html', {'user': user, 'addrlist': addrlist, 'isLogin': isLogin})
-
-
-def usr_site_sellect_view(request):
-    # 获取cookies里的当前登录用户id
-    usr_id = int(request.session.get('uid', -1))
-    isLogin = usr_id != -1
-    # 若用户未登录
-    if not isLogin:
-        return HttpResponseRedirect('err_handling_page')  # not defined
-
-    # 获取返回给前端的数据
-    user = User.objects.get(id=usr_id)
-    try:
-        addrlist = Address.objects.filter(user_id=usr_id)
-    except Exception as e:
-        print(e)
-        addrlist = None
-    return render(request, 'user_center_site2.html', {'user': user, 'addrlist': addrlist, 'isLogin': isLogin})
+    return render(request, 'user_center_site2.html', {'default_addr': default_addr, 'user': user, 'addrlist': addrlist, 'isLogin': isLogin})
 
 
 def merchant_register_view(request):
