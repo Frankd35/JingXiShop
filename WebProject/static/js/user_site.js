@@ -1,6 +1,6 @@
 $(function() {
     // 发送ajax POST 请求
-    $(".dell a").click(function() {
+    $(".del a").click(function() {
         console.log("加一")
         var itGid=$(this).attr('addrid');
         var token = $('[name="csrfmiddlewaretoken"]').attr("value");
