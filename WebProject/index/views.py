@@ -24,9 +24,13 @@ def index_template_view(request):
         user = User.objects.get(id=usr_id)
     except:
         user = None
+    # 商品分类图
     GoodsCategoryList = Category.objects.filter(state=1)[0:6]
-    hotgoodsList = Goods.objects.filter(id=1).order_by('searching_num')[0:2]
-    slideList = Goods.objects.filter(category_id=0).order_by('searching_num')
+    # 热点图
+    hotgoodsList = Goods.objects.filter(category_id=1).order_by('-searching_num')[0:2]
+    # 轮播图
+    slideList = Goods.objects.filter(category_id=0).order_by('-searching_num')
+
     return render(request, 'index_template.html',
                   {'isLogin': isLogin, 'user': user, 'GoodsCategoryList': GoodsCategoryList,
                    'hotgoodsList': hotgoodsList, 'slideList': slideList})
