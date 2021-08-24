@@ -37,8 +37,8 @@ urlpatterns = [
     path('register', usr_views.reg_view, name='register'),
     path('login', usr_views.login_view),
     path('logout', usr_views.logout_view),
-    path('user_center_info', usr_views.usr_info_view),
-    path('user_center_site', usr_views.usr_site_view),
+    path('user_center_info2', usr_views.usr_info_view),
+    path('user_center_site2', usr_views.usr_site_view),
     path('merchant_register', usr_views.merchant_register_view),
     path('merchant', usr_views.merchant_view)
 
