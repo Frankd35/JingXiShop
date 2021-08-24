@@ -24,7 +24,7 @@ from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 
 urlpatterns = [
     # 设置初始跳转
-    path(r'', lambda req: HttpResponseRedirect('/index')),
+    path(r'', lambda req: HttpResponseRedirect('/index_template')),
     path('admin/', admin.site.urls),
     # cart 模块路由转发
     path('order', c_views.orderplace_view),
