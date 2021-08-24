@@ -82,8 +82,8 @@
 						<form method="POST" name="new_addr">
 						{% for addr in addrlist %}
 						{% if addrlist%}
-							<input type="checkbox" name="addr" value="addr">{{ addr.text }} （{{ addr.name }} 收） {{ addr.tel }}<br>
-                        	<input type="submit" name="delete_addr" value="删除地址">
+							<input type="checkbox" name="addr" value="addr">{{ addr.text }} （{{ addr.name }} 收） {{ addr.tel }}
+                        	<input type="submit" name="delete_addr" value="删除地址"><br>
 							
 							<!-- <dd class="yui3-u-1-8">
                             	<div class="del1">
