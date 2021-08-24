@@ -18,7 +18,7 @@
 		<div class="header">
 			<div class="welcome fl">欢迎来到京西商城!</div>
 			<div class="fr">
-				{% user %}
+
 				<div class="login_zls1">
 					<li><input type="text" value=0></li>
 				</div>
@@ -136,9 +136,9 @@
 
 		<div class="r_wrap fr clearfix">
 			<div class="sort_bar">
-				<a href="#" class="active">默认</a>
-				<a href="#">价格</a>
-				<a href="#">人气</a>
+					<div id="first" class="active">默认</div>
+				<div id="second">价格</div>
+				<div id="third">人气</div>
 			</div>
 
 			<ul class="goods_type_list clearfix">
@@ -324,6 +324,23 @@
 		<p>CopyRight © 2016 北京天天生鲜信息技术有限公司 All Rights Reserved</p>
 		<p>电话：010-****888    京ICP备*******8号</p>
 	</div>
-	
+	<script type="text/javascript">
+		// 点击商品类型，进入该商品类型商品列表，向后端传商品类型id
+		$("#first").click(function() {
+			$("#first").addClass("active")
+			$("#second").removeClass("active")
+			$("#third").removeClass("active")
+		})
+		$("#second").click(function() {
+			$("#first").removeClass("active")
+			$("#second").addClass("active")
+			$("#third").removeClass("active")
+		})
+		$("#third").click(function() {
+			$("#third").addClass("active")
+			$("#second").removeClass("active")
+			$("#first").removeClass("active")
+		})
+		</script>
 </body>
 </html>

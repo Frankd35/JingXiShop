@@ -18,69 +18,70 @@
 		<div class="header">
 			<div class="welcome fl">欢迎来到京西商城!</div>
 			<div class="fr">
-				{% user %}
-				<div class="login_zls1">
-					<li><input type="text" value={{user.state}}></li>
-				</div>
-				<div class="login_zls fl">
-					<div class="login_btn fl">
-						<a href="#"><img src="../static/images/my1.png" alt="">&nbsp;&nbsp;</a>				
-					</div>
-					<div class="login_btn fl">
-						<!-- <a href="login.html">您还未登录..</a>
-											 -->
-						<p>您还未登录..</p>
-						
-					</div>
-					<div class="login_btn fl"><span>|</span></div>
-				</div>
-				<div class="login_zls2 fl">
-					<div class="login_btn fl">
-						<!-- 登录状态下获取用户头像名字 -->
-						<a href="#"><img src={{user.img.url}} alt="">&nbsp;&nbsp;</a>				
-					</div>
-					<div class="login_btn fl">
-						<!-- <a href="login.html">您还未登录..</a>
-											 -->
-						<p>欢迎您：<em>{{user.name}}</em></p>
-						
-					</div>
-					<div class="login_btn fl"><span>|</span></div>
-				</div>
-                <div class="login_btn1 fl">				
-					<a href="login.html">登录</a>				
-				</div>
-				<div class="login_btn2 fl">					
-					<a href="login.html">退出登录</a>					
-				</div>
-				<div class="login_btn fl">
-					
-					<span>|</span>
-					<a href="register.html">注册</a>
-				</div>
+			{% if isLogin %}
+                <div class="login_zls fl">
+                    <div class="login_btn1 fl">
+                        <!-- 传入用户头像 -->
+{#                        注意看这个图片的信息参数 需要把长宽调好 否则就会影响到下面的界面 #}
+                        {#                        <a href="#"><img src={{ user.img }} alt="">&nbsp;&nbsp;</a>#}
+                    </div>
+                    <div class="login_btn fl">
+                        <!-- 传入用户姓名 -->
+                        <p>欢迎您：<em>{{ user.name }}</em></p>
+                    </div>
+                </div>
+                <div class="login_btn fl">
+                    <span>|</span>
+                </div>
+                <div class="login_btn fl">
+                    <a href="logout">退出登录</a>
+                </div>
+
+            {% else %}
+                <div class="login_zls fl">
+                    <div class="login_btn fl">
+                        <a href="#"><img src="../static/images/my1.png" alt="">&nbsp;&nbsp;</a>
+                    </div>
+                    <div class="login_btn fl">
+                        <p>您还未登录..</p>
+                    </div>
+                    <div class="login_btn fl"><span>|</span></div>
+                </div>
+                <div class="login_btn1 fl">
+                    <a href="login">登录</a>
+                </div>
+                <div class="login_btn fl">
+                    <span>|</span>
+                    <a href="register">注册</a>
+                </div>
+            {% endif %}
 				<div class="user_link fl">
 					<span>|</span>
-					<a href="user_center_info.html">用户中心</a>
+					<a href="user_center_info2">用户中心</a>
 					<span>|</span>
-					<a href="cart.html">我的购物车</a>
+					<a href="cart">我的购物车</a>
 					<span>|</span>
-					<a href="user_center_order.html">我的订单</a>
+					<a href="user_center_order">我的订单</a>
 					<span>|</span>
-					<a href="cart.html">收藏夹</a>
+					<a href="collect2">收藏夹</a>
 				</div>
 			</div>
 		</div>		
 	</div>
 
 	<div class="search_bar clearfix">
-		<a href="index.html" class="logo fl" title="京西"><img src="../static/images/jx.png"></a>
+		<a href="index_template" class="logo fl" title="京西"><img src="../static/images/jx.png"></a>
 		<div class="search_con fl">
-			<input type="text" class="input_text fl" name="" placeholder="搜索商品">
-			<input type="button" class="input_btn fr" name="" value="搜索">
+		  <!-- 搜索功能 -->
+<!--        //搜索框输入商品类型，进去该商品类型列表，向后端传用户输入商品类型名称-->
+	<input type="text" class="input_text fl" name="goods.type" placeholder="搜索商品">
+	<!-- 搜索商品类型 -->
+         <a href="list_template" id="search1"><input type="submit" class="input_btn fr" value="搜索"></a>
 		</div>
 		<div class="guest_cart fr">
-			<a href="#" class="cart_name fl">我的购物车</a>
+			<a href="shopcar2" class="cart_name fl">我的购物车</a>
 			<div class="goods_count fl">0</div>
+<!--			登录状态下获取用户购物车中商品数量-->
 			<div class="goods_count1 fl" id="show_count">{{ user.cart.goods_num}}</div>
 		</div>
 	</div>
@@ -93,7 +94,8 @@
 				<ul class="subnav">
                     {% for GoodsCategory in GoodsCategory %}
                     <!-- 展示六种商品类型 -->
-			        <li><a href="{% url 'list'  GoodsCategory.id %}" >{{GoodsCategory.name}} &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&gt;</a></li>
+					<!--					// 点击商品类型，进入该商品类型商品列表，向后端传商品类型id-->
+			        <li><a href="list_template" >{{GoodsCategory.name}} &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&gt;</a></li>
                     {%endfor%}
 				</ul>
 			</div>
@@ -101,8 +103,9 @@
 				<li><a href="">首页</a></li>
 				 <!-- 商品类型 6个-->
 			{% for GoodsCategory in GoodsCategory %}
+				<!--					// 点击商品类型，进入该商品类型商品列表，向后端传商品类型id-->
             <li class="interval">|</li> 
-            <li><a href="{% url 'list'  GoodsCategory.id %}">{{GoodsCategory.name}}</a></li>
+            <li><a href="list_template">{{GoodsCategory.name}}</a></li>
             {%endfor%}   
 			</ul>
 		</div>
@@ -111,7 +114,7 @@
 	<div class="breadcrumb">
 		<a href="#">全部分类</a>
 		<span>></span>
-		<a href="{% url 'list'  GoodsCategory.id %}">{{ GoodsCategory.name}}</a>
+		<a href="list_template">{{ GoodsCategory.name}}</a>
 	</div>
 
 	<div class="main_wrap clearfix">
@@ -122,8 +125,9 @@
 					 <!-- 新品推荐商品 2-->
                      {% for goods in new_goods %}
                      <li>
-                         <a href="{% url 'goods:detail' goods.id %}"><img src={{goods.img.url}}></a>
-                         <h4><a href="#">{{ goods.name }}</a></h4>
+<!--						 点击新品推荐商品跳转商品详情界面，向后端传该商品id-->
+                         <a href="detail_template"><img src="{{goods.img.url}}"></a>
+                         <h4><a href="detail_template">{{ goods.name }}</a></h4>
                          <div class="prize">￥{{goods.price}}</div>
                      </li>
                      {% endfor %}
@@ -134,21 +138,24 @@
 		<div class="r_wrap fr clearfix">
 			<div class="sort_bar">
                 <!-- 选择对商品排序 -->
-				<a href="{% url 'goods:list' type.id 1 %}" {% if sort =='default' %}class="active">{% endif %}默认</a>
-				<a href="{% url 'goods:list' type.id 1 %}?sort=price" {% if sort =='price' %}class="active">{% endif %}>价格</a>
-				<a href="{% url 'goods:list' type.id 1 %}?sort=hot" {% if sort =='hot' %}class="active">{% endif %}>人气</a>
+<!--				点击后向后端传sort参数，参数值：fault 默认排序，price 价格 ，hot 人气,后端返回按照制定排序的商品列表-->
+					<div id="first" class="active">默认</div>
+				<div id="second">价格</div>
+				<div id="third">人气</div>
 			</div>
               <!-- 将该类型下的商品展示出来 每次展示5个-->
               {% for goods in goods_list &&  i=1 to GoodsCategory.num/5+1 %}
 			<ul class="goods_type_list clearfix">
-                {% for i=j to 5 %}
+                {% for j=1 to 5 %}
 				<li>
-					<a href="{% url 'goods:detail' goods.id %}"><img src="{{ goods.img.url }}"></a>
-					<h4><a href="{% url 'goods:detail' goods.id %}">{{ goods.name }}</a></h4>
+					<!--						 点击商品跳转商品详情界面，向后端传该商品id-->
+					<a href="detail_template" class="tttt1"><img src="{{ goods.img.url }}"></a>
+					<h4><a href="detail_template" class="tttt1">{{ goods.name }}</a></h4>
 					<div class="operate">
 						<span class="prize">￥{{ goods.price }}</span>
 						<span class="unit">{{ goods.price }}/{{ goods.unite }}</span>
-						<a href="#" class="add_goods" title="加入购物车"></a>
+<!--						点击加入购物车，向后端传用户id,商品id,数量为1-->
+						<a href="" class="add_goods" title="加入购物车"></a>
 					</div>
 				</li>
 				
@@ -178,6 +185,117 @@
 		<p>CopyRight © 2016 北京天天生鲜信息技术有限公司 All Rights Reserved</p>
 		<p>电话：010-****888    京ICP备*******8号</p>
 	</div>
-	
+	<script type="text/javascript">
+		  <!-- 选择对商品排序 -->
+<!--				点击后向后端传sort参数，参数值：fault 默认排序，price 价格 ，hot 人气,后端返回按照制定排序的商品列表-->
+		$("#first").click(function() {
+			$("#first").addClass("active")
+			$("#second").removeClass("active")
+			$("#third").removeClass("active")
+			var sort='fault';
+			$.ajax({
+				url:"/goods",
+				type:"POST",
+				data:JOSN.stringfy ({'sort':sort)},
+				dataType:"text"
+			})
+		})
+		$("#second").click(function() {
+			$("#first").removeClass("active")
+			$("#second").addClass("active")
+			$("#third").removeClass("active")
+			var sort='price';
+			$.ajax({
+				url:"/goods",
+				type:"POST",
+				data:JOSN.stringfy ({'sort':sort)},
+				dataType:"text"
+			})
+		})
+		$("#third").click(function() {
+			$("#third").addClass("active")
+			$("#second").removeClass("active")
+			$("#first").removeClass("active")
+			var sort='hot';
+			$.ajax({
+				url:"/goods",
+				type:"POST",
+				data:JOSN.stringfy ({'sort':sort)},
+				dataType:"text"
+			})
+		})
+		//搜索框输入商品类型，进去该商品类型列表，向后端传用户输入商品类型名称
+		$(".input_btn").click(function() {
+			var type=$(".input_text").val();
+			// 判断用户输入是否为空
+			if(type == ''|| type==null  ) {
+				var aobj = document.getElementById("search1");
+				aobj.href="";
+				alert('未输入商品名称！')
+
+			}
+			else{
+				$.ajax({
+					url:"/goods",
+					type:"POST",
+					data:JOSN.stringify({'gname':type}),
+					dataType:"text"
+				})
+			}
+
+		})
+		 // 点击商品类型，进入该商品类型商品列表，向后端传商品类型id
+        $(".subnav a").click(function() {
+			var itgid=$(this).attr('GoodsCategory.id ');
+			$.ajax({
+				url:"/goods",
+				type:"POST",
+				data:JOSN.stringify ({'gid':itGid}),
+				dataType:"text"
+			})
+		})
+        	// 点击商品类型，进入该商品类型商品列表，向后端传商品类型id
+		$(".navlist a").click(function() {
+			var itgid=$(this).attr('GoodsCategory.id ');
+			$.ajax({
+				url:"/goods",
+				type:"POST",
+				data:JOSN.stringify ({'gid':itGid}),
+				dataType:"text"
+			})
+		})
+		// 点击新品推荐商品图片，进入该商品详情页，向后端传该商品id
+		$(".new_goods a").click(function(){
+			var itgid=$(this).attr('goods.goods_id');
+			$.ajax({
+				url:"/goods",
+				type:"POST",
+				data:JOSN.stringify ({'gid':itGid}),
+				dataType:"text"
+			})
+		})
+		// 点击列表中的商品，进入该商品详情页面，向后端传该商品id
+		$(".tttt1 a").click(function(){
+			var itgid=$(this).attr('goods_goods_id');
+			$.ajax({
+				url:"/goods",
+				type:"POST",
+				data:JOSN.stringfy({'gid':itgid}),
+				dataType:"text"
+			})
+		})
+		   //点击加入购物车，向后端传加入购物车的用户id,商品数量为1，商品id
+		   $('.add_cart').click(function(){
+            var uid=$(this).attr('user.id');
+            var count =1;
+            var gid=$(this).attr('goods.goods_id');
+            $.ajax({
+                url:"/cart",
+                type:"POST",
+                data:JOSN.stringify ({'uid':uid,'gid':gid,'count':count}),
+                dataType:"text"
+            })
+        })
+		</script>
 </body>
 </html>

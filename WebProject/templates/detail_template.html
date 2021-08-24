@@ -16,7 +16,7 @@
 		<div class="header">
 			<div class="welcome fl">欢迎来到京西商城!</div>
 			<div class="fr">
-				{% user %}
+{#				{% user %}#}
 			 {% if isLogin %}
                 <div class="login_zls fl">
                     <div class="login_btn1 fl">
@@ -62,7 +62,7 @@
 					<span>|</span>
 					<a href="user_center_order">我的订单</a>
 					<span>|</span>
-					<a href="collect2">收藏夹</a>
+					<a href="favorite">收藏夹</a>
 				</div>
 			</div>
 		</div>		
@@ -79,6 +79,7 @@
 		</div>
 		<div class="guest_cart fr">
 			<a href="cart" class="cart_name fl">我的购物车</a>
+			<!--			登录状态下获取用户购物车中商品数量-->
 			<div class="goods_count fl" id="show_count1">0</div>
             <div class="goods_count1 fl" id="show_count">{{ user.cart.goods_num}}</div>
 		</div>
@@ -92,7 +93,7 @@
 				<ul class="subnav">
                     {% for GoodsCategory in GoodsCategory %}
                     <!-- 展示六种商品类型 -->
-					// 点击商品类型，进入该商品类型商品列表，向后端传商品类型id
+<!--					// 点击商品类型，进入该商品类型商品列表，向后端传商品类型id-->
 			        <li><a href="list_template" >{{GoodsCategory.name}} &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&gt;</a></li>
                     {%endfor%}
 					
@@ -110,7 +111,7 @@
 			</ul>
 		</div>
         </div>
-        {% good %}
+{#        {% good %}#}
 	<div class="breadcrumb">
 		<a href="#">全部分类</a>
 		<span>></span>
@@ -195,7 +196,7 @@
 					</div>
 					<div class="sky1">品牌：<em>采缇（CAITI）</em></div>
 					<div>
-						{% goods %}}
+{#						{% goods %}}#}
 						<div class="sky2">商品名称：{{ goods.name }}</div>
 						<div class="sky2">商品编号：{{ goods.goods_id }}</div>
 						<div class="sky2">店铺：{{ goods.shop_id }}</div>
@@ -346,7 +347,7 @@
 			$.ajax({
 				url:"/goods",
 				type:"POST",
-				data:JOSN.stringify ({'gid':itGid}),
+				data:JOSN.stringify ({'gid':itgid}),
 				dataType:"text"
 			})
 		})
@@ -356,7 +357,7 @@
 			$.ajax({
 				url:"/goods",
 				type:"POST",
-				data:JOSN.stringify ({'gid':itGid}),
+				data:JOSN.stringify ({'gid':itgid}),
 				dataType:"text"
 			})
 		})
@@ -366,7 +367,7 @@
 			$.ajax({
 				url:"/goods",
 				type:"POST",
-				data:JOSN.stringify ({'gid':itGid}),
+				data:JOSN.stringify ({'gid':itgid}),
 				dataType:"text"
 			})
 		})
@@ -411,7 +412,7 @@
 			$.ajax({
 				url:"/goods",
 				type:"POST",
-				data:JOSN.stringify ({'gid':itGid}),
+				data:JOSN.stringify ({'gid':itgid}),
 				dataType:"text"
 			})
 		})

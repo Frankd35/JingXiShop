@@ -588,19 +588,27 @@
             <!--            //点击商品类型图片，进入该商品类型商品列表，向后端传该商品类型id-->
             <div class="goods_banner fl">
                 {#                <a href="/list?category={{ }}">#}
-                <a href="#">
-                    <img src="{{ GoodsCategory.id }}">
-                </a>
+                {% for banner in bannerList %}
+                    {% if banner.category_id == GoodsCategory.id %}
+                        <a href="#">
+                            <img src="{{ banner.img }}">
+                        </a>
+                    {% endif %}
+                {% endfor %}
+
+
             </div>
             <ul class="goods_list fl">
                 <!-- 展示这一类型的商品 4个 -->
-                {% for goods in tmp %}
-                    <!--                // 点击商品图片，进入该商品详情页，向后端传该商品id-->
-                    <li>
-                        <h4><a href="detail_template">{{ goods.name }}</a></h4>
-                        <a href="/detail_template?gid={{ good.id }}"><img src={{ goods.img.url }}></a>
-                        <div class="prize">¥{{ goods.price }}</div>
-                    </li>
+                {% for goods in GoodsList %}
+                    {% if goods.category_id == GoodsCategory.id %}
+                        <!--                // 点击商品图片，进入该商品详情页，向后端传该商品id-->
+                        <li>
+                            <h4><a href="detail_template">{{ goods.name }}</a></h4>
+                            <a href="/detail_template?gid={{ good.id }}"><img src={{ goods.img }}></a>
+                            <div class="prize">¥{{ goods.price }}</div>
+                        </li>
+                    {% endif %}
                 {% endfor %}
 
             </ul>
@@ -627,7 +635,7 @@
         $.ajax({
             url: "/goods",
             type: "POST",
-            data: JOSN.stringify({'gid': itGid}),
+            data: JOSN.stringify({'gid': itgid}),
             dataType: "text"
         })
     })
@@ -637,7 +645,7 @@
         $.ajax({
             url: "/goods",
             type: "POST",
-            data: JOSN.stringify({'gid': itGid}),
+            data: JOSN.stringify({'gid': itgid}),
             dataType: "text"
         })
     })
@@ -666,7 +674,7 @@
         $.ajax({
             url: "/goods",
             type: "POST",
-            data: JOSN.stringify({'gid': itGid}),
+            data: JOSN.stringify({'gid': itgid}),
             dataType: "text"
         })
     })
@@ -676,7 +684,7 @@
         $.ajax({
             url: "/goods",
             type: "POST",
-            data: JOSN.stringify({'gid': itGid}),
+            data: JOSN.stringify({'gid': itgid}),
             dataType: "text"
         })
     })
@@ -686,7 +694,7 @@
         $.ajax({
             url: "/goods",
             type: "POST",
-            data: JOSN.stringify({'gid': itGid}),
+            data: JOSN.stringify({'gid': itgid}),
             dataType: "text"
         })
     })

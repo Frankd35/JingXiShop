@@ -65,24 +65,28 @@
 				<h3 class="common_title2">收货地址</h3>
 				<div class="site_con">
 					<dl>
-						<dt>当前地址：</dt>
+						{% if default_addr %}
+							<dt>默认地址：</dt>
+							<dd>{{ default_addr.text }} （{{ default_addr.name }} 收） {{default_addr.tel }}</dd>
+						{% endif %}
+						<dt>地址目录：</dt>
 						<form method="POST" name="select_addr">
-						{% for addr in addrlist %}
 						{% if addrlist%}
-							<input type="checkbox"  name="addr" value="{{addr.user_id}}">{{ addr.text }} （{{ addr.name }} 收） {{ addr.tel }}
+						{% for addr in addrlist %}
+							<input type="checkbox"  name="addr" value="{{addr.id}}">{{ addr.text }} （{{ addr.name }} 收） {{ addr.tel }}
                         	<!-- <input type="submit" name="delete_addr" value="删除地址"><br> -->
 							
 							<dd class="yui3-u-1-8">
                             	<div class="del">
-                                	<a href="javascript:;" addrid="{{addr.user_id}}">删除</a> 
+                                	<a href="javascript:;" addrid="{{addr.id}}">删除</a> 
                             	</div>
                         	</dd>
-                        {% else %}
-                        <dd>无默认地址</dd>
-                        {% endif %}
 						{% endfor %}
-							<input type="submit" name="select_addr" value="选择地址"></form>
+						<input type="submit" name="select_addr" value="选择地址"></form>
 						</form>
+                        {% else %}
+                        	<dd>无默认地址</dd>
+                        {% endif %}
 						
 					</dl>					
 				</div>
@@ -107,7 +111,7 @@
 							<input type="text" name="phone">
 						</div>
 
-						<input type="submit" name="add_addr" value="提交" class="info_submit">
+						<input type="submit" name="" value="提交" class="info_submit">
 					</form>
                 {{errmsg}}
 				</div>
