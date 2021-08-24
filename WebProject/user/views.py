@@ -2,6 +2,8 @@ import hashlib
 import re
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render
+
+from goods.models import Goods
 from .models import User, Address, Shop
 
 
@@ -174,7 +176,7 @@ def usr_site_view(request):
         # 电话号码格式错误
         if not re.match(r'^1[3|4|5|7|8|9][0-9]{9}$', phone):
             return render(request, 'user_center_site2.html', {'user': user, 'addrlist': addrlist, 'isLogin': isLogin,
-                "error_msg": "手机号格式不正确"})
+                "errmsg": "手机号格式不正确"})
         try:
             Address(user_id=usr_id, name=receiver, text=addr, zipcode=zip_code, tel=phone).save()
         except Exception as e:
@@ -278,4 +280,53 @@ def merchant_register_view(request):
 
 
 def merchant_view(request):
-    return render(request, "merchant2.html")
+    # 获取cookies里的当前登录用户id
+    usr_id = int(request.session.get('uid', -1))
+    isLogin = usr_id != -1
+    # 若用户未登录
+    if not isLogin:
+        return HttpResponseRedirect('err_handling_page')  # not defined
+    # 检测是否商家
+    if User.objects.get(id=usr_id).is_merchant != 2:
+        return render(request, 'merchant_register.html')
+    # 获取数据
+    user = User.objects.get(id=usr_id)
+    shop = Shop.objects.get(user_id=usr_id)
+    return render(request, "merchant2.html", {'isLogin': isLogin, 'user': user, 'shop': shop})
+
+
+def merchant_object_view(request):
+    # 获取cookies里的当前登录用户id
+    usr_id = int(request.session.get('uid', -1))
+    isLogin = usr_id != -1
+    # 若用户未登录
+    if not isLogin:
+        return HttpResponseRedirect('err_handling_page')  # not defined
+    # 检测是否商家
+    if User.objects.get(id=usr_id).is_merchant != 2:
+        return render(request, 'merchant_register.html')
+    # 获取数据
+    user = User.objects.get(id=usr_id)
+    shop = Shop.objects.get(user_id=usr_id)
+
+    return render(request, 'merchant_object.html', {'isLogin': isLogin, 'user': user, 'shop': shop})
+
+
+def merchant_order_view(request):
+    # 获取cookies里的当前登录用户id
+    usr_id = int(request.session.get('uid', -1))
+    isLogin = usr_id != -1
+    # 若用户未登录
+    if not isLogin:
+        return HttpResponseRedirect('err_handling_page')  # not defined
+    # 检测是否商家
+    if User.objects.get(id=usr_id).is_merchant != 2:
+        return render(request, 'merchant_register.html')
+    # 获取数据
+    user = User.objects.get(id=usr_id)
+    shop_id = Shop.objects.get(user_id=usr_id).id
+    try:
+        goodsList = Goods.objects.filter(shop_id=shop_id)
+    except:
+        goodsList = None
+    return render(request, 'merchant_order.html', {'isLogin': isLogin, 'user': user, 'goodsList': goodsList})
