@@ -33,11 +33,12 @@ def index_template_view(request):
     hotgoodsList = Goods.objects.filter(category_id=1).order_by('searching_num')[0:2]
     # 轮播图
     slideList = Goods.objects.filter(category_id=0).order_by('-searching_num')
-    tmp: List[Any] = []
-    for category in GoodsCategoryList:
-        GoodsList = Goods.objects.filter(category_id__gte=category.id).order_by('category_id')
-        tmp = [tmp, GoodsList]
-    tmp = chain(tmp)
+    # tmp: List[Any] = []
+    # for category in GoodsCategoryList:
+    #     GoodsList = Goods.objects.filter(category_id__gte=category.id).order_by('category_id')
+    #     tmp = [tmp, GoodsList]
+    # tmp = chain(tmp)
+    GoodsList = Goods.objects.filter(category_id__gte=1, searching_num__lte=99999).order_by('category_id')
     return render(request, 'index_template.html',
                   {'isLogin': isLogin, 'user': user, 'GoodsCategoryList': GoodsCategoryList,
-                   'hotgoodsList': hotgoodsList, 'slideList': slideList, 'tmp': tmp})
+                   'hotgoodsList': hotgoodsList, 'slideList': slideList, 'GoodsList': GoodsList})
