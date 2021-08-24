@@ -68,7 +68,7 @@
 			<ul>
 				<li><a href="user_center_info">· 个人信息</a></li>
 				<li><a href="collect2">· 收藏夹</a></li>
-				<li><a href="shopcar">· 购物车</a></li>
+				<li><a href="cart">· 购物车</a></li>
 				<li><a href="user_center_order">· 全部订单</a></li>
 				<li><a href="user_center_site" class="active">· 收货地址</a></li>
 				<li><a href="merchant_register">· 商家入驻</a></li>
@@ -82,8 +82,8 @@
 						<form method="POST" name="new_addr">
 						{% for addr in addrlist %}
 						{% if addrlist%}
-							<input type="checkbox" name="addr" value="addr">{{ addr.text }} （{{ addr.name }} 收） {{ addr.tel }}<br>
-                        	<input type="submit" name="delete_addr" value="删除地址">
+							<input type="checkbox" name="addr" value="addr">{{ addr.text }} （{{ addr.name }} 收） {{ addr.tel }}
+                        	<input type="submit" name="delete_addr" value="删除地址"><br>
 							
 							<!-- <dd class="yui3-u-1-8">
                             	<div class="del1">
