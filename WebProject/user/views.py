@@ -1,4 +1,5 @@
 import hashlib
+import json
 import re
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render
@@ -157,13 +158,17 @@ def usr_site_view(request):
     user = User.objects.get(id=usr_id)
     try:
         default_addr = Address.objects.get(id=user.addr_id)
-        addrlist = Address.objects.filter(user_id=usr_id)
     except Exception as e:
         print(e)
         default_addr = None
+    try:
+        addrlist = Address.objects.filter(user_id=usr_id)
+    except Exception as e:
+        print(e)
         addrlist = None
     # 新增地址
     if request.method == 'POST' and request.POST.getlist('add_addr'):
+        print(request.POST)
         # 从 form 表单获取数据
         receiver = request.POST.get('receiver')
         addr = request.POST.get('addr')
@@ -173,17 +178,19 @@ def usr_site_view(request):
         # 数据缺失
         if not all([receiver, addr, zip_code, phone]):
             return render(request, 'user_center_site2.html', {'user': user, 'addrlist': addrlist, 'isLogin': isLogin,
-                'default_addr': default_addr, 'errmsg': '您填写的数据不全'})
+                                                              'default_addr': default_addr, 'errmsg': '您填写的数据不全'})
         # 电话号码格式错误
         if not re.match(r'^1[3|4|5|7|8|9][0-9]{9}$', phone):
             return render(request, 'user_center_site2.html', {'user': user, 'addrlist': addrlist, 'isLogin': isLogin,
-                'default_addr': default_addr, "errmsg": "手机号格式不正确"})
+                                                              'default_addr': default_addr, "errmsg": "手机号格式不正确"})
         try:
             Address(user_id=usr_id, name=receiver, text=addr, zipcode=zip_code, tel=phone).save()
         except Exception as e:
             print(e)
+        return HttpResponseRedirect('user_center_site')
     # 设置默认地址
     elif request.method == 'POST' and request.POST.getlist('select_addr'):
+        print(request.POST)
         try:
             addr_id = int(request.POST.get('addr'))
             user.addr_id = addr_id
@@ -191,17 +198,23 @@ def usr_site_view(request):
         except Exception as e:
             print(e)
             render(request, 'user_center_site2.html', {'user': user, 'addrlist': addrlist, 'isLogin': isLogin,
-                    'default_addr': default_addr, "errmsg": "设置默认地址失败"})
-        return render(request, 'user_center_site2.html', {'default_addr': default_addr, 'user': user, 'addrlist': addrlist, 'isLogin': isLogin})
-    # 更新 addrlist
-    try:
-        default_addr = Address.objects.get(id=user.addr_id)
-        addrlist = Address.objects.filter(user_id=usr_id)
-    except Exception as e:
-        print(e)
-        default_addr = None
-        addrlist = None
-    return render(request, 'user_center_site2.html', {'default_addr': default_addr, 'user': user, 'addrlist': addrlist, 'isLogin': isLogin})
+                                                       'default_addr': default_addr, "errmsg": "设置默认地址失败"})
+        return HttpResponseRedirect('user_center_site')
+    # 删除地址
+    elif request.method == 'POST':
+        print(request.POST)
+        addr_id = int(json.loads(request.body.decode("utf-8")).get('id', -1))
+        try:
+            Address.objects.filter(id=addr_id).delete()
+        except Exception as e:
+            print(e)
+            return render(request, 'user_center_site2.html', {'user': user, 'addrlist': addrlist, 'isLogin': isLogin,
+                                                              'default_addr': default_addr, "errmsg": "删除失败"})
+        print('redirect')
+        return HttpResponseRedirect('user_center_site')
+    # GET 请求
+    return render(request, 'user_center_site2.html',
+                  {'default_addr': default_addr, 'user': user, 'addrlist': addrlist, 'isLogin': isLogin})
 
 
 def merchant_register_view(request):
