@@ -28,8 +28,8 @@ def OrderPlaceRequest(user_id):
         tempName = tempGoods.name
         tempImg = tempGoods.img
         tempPrice = tempGoods.price
-        total_price += tempPrice * i.goods_num
-        goodsList.append(tempOrderGoods(tempName, tempPrice, i.goods_num, tempImg, total_price))
+        total_price += tempPrice * (i.goods_num+1)
+        goodsList.append(tempOrderGoods(tempName, tempPrice, i.goods_num+1, tempImg, total_price))
 
     return goodsList
 
