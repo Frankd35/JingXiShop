@@ -17,6 +17,7 @@ from django.http import HttpResponseRedirect
 from user import views as usr_views
 from cart import views as c_views
 from index import views as in_views
+from goods import views as goods_views
 from django.contrib import admin
 from django.urls import path
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
@@ -40,7 +41,12 @@ urlpatterns = [
     path('user_center_info', usr_views.usr_info_view),
     path('user_center_site', usr_views.usr_site_view),
     path('merchant_register', usr_views.merchant_register_view),
-    path('merchant', usr_views.merchant_view)
+    path('merchant', usr_views.merchant_view),
+
+
+
+    # goods 模块路由转发
+    path('detail_template', goods_views.detail_view),
 
     # path('logout', views.logout_view)
 

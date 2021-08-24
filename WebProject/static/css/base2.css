@@ -187,10 +187,11 @@ footer {
     margin-top: 35px;
     height: 88px;
     background-color: #fff;
-    position: absolute;
+    position: relative;
+    bottom: -1000px;
     /* bottom: 30px; */
-    top: 900px;
-    left: 500px;
+/*    top: 900px;*/
+/*    left: 500px;*/
     /* vertical-align: middle; */
 }
 a.sub_page_name.fl {
