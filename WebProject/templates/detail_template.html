@@ -79,6 +79,7 @@
 		</div>
 		<div class="guest_cart fr">
 			<a href="cart" class="cart_name fl">我的购物车</a>
+			<!--			登录状态下获取用户购物车中商品数量-->
 			<div class="goods_count fl" id="show_count1">0</div>
             <div class="goods_count1 fl" id="show_count">{{ user.cart.goods_num}}</div>
 		</div>
@@ -92,7 +93,7 @@
 				<ul class="subnav">
                     {% for GoodsCategory in GoodsCategory %}
                     <!-- 展示六种商品类型 -->
-					// 点击商品类型，进入该商品类型商品列表，向后端传商品类型id
+<!--					// 点击商品类型，进入该商品类型商品列表，向后端传商品类型id-->
 			        <li><a href="list_template" >{{GoodsCategory.name}} &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&gt;</a></li>
                     {%endfor%}
 					
@@ -346,7 +347,7 @@
 			$.ajax({
 				url:"/goods",
 				type:"POST",
-				data:JOSN.stringify ({'gid':itGid}),
+				data:JOSN.stringify ({'gid':itgid}),
 				dataType:"text"
 			})
 		})
@@ -356,7 +357,7 @@
 			$.ajax({
 				url:"/goods",
 				type:"POST",
-				data:JOSN.stringify ({'gid':itGid}),
+				data:JOSN.stringify ({'gid':itgid}),
 				dataType:"text"
 			})
 		})
@@ -366,7 +367,7 @@
 			$.ajax({
 				url:"/goods",
 				type:"POST",
-				data:JOSN.stringify ({'gid':itGid}),
+				data:JOSN.stringify ({'gid':itgid}),
 				dataType:"text"
 			})
 		})
@@ -411,7 +412,7 @@
 			$.ajax({
 				url:"/goods",
 				type:"POST",
-				data:JOSN.stringify ({'gid':itGid}),
+				data:JOSN.stringify ({'gid':itgid}),
 				dataType:"text"
 			})
 		})
