@@ -91,7 +91,7 @@
 				<h1>全部商品分类</h1>	
 				<span></span>			
 				<ul class="subnav">
-                    {% for GoodsCategory in GoodsCategory %}
+                    {% for GoodsCategory in GoodsCategoryList %}
                     <!-- 展示六种商品类型 -->
 <!--					// 点击商品类型，进入该商品类型商品列表，向后端传商品类型id-->
 			        <li><a href="list_template" >{{GoodsCategory.name}} &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&gt;</a></li>
@@ -104,7 +104,7 @@
 				
                  <!-- 商品类型 6个-->
 <!--				// 点击商品类型，进入该商品类型商品列表，向后端传商品类型id-->
-			{% for GoodsCategory in GoodsCategory %}
+			{% for GoodsCategory in GoodsCategoryList %}
             <li class="interval">|</li> 
             <li><a href="list_template">{{GoodsCategory.name}}</a></li>
             {%endfor%}   
@@ -124,14 +124,15 @@
 
 	<div class="goods_detail_con clearfix">
          <!-- 商品图片，名字，描述，价格，单位 -->
-		<div class="goods_detail_pic fl"><img src="{{ goods.img.url }}"></div>
+		<div class="goods_detail_pic fl"><img src="{{ good.img }}"></div>
 		<div class="goods_detail_list fr">
            
-			<h3>{{ goods.name }}</h3>
+			<h3>{{ good.name }}</h3>
 			<p>{{ good.text }}</p>
 			<div class="prize_bar">
-				<span class="show_pirze">¥<em>{{ goods.price }}</em></span>
-				<span class="show_unit">单  位：{{ goods.unite }}g</span>
+				<span class="show_pirze">¥<em>{{ good.price }}</em></span>
+{#                需要增加一个unite的参数  #}
+				<span class="show_unit">单  位：{{ good.unite }}g</span>
 			</div>
 			<div class="goods_num clearfix">
 				<div class="num_name fl">数 量：</div>
@@ -142,11 +143,11 @@
 				</div> 
 				<div class="love1">
 					件&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;库存{{ goods.num }}件
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;库存{{ good.num }}件
 				</div>
             </div>
 			
-			<div class="total">总价：<em>{{ goods.price }}元</em></div>
+			<div class="total">总价：<em>{{ good.price }}元</em></div>
 			<div class="operate_btn">
 <!--				 //点击立即购买，进入结算界面，向后端传购买用户id,商品数量，商品id-->
 				<a href="shopcar2" class="buy_btn">立即购买</a>
@@ -167,7 +168,7 @@
 <!--					// 点击商品图片，进入该商品详情页，向后端传该商品id-->
                     {% for goods in new_goods %}
 					<li>
-						<a href="detail_template"><img src={{goods.img.url}}></a>
+						<a href="detail_template"><img src={{goods.img}}></a>
 						<h4><a href="detail_template">{{ goods.name }}</a></h4>
 						<div class="prize">￥{{goods.price}}</div>
 					</li>
@@ -197,10 +198,11 @@
 					<div class="sky1">品牌：<em>采缇（CAITI）</em></div>
 					<div>
 {#						{% goods %}}#}
-						<div class="sky2">商品名称：{{ goods.name }}</div>
-						<div class="sky2">商品编号：{{ goods.goods_id }}</div>
-						<div class="sky2">店铺：{{ goods.shop_id }}</div>
-						<div class="sky2">商品毛重：{{ goods.unite }}g</div>
+						<div class="sky2">商品名称：{{ good.name }}</div>
+						<div class="sky2">商品编号：{{ good.id }}</div>
+						<div class="sky2">店铺：{{ shop.name }}</div>
+                        <div class="sky2">店铺评分：{{ shop.mark }}</div>
+						<div class="sky2">商品毛重：{{ good.unite }}g</div>
 						<div class="sky2">商品产地：其他</div>
 						<div class="sky2">货号：wz238748934030</div>
 						<div class="sky2">品种：红颜草莓</div>
@@ -220,14 +222,14 @@
 			<div class="tab_content" id="tab_comment" style="display: none">
 				<dl>
 					<!-- 该商品评论 -->
-                    {% for comment in comments %}
+                    {% for comment in commentList %}
                     
 					<dd class="num1">
-						<img src="{{ comment.users.img.url }}" alt=""><span>&nbsp;{{ comment.users.name }}:<em>&nbsp;&nbsp;&nbsp;&nbsp;
+						<img src="{{ comment.user_img }}" alt=""><span>&nbsp;{{ comment.user_id }}:<em>&nbsp;&nbsp;&nbsp;&nbsp;
 					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{ comment.mark }}分</em></span>
 					</dd>
                     <dt class="num2">{{ comment.text }}</dt>
-					<dd class="num3">{{ comment.creattime }}</dd>
+					<dd class="num3">{{ comment.createtime }}</dd>
 					
 				{% endfor %}
 				</dl>
