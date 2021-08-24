@@ -5,13 +5,36 @@
 	<title>京西商城-用户中心</title>
 	<link rel="stylesheet" type="text/css" href="../static/css/reset.css">
 	<link rel="stylesheet" type="text/css" href="../static/css/main3.css">
+    <link rel="stylesheet" type="text/css" href="../static/css/main2.css">
+    <link rel="stylesheet" href="../static/css/normalize2.css" />
+    <link rel="stylesheet" href="../static/css/base2.css" />
+    <link rel="stylesheet" href="../static/css/collect_cart2.css">
+    <script src="../static/js/jquery.min.js"></script>
+    <script src="../static/js/collect.js"></script>
+    <style>
+        .myGood {
+            margin-left: 100px;
+        }
+        .myPrice {
+            margin-left: 230px;
+        }
+        .myShop {
+            margin-right: 30px;
+        }
+        .mylittleSum{
+            margin-right: 35px;
+        }
+        .ope{
+            margin-right: -30px;
+        }
+    </style>
 </head>
-<body>
+<body><div data-v-7e2550d6="" class="odm_extension image_downloader_wrapper"><!----></div>
 	<div class="header_con">
 		<div class="header">
 			<div class="welcome fl">欢迎来到京西商城!</div>
 			<div class="fr">
-				{% if isLogin %}
+				{% if user.isLogin %}
 				<div class="login_btn fl">
 					欢迎您：<em>{{ user.name }}</em>
                     <span>|</span>
@@ -28,7 +51,7 @@
 					<span>|</span>
 					<a href="user_center_info">用户中心</a>
 					<span>|</span>
-					<a href="cart">我的购物车</a>
+					<a href="shopcar">我的购物车</a>
 					<span>|</span>
 					<a href="user_center_order">我的订单</a>
 				</div>
@@ -49,107 +72,115 @@
 		<div class="left_menu_con clearfix">
 			<h3>用户中心</h3>
 			<ul>
-				<li><a href="user_center_info" class="active">· 个人信息</a></li>
-				<li><a href="collect2">· 收藏夹</a></li>
-				<li><a href="shopcar">· 购物车</a></li>
+				<li><a href="user_center_info">· 个人信息</a></li>
+				<li><a href="user_center_site"  class="active">· 收藏夹</a></li>
+				<li><a href="cart">· 购物车</a></li>
 				<li><a href="user_center_order">· 全部订单</a></li>
 				<li><a href="user_center_site">· 收货地址</a></li>
 				<li><a href="merchant_register">· 商家入驻</a></li>
 			</ul>
 		</div>
 		<div class="right_content clearfix">
-				<div class="info_con clearfix">
-				<h3 class="common_title2">基本信息</h3>
-						<ul class="user_info_list">
-							<li><span>用户名：</span>{{ user.name }}</li>
-                            <li><span>邮箱：</span>{{ user.email }}</li>
-							{% if address %}
-							<li><span>联系地址：</span>{{ user.address }}</li>
-							{% endif %}
-							<li><span>创建时间：</span>{{user.createtime}}</li>
-							<li><span>是否商家：</span>{{user.is_merchant}}</li>
-						</ul>
-				</div>
+				<div class="allgoods">
 
-                <h3 class="common_title2">最近浏览</h3>
-				<div class="has_view_list">
-					<ul class="goods_type_list clearfix">
-                   {% for goods in goods_li %}
-                   <li>
-					<a href="{% url 'goods:detail' goods.id %}"><img src="{{ goods.image.url }}"></a>
-					<h4><a href="{% url 'goods:detail' goods.id %}">{{ goods.name }}</a></h4>
-					<div class="operate">
-						<span class="prize">￥{{ goods.price }}</span>
-						<span class="unit">{{ goods.price }}/{{ goods.unite }}</span>
-						<a href="#" class="add_goods" title="加入购物车"></a>
-					</div>
-                   </li>
-                       {% empty %}
-                        无历史浏览记录
-                        {% endfor %}
-			    </ul>
-		    </div>
-		</div>
-		<div class="right_content clearfix">
-				<h3 class="common_title2">收货地址</h3>
-				<div class="site_con">
-					<dl>
-						<dt>当前地址：</dt>
-						{% if address %}
-						<dd>{{ address.text }} （{{ address.name }} 收） {{ address.tel }}</dd>
-                        <dd class="yui3-u-1-8">
-                            <div class="del1">
-                                <a href="javascript:;">删除</a>
+                <div class="cart-main">
+                    <div class="cart-th clearfix">
+                        <div class="myGood">商品</div>
+                        <div class="myPrice">单价（元）</div>
+                        <div class="myShop">店铺</div>
+                        <div class="mylittleSum">添加</div>
+                        <div class="ope">操作</div>
+                    </div>
+                    <div class="cart-item-list">
+                        <div class="cart-body">
+                            <div class="cart-list">
+                                {% for good in goodsList %}
+                                <ul class="goods-list yui3-g active">
+                                    <li class="yui3-u-3-8 pr">
+                                        <div class="good-item">
+                                            <div class="item-img">
+                                                <img  width="90" height="90" src="{{good.img}}">
+                                            </div>
+                                            <div class="item-msg">{{good.name}}</div>
+                                        </div>
+                                    </li>
+                                    <li class="yui3-u-1-8">
+                                        <span></span>
+                                        <br>
+                                        <span></span>
+                                        <br>
+                                        <span></span>
+                                        <br>
+                                        <span></span>
+                                        <br>
+                                    </li>
+                                    <li class="yui3-u-1-8">
+                                        <span class="price">{{good.price}}</span>
+                                    </li>
+                                    <li class="yui3-u-1-8">
+                                        <!--<div class="youhuo">店铺名</div>-->
+                                        <div>{{good.shopName}}</div>
+                                    </li>
+                                    <li class="yui3-u-1-8">
+                                        <span class="sum" id="sumPrice">去购买</span>
+                                    </li>
+                                    <li class="yui3-u-1-8">
+                                        <div class="del1">
+                                            <a href="javascript:;" delUser="{{user}}"delGood="{{good.goods_id}}">删除</a>
+                                        </div>
+                                        <!-- <div>移到我的关注</div> -->
+                                    </li>
+                                </ul>
+                                {% endfor %}
                             </div>
-                            <!-- <div>移到我的关注</div> -->
-                        </dd>
-						<!-- <d><button id="btn" type="submit">删除</button></d> -->
-                        {% else %}
-                        <dd>无默认地址</dd>
-                        {% endif %}
-					</dl>
-				</div>
-				<h3 class="common_title2">编辑地址</h3>
-				<div class="site_con">
-					<form method="post">
-                        {% csrf_token %}
-						<div class="form_group">
-							<label>收件人：</label>
-							<input type="text" name="receiver">
-						</div>
-						<div class="form_group form_group2">
-							<label>详细地址：</label>
-							<textarea class="site_area" name="addr"></textarea>
-						</div>
-						<div class="form_group">
-							<label>邮编：</label>
-							<input type="text" name="zip_code">
-						</div>
-						<div class="form_group">
-							<label>手机：</label>
-							<input type="text" name="phone">
-						</div>
+                        </div>
+                    </div>
+                </div>
 
-						<input type="submit" name="" value="提交" class="info_submit">
-					</form>
-                    {{ errmsg }}
-				</div>
+            </div>
 		</div>
-    </div>
+	</div>
+    <!--	删除收藏货物的ajax传输-->
+	<script>
+		 $(function() {
+     	 $(".del1 a").click(function() {
+         	console.log("hhhh")
+         	var deluse=$(this).attr('delUser');
+            var delgid=$(this).attr('delGood');
+        	var token = $('[name="csrfmiddlewaretoken"]').attr("value");
+        	$.ajax({
+        	url:"/favorite",
+        	type:"POST",
+        	data:JSON.stringify({'user':deluse,'goods_id':delgid,"csrfmiddlewaretoken": token}),
+        	dataType : "text"
+        	})
+         });
 
+         });
+	</script>
+<footer>
         <div class="footer">
             <div class="foot_link">
                 <a href="#">关于我们</a>
                 <span>|</span>
                 <a href="#">联系我们</a>
+                <span> | </span>
+                <a href="#">联系客服</a>
+                <span> | </span>
+                <a href="#">合作招商</a>
+                <span> | </span>
+                <a href="#">商家帮助</a>
+                <span> | </span>
+                <a href="#">营销中心</a>
                 <span>|</span>
                 <a href="#">招聘人才</a>
                 <span>|</span>
                 <a href="#">友情链接</a>
             </div>
-            <p>CopyRight © 2021 重庆京西商城 All Rights Reserved</p>
-            <p>电话：010-****888    渝ICP备*******8号</p>
+            <p>CopyRight © 2021 重庆京西科技有限公司 All Rights Reserved</p>
+            <p>电话：023-****888    京ICP备*******8号</p>
         </div>
+    </footer>
 
-    </body>
-    </html>
+</body>
+</html>

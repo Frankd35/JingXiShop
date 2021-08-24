@@ -118,7 +118,7 @@ def collect_view(request):
     goodsList = []
     if m == 'GET':
         goodsList = collectRequest(user.id)
-        return render(request, "collect.html", {'goodsList': goodsList, 'user':user})
+        return render(request, "collect2.html", {'goodsList': goodsList, 'user':user})
     else:
         print("删除收藏商品")
         data = request.body.decode("utf-8")
