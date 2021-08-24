@@ -35,7 +35,7 @@ def index_template_view(request):
     slideList = Goods.objects.filter(category_id=0).order_by('-searching_num')
     tmp: List[Any] = []
     for category in GoodsCategoryList:
-        GoodsList = Goods.objects.filter(category_id__gte=category.id).order_by('category_id')
+        GoodsList = Goods.objects.filter(category_id=category.id).order_by('searching_num')
         tmp = [tmp, GoodsList]
     tmp = chain(tmp)
     return render(request, 'index_template.html',
