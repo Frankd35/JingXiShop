@@ -24,10 +24,12 @@ def OrderPlaceRequest(user_id):
     goodsList = []
     tempCartList = cart_model.Cart.objects.filter(user_id=user_id, is_chosen=1, goods_num__gt=0)
     for i in tempCartList:
-        tempGoods = goods_model.Goods.objects.filter(id=i.goods_id)[0]
+        tempGoods = goods_model.Goods.objects.filter(id=i.goods_id).first()
         tempName = tempGoods.name
-        total_price += i.goods_price * i.goods_num
-        goodsList.append(tempOrderGoods(tempName, i.goods_price, i.goods_num, i.goods_img, total_price))
+        tempImg = tempGoods.img
+        tempPrice = tempGoods.price
+        total_price += tempPrice * i.goods_num
+        goodsList.append(tempOrderGoods(tempName, tempPrice, i.goods_num, tempImg, total_price))
 
     return goodsList
 
@@ -40,6 +42,19 @@ def GetAddr(user_id):
 
 
 def settleOrder(user_id, addr_id):
-    tempOrderList = []
+    tempAddr = user_model.Address.objects.filter(id=addr_id).first()
+    tempOrderList = cart_model.Cart.objects.filter(user_id=user_id, is_chosen=1, goods_num__gt=0)
+    for i in tempOrderList:
+        tempGoods = goods_model.Goods.objects.filter(id=i.goods_id).first()
+        tempPrice = tempGoods.price * i.goods_num + 10
+        shopId = goods_model.Goods.objects.filter(id=i.goods_id).first().shop_id
+        cart_model.Order.objects.create(user_id=user_id, shop_id=shopId, goods_id=i.goods_id, goods_num=i.goods_num, total_price=tempPrice, addr=tempAddr.text, pay_state=1, delivery_state="未发货", per_name=tempAddr.name)
+        cart_model.Cart.objects.filter(user_id=user_id, goods_id=i.goods_id).delete()
+        print("哈哈哈settle成功: 商品%s" % i.goods_id)
 
+    return None
+
+
+def setDefaultAddr(user_id, addr_id):
+    user_model.User.objects.filter(id=user_id).update(addr_id=addr_id)
     return None

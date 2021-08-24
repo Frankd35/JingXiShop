@@ -40,7 +40,7 @@
 				<div class="login_info fl">
 					欢迎来到京西商场!
 				</div>
-				{% if user %}
+				{% if user.isLogin %}
 				<div class="login_btn fl">
 					欢迎您：<em>{{ user.name }}</em>
                     <span>|</span>
@@ -82,7 +82,7 @@
                         <h5 class="fl">减免活动</h5>
                         <div class="yunfei fr">
                             京西福利：
-                            <span>满￥50.00免运费</span>
+                            <span>满￥999.00免运费</span>
                         </div>
                     </div>
 
@@ -199,7 +199,8 @@
                             </div>
                         </div>
                         <div class="sumbtn">
-                            <a class="sum-btn" href="/order">结算</a>
+{#                            <a class="sum-btn" href="/order">结算</a>#}
+                            <a class="sum-btn" href="javascript:;">结算</a>
                         </div>
                     </div>
                 </div>

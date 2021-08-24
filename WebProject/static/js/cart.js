@@ -105,6 +105,7 @@ $(function() {
         var sum = ($(this).parent().parent().siblings(".yui3-u-1-8").eq(1).children(".price").html() * m).toFixed(2);
         $(this).parent().parent().siblings(".yui3-u-1-8").eq(2).children(".sum").html(sum);
         me_sum();
+
     });
     $(".goods-list .mins").mouseover(function() {
         if ($(this).siblings(".itxt").val() <= 1) {
@@ -134,4 +135,8 @@ $(function() {
         $(this).closest('.goods-list').remove();
         me_sum();
     });
+    $(".sumbtn a").click(function (){
+        console.log("我被点了")
+        window.location.replace("/order")
+    })
 });

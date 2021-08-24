@@ -7,6 +7,7 @@ from django.shortcuts import render
 from .cart_response import *
 from .collect_response import *
 from .orderplace_response import *
+from .orderlist_response import *
 
 
 class TempUser:
@@ -80,6 +81,8 @@ def orderplace_view(request):
     m = request.method
     # GET请求， 加载页面
     if m == 'GET':
+        if user.isLogin == False:
+            return HttpResponseRedirect('/index_template')
         goodsList = OrderPlaceRequest(user.id)
         count = len(goodsList)
         addr = GetAddr(user.id)
@@ -92,12 +95,19 @@ def orderplace_view(request):
                       {'goodsList': goodsList, 'addr': addr, 'total_price': total_price, 'user': user, 'count': count,
                        'realPay': realPay})
     else:
-        flag = request.POST.get('settleoder', '')
+        flag = str(request.POST.get('settleorder', ''))
         if flag == 'ok':
+            print("结算，提交订单")
             settleOrder(user.id, user.addr_id)
             return HttpResponseRedirect('/cart')
-
-        return HttpResponse("发生了一些错误...")
+        else:
+            print("更改默认地址")
+            data = request.body.decode("utf-8")
+            json_data = json.loads(data)
+            print(json_data)
+            addr_id = int(json_data.get('address', -1))
+            setDefaultAddr(user.id, addr_id)
+            return JsonResponse({"res": 1})
 
 
 # Collect  ->  view
@@ -107,12 +117,13 @@ def collect_view(request):
     # GET请求， 加载页面
     goodsList = []
     if m == 'GET':
-        goodsList = OrderPlaceRequest(user.id)
+        goodsList = CollectRequest(user.id)
 
-    return render(request, 'place_order2.html', {'goodsList': goodsList, 'user': user})
+    return HttpResponse("这是收藏")
 
 
 def orderlist_view(request):
-    goodsList = []
-    user = None
-    return HttpResponse("这是订单页")
+    user = getLoginState(request)
+    orderList = getOrderList(user.id)
+
+    return render(request,'orderlist2.html',{'orderList':orderList, 'user':user})
