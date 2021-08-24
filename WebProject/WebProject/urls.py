@@ -42,7 +42,7 @@ urlpatterns = [
     path('user_center_site', usr_views.usr_site_view),
     path('merchant_register', usr_views.merchant_register_view),
     path('merchant', usr_views.merchant_view),
-
+    path('merchant_order', usr_views.merchant_order_view),
 
 
     # goods 模块路由转发

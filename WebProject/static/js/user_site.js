@@ -8,8 +8,12 @@ $(function() {
         url:"/user_center_site",
         type:"POST",
         data:JSON.stringify({'id':itGid,"csrfmiddlewaretoken": token}),
-        dataType : "text"
+        dataType : "text",
+        success: function(){
+            window.location.reload()
+        }
         })
+        
     });
 });
 
