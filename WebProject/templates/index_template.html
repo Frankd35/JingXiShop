@@ -586,18 +586,22 @@
 
         <div class="goods_con clearfix">
             <!--            //点击商品类型图片，进入该商品类型商品列表，向后端传该商品类型id-->
-            {#            <div class="goods_banner fl"><a href="/list?category={{  }}"><img#}
-            {#                    src="{{ GoodsCategory.img.url }}"></a></div>#}
+            <div class="goods_banner fl">
+                {#                <a href="/list?category={{ }}">#}
+                <a href="#">
+                    <img src="{{ GoodsCategory.id }}">
+                </a>
+            </div>
             <ul class="goods_list fl">
                 <!-- 展示这一类型的商品 4个 -->
-                {#                {% for goods in GoodsCategory.kands %}#}
-                <!--                // 点击商品图片，进入该商品详情页，向后端传该商品id-->
-                {#                    <li>#}
-                {#                        <h4><a href="detail_template">{{ goods.name }}</a></h4>#}
-                {#                        <a href="/detail_template?gid={{ good.id }}"><img src={{ goods.img.url }}></a>#}
-                {#                        <div class="prize">¥{{ goods.price }}</div>#}
-                {#                    </li>#}
-                {#                {% endfor %}#}
+                {% for goods in tmp %}
+                    <!--                // 点击商品图片，进入该商品详情页，向后端传该商品id-->
+                    <li>
+                        <h4><a href="detail_template">{{ goods.name }}</a></h4>
+                        <a href="/detail_template?gid={{ good.id }}"><img src={{ goods.img.url }}></a>
+                        <div class="prize">¥{{ goods.price }}</div>
+                    </li>
+                {% endfor %}
 
             </ul>
         </div>

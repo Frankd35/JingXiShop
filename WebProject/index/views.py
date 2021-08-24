@@ -1,3 +1,6 @@
+from itertools import chain
+from typing import List, Any
+
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
 
@@ -27,10 +30,14 @@ def index_template_view(request):
     # 商品分类图
     GoodsCategoryList = Category.objects.filter(state=1)[0:6]
     # 热点图
-    hotgoodsList = Goods.objects.filter(category_id=1).order_by('-searching_num')[0:2]
+    hotgoodsList = Goods.objects.filter(category_id=1).order_by('searching_num')[0:2]
     # 轮播图
     slideList = Goods.objects.filter(category_id=0).order_by('-searching_num')
-
+    tmp: List[Any] = []
+    for category in GoodsCategoryList:
+        GoodsList = Goods.objects.filter(category_id__gte=category.id).order_by('category_id')
+        tmp = [tmp, GoodsList]
+    tmp = chain(tmp)
     return render(request, 'index_template.html',
                   {'isLogin': isLogin, 'user': user, 'GoodsCategoryList': GoodsCategoryList,
-                   'hotgoodsList': hotgoodsList, 'slideList': slideList})
+                   'hotgoodsList': hotgoodsList, 'slideList': slideList, 'tmp': tmp})
