@@ -17,70 +17,68 @@
 			<div class="welcome fl">欢迎来到京西商城!</div>
 			<div class="fr">
 				{% user %}
-				<div class="login_zls1">
-					<li><input type="text" value={{user.state}}></li>
-				</div>
-				<div class="login_zls fl">
-					<div class="login_btn fl">
-						<a href="#"><img src="../static/images/my1.png" alt="">&nbsp;&nbsp;</a>				
-					</div>
-					<div class="login_btn fl">
-						<!-- <a href="login.html">您还未登录..</a>
-											 -->
-						<p>您还未登录..</p>
-						
-					</div>
-					<div class="login_btn fl"><span>|</span></div>
-				</div>
-				<div class="login_zls2 fl">
-					<div class="login_btn fl">
-						<!-- 登录状态下获取用户头像名字 -->
-						<a href="#"><img src={{user.img.url}} alt="">&nbsp;&nbsp;</a>				
-					</div>
-					<div class="login_btn fl">
-						<!-- <a href="login.html">您还未登录..</a>
-											 -->
-						<p>欢迎您：<em>{{user.name}}</em></p>
-						
-					</div>
-					<div class="login_btn fl"><span>|</span></div>
-				</div>
+			 {% if isLogin %}
+                <div class="login_zls fl">
+                    <div class="login_btn1 fl">
+                        <!-- 传入用户头像 -->
+{#                        注意看这个图片的信息参数 需要把长宽调好 否则就会影响到下面的界面 #}
+                        {#                        <a href="#"><img src={{ user.img }} alt="">&nbsp;&nbsp;</a>#}
+                    </div>
+                    <div class="login_btn fl">
+                        <!-- 传入用户姓名 -->
+                        <p>欢迎您：<em>{{ user.name }}</em></p>
+                    </div>
+                </div>
+                <div class="login_btn fl">
+                    <span>|</span>
+                </div>
+                <div class="login_btn fl">
+                    <a href="logout">退出登录</a>
+                </div>
+
+            {% else %}
+                <div class="login_zls fl">
+                    <div class="login_btn fl">
+                        <a href="#"><img src="../static/images/my1.png" alt="">&nbsp;&nbsp;</a>
+                    </div>
+                    <div class="login_btn fl">
+                        <p>您还未登录..</p>
+                    </div>
+                    <div class="login_btn fl"><span>|</span></div>
+                </div>
                 <div class="login_btn1 fl">
-					
-					<a href="login.html">登录</a>
-					
-				</div>
-				<div class="login_btn2 fl">
-					
-					<a href="login.html">退出登录</a>
-					
-				</div>
-				<div class="login_btn fl">				
-					<span>|</span>
-					<a href="register.html">注册</a>
-				</div>
+                    <a href="login">登录</a>
+                </div>
+                <div class="login_btn fl">
+                    <span>|</span>
+                    <a href="register">注册</a>
+                </div>
+            {% endif %}
 				<div class="user_link fl">
 					<span>|</span>
-					<a href="user_center_info.html">用户中心</a>
+					<a href="user_center_info2">用户中心</a>
 					<span>|</span>
-					<a href="cart.html">我的购物车</a>
+					<a href="cart">我的购物车</a>
 					<span>|</span>
-					<a href="user_center_order.html">我的订单</a>
+					<a href="user_center_order">我的订单</a>
 					<span>|</span>
-					<a href="cart.html">收藏夹</a>
+					<a href="collect2">收藏夹</a>
 				</div>
 			</div>
 		</div>		
 	</div>
 
 	<div class="search_bar clearfix">
-		<a href="index.html" class="logo fl" title="京西"><img src="images/jx.png"></a>
+		<a href="index_template" class="logo fl" title="京西"><img src="images/jx.png"></a>
 		<div class="search_con fl">
-			<input type="text" class="input_text fl" name="" placeholder="搜索商品">
-			<input type="button" class="input_btn fr" name="" value="搜索">
+			  <!-- 搜索功能 -->
+<!--        //搜索框输入商品类型，进去该商品类型列表，向后端传用户输入商品类型名称-->
+	<input type="text" class="input_text fl" name="goods.type" placeholder="搜索商品">
+	<!-- 搜索商品类型 -->
+         <a href="list_template" id="search1"><input type="submit" class="input_btn fr" value="搜索"></a>
 		</div>
 		<div class="guest_cart fr">
-			<a href="cart.html" class="cart_name fl">我的购物车</a>
+			<a href="cart" class="cart_name fl">我的购物车</a>
 			<div class="goods_count fl" id="show_count1">0</div>
             <div class="goods_count1 fl" id="show_count">{{ user.cart.goods_num}}</div>
 		</div>
@@ -94,7 +92,8 @@
 				<ul class="subnav">
                     {% for GoodsCategory in GoodsCategory %}
                     <!-- 展示六种商品类型 -->
-			        <li><a href="{% url 'list'  GoodsCategory.id %}" >{{GoodsCategory.name}} &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&gt;</a></li>
+					// 点击商品类型，进入该商品类型商品列表，向后端传商品类型id
+			        <li><a href="list_template" >{{GoodsCategory.name}} &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&gt;</a></li>
                     {%endfor%}
 					
 				</ul>
@@ -103,9 +102,10 @@
 				<li><a href="">首页</a></li>
 				
                  <!-- 商品类型 6个-->
+<!--				// 点击商品类型，进入该商品类型商品列表，向后端传商品类型id-->
 			{% for GoodsCategory in GoodsCategory %}
             <li class="interval">|</li> 
-            <li><a href="{% url 'list'  GoodsCategory.id %}">{{GoodsCategory.name}}</a></li>
+            <li><a href="list_template">{{GoodsCategory.name}}</a></li>
             {%endfor%}   
 			</ul>
 		</div>
@@ -114,10 +114,11 @@
 	<div class="breadcrumb">
 		<a href="#">全部分类</a>
 		<span>></span>
-        <!-- 商品所属类型 -->
-		<a href="{% url 'list' goods.style.id %}">{{ goods.style.name}}</a>
+        <!-- 该商品所属类型 -->
+<!--		// 点击商品类型，进入该商品类型商品列表，向后端传商品类型id-->
+		<a href="list_template">{{ goods.style.name}}</a>
 		<span>></span>
-		<a href="#">商品详情</a>
+		<a href="">商品详情</a>
 	</div>
 
 	<div class="goods_detail_con clearfix">
@@ -129,7 +130,7 @@
 			<p>{{ good.text }}</p>
 			<div class="prize_bar">
 				<span class="show_pirze">¥<em>{{ goods.price }}</em></span>
-				<span class="show_unit">单  位：{{ goods.unite }}</span>
+				<span class="show_unit">单  位：{{ goods.unite }}g</span>
 			</div>
 			<div class="goods_num clearfix">
 				<div class="num_name fl">数 量：</div>
@@ -138,13 +139,19 @@
 					<a href="javascript:;" class="adder">+</a>
 					<a href="javascript:;" class="reducer">-</a>	
 				</div> 
-				
+				<div class="love1">
+					件&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;库存{{ goods.num }}件
+				</div>
             </div>
 			
 			<div class="total">总价：<em>{{ goods.price }}元</em></div>
 			<div class="operate_btn">
-				<a href="javascript:;" class="buy_btn">立即购买</a>
-				<a href="javascript:;" class="add_cart" id="add_cart" onclick="alert('添加成功！')">加入购物车</a>
+<!--				 //点击立即购买，进入结算界面，向后端传购买用户id,商品数量，商品id-->
+				<a href="shopcar2" class="buy_btn">立即购买</a>
+<!--				//点击加入购物车，向后端传加入购物车的用户id,商品数量，商品id-->
+				<a href="javascript" class="add_cart" id="add_cart" onclick="alert('添加成功！')">加入购物车</a>
+<!--				 //点击加入收藏夹，向后端传加入收藏夹的用户id,，商品id-->
 				<a href="javascript:;" class="add_shou" id="add_shou" onclick="alert('添加成功！')">加入收藏夹</a>
 			</div>
 		</div>
@@ -155,11 +162,12 @@
 			<div class="new_goods">
 				<h3>新品推荐</h3>
 				<ul>
-                    <!-- 新品推荐商品 2-->
+                    <!-- 新品推荐商品 2个-->
+<!--					// 点击商品图片，进入该商品详情页，向后端传该商品id-->
                     {% for goods in new_goods %}
 					<li>
-						<a href="{% url 'goods:detail' goods.id %}"><img src={{goods.img.url}}></a>
-						<h4><a href="#">{{ goods.name }}</a></h4>
+						<a href="detail_template"><img src={{goods.img.url}}></a>
+						<h4><a href="detail_template">{{ goods.name }}</a></h4>
 						<div class="prize">￥{{goods.price}}</div>
 					</li>
 					{% endfor %}
@@ -185,10 +193,27 @@
 						
 						</div>
 					</div>
-					<!-- 商品名字和详情 -->
-					<dt>{{ goods.name}}</dt>
-					<dd>{{ goods.detail}} </dd>
-					<div class='num5'></div>
+					<div class="sky1">品牌：<em>采缇（CAITI）</em></div>
+					<div>
+						{% goods %}}
+						<div class="sky2">商品名称：{{ goods.name }}</div>
+						<div class="sky2">商品编号：{{ goods.goods_id }}</div>
+						<div class="sky2">店铺：{{ goods.shop_id }}</div>
+						<div class="sky2">商品毛重：{{ goods.unite }}g</div>
+						<div class="sky2">商品产地：其他</div>
+						<div class="sky2">货号：wz238748934030</div>
+						<div class="sky2">品种：红颜草莓</div>
+						<div class="sky2">包装形式：见状</div>
+						<div class="sky2">原产：云南</div>
+						<div class="sky2">国产/进口：国产</div>
+					</div>
+					<div class="sky3">
+						<p>价格说明:<br>
+							1.京西价:京西价为商品的销售价，是您最终决定是否购买商品的依据。<br>
+							2.划线价:商品展示的划横线价格为参考价，该价格可能是品牌专柜标价、商品吊牌价或由品牌供应商提供的正品零售价(如厂商指导价、建议零售价等)或该商品在京东平台上曾经展示过的销售价;由于地区、时间的差异性和市场行情波动，品牌专柜标价、商品吊牌价等可能会与您购物时展示的不一致，该价格仅供您参考。<br>3.折扣:如无特殊说明，折扣指销售商在原价、或划线价(如品牌专柜标价、商品吊牌价、厂商指导价、厂商建议零售价)等某一价格基础上计算出的优惠比例或优惠金额;如有疑问，您可在购买前联系销售商进行咨询。<br>
+							4.异常问题:商品促销信息以商品详情页“促销”栏中的信息为准;商品的具体售价以订单结算页价格为准;如您发现活动商品售价或促销信息有异常，建议购买前先联系销售商咨询。
+							</p>
+					</div>
 				</dl>
 			</div>
 			<div class="tab_content" id="tab_comment" style="display: none">
@@ -197,9 +222,10 @@
                     {% for comment in comments %}
                     
 					<dd class="num1">
-						<img src="{{ comment.users.img.url }}" alt=""><span>&nbsp;{{ comment.users.name }}:</span>
+						<img src="{{ comment.users.img.url }}" alt=""><span>&nbsp;{{ comment.users.name }}:<em>&nbsp;&nbsp;&nbsp;&nbsp;
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{ comment.mark }}分</em></span>
 					</dd>
-                    <dt class="num2">{{ comment }}</dt>
+                    <dt class="num2">{{ comment.text }}</dt>
 					<dd class="num3">{{ comment.creattime }}</dd>
 					
 				{% endfor %}
@@ -239,25 +265,7 @@
             $('#tab_detail').hide()
             $('#tab_comment').show()
         })
-        //立即购买
-        $('.buy_btn').click(function () {
-            sku_id = $(this).attr('sku_id')
-            count = $('.num_show').val()
-            csrf = $('input[name="csrfmiddlewaretoken"]').val()
-            // 组织参数
-            params = {'sku_id':sku_id, 'count':count, 'csrfmiddlewaretoken':csrf}
-            // 发起ajax post请求，访问/cart/add, 传递参数:sku_id count
-            $.post('/cart/add', params, function (data) {
-                if (data.res == 5){
-                    // 添加成功
-                    window.location.href = "/order/buy_now?sku_id="+sku_id+"&count="+count;
-                }
-                else{
-                    // 添加失败
-                    alert(data.errmsg)
-                }
-            })
-        })
+
         update_goods_amount()
         // 计算商品的总价格
         function update_goods_amount() {
@@ -277,7 +285,7 @@
             // 获取商品原有的数目
             count = $('.num_show').val()
             // 加1
-            count = parseInt(count)+1
+            count = parseInt(count)
             // 重新设置商品的数目
             $('.num_show').val(count)
             // 更新商品的总价
@@ -289,7 +297,7 @@
             // 获取商品原有的数目
             count = $('.num_show').val()
             // 减1
-            count = parseInt(count)-1
+            count = parseInt(count)
             if (count <= 0){
                 count = 1
             }
@@ -312,45 +320,104 @@
             // 更新商品的总价
             update_goods_amount()
         })
+		//搜索框输入商品类型，进去该商品类型列表，向后端传用户输入商品类型名称
+		$(".input_btn").click(function() {
+			var type=$(".input_text").val();
+			// 判断用户输入是否为空
+			if(type == ''|| type==null  ) {
+				var aobj = document.getElementById("search1");
+				aobj.href="";
+				alert('未输入商品名称！')
 
-        // 获取add_cart div元素左上角的坐标
-		var $add_x = $('#add_cart').offset().top;
-		var $add_y = $('#add_cart').offset().left;
+			}
+			else{
+				$.ajax({
+					url:"/goods",
+					type:"POST",
+					data:JOSN.stringify({'gname':type}),
+					dataType:"text"
+				})
+			}
 
-        // 获取show_count div元素左上角的坐标
-		var $to_x = $('#show_count').offset().top;
-		var $to_y = $('#show_count').offset().left;
-
-
-		$('#add_cart').click(function(){
-            // 获取商品id和商品数量
-            sku_id = $(this).attr('sku_id') // attr prop
-            count = $('.num_show').val()
-            csrf = $('input[name="csrfmiddlewaretoken"]').val()
-            // 组织参数
-            params = {'sku_id':sku_id, 'count':count, 'csrfmiddlewaretoken':csrf}
-            // 发起ajax post请求，访问/cart/add, 传递参数:sku_id count
-            $.post('/cart/add', params, function (data) {
-                if (data.res == 5){
-                    // 添加成功
-                    $(".add_jump").css({'left':$add_y+80,'top':$add_x+10,'display':'block'})
-                    $(".add_jump").stop().animate({
-                        'left': $to_y+7,
-                        'top': $to_x+7},
-                        "fast", function() {
-                            $(".add_jump").fadeOut('fast',function(){
-                                // 重新设置用户购物车中商品的条目数
-                                $('#show_count').html(data.total_count);
-                            });
-			        });
-                }
-                else{
-                    // 添加失败
-                    alert(data.errmsg)
-                }
-            })
 		})
+        // 点击商品类型，进入该商品类型商品列表，向后端传商品类型id
+        $(".subnav a").click(function() {
+			var itgid=$(this).attr('GoodsCategory.id ');
+			$.ajax({
+				url:"/goods",
+				type:"POST",
+				data:JOSN.stringify ({'gid':itGid}),
+				dataType:"text"
+			})
+		})
+        	// 点击商品类型，进入该商品类型商品列表，向后端传商品类型id
+		$(".navlist a").click(function() {
+			var itgid=$(this).attr('GoodsCategory.id ');
+			$.ajax({
+				url:"/goods",
+				type:"POST",
+				data:JOSN.stringify ({'gid':itGid}),
+				dataType:"text"
+			})
+		})
+        // 点击商品类型，进入该商品类型商品列表，向后端传商品类型id
+        $(".breadcrumb a").click(function() {
+			var itgid=$(this).attr('goods.style.id ');
+			$.ajax({
+				url:"/goods",
+				type:"POST",
+				data:JOSN.stringify ({'gid':itGid}),
+				dataType:"text"
+			})
+		})
+        //点击立即购买，进入结算界面，向后端传购买用户id,商品数量，商品id
+        $('.buy_btn').click(function() {
+            var uid=$(this).attr('user.id');
+            var count = $('.num_show').val();
+            var gid=$(this).attr('goods.goods_id');
+            $.ajax({
+                url:"/cart",
+                type:"POST",
+                data:JOSN.stringify ({'uid':uid,'gid':gid,'count':count}),
+                dataType:"text"
+            })
+        })
+         //点击加入购物车，向后端传加入购物车的用户id,商品数量，商品id
+        $('.add_cart').click(function(){
+            var uid=$(this).attr('user.id');
+            var count = $('.num_show').val();
+            var gid=$(this).attr('goods.goods_id');
+            $.ajax({
+                url:"/cart",
+                type:"POST",
+                data:JOSN.stringify ({'uid':uid,'gid':gid,'count':count}),
+                dataType:"text"
+            })
+        })
+         //点击加入收藏夹，向后端传加入收藏夹的用户id,，商品id
+         $('.add_shou').click(function(){
+            var uid=$(this).attr('user.id');
+            var gid=$(this).attr('goods.goods_id');
+            $.ajax({
+                url:"/cart",
+                type:"POST",
+                data:JOSN.stringify ({'uid':uid,'gid':gid}),
+                dataType:"text"
+            })
+        })
+        // 点击商品图片，进入该商品详情页，向后端传该商品id
+		$(".new_goods a").click(function(){
+			var itgid=$(this).attr('goods.goods_id');
+			$.ajax({
+				url:"/goods",
+				type:"POST",
+				data:JOSN.stringify ({'gid':itGid}),
+				dataType:"text"
+			})
+		})
+
 	</script>
+
 	
 </body>
 </html>

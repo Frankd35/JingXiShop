@@ -1,101 +1,96 @@
-<!DOCTYPE html>
-<html>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
 <head>
-    <meta charset="utf-8">
-    <title>综合网购首选-正品低价、品质保障、配送及时、轻松购物！</title>
-    <link rel="shortcut icon" href="favicon.ico" type="../static/image/x-icon"/>
+	<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+	<title>京西商城-用户中心</title>
+	<link rel="stylesheet" type="text/css" href="../static/css/reset.css">
+	<link rel="stylesheet" type="text/css" href="../static/css/main3.css">
     <link rel="stylesheet" type="text/css" href="../static/css/main2.css">
     <link rel="stylesheet" href="../static/css/normalize2.css" />
     <link rel="stylesheet" href="../static/css/base2.css" />
-    <link rel="stylesheet" href="../static/css/cart2.css">
+    <link rel="stylesheet" href="../static/css/collect_cart2.css">
     <script src="../static/js/jquery.min.js"></script>
-    <script src="../static/js/base.js"></script>
     <script src="../static/js/cart.js"></script>
-    <!-- <script src="js/addSub.js"></script> -->
     <style>
-        .welcome, .login_info, .login_btn, .user_link {
-            line-height: 29px;
+        .myGood {
+            margin-left: 100px;
         }
-<!--        .cart-list ul {-->
-<!--	        padding: 0px;-->
-<!--	        /* border-bottom: 1px solid #ddd; */-->
-<!--        }-->
-        .fl {
-            float: left;
+        .myPrice {
+            margin-left: 230px;
         }
-        div {
-            display: block;
+        .myShop {
+            margin-right: 30px;
         }
-        body {
-            font-family: 'Microsoft Yahei';
-            font-size: 12px;
-            color: #666;
+        .mylittleSum{
+            margin-right: 35px;
+        }
+        .ope{
+            margin-right: -30px;
         }
     </style>
 </head>
-<body>
-    <div class="search">
-		<a href="index.html" class="logo fl"><img src="../static/images/logo.png" width="150" height="59"></a>
-		<a class="sub_page_name fl" onclick="alert('购买成功')">|&nbsp;&nbsp;&nbsp;&nbsp;提交订单</a>
-	</div>
-
-    	<div class="header_con">
+<body><div data-v-7e2550d6="" class="odm_extension image_downloader_wrapper"><!----></div>
+	<div class="header_con">
 		<div class="header">
+			<div class="welcome fl">欢迎来到京西商城!</div>
 			<div class="fr">
 				<div class="login_info fl">
-					欢迎来到京西商场!
+					欢迎您：<em>张 山</em>
 				</div>
-
-                <div class="login_btn fl">
-					欢迎您：<em>{{ user.username }}</em>
-                    <span>|</span>
-					<a href="{% url 'user:logout' %}">退出</a>
-				</div>
-
 				<div class="login_btn fl">
-					<a href="login.html">登录</a>
+					<a href="login">登录</a>
 					<span>|</span>
-					<a href="register.html">注册</a>
+					<a href="register">注册</a>
 				</div>
 				<div class="user_link fl">
 					<span>|</span>
-					<a href="user_center_info.html">用户中心</a>
+					<a href="user_center_info">用户中心</a>
 					<span>|</span>
-					<a href="cart.html">我的购物车</a>
+					<a href="shopcar">我的购物车</a>
 					<span>|</span>
-					<a href="user_center_order.html">我的订单</a>
-                    <span>|</span>
-					<a href="user_center_order.html">收藏夹</a>
+					<a href="user_center_order">我的订单</a>
 				</div>
 			</div>
 		</div>
 	</div>
-    <div class="py-container">
-        <div class="w">
-            <div class="allgoods">
+
+	<div class="search_bar clearfix">
+		<a href="index.html" class="logo fl"><img src="../static/images/jx.png"></a>
+		<div class="sub_page_name fl">|&nbsp;&nbsp;&nbsp;&nbsp;用户中心</div>
+		<div class="search_con fr">
+			<input type="text" class="input_text fl" name="" placeholder="搜索商品">
+			<input type="button" class="input_btn fr" name="" value="搜索">
+		</div>
+	</div>
+
+	<div class="main_con clearfix">
+		<div class="left_menu_con clearfix">
+			<h3>用户中心</h3>
+			<ul>
+				<li><a href="user_center_info">· 个人信息</a></li>
+				<li><a href="user_center_site"  class="active">· 收藏夹</a></li>
+				<li><a href="cart">· 购物车</a></li>
+				<li><a href="user_center_order">· 全部订单</a></li>
+				<li><a href="user_center_site">· 收货地址</a></li>
+				<li><a href="merchant_register">· 商家入驻</a></li>
+			</ul>
+		</div>
+		<div class="right_content clearfix">
+				<div class="allgoods">
 
                 <div class="cart-main">
                     <div class="cart-th clearfix">
-                        <div><input type="checkbox">全选</div>
-                        <div class="">商品</div>
-                        <div class="">单价（元）</div>
-                        <div class="">数量</div>
-                        <div class="">小计（元）</div>
-                        <div class="">操作</div>
-                    </div>
-                    <div class="cart-title clearfix">
-                        <h5 class="fl">减免活动</h5>
-                        <div class="yunfei fr">
-                            运费：￥20.00
-                            <span>还差￥56.00免运费</span>
-                        </div>
+                        <div class="myGood">商品</div>
+                        <div class="myPrice">单价（元）</div>
+                        <div class="myShop">店铺</div>
+                        <div class="mylittleSum">添加</div>
+                        <div class="ope">操作</div>
                     </div>
                     <div class="cart-item-list">
                         <div class="cart-body">
                             <div class="cart-list">
-                                <ul class="goods-list yui3-g">
+                                <ul class="goods-list yui3-g active">
                                     <li class="yui3-u-3-8 pr">
-                                        <input type="checkbox" class="good-checkbox">
                                         <div class="good-item">
                                             <div class="item-img">
                                                 <img src="../static/images/goods/b5.jpg">
@@ -117,15 +112,11 @@
                                         <span class="price">8848.00</span>
                                     </li>
                                     <li class="yui3-u-1-8">
-                                        <div class="clearfix">
-                                            <a href="javascript:;" class="increment mins">-</a>
-                                            <input autocomplete="off" type="text" value="1" minnum="1" class="itxt">
-                                            <a href="javascript:;" class="increment plus">+</a>
-                                        </div>
-                                        <div class="youhuo">有货</div>
+                                        <!--<div class="youhuo">店铺名</div>-->
+                                        <div>店铺名</div>
                                     </li>
                                     <li class="yui3-u-1-8">
-                                        <span class="sum" id='sumPrice'>8848.00</span>
+                                        <span class="sum" id="sumPrice">去购买</span>
                                     </li>
                                     <li class="yui3-u-1-8">
                                         <div class="del1">
@@ -134,9 +125,8 @@
                                         <!-- <div>移到我的关注</div> -->
                                     </li>
                                 </ul>
-                                <ul class="goods-list yui3-g">
+                                <ul class="goods-list yui3-g" >
                                     <li class="yui3-u-3-8 pr">
-                                        <input type="checkbox" class="good-checkbox">
                                         <div class="good-item">
                                             <div class="item-img">
                                                 <img src="../static/images/goods/goods003.jpg">
@@ -158,15 +148,10 @@
                                         <span class="price">16.00</span>
                                     </li>
                                     <li class="yui3-u-1-8">
-                                        <div class="clearfix">
-                                            <a href="javascript:;" class="increment mins">-</a>
-                                            <input autocomplete="off" type="text" value="1" minnum="1" class="itxt">
-                                            <a href="javascript:;" class="increment plus">+</a>
-                                        </div>
-                                        <div class="youhuo">有货</div>
+                                        <div>店铺名</div>
                                     </li>
                                     <li class="yui3-u-1-8">
-                                        <span class="sum">16.00</span>
+                                        <span class="sum">去购买</span>
                                     </li>
                                     <li class="yui3-u-1-8">
                                         <div class="del1">
@@ -175,9 +160,8 @@
                                         <!-- <div>移到我的关注</div> -->
                                     </li>
                                 </ul>
-                                <ul class="goods-list active yui3-g">
+                                <ul class="goods-list yui3-g">
                                     <li class="yui3-u-3-8 pr">
-                                        <input type="checkbox" class="good-checkbox">
                                         <div class="good-item">
                                             <div class="item-img">
                                                 <img src="../static/images/goods/b5.jpg">
@@ -199,15 +183,10 @@
                                         <span class="price">8848.00</span>
                                     </li>
                                     <li class="yui3-u-1-8">
-                                        <div class="clearfix">
-                                            <a href="javascript:;" class="increment mins">-</a>
-                                            <input autocomplete="off" type="text" value="1" minnum="1" class="itxt">
-                                            <a href="javascript:;" class="increment plus">+</a>
-                                        </div>
-                                        <div class="youhuo">有货</div>
+                                        <div>店铺名</div>
                                     </li>
                                     <li class="yui3-u-1-8">
-                                        <span class="sum">8848.00</span>
+                                        <span class="sum">去购买</span>
                                     </li>
                                     <li class="yui3-u-1-8">
                                         <div class="del1">
@@ -221,52 +200,26 @@
                         </div>
                     </div>
                 </div>
-                <div class="cart-tool clearfix">
-                    <div class="money-box">
-                        <div class="sumprice">
-                            <div class="sumprice-top">
-                                <span>
-                                    已选择
-                                    <strong>0</strong> 件商品
-                                </span>
 
-                                <em>总价（不含运费）：</em>
-                                <i class="summoney">￥<span>44240.00</span></i>
-                            </div>
-                            <div class="sumprice-bottom">
-                                已节省：￥20.00
-                            </div>
-                        </div>
-                        <div class="sumbtn">
-                            <a class="sum-btn" href="place_order.html">结算</a>
-                        </div>
-                    </div>
-                </div>
             </div>
-        </div>
-    </div>
-    <footer>
-        <div class="footer">
-            <div class="foot_link">
-                <a href="#">关于我们</a>
-                <span>|</span>
-                <a href="#">联系我们</a>
-                <span> | </span>
-                <a href="#">联系客服</a>
-                <span> | </span>
-                <a href="#">合作招商</a>
-                <span> | </span>
-                <a href="#">商家帮助</a>
-                <span> | </span>
-                <a href="#">营销中心</a>
-                <span>|</span>
-                <a href="#">招聘人才</a>
-                <span>|</span>
-                <a href="#">友情链接</a>		
-            </div>
-            <p>CopyRight © 2021 重庆京西科技有限公司 All Rights Reserved</p>
-            <p>电话：023-****888    京ICP备*******8号</p>
-        </div>
-    </footer>
+		</div>
+	</div>
+
+
+
+	<div class="footer">
+		<div class="foot_link">
+			<a href="#">关于我们</a>
+			<span>|</span>
+			<a href="#">联系我们</a>
+			<span>|</span>
+			<a href="#">招聘人才</a>
+			<span>|</span>
+			<a href="#">友情链接</a>
+		</div>
+		<p>CopyRight © 2016 北京天天生鲜信息技术有限公司 All Rights Reserved</p>
+		<p>电话：010-****888    京ICP备*******8号</p>
+	</div>
+
 </body>
 </html>

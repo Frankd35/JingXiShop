@@ -16,18 +16,19 @@
 		<div class="header">
 			<div class="welcome fl">欢迎来到京西商城!</div>
 			<div class="fr">
+{#				{% user %}#}
 				<div class="login_zls1">
 					<li><input type="text" value=1></li>
 				</div>
 				<div class="login_zls fl">
 					<div class="login_btn fl">
-						<a href="#"><img src="../static/images/my1.png" alt="">&nbsp;&nbsp;</a>
+						<a href="#"><img src="../static/images/my1.png" alt="">&nbsp;&nbsp;</a>				
 					</div>
 					<div class="login_btn fl">
 						<!-- <a href="login.html">您还未登录..</a>
 											 -->
 						<p>您还未登录..</p>
-
+						
 					</div>
 					<div class="login_btn fl"><span>|</span></div>
 				</div>
@@ -848,7 +849,7 @@
 			// 判断用户输入是否为空
 			if(type == ''|| type==null  ) {
 				var aobj = document.getElementById("search1");
-				aobj.href="index.html";
+				aobj.href="";
 				alert('未输入商品名称！')
 				
 			}	
