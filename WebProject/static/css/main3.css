@@ -342,7 +342,7 @@ html,body{height:100%}
 .reg_form_1 li input{width:288px;height:38px;border:1px solid #e0e0e0;float:left;outline:none;text-indent:10px;background-color:#f8f8f8}
 .reg_form_1 li.agreement input{width:15px;height:15px;float:left;margin-top:13px}
 .reg_form_1 li.agreement label{width:300px;float:left;margin-left:10px;}
-.reg_form_1 li.reg_sub input{width:360px;height:40px;background-color:#47aa34;font-size:18px;color:#fff;font-family:'Microsoft Yahei';cursor:pointer;}
+.reg_form_1 li.reg_sub input{width:360px;height:40px;background-color:rgb(201,25,37);font-size:18px;color:#fff;font-family:'Microsoft Yahei';cursor:pointer;}
 .reg_form_1 li .error_tip{float:left;height:30px;line-height:30px;margin-left:70px;color:#e62e2e;display:none;}
 .reg_form_1 li .error_tip2{float:left;height:20px;line-height:20px;color:#e62e2e;display:none;}
 
@@ -640,7 +640,7 @@ html,body{height:100%}
 .info_submit{
 	width:80px;
 	height:30px;
-	background-color:#37ab40;
+	background-color:rgb(201,25,37);
 	border:0px;
 	color:#fff;
 	margin:10px 0 10px 100px;
