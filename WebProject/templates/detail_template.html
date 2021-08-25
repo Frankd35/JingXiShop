@@ -95,7 +95,7 @@
                 {% for GoodsCategory in GoodsCategoryList %}
                     <!-- 展示六种商品类型 -->
                     <!--					// 点击商品类型，进入该商品类型商品列表，向后端传商品类型id-->
-                    <li><a href="list_template">{{ GoodsCategory.name }} &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&gt;</a></li>
+                    <li><a href="/list_template?gname={{ GoodsCategory.name }}">{{ GoodsCategory.name }} &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&gt;</a></li>
                 {% endfor %}
 
             </ul>
@@ -107,7 +107,7 @@
             <!--				// 点击商品类型，进入该商品类型商品列表，向后端传商品类型id-->
             {% for GoodsCategory in GoodsCategoryList %}
                 <li class="interval">|</li>
-                <li><a href="list_template">{{ GoodsCategory.name }}</a></li>
+                <li><a href="/list_template?gname={{ GoodsCategory.name }}">{{ GoodsCategory.name }}</a></li>
             {% endfor %}
         </ul>
     </div>
@@ -118,7 +118,7 @@
     <span>></span>
     <!-- 该商品所属类型 -->
     <!--		// 点击商品类型，进入该商品类型商品列表，向后端传商品类型id-->
-    <a href="list_template">{{ goods.style.name }}</a>
+    <a href="/list_template?gname={{ GoodsCategory.name }}">{{ goods.style.name }}</a>
     <span>></span>
     <a href="">商品详情</a>
 </div>
