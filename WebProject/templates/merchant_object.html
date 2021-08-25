@@ -92,7 +92,6 @@ $(function() {
 		</div>
 		 <div class="right_content clearfix">
             <h3 class="common_title2">全部商品</h3>
-            {% for good in goodsList %}
             <ul class="order_list_th w978 clearfix">
                 <li class="col01">店铺商品：</li>
                 <li class="col02">商品单价：</li>
@@ -101,7 +100,7 @@ $(function() {
                 <li class="col03">商家操作：</li>
 				<!-- <li class="col03"><a href="javascript:;" good_operate="{{order.id}}">商家处理</a></li> -->
             </ul>
-
+            {% for good in goodsList %}
             <table class="order_list_table w980">
                 <tbody>
                     <tr>
