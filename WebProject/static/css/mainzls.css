@@ -99,7 +99,7 @@ html,body{height:100%}
 
 .center_con{width:1200px;height:270px;margin:0 auto;}
 .subnav{width:198px;height:270px;border-left:1px solid #eee;border-right:1px solid #eee;}
-.subnav li{height:44px;border-bottom:0 px solid #eee;
+.subnav li{height:44px;border-bottom:0px solid #eee;
 	background-color: rgb(245,245,245);}
 
 .subnav li a{display:inline-block;height:44px;line-height:44px;text-indent:71px;font-size:14px;color:#333}
@@ -154,7 +154,7 @@ html,body{height:100%}
 }
 .cate_detail {
 	padding: 10px 17px 0 20px;
-	overflow: hidden; 699
+	overflow: hidden;
 }
 .cate_detail dl {
 	display: block;
