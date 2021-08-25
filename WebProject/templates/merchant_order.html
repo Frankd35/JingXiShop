@@ -3,8 +3,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>商家界面</title>
-<link rel="stylesheet" type="text/css" href="statics/css/global.css" />
-<script type="text/javascript" src="statics/js/jquery3.js"></script>
+<script type="text/javascript" src="static/js/jquery3.js"></script>
 <link rel="stylesheet" type="text/css" href="../static/css/reset.css">
 <link rel="stylesheet" type="text/css" href="../static/css/main3.css">
 <script>
@@ -80,7 +79,7 @@ $(function() {
                 <li class="col01">{{order.time}}</li>
                 <li class="col02">订单号：{{order.order_id}}</li>
                 <li class="col02 stress">处理状态：{{ order.delivery_state }}</li>
-                <li class="col02"><a href="javascript:;" good_operate="{{order.id}}">发货</a></li>
+                <li class="col03"><a href="javascript:;" good_operate="{{order.order_id}}">发货</a></li>
             </ul>
 
             <table class="order_list_table w980">
