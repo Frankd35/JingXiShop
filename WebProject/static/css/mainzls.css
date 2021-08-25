@@ -93,7 +93,7 @@ html,body{height:100%}
 .navlist{margin-left:34px;}
 .navlist li{height:40px;float:left;line-height:40px;}
 .navlist li a{color:#666;font-size:14px}
-.navlist li a:hover{color:#ff8800}
+.navlist li a:hover{color:rgb(201, 25, 37)}
 .navlist .interval{margin:0 15px;}
 
 
@@ -103,7 +103,7 @@ html,body{height:100%}
 	background-color: gray;}
 
 .subnav li a{display:inline-block;height:44px;line-height:44px;text-indent:71px;font-size:14px;color:#333}
-.subnav li a:hover{color:#ff8800}
+.subnav li a:hover{color:rgb(201, 25, 37)}
 .subnav li  div {
 	display: inline;
 	height:44px;
@@ -208,11 +208,11 @@ html,body{height:100%}
 
 .list_model{width:1200px;height:340px;margin:15px auto 0;}
 .list_title{height:40px;border-bottom:2px solid red}
-.list_title h3{height:40px;line-height:40px;font-size:16px;color:orange;font-weight:bold;}
+.list_title h3{height:40px;line-height:40px;font-size:16px;color:rgb(201,25,37);font-weight:bold;}
 .list_title .subtitle{height:20px;line-height:20px;margin-top:15px;}
 .list_title .subtitle span{color:#666;margin:0 10px 0 20px;}
 .list_title .subtitle a{color:#666;margin:0 5px;}
-.list_title .subtitle a:hover,.goods_more:hover{color:#00a2ff}
+.list_title .subtitle a:hover,.goods_more:hover{color:rgb(201, 25, 37)}
 .goods_more{height:20px;margin-top:15px;color:#666}
 
 .goods_con{height:300px;}
@@ -221,12 +221,12 @@ html,body{height:100%}
 
 .goods_list{width:1000px;height:299px;border-bottom:1px solid #ededed}
 .goods_list li{height:299px;width:249px;border-right:1px solid #ededed;float:left}
-.goods_list li:hover{width:248px;height:297px;border:1px solid skyblue;}
+.goods_list li:hover{width:248px;height:297px;border:1px solid rgb(201,25,37);}
 .goods_list li:hover img{opacity:0.8}
 
 .goods_list li h4{width:200px;height:50px;margin:20px auto 0;text-align:center;}
 .goods_list li h4 a{font-size:14px;color:#666;font-weight:normal;line-height:24px;}
-.goods_list li h4 a:hover{color:#ff8888}
+.goods_list li h4 a:hover{color:rgb(201, 25, 37)}
 
 .goods_list li img{display:block;width:180px;height:180px;margin:0 auto;}
 .goods_list li .prize{text-align:center;font-size:20px;color:#c40000;margin-top:5px;}
@@ -290,10 +290,10 @@ html,body{height:100%}
 	background-color:skyblue;
 } */
 .sort_bar div{display:inline-block;height:30px;line-height:30px;padding:0 20px;float:left;color:#000}
-.sort_bar .active{color:orange;}
+.sort_bar .active{color:rgb(201, 25, 37);}
 
 .sort_bar div:hover {
-	background-color:skyblue;
+	background-color:rgb(201, 25, 37);
 }
 .goods_type_list{
 	width: 1100px;
@@ -310,7 +310,7 @@ html,body{height:100%}
 
 .goods_type_list li img{width:160px;height:160px;display:block;margin:10px auto;}
 .goods_type_list li:hover {
-	width:190px;height:225px;border:1px solid skyblue;
+
 }
 
 .goods_type_list li h4{width:160px;margin:0 auto;}
@@ -326,7 +326,7 @@ html,body{height:100%}
 .pagenation{height:32px;text-align:center;font-size:0;margin:30px auto;}
 .pagenation a{display:inline-block;border:1px solid #d2d2d2;background-color:#f8f6f7;font-size:12px;padding:7px 10px;color:#666;margin:5px}
 
-.pagenation .active{background-color:#fff;color:skyblue}
+.pagenation .active{background-color:#fff;color:rgb(201, 25, 37)}
 
 
 /* 商品详情样式 */
