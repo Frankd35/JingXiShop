@@ -74,9 +74,16 @@
     <div class="search_con fl">
         <!-- 搜索功能 -->
         <!--        //搜索框输入商品类型，进去该商品类型列表，向后端传用户输入商品类型名称-->
-        <input type="text" class="input_text fl" name="goods.type" placeholder="搜索商品">
+        <input type="text" class="input_text fl" name="goods.type" id="search0" placeholder="搜索商品">
         <!-- 搜索商品类型 -->
-        <a href="list_template" id="search1"><input type="submit" class="input_btn fr" value="搜索"></a>
+        <a href="javascript:;" id="search1"><input type="submit" class="input_btn fr" value="搜索"></a>
+{#        <script type="javascript">#}
+{#            $('#search1').click(function (){#}
+{#                console.log("哈哈哈")#}
+{#                var keyword = $('#search0').val()#}
+{#                window.location = "/list_template?category=" + keyword#}
+{#            })#}
+{#        </script>#}
     </div>
     <div class="guest_cart fr">
         <a href="cart" class="cart_name fl">我的购物车</a>
@@ -95,7 +102,7 @@
                 {% for GoodsCategory in GoodsCategoryList %}
                     <!-- 展示六种商品类型 -->
                     <!--					// 点击商品类型，进入该商品类型商品列表，向后端传商品类型id-->
-                    <li><a href="list_template">{{ GoodsCategory.name }} &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&gt;</a></li>
+                    <li><a href="list_template?category={{ GoodsCategory.id }}">{{ GoodsCategory.name }} &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&gt;</a></li>
                 {% endfor %}
 
             </ul>
@@ -107,18 +114,18 @@
             <!--				// 点击商品类型，进入该商品类型商品列表，向后端传商品类型id-->
             {% for GoodsCategory in GoodsCategoryList %}
                 <li class="interval">|</li>
-                <li><a href="list_template">{{ GoodsCategory.name }}</a></li>
+                <li><a href="list_template?category={{ GoodsCategory.id }}">{{ GoodsCategory.name }}</a></li>
             {% endfor %}
         </ul>
     </div>
 </div>
 {#        {% good %}#}
 <div class="breadcrumb">
-    <a href="#">全部分类</a>
+    <a href="/index_template">全部分类</a>
     <span>></span>
     <!-- 该商品所属类型 -->
     <!--		// 点击商品类型，进入该商品类型商品列表，向后端传商品类型id-->
-    <a href="list_template">{{ goods.style.name }}</a>
+    <a href="list_template?category={{ good.category_id }}">{{ category }}</a>
     <span>></span>
     <a href="">商品详情</a>
 </div>
@@ -365,23 +372,19 @@
     })
     //搜索框输入商品类型，进去该商品类型列表，向后端传用户输入商品类型名称
     $(".input_btn").click(function () {
-        var type = $(".input_text").val();
+        var keyword = $(".input_text").val();
         // 判断用户输入是否为空
-        if (type == '' || type == null) {
+        if (keyword == '' || keyword == null) {
             var aobj = document.getElementById("search1");
             aobj.href = "";
             alert('未输入商品名称！')
 
         } else {
-            $.ajax({
-                url: "/goods",
-                type: "POST",
-                data: JOSN.stringify({'gname': type}),
-                dataType: "text"
-            })
+            window.location = "/list_template?keyword=" + keyword
         }
 
     })
+    /*
     // 点击商品类型，进入该商品类型商品列表，向后端传商品类型id
     $(".subnav a").click(function () {
         var itgid = $(this).attr('GoodsCategory.id ');
@@ -457,6 +460,7 @@
             dataType: "text"
         })
     })
+    */
 
 </script>
 

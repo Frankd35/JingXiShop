@@ -55,8 +55,7 @@ def dealRequest(user_id, flag, gid, isChosen):
         return []
     elif flag == 3:  # 减少
         ori_num = cart_model.Cart.objects.filter(user_id=user_id, goods_id=gid).first().goods_num
-        if ori_num > 1:
-            cart_model.Cart.objects.filter(user_id=user_id, goods_id=gid).update(goods_num=(ori_num - 1))
+        cart_model.Cart.objects.filter(user_id=user_id, goods_id=gid).update(goods_num=max(1, (ori_num - 1)))
         print("商品减少")
         return []
     elif flag == 4:  # 删除

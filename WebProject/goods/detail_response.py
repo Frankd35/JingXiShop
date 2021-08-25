@@ -12,6 +12,16 @@ class TempComment:
         self.createtime = createtime
 
 
+def getCateList():
+    cateList = goods_model.Category.objects.all()
+    return cateList
+
+
+def getCategory(category_id):
+    cateName = goods_model.Category.objects.filter(id=category_id).first().name
+    return cateName
+
+
 def getGoodsDetail(goods_id):
     goods = goods_model.Goods.objects.filter(id=goods_id).first()
     return goods

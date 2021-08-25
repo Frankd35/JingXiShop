@@ -1,4 +1,31 @@
 $(function() {
+    // 手动输入商品的数量
+    $('.itxt').blur(function () {
+        // 获取用户输入的数目
+        count = Number($(this).val())
+        maxnum = Number($(this).attr('maxnum'))
+        // 校验count是否合法
+        if (isNaN(count) || count < 1) {
+            count = 1
+        }
+        if (count > maxnum){
+            count = maxnum
+        }
+        // 重新设置商品的数目
+        $(this).val(count)
+        console.log("重新设置商品数量："+count)
+        var itGid=$(this).attr('goodid');
+        var token = $('[name="csrfmiddlewaretoken"]').attr("value");
+        $.ajax({
+        url:"/cart",
+        type:"POST",
+        data:JSON.stringify({'gid':itGid,'flag':'updatenum', "csrfmiddlewaretoken": token, 'num': count}),
+        dataType : "text"
+        })
+        // 更新商品的总价
+        me_sum();
+    })
+
     $(".cart-list ul").mouseover(function() {
         $(this).addClass("active").siblings().removeClass("active");
     });
