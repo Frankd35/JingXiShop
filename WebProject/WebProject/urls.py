@@ -19,12 +19,12 @@ from cart import views as c_views
 from index import views as in_views
 from goods import views as goods_views
 from django.contrib import admin
-from django.urls import path
+from django.urls import path, re_path
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 
 urlpatterns = [
     # 设置初始跳转
-    path(r'', lambda req: HttpResponseRedirect('/index')),
+    path(r'', lambda req: HttpResponseRedirect('/index_template')),
     path('admin/', admin.site.urls),
     # cart 模块路由转发
     path('order', c_views.orderplace_view),
@@ -34,6 +34,7 @@ urlpatterns = [
     # index 模块路由转发
     path('index', in_views.index_view),
     path('index_template', in_views.index_template_view),
+    re_path('list_template/?keyword=.',in_views.search_list_view),
     # user 模块路由转发
     path('register', usr_views.reg_view, name='register'),
     path('login', usr_views.login_view),

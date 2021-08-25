@@ -3,6 +3,7 @@ from user import models as user_model
 from django.http import JsonResponse, HttpResponseRedirect, HttpResponse
 from .detail_response import *
 
+
 class TempUser:
     def __init__(self, id, name, img, isLogin, addr_id):
         self.id = id
@@ -27,6 +28,7 @@ def getLoginState(request):
         user_addr_id = user_model.User.objects.filter(id=user_id)[0].addr_id
     return TempUser(user_id, user_name, user_img, isLogin, user_addr_id)
 
+
 # Create your views here.
 def detail_view(request):
     user = getLoginState(request)
@@ -38,8 +40,11 @@ def detail_view(request):
         good = getGoodsDetail(goods_id)
         shop = getShopDetail(good.shop_id)
         commentList = getCommentList(goods_id)
-        return render(request, 'detail_template.html', {'user': user, 'isLogin': user.isLogin, 'good': good, 'shop': shop, 'commentList': commentList})
+        return render(request, 'detail_template.html',
+                      {'user': user, 'isLogin': user.isLogin, 'good': good, 'shop': shop, 'commentList': commentList})
     else:
+        if user.id == -1:
+            return HttpResponseRedirect('/login')
         num = int(request.POST.get('num', -1))
         gid = int(request.POST.get('gid', -1))
         print("POST method, gid=%d, num=%d" % (gid, num))
@@ -60,4 +65,4 @@ def detail_view(request):
             return HttpResponseRedirect('/favorite')
 
         print("并没有取到POST的表单")
-        return None
+        return HttpResponse("哈哈哈")

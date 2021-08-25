@@ -40,6 +40,8 @@ def cart_view(request):
     user = getLoginState(request)
     m = request.method
     # GET请求， 加载页面
+    if user.id == -1:
+        return HttpResponse('/login')
     if m == 'GET':
         goodsList = dealRequest(user.id, 0, 0, 0)
         if len(goodsList) != 0:
@@ -75,9 +77,11 @@ def orderplace_view(request):
     addr = []
     goodsList = []
     total_price = 0
-    user = getLoginState(request)
     count = 0
     realPay = 0
+    user = getLoginState(request)
+    if user.id == -1:
+        return HttpResponse('/login')
     m = request.method
     # GET请求， 加载页面
     if m == 'GET':
@@ -113,6 +117,8 @@ def orderplace_view(request):
 # Collect  ->  view
 def collect_view(request):
     user = getLoginState(request)
+    if user.id == -1:
+        return HttpResponse('/login')
     m = request.method
     # GET请求， 加载页面
     goodsList = []
@@ -134,6 +140,8 @@ def collect_view(request):
 # Orderlist -> view
 def orderlist_view(request):
     user = getLoginState(request)
+    if user.id == -1:
+        return HttpResponse('/login')
     orderList = getOrderList(user.id)
 
     return render(request,'orderlist2.html',{'orderList':orderList, 'user':user})

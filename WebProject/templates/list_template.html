@@ -57,13 +57,13 @@
             {% endif %}
 				<div class="user_link fl">
 					<span>|</span>
-					<a href="user_center_info2">用户中心</a>
+					<a href="user_center_info">用户中心</a>
 					<span>|</span>
 					<a href="cart">我的购物车</a>
 					<span>|</span>
 					<a href="user_center_order">我的订单</a>
 					<span>|</span>
-					<a href="collect2">收藏夹</a>
+					<a href="favorite">收藏夹</a>
 				</div>
 			</div>
 		</div>		
@@ -144,12 +144,11 @@
 				<div id="third">人气</div>
 			</div>
               <!-- 将该类型下的商品展示出来 每次展示5个-->
-              {% for goods in goods_list &&  i=1 to GoodsCategory.num/5+1 %}
+			{% for goods in goodsList %} <!--&&  i=1 to GoodsCategory.num/5+1 %}-->
 			<ul class="goods_type_list clearfix">
-                {% for j=1 to 5 %}
 				<li>
 					<!--						 点击商品跳转商品详情界面，向后端传该商品id-->
-					<a href="detail_template" class="tttt1"><img src="{{ goods.img.url }}"></a>
+					<a href="detail_template" class="tttt1"><img src="{{ goods.img }}"></a>
 					<h4><a href="detail_template" class="tttt1">{{ goods.name }}</a></h4>
 					<div class="operate">
 						<span class="prize">￥{{ goods.price }}</span>
@@ -158,8 +157,8 @@
 						<a href="" class="add_goods" title="加入购物车"></a>
 					</div>
 				</li>
-				
 			</ul>
+			{% endfor %}
 			<div class="pagenation">
 				<a href="#">上一页</a>
 				<a href="#" class="active">1</a>
