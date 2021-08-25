@@ -30,7 +30,7 @@ def index_template_view(request):
     # 商品分类图
     GoodsCategoryList = Category.objects.filter(state=1)[0:6]
     # 热点图
-    hotgoodsList = Goods.objects.filter(category_id=1).order_by('searching_num')[0:2]
+    hotgoodsList = Goods.objects.filter(category_id=2000).order_by('searching_num')[0:2]
     # 轮播图
     slideList = Goods.objects.filter(category_id=0).order_by('-searching_num')
     # tmp: List[Any] = []
@@ -68,4 +68,4 @@ def search_list_view(request):
     elif sort_mod == 'hot':
         goodsList = sorted(goodsList, key=lambda x: x.searching_num)
 
-    return render(request,"list_template.html",{'isLogin': isLogin, 'user': user, 'goodsList': goodsList})
+    return render(request, "list_template.html", {'isLogin': isLogin, 'user': user, 'goodsList': goodsList})
