@@ -6,7 +6,7 @@
     <title>京西商城-首页</title>
     <link rel="stylesheet" type="text/css" href="../static/css/reset.css">
     <link rel="stylesheet" type="text/css" href="../static/css/mainzls.css">
-    <script type="text/javascript" src="../static/js/jquery-1.12.4.min.js"></script>
+    <script type="text/javascript" src="../static/js/jquery.min.js"></script>
     <script type="text/javascript" src="../static/js/w2.js"></script>
     <script type="text/javascript" src="../static/js/slidezls.js"></script>
     <script type="text/javascript" src="../static/js/login.js"></script>
@@ -100,7 +100,7 @@
             {% for GoodsCategory in GoodsCategoryList %}
                 <li class="interval">|</li>
                 <!--                                    点击商品类型，进入该商品类型商品列表，向后端传商品类型id-->
-                <li><a href="list_template">{{ GoodsCategory.name }}</a></li>
+                <li><a href="list_template" godname="{{ GoodsCategory.name }}">{{ GoodsCategory.name }}</a></li>
 
             {% endfor %}
         </ul>
@@ -199,6 +199,18 @@
     <p>电话：010-****888 渝ICP备*******8号</p>
 </div>
 <script type="text/javascript">
+$(function() {
+$(".navlist a").click(function () {
+        console.log("运行")
+        var itgid = $(this).attr('godname');
+        var token = $('[name="csrfmiddlewaretoken"]').attr("value");
+        $.ajax({
+        url:"/list_template/?keyword=.",
+        type:"POST",
+        data:JSON.stringify({'name':itgid, "csrfmiddlewaretoken":token}),
+        dataType : "text"
+        })
+    })
     // 点击商品类型，进入该商品类型商品列表，向后端传商品类型id
     $(".list_zls a").click(function () {
         var itgid = $(this).attr('GoodsCategory.id ');
@@ -274,6 +286,7 @@
             dataType: "text"
         })
     })
+});
 </script>
 </body>
 </html>
