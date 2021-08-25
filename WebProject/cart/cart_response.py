@@ -16,6 +16,7 @@ class ShowGoods:
         self.sum = price * num
         self.max_num = max_num
         self.tttprice = tttprice
+        self.total_price = price * num
 
 
 class ListInt:
