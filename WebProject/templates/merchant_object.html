@@ -8,8 +8,38 @@
 <link rel="stylesheet" type="text/css" href="../static/css/reset.css">
 <link rel="stylesheet" type="text/css" href="../static/css/main3.css">
 <script>
-$(function(){
-})
+$(function() {
+    // 发送ajax POST 请求
+    $("#put_on").click(function() {
+        console.log("加一")
+        var itGid=$(this).attr('good_operate1');
+        var token = $('[name="csrfmiddlewaretoken"]').attr("value");
+        $.ajax({
+        url:"/merchant_object",
+        type:"POST",
+        data:JSON.stringify({'id':itGid,"csrfmiddlewaretoken": token}),
+        dataType : "text",
+        success: function(){
+            window.location.reload()
+        }
+        })
+    });
+
+	$("#put_off").click(function() {
+        console.log("加二")
+        var itGid=$(this).attr('good_operate2');
+        var token = $('[name="csrfmiddlewaretoken"]').attr("value");
+        $.ajax({
+        url:"/merchant_object",
+        type:"POST",
+        data:JSON.stringify({'id':itGid,"csrfmiddlewaretoken": token}),
+        dataType : "text",
+        success: function(){
+            window.location.reload()
+        }
+        })
+    });
+});
 </script>
 </head>
 <body style="background-color: rgb(253, 253, 253)">
@@ -60,39 +90,50 @@ $(function(){
 				<li><a href="merchant_order" >· 订单信息</a></li>
 			</ul>
 		</div>
-		<div class="right_content clearfix">
-				<div class="info_con clearfix">
-				<h3 class="common_title2">基本信息</h3>
-						<ul class="user_info_list">
-							<li><span>商户名称：</span>{{ shop.usr_id }}</li>
-                            <li><span>店铺评分：</span>{{ shop.mark }}</li>
-							<li><span>营业额：</span>{{ shop.total_income }}</li>
-							<li><span>注册资金：</span>{{shop.register_money}}</li>
-							<li><span>注册时间：</span>{{shop.createtime}}</li>
-							<li><span>店铺介绍：</span>{{shop.text}}</li>
-						</ul>
-				</div>
-	
-			<h3 class="common_title2">最近浏览</h3>
-				<div class="has_view_list">
-					<ul class="goods_type_list clearfix">
-					{% for goods in goods_list %}
-						<li>
-							<a href="detail"><img src="{{ goods.image.url }}"></a>
-							<h4><a href="detail">{{ goods.name }}</a></h4>
-							<div class="operate">
-								<span class="prize">￥{{ goods.price }}</span>
-								<span class="unit">{{ goods.price }}/{{ goods.unite }}</span>
-								<a href="#" class="add_goods" title="加入购物车"></a>
-							</div>
-						</li>
-						{% empty %}
-						无历史浏览记录
-					{% endfor %}
-			    </ul>
-		    </div>
-		</div>
+		 <div class="right_content clearfix">
+            <h3 class="common_title2">全部商品</h3>
+            {% for good in goodsList %}
+            <ul class="order_list_th w978 clearfix">
+                <li class="col01">店铺商品：</li>
+                <li class="col02">商品单价：</li>
+                <li class="col02 stress">商品库存：</li>
+				<li class="col02"> 商品的成交量：</li>
+                <li class="col03">商家操作：</li>
+				<!-- <li class="col03"><a href="javascript:;" good_operate="{{order.id}}">商家处理</a></li> -->
+            </ul>
+
+            <table class="order_list_table w980">
+                <tbody>
+                    <tr>
+                        <td width="80%">
+                            <ul class="order_goods_list clearfix">
+                                <li class="col01"><img src="{{good.img}}"></li>
+                                <li class="col02">{{good.price}}元</em></li>
+                                <li class="col02">{{good.num}}件</li>
+                                <li class="col02">{{good.deal}}件</li>
+                            </ul>
+                        </td>
+{#<!--							商品上下架-->#}
+                        <td width="30%" class="addr_td">
+							<!-- {{order.addr}} {{ order.per_name }}收 -->
+							<li class="col04" id="put_on"><a href="javascript:;" good_operate1="{{good.id}}">上架</a></li>
+							<li class="col05" id="put_off"><a href="javascript:;" good_operate2="{{good.id}}">下架</a></li>
+						</td>
+                    </tr>
+                </tbody>
+            </table>
+            {% endfor %}
+            <div class="pagenation">
+                <a href="#">&lt;上一页</a>
+                <a href="#" class="active">1</a>
+                <a href="#">2</a>
+                <a href="#">3</a>
+                <a href="#">4</a>
+                <a href="#">5</a>
+                <a href="#">下一页&gt;</a>
+            </div>
     </div>
+</div>
     <div class="footer no-mp">
 		<div class="foot_link">
 			<a href="#">关于我们</a>
