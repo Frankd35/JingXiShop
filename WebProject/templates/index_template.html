@@ -100,7 +100,7 @@
             {% for GoodsCategory in GoodsCategoryList %}
                 <li class="interval">|</li>
                 <!--                                    点击商品类型，进入该商品类型商品列表，向后端传商品类型id-->
-                <li><a href="/list_template?gid={{ GoodsCategory.id }}" godname="{{ GoodsCategory.name }}">{{ GoodsCategory.name }}</a></li>
+                <li><a href="/list_template?gname={{ GoodsCategory.name }}" godname="{{ GoodsCategory.name }}">{{ GoodsCategory.name }}</a></li>
 
             {% endfor %}
         </ul>
@@ -151,7 +151,7 @@
                 {#                {% endfor %}#}
             </div>
             <!--            // 点击更多，进入该商品类型商品列表，向后端传该商品类型id-->
-            {#            <a href="/list_template?gid={{ GoodsCategory.id }}" class="goods_more fr" id="fruit_more">查看更多 ></a>#}
+            {#            <a href="/list_template?gname={{ GoodsCategory.name }}" class="goods_more fr" id="fruit_more">查看更多 ></a>#}
         </div>
 
         <div class="goods_con clearfix">
