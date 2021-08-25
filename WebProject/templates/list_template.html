@@ -95,7 +95,7 @@
                     {% for GoodsCategory in GoodsCategory %}
                     <!-- 展示六种商品类型 -->
 					<!--					// 点击商品类型，进入该商品类型商品列表，向后端传商品类型id-->
-			        <li><a href="/list_template?gid={{ GoodsCategory.id }}" >{{GoodsCategory.name}} &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&gt;</a></li>
+			        <li><a href="/list_template?gname={{ GoodsCategory.name }}" >{{GoodsCategory.name}} &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&gt;</a></li>
                     {%endfor%}
 				</ul>
 			</div>
@@ -105,7 +105,7 @@
 			{% for GoodsCategory in GoodsCategory %}
 				<!--					// 点击商品类型，进入该商品类型商品列表，向后端传商品类型id-->
             <li class="interval">|</li> 
-            <li><a href="/list_template?gid={{ GoodsCategory.id }}">{{GoodsCategory.name}}</a></li>
+            <li><a href="/list_template?gname={{ GoodsCategory.name }}">{{GoodsCategory.name}}</a></li>
             {%endfor%}   
 			</ul>
 		</div>
@@ -114,7 +114,7 @@
 	<div class="breadcrumb">
 		<a href="#">全部分类</a>
 		<span>></span>
-		<a href="/list_template?gid={{ GoodsCategory.id }}">{{ GoodsCategory.name}}</a>
+		<a href="/list_template?gname={{ GoodsCategory.name }}">{{ GoodsCategory.name}}</a>
 	</div>
 
 	<div class="main_wrap clearfix">
@@ -140,8 +140,8 @@
                 <!-- 选择对商品排序 -->
 <!--				点击后向后端传sort参数，参数值：fault 默认排序，price 价格 ，hot 人气,后端返回按照制定排序的商品列表-->
 					<div id="first" class="active">默认</div>
-				<div id="second">价格</div>
-				<div id="third">人气</div>
+					<div id="second">价格</div>
+					<div id="third">人气</div>
 			</div>
               <!-- 将该类型下的商品展示出来 每次展示5个-->
 			<ul class="goods_type_list clearfix">
