@@ -11,7 +11,7 @@
 $(function() {
     // 发送ajax POST 请求
     $("#put_on").click(function() {
-        console.log("加一")
+        console.log("上架")
         var itGid=$(this).attr('good_operate1');
         var token = $('[name="csrfmiddlewaretoken"]').attr("value");
         $.ajax({
@@ -108,15 +108,15 @@ $(function() {
                             <ul class="order_goods_list clearfix">
                                 <li class="col01"><img src="{{good.img}}"></li>
                                 <li class="col02">{{good.price}}元</em></li>
-                                <li class="col02">{{good.num}}件</li>
+                                <li class="col02">{{good.number}}件</li>
                                 <li class="col02">{{good.deal}}件</li>
                             </ul>
                         </td>
 {#<!--							商品上下架-->#}
                         <td width="30%" class="addr_td">
 							<!-- {{order.addr}} {{ order.per_name }}收 -->
-							<li class="col04" id="put_on"><a href="javascript:;" good_operate1="{{good.id}}">上架</a></li>
-							<li class="col05" id="put_off"><a href="javascript:;" good_operate2="{{good.id}}">下架</a></li>
+							<li class="col04" id="put_on"><a href="javascript:;" good_operate1="{{good.id}}">增加</a></li>
+							<li class="col05" id="put_off"><a href="javascript:;" good_operate2="{{good.id}}">减少</a></li>
 						</td>
                     </tr>
                 </tbody>

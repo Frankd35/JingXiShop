@@ -297,8 +297,20 @@ def merchant_object_view(request):
     # 获取数据
     user = User.objects.get(id=usr_id)
     shop = Shop.objects.get(user_id=usr_id)
-
-    return render(request, 'merchant_object.html', {'isLogin': isLogin, 'user': user, 'shop': shop})
+    try:
+        tmp = Goods.objects.filter(shop_id=shop.id)
+        goodsList = []
+        for good in tmp:
+            _ = good.__dict__
+            orders = Order.objects.filter(goods_id=good.id)
+            deal = 0
+            for order in orders:
+                deal += order.goods_num
+            _['deal'] = deal
+            goodsList.append(_)
+    except:
+        goodsList = None
+    return render(request, 'merchant_object.html', {'isLogin': isLogin, 'user': user, 'shop': shop, 'goodsList': goodsList})
 
 
 def merchant_order_view(request):
@@ -318,5 +330,11 @@ def merchant_order_view(request):
         orderList = cart.orderlist_response.getOrderList_shopvision(shop.id)
     except:
         orderList = None
+    if request.method == 'POST':
+        # 完成发货
+        oid = int(json.loads(request.body.decode("utf-8")).get('oid', -1))
+        Order.objects.filter(id=oid).update(delivery_state='已发货')
+        print('change state')
+        return HttpResponseRedirect('merchant_order')
     return render(request, 'merchant_order.html',
                   {'isLogin': isLogin, 'user': user, 'orderList': orderList, 'shop': shop})
