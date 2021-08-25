@@ -76,7 +76,7 @@
         <!--        //搜索框输入商品类型，进去该商品类型列表，向后端传用户输入商品类型名称-->
         <input type="text" class="input_text fl" name="goods.type" placeholder="搜索商品">
         <!-- 搜索商品类型 -->
-        <a href="list_template" id="search1"><input type="submit" class="input_btn fr" value="搜索"></a>
+        <a href="" id="search1"><input type="submit" class="input_btn fr" value="搜索"></a>
     </div>
     <div class="guest_cart fr">
         <a href="cart" class="cart_name fl">我的购物车</a>
@@ -183,7 +183,7 @@
         </div>
     </div>
 </div>
-
+</div>
 <div class="main_wrap clearfix">
     <div class="l_wrap fl clearfix">
         <div class="new_goods">
@@ -373,12 +373,14 @@
             alert('未输入商品名称！')
 
         } else {
-            $.ajax({
-                url: "/goods",
-                type: "POST",
-                data: JOSN.stringify({'gname': type}),
-                dataType: "text"
-            })
+                var aobj = document.getElementById("search1");
+				aobj.href="/list_template?gname="+type;
+<!--            $.ajax({-->
+<!--                url: "/goods",-->
+<!--                type: "POST",-->
+<!--                data: JOSN.stringify({'gname': type}),-->
+<!--                dataType: "text"-->
+<!--            })-->
         }
 
     })
