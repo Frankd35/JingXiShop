@@ -92,6 +92,7 @@
 
                     <!--前端传后端数据ajax-->
                     <script>
+                        /*
                         $(".goods-list .plus").click(function() {
                             console.log("hhhh")
                             var itGid=$(this).attr('goodid');
@@ -132,7 +133,7 @@
                             data:JSON.stringify({'gid':itGid,'flag':'delete'}),
                             dataType : "text"
                             })
-                        });
+                        });*/
 <!--                        因为是原子操作，故submit没有写的必要-->
                     </script>
                     <div class="cart-item-list">
@@ -166,8 +167,8 @@
                                     <li class="yui3-u-1-8">
                                         <div class="clearfix">
                                             <a href="javascript:;" class="increment mins" goodid="{{good.gid}}">-</a>
-                                            <input autocomplete="off" type="text" goodid="{{good.gid}}" value="{{good.num}}" minnum="1" class="itxt">
-                                            <a href="javascript:;" class="increment plus" goodid="{{good.gid}}">+</a>
+                                            <input autocomplete="off" type="text" goodid="{{good.gid}}" value="{{good.num}}" minnum="1" class="itxt" maxnum={{ good.max_num }}>
+                                            <a href="javascript:;" class="increment plus" goodid="{{good.gid}}" maxnum={{ good.max_num }}">+</a>
                                         </div>
                                         <div class="youhuo">有货</div>
                                     </li>

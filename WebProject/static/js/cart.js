@@ -100,8 +100,16 @@ $(function() {
         $(".summoney span").html(sum.toFixed(2));
     };
     $(".goods-list .plus").click(function() {
-        var num = $(this).siblings(".itxt").val();
-        var m = $(this).siblings(".itxt").val(Number(num)+1).val();
+        var num = parseInt($(this).siblings(".itxt").val());
+        var maxnum = parseInt($(this).attr('maxnum'));
+        console.log("maxNUM:"+maxnum)
+        console.log("num:"+num)
+        if(num+1 <= maxnum){
+            num = num + 1;
+        }else{
+            alert("已达到该商品最大库存")
+        }
+        var m = $(this).siblings(".itxt").val(Number(num)).val();
         var sum = ($(this).parent().parent().siblings(".yui3-u-1-8").eq(1).children(".price").html() * m).toFixed(2);
         $(this).parent().parent().siblings(".yui3-u-1-8").eq(2).children(".sum").html(sum);
         me_sum();
