@@ -76,7 +76,7 @@
 <!--        //搜索框输入商品类型，进去该商品类型列表，向后端传用户输入商品类型名称-->
 	<input type="text" class="input_text fl" name="goods.type" placeholder="搜索商品">
 	<!-- 搜索商品类型 -->
-         <a href="list_template" id="search1"><input type="submit" class="input_btn fr" value="搜索"></a>
+         <a href="" id="search1"><input type="submit" class="input_btn fr" value="搜索"></a>
 		</div>
 		<div class="guest_cart fr">
 			<a href="shopcar2" class="cart_name fl">我的购物车</a>
@@ -95,7 +95,7 @@
                     {% for GoodsCategory in GoodsCategory %}
                     <!-- 展示六种商品类型 -->
 					<!--					// 点击商品类型，进入该商品类型商品列表，向后端传商品类型id-->
-			        <li><a href="list_template" >{{GoodsCategory.name}} &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&gt;</a></li>
+			        <li><a href="/list_template?gid={{ GoodsCategory.id }}" >{{GoodsCategory.name}} &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&gt;</a></li>
                     {%endfor%}
 				</ul>
 			</div>
@@ -105,7 +105,7 @@
 			{% for GoodsCategory in GoodsCategory %}
 				<!--					// 点击商品类型，进入该商品类型商品列表，向后端传商品类型id-->
             <li class="interval">|</li> 
-            <li><a href="list_template">{{GoodsCategory.name}}</a></li>
+            <li><a href="/list_template?gid={{ GoodsCategory.id }}">{{GoodsCategory.name}}</a></li>
             {%endfor%}   
 			</ul>
 		</div>
@@ -114,7 +114,7 @@
 	<div class="breadcrumb">
 		<a href="#">全部分类</a>
 		<span>></span>
-		<a href="list_template">{{ GoodsCategory.name}}</a>
+		<a href="/list_template?gid={{ GoodsCategory.id }}">{{ GoodsCategory.name}}</a>
 	</div>
 
 	<div class="main_wrap clearfix">
@@ -126,8 +126,8 @@
                      {% for goods in new_goods %}
                      <li>
 <!--						 点击新品推荐商品跳转商品详情界面，向后端传该商品id-->
-                         <a href="detail_template"><img src="{{goods.img.url}}"></a>
-                         <h4><a href="detail_template">{{ goods.name }}</a></h4>
+                         <a href="/detail_template?gid={{ goods.id }}"><img src="{{goods.img.url}}"></a>
+                         <h4><a href="/detail_template?gid={{ goods.id }}"></a></h4>
                          <div class="prize">￥{{goods.price}}</div>
                      </li>
                      {% endfor %}
@@ -148,8 +148,8 @@
 				{% for goods in goodsList %}
 				<li>
 					<!--						 点击商品跳转商品详情界面，向后端传该商品id-->
-					<a href="detail_template" class="tttt1"><img src="{{ goods.img }}"></a>
-					<h4><a href="detail_template" class="tttt1">{{ goods.name }}</a></h4>
+					<a href="/detail_template?gid={{ goods.id }}" class="tttt1"><img src="{{ goods.img }}"></a>
+					<h4><a href="/detail_template?gid={{ goods.id }}" class="tttt1">{{ goods.name }}</a></h4>
 					<div class="operate">
 						<span class="prize">￥{{ goods.price }}</span>
 						<span class="unit">{{ goods.price }}/{{ goods.unite }}</span>
@@ -229,6 +229,7 @@
 		//搜索框输入商品类型，进去该商品类型列表，向后端传用户输入商品类型名称
 		$(".input_btn").click(function() {
 			var type=$(".input_text").val();
+			var kk="11";
 			var token = $('[name="csrfmiddlewaretoken"]').attr("value");
 			// 判断用户输入是否为空
 			if(type == ''|| type==null  ) {
@@ -238,13 +239,15 @@
 
 			}
 			else{
+				var aobj = document.getElementById("search1");
+				aobj.href="/list_template?gname="+type;
 
-				$.ajax({
-					url:"/list_template",
-					type:"POST",
-					data:JOSN.stringify({'gname':type,"csrfmiddlewaretoken":token}),
-					dataType:"text"
-				})
+<!--				$.ajax({-->
+<!--					url:"/list_template",-->
+<!--					type:"POST",-->
+<!--					data:JOSN.stringify({'gname':type,"csrfmiddlewaretoken":token}),-->
+<!--					dataType:"text"-->
+<!--				})-->
 			}
 
 		})
