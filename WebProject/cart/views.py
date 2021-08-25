@@ -56,7 +56,8 @@ def cart_view(request):
         print(json_data)
         gid = int(json_data.get('gid', -1))
         flag = json_data.get('flag', '')
-        isChosen = bool(json_data.get('checked', False))
+        isChosen = int(json_data.get('checked', 0))
+        num = int(json_data.get('num', -1))
         goodsList = []
         total_price = 0
         if flag == 'check':  # check逻辑
@@ -69,6 +70,8 @@ def cart_view(request):
             dealRequest(user.id, 4, gid, 0)
         elif flag == 'allSellect':  # 全选 or 全不选
             dealRequest(user.id, 5, gid, isChosen)
+        elif flag == 'updatenum': # 更新购物车商品数量
+            dealRequest(user.id, 6, gid, num)
         return JsonResponse({"res": 1})
 
 
