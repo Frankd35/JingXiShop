@@ -349,12 +349,17 @@
     $('.num_show').blur(function () {
         // 获取用户输入的数目
         count = $(this).val()
+        maxnum = parseInt($('.max_num').val())
         // 校验count是否合法
         if (isNaN(count) || count.trim().length == 0 || parseInt(count) <= 0) {
             count = 1
         }
+        if (count > maxnum){
+            count = maxnum
+        }
         // 重新设置商品的数目
         $(this).val(parseInt(count))
+        $('.postvalue').val(count)
         // 更新商品的总价
         update_goods_amount()
     })
