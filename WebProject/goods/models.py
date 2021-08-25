@@ -28,7 +28,7 @@ class Comment(models.Model):
     goods_id = models.IntegerField()
     text = models.TextField()
     mark = models.DecimalField(max_digits=10, decimal_places=2, default=5.00, blank=True)
-    createtime = models.DateField(auto_now=True)
+    createtime = models.DateTimeField(auto_now=True)
 
     def __str__(self):
         return u"Comment : User %d -> Goods %d", (self.user_id, self.goods_id)
