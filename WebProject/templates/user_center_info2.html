@@ -68,7 +68,14 @@
 							<li><span>联系地址：</span>{{ default_addr.text}}</li>
 							{% endif %}
 							<li><span>创建时间：</span>{{user.createtime}}</li>
-							<li><span>是否商家：</span>{{user.is_merchant}}</li>
+							<li><span>是否商家：</span>
+								<!-- {{user.is_merchant}} -->
+								{% if user.is_merchant %}
+									是商家
+								{% else %}
+									不是商家
+								{% endif %}
+							</li>
 						</ul>
 				</div>
 				
