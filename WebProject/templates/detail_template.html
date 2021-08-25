@@ -119,7 +119,7 @@
     <!-- 该商品所属类型 -->
     <!--		// 点击商品类型，进入该商品类型商品列表，向后端传商品类型id-->
     <a href="list_template">{{ goods.style.name }}</a>
-    <span></span>
+    <span>></span>
     <a href="">商品详情</a>
 </div>
 
@@ -138,9 +138,9 @@
         <div class="goods_num clearfix">
             <div class="num_name fl">数 量：</div>
             <div class="num_add">
-                <input type="text" class="num_show fl" goodid="{{good.id}}" name="price" value="1">
-                <a href="javascript:;" class="adder" goodid="{{good.id}}">+</a>
-                <a href="javascript:;" class="reducer" goodid="{{good.id}">-</a>
+                <input type="text" class="num_show fl" name="price" value="1">
+                <a href="javascript:;" class="adder">+</a>
+                <a href="javascript:;" class="reducer">-</a>
             </div>
             <div class="love1">
                 件&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -160,6 +160,24 @@
                 <input class="__add_cart" id="add_cart" type="submit" value="加入购物车"  name="addcart" style="display:inline-block;width:178px;height:38px;border:1px solid #c40000;font-size:14px;line-height:38px;text-align:center;background-color:#c40000;color:#fff;margin-left:10px;position:relative;z-index:10;cursor:pointer;">
                 <input class="__add_shou" id="add_shou" type="submit" value="加入收藏夹"  name="addcollect" style="display:inline-block;width:178px;height:38px;font-size:14px;line-height:38px;text-align:center;border:1px solid skyblue; background-color:orange;color:#fff;margin-left:10px;position:relative;z-index:10;cursor:pointer;">
             </form>
+            <!--				//点击加入购物车，向后端传加入购物车的用户id,商品数量，商品id-->
+            {#            <a href="javascript" class="add_cart" id="add_cart" onclick="alert('添加成功！')">加入购物车</a>#}
+
+{#            <form action="/detail_template" method="post" name="addcart">#}
+{#                <input name="type" style="visibility: hidden" value="addcart">#}
+{#                <input name="gid" style="visibility: hidden" value="{{ good.id }}">#}
+{#                <input name="num" style="visibility: hidden" value="1" class="postvalue">#}
+{#                <input class="add_cart" id="add_cart" type="submit" value="加入购物车"  name="addcart">#}
+{#            </form>#}
+{##}
+{#            <!--				 //点击加入收藏夹，向后端传加入收藏夹的用户id,，商品id-->#}
+            {#            <a href="javascript:;" class="add_shou" id="add_shou" onclick="alert('添加成功！')">加入收藏夹</a>#}
+{#            <form action="/detail_template" method="post" name="addcollect">#}
+{#                <input name="type" style="visibility: hidden" value="addcart">#}
+{#                <input name="gid" style="visibility: hidden" value="{{ good.id }}">#}
+{#                <input name="num" style="visibility: hidden" value="1" class="postvalue">#}
+{#                <input class="add_shou" id="add_shou" type="submit" value="加入收藏夹"  name="addcollect">#}
+{#            </form>#}
 
             <input class="max_num" style="display: none" value="{{ good.number }}">
         </div>
@@ -260,10 +278,183 @@
 </div>
 <div class="add_jump"></div>
 
+{#<script type="text/javascript" src="js/jquery-1.12.2.js"></script>#}
 <script type="text/javascript">
+    $('.jieshao').click(function () {
+        $('.pinglun').removeClass('active')
+        $(this).addClass('active')
+        $('#tab_detail').show()
+        $('#tab_comment').hide()
+    })
+
+    $('.pinglun').click(function () {
+        $('.jieshao').removeClass('active')
+        $(this).addClass('active')
+        $('#tab_detail').hide()
+        $('#tab_comment').show()
+    })
+
+    //update_goods_amount()
+
+    // 计算商品的总价格
+    function update_goods_amount() {
+        // 获取商品的单价和数量
+        price = $('.show_pirze').children('em').text()
+        count = $('.num_show').val()
+        // 计算商品的总价
+        price = parseFloat(price)
+        count = parseInt(count)
+        amount = price * count
+        // 设置商品的总价
+        $('.total').children('em').text(amount.toFixed(2) + '元')
+    }
+
+    // 增加商品的数量
+    $('.adder').click(function () {
+        console.log("增加")
+        // 获取商品原有的数目
+        count = parseInt($('.num_show').val())
+        maxnum = parseInt($('.max_num').val())
+        // 加1
+        if (count < maxnum){
+            count = count+1
+        // 重新设置商品的数目
+        $('.num_show').val(count)
+        $('.postvalue').val(count)
+        }
+
+        // 更新商品的总价
+        update_goods_amount()
+    })
+
+    // 减少商品的数量
+    $('.reducer').click(function () {
+        console.log("减少")
+        // 获取商品原有的数目
+        count = $('.num_show').val()
+        // 减1
+        count = parseInt(count)-1
+        if (count <= 0) {
+            count = 1
+        }
+        // 重新设置商品的数目
+        $('.num_show').val(count)
+        $('.postvalue').val(count)
+        // 更新商品的总价
+        update_goods_amount()
+    })
+
+
+    // 手动输入商品的数量
+    $('.num_show').blur(function () {
+        // 获取用户输入的数目
+        count = $(this).val()
+        // 校验count是否合法
+        if (isNaN(count) || count.trim().length == 0 || parseInt(count) <= 0) {
+            count = 1
+        }
+        // 重新设置商品的数目
+        $(this).val(parseInt(count))
+        // 更新商品的总价
+        update_goods_amount()
+    })
+    //搜索框输入商品类型，进去该商品类型列表，向后端传用户输入商品类型名称
+    $(".input_btn").click(function () {
+        var type = $(".input_text").val();
+        // 判断用户输入是否为空
+        if (type == '' || type == null) {
+            var aobj = document.getElementById("search1");
+            aobj.href = "";
+            alert('未输入商品名称！')
+
+        } else {
+            $.ajax({
+                url: "/goods",
+                type: "POST",
+                data: JOSN.stringify({'gname': type}),
+                dataType: "text"
+            })
+        }
+
+    })
+    // 点击商品类型，进入该商品类型商品列表，向后端传商品类型id
+    $(".subnav a").click(function () {
+        var itgid = $(this).attr('GoodsCategory.id ');
+        $.ajax({
+            url: "/goods",
+            type: "POST",
+            data: JOSN.stringify({'gid': itgid}),
+            dataType: "text"
+        })
+    })
+    // 点击商品类型，进入该商品类型商品列表，向后端传商品类型id
+    $(".navlist a").click(function () {
+        var itgid = $(this).attr('GoodsCategory.id ');
+        $.ajax({
+            url: "/goods",
+            type: "POST",
+            data: JOSN.stringify({'gid': itgid}),
+            dataType: "text"
+        })
+    })
+    // 点击商品类型，进入该商品类型商品列表，向后端传商品类型id
+    $(".breadcrumb a").click(function () {
+        var itgid = $(this).attr('goods.style.id ');
+        $.ajax({
+            url: "/goods",
+            type: "POST",
+            data: JOSN.stringify({'gid': itgid}),
+            dataType: "text"
+        })
+    })
+    //点击立即购买，进入结算界面，向后端传购买用户id,商品数量，商品id
+    $('.buy_btn').click(function () {
+        var uid = $(this).attr('user.id');
+        var count = $('.num_show').val();
+        var gid = $(this).attr('goods.goods_id');
+        $.ajax({
+            url: "/cart",
+            type: "POST",
+            data: JOSN.stringify({'uid': uid, 'gid': gid, 'count': count}),
+            dataType: "text"
+        })
+    })
+    //点击加入购物车，向后端传加入购物车的用户id,商品数量，商品id
+    $('.add_cart').click(function () {
+        var uid = $(this).attr('user.id');
+        var count = $('.num_show').val();
+        var gid = $(this).attr('goods.goods_id');
+        $.ajax({
+            url: "/cart",
+            type: "POST",
+            data: JOSN.stringify({'uid': uid, 'gid': gid, 'count': count}),
+            dataType: "text"
+        })
+    })
+    //点击加入收藏夹，向后端传加入收藏夹的用户id,，商品id
+    $('.add_shou').click(function () {
+        var uid = $(this).attr('user.id');
+        var gid = $(this).attr('goods.goods_id');
+        $.ajax({
+            url: "/cart",
+            type: "POST",
+            data: JOSN.stringify({'uid': uid, 'gid': gid}),
+            dataType: "text"
+        })
+    })
+    // 点击商品图片，进入该商品详情页，向后端传该商品id
+    $(".new_goods a").click(function () {
+        var itgid = $(this).attr('goods.goods_id');
+        $.ajax({
+            url: "/goods",
+            type: "POST",
+            data: JOSN.stringify({'gid': itgid}),
+            dataType: "text"
+        })
+    })
 
 </script>
-</div>
+
 
 </body>
 </html>
