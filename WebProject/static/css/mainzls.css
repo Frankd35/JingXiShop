@@ -100,7 +100,7 @@ html,body{height:100%}
 .center_con{width:1200px;height:270px;margin:0 auto;}
 .subnav{width:198px;height:270px;border-left:1px solid #eee;border-right:1px solid #eee;}
 .subnav li{height:44px;border-bottom:0 px solid #eee;
-	background-color: gray;}
+	background-color: rgb(245,245,245);}
 
 .subnav li a{display:inline-block;height:44px;line-height:44px;text-indent:71px;font-size:14px;color:#333}
 .subnav li a:hover{color:rgb(201, 25, 37)}
