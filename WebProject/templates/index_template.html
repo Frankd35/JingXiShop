@@ -6,7 +6,7 @@
     <title>京西商城-首页</title>
     <link rel="stylesheet" type="text/css" href="../static/css/reset.css">
     <link rel="stylesheet" type="text/css" href="../static/css/mainzls.css">
-    <script type="text/javascript" src="../static/js/jquery-1.12.4.min.js"></script>
+    <script type="text/javascript" src="../static/js/jquery.min.js"></script>
     <script type="text/javascript" src="../static/js/w2.js"></script>
     <script type="text/javascript" src="../static/js/slidezls.js"></script>
     <script type="text/javascript" src="../static/js/login.js"></script>
@@ -80,7 +80,7 @@
         <!--        //搜索框输入商品类型，进去该商品类型列表，向后端传用户输入商品类型名称-->
         <input type="text" class="input_text fl" name="goods.type" placeholder="搜索商品">
         <!-- 搜索商品类型 -->
-        <a href="list_template" id="search1"><input type="submit" class="input_btn fr" value="搜索"></a>
+        <a href="" id="search1"><input type="submit" class="input_btn fr" value="搜索"></a>
     </div>
     <div class="guest_cart fr">
         <!-- 如果为登录状态，获取该用户购物车商品数量,否则为0 -->
@@ -100,7 +100,7 @@
             {% for GoodsCategory in GoodsCategoryList %}
                 <li class="interval">|</li>
                 <!--                                    点击商品类型，进入该商品类型商品列表，向后端传商品类型id-->
-                <li><a href="list_template">{{ GoodsCategory.name }}</a></li>
+                <li><a href="/list_template?gname={{ GoodsCategory.name }}" godname="{{ GoodsCategory.name }}">{{ GoodsCategory.name }}</a></li>
 
             {% endfor %}
         </ul>
@@ -131,7 +131,7 @@
         <!-- 热点图 两张 -->
         {% for hotgoods in hotgoodsList %}
             <!--            //点击热点商品图片，进入该商品详情页，向后端传商品id-->
-            <a href="detail_template"><img src="{{ hotgoods.img }}"></a>
+            <a href="/detail_template?gid={{ hotgoods.id }}"><img src="{{ hotgoods.img }}"></a>
         {% endfor %}
     </div>
 
@@ -151,13 +151,13 @@
                 {#                {% endfor %}#}
             </div>
             <!--            // 点击更多，进入该商品类型商品列表，向后端传该商品类型id-->
-            {#            <a href="list_template" class="goods_more fr" id="fruit_more">查看更多 ></a>#}
+            {#            <a href="/list_template?gname={{ GoodsCategory.name }}" class="goods_more fr" id="fruit_more">查看更多 ></a>#}
         </div>
 
         <div class="goods_con clearfix">
             <!--            //点击商品类型图片，进入该商品类型商品列表，向后端传该商品类型id-->
             <div class="goods_banner fl">
-                {#                <a href="/list?category={{ }}">#}
+<!--                {#                <a href="/list?category={{ }}">#}-->
                 {% for banner in bannerList %}
                     {% if banner.category_id == GoodsCategory.id %}
                         <a href="#">
@@ -199,6 +199,18 @@
     <p>电话：010-****888 渝ICP备*******8号</p>
 </div>
 <script type="text/javascript">
+$(function() {
+$(".navlist a").click(function () {
+        console.log("运行")
+        var itgid = $(this).attr('godname');
+        var token = $('[name="csrfmiddlewaretoken"]').attr("value");
+        $.ajax({
+        url:"/list_template/?keyword=.",
+        type:"POST",
+        data:JSON.stringify({'name':itgid, "csrfmiddlewaretoken":token}),
+        dataType : "text"
+        })
+    })
     // 点击商品类型，进入该商品类型商品列表，向后端传商品类型id
     $(".list_zls a").click(function () {
         var itgid = $(this).attr('GoodsCategory.id ');
@@ -232,12 +244,14 @@
             alert('未输入商品名称！')
 
         } else {
-            $.ajax({
-                url: "/list_template",
-                type: "POST",
-                data: JOSN.stringify({'gname': type,"csrfmiddlewaretoken":token}),
-                dataType: "text"
-            })
+                var aobj = document.getElementById("search1");
+				aobj.href="/list_template?gname="+type;
+<!--            $.ajax({-->
+<!--                url: "/list_template",-->
+<!--                type: "POST",-->
+<!--                data: JOSN.stringify({'gname': type,"csrfmiddlewaretoken":token}),-->
+<!--                dataType: "text"-->
+<!--            })-->
         }
 
     })
@@ -274,6 +288,7 @@
             dataType: "text"
         })
     })
+});
 </script>
 </body>
 </html>

@@ -1,4 +1,31 @@
 $(function() {
+    // 手动输入商品的数量
+    $('.itxt').blur(function () {
+        // 获取用户输入的数目
+        count = Number($(this).val())
+        maxnum = Number($(this).attr('maxnum'))
+        // 校验count是否合法
+        if (isNaN(count) || count < 1) {
+            count = 1
+        }
+        if (count > maxnum){
+            count = maxnum
+        }
+        // 重新设置商品的数目
+        $(this).val(count)
+        console.log("重新设置商品数量："+count)
+        var itGid=$(this).attr('goodid');
+        var token = $('[name="csrfmiddlewaretoken"]').attr("value");
+        $.ajax({
+        url:"/cart",
+        type:"POST",
+        data:JSON.stringify({'gid':itGid,'flag':'updatenum', "csrfmiddlewaretoken": token, 'num': count}),
+        dataType : "text"
+        })
+        // 更新商品的总价
+        me_sum();
+    })
+
     $(".cart-list ul").mouseover(function() {
         $(this).addClass("active").siblings().removeClass("active");
     });
@@ -100,8 +127,16 @@ $(function() {
         $(".summoney span").html(sum.toFixed(2));
     };
     $(".goods-list .plus").click(function() {
-        var num = $(this).siblings(".itxt").val();
-        var m = $(this).siblings(".itxt").val(Number(num)+1).val();
+        var num = parseInt($(this).siblings(".itxt").val());
+        var maxnum = parseInt($(this).attr('maxnum'));
+        console.log("maxNUM:"+maxnum)
+        console.log("num:"+num)
+        if(num+1 <= maxnum){
+            num = num + 1;
+        }else{
+            alert("已达到该商品最大库存")
+        }
+        var m = $(this).siblings(".itxt").val(Number(num)).val();
         var sum = ($(this).parent().parent().siblings(".yui3-u-1-8").eq(1).children(".price").html() * m).toFixed(2);
         $(this).parent().parent().siblings(".yui3-u-1-8").eq(2).children(".sum").html(sum);
         me_sum();

@@ -40,8 +40,11 @@ def detail_view(request):
         good = getGoodsDetail(goods_id)
         shop = getShopDetail(good.shop_id)
         commentList = getCommentList(goods_id)
+        category = getCategory(good.category_id)
+        cateList = getCateList()
         return render(request, 'detail_template.html',
-                      {'user': user, 'isLogin': user.isLogin, 'good': good, 'shop': shop, 'commentList': commentList})
+                      {'user': user, 'isLogin': user.isLogin, 'good': good, 'shop': shop, 'commentList': commentList,
+                       'category': category, 'GoodsCategoryList': cateList})
     else:
         if user.id == -1:
             return HttpResponseRedirect('/login')
