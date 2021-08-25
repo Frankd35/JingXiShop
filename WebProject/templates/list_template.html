@@ -143,8 +143,8 @@
 					<div id="second">价格</div>
 					<div id="third">人气</div>
 			</div>
-              <!-- 将该类型下的商品展示出来 每次展示5个-->
-			<ul class="goods_type_list clearfix">
+              <!-- 默认排序商品：将该类型下的商品展示出来 每次展示5个-->
+			<ul class="goods_type_list clearfix"  id="default">
 				{% for goods in goodsList %}
 				<li>
 					<!--						 点击商品跳转商品详情界面，向后端传该商品id-->
@@ -159,6 +159,35 @@
 				</li>
 			</ul>
 			{% endfor %}
+<!--			按价格排序商品-->
+			<ul class="goods_type_list clearfix" id="price"  style="display: none">
+				{% for goods in goodsList_price %}
+				<li>
+					<!--						 点击商品跳转商品详情界面，向后端传该商品id-->
+					<a href="/detail_template?gid={{ goods.id }}" class="tttt1"><img src="{{ goods.img }}"></a>
+					<h4><a href="/detail_template?gid={{ goods.id }}" class="tttt1">{{ goods.name }}</a></h4>
+					<div class="operate">
+						<span class="prize">￥{{ goods.price }}</span>
+						<span class="unit">{{ goods.price }}/{{ goods.unite }}</span>
+<!--						点击加入购物车，向后端传用户id,商品id,数量为1-->
+						<a href="" class="add_goods" title="加入购物车"></a>
+					</div>
+				</li>
+			</ul>
+			<ul class="goods_type_list clearfix" id="hot"  style="display: none">
+				{% for goods in goodsList_hot %}
+				<li>
+					<!--						 点击商品跳转商品详情界面，向后端传该商品id-->
+					<a href="/detail_template?gid={{ goods.id }}" class="tttt1"><img src="{{ goods.img }}"></a>
+					<h4><a href="/detail_template?gid={{ goods.id }}" class="tttt1">{{ goods.name }}</a></h4>
+					<div class="operate">
+						<span class="prize">￥{{ goods.price }}</span>
+						<span class="unit">{{ goods.price }}/{{ goods.unite }}</span>
+<!--						点击加入购物车，向后端传用户id,商品id,数量为1-->
+						<a href="" class="add_goods" title="加入购物车"></a>
+					</div>
+				</li>
+			</ul>
 			<div class="pagenation">
 				<a href="#">上一页</a>
 				<a href="#" class="active">1</a>
@@ -185,47 +214,31 @@
 		<p>电话：010-****888    京ICP备*******8号</p>
 	</div>
 	<script type="text/javascript">
-		//   <!-- 选择对商品排序 -->
-// <!--				点击后向后端传sort参数，参数值：fault 默认排序，price 价格 ，hot 人气,后端返回按照制定排序的商品列表-->
-		$("#first").click(function() {
+			$("#first").click(function() {
 			$("#first").addClass("active")
 			$("#second").removeClass("active")
 			$("#third").removeClass("active")
-			var sort='fault';
-			var token = $('[name="csrfmiddlewaretoken"]').attr("value");
-			$.ajax({
-				url:"/list_template",
-				type:"POST",
-				data:JOSN.stringfy ({'sort':sort,"csrfmiddlewaretoken":token}),
-				dataType:"text"
-			})
+			$("#default").show();
+			$("#price").hide();
+			$("#hot").hide();
 		})
 		$("#second").click(function() {
 			$("#first").removeClass("active")
 			$("#second").addClass("active")
 			$("#third").removeClass("active")
-			var sort='price';
-			var token = $('[name="csrfmiddlewaretoken"]').attr("value");
-			$.ajax({
-				url:"/list_template",
-				type:"POST",
-				data:JOSN.stringfy ({'sort':sort,"csrfmiddlewaretoken":token}),
-				dataType:"text"
-			})
+			$("#default").hide();
+			$("#price").show();
+			$("#hot").hide();
 		})
 		$("#third").click(function() {
 			$("#third").addClass("active")
 			$("#second").removeClass("active")
 			$("#first").removeClass("active")
-			var sort='hot';
-			var token = $('[name="csrfmiddlewaretoken"]').attr("value");
-			$.ajax({
-				url:"/list_template",
-				type:"POST",
-				data:JOSN.stringfy ({'sort':sort,"csrfmiddlewaretoken":token}),
-				dataType:"text"
-			})
+			$("#default").hide();
+			$("#price").hide();
+			$("#hot").show();
 		})
+
 		//搜索框输入商品类型，进去该商品类型列表，向后端传用户输入商品类型名称
 		$(".input_btn").click(function() {
 			var type=$(".input_text").val();
