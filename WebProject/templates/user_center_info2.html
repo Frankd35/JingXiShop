@@ -70,8 +70,10 @@
 							<li><span>创建时间：</span>{{user.createtime}}</li>
 							<li><span>是否商家：</span>
 								<!-- {{user.is_merchant}} -->
-								{% if user.is_merchant %}
+								{% if user.is_merchant == 2 %}
 									是商家
+								{% elif user.is_merchant == 1 %}
+									待审核
 								{% else %}
 									不是商家
 								{% endif %}
