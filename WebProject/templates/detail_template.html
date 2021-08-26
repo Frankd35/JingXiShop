@@ -272,7 +272,7 @@
                    style="display:inline-block;width:120px;height:38px;font-size:14px;line-height:38px;text-align:center;border:1px solid skyblue; background-color:orange;color:#fff;margin-left:320px;margin-top:20px;position:relative;z-index:10;cursor:pointer;"
                    gid="{{ good.id }}">提交评论</a>
             </dl>
-            <dl><!-- 该商品评论 -->
+            <dl class="site_con"><!-- 该商品评论 -->
                 {% for comment in commentList %}
                     <dd class="num1">
                         <img src="{{ comment.user_img }}" style="border: solid"
