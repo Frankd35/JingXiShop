@@ -99,7 +99,7 @@ def login_view(request):
             user = User.objects.get(name=username)
         except Exception as e:
             print('--login user error %s' % e)
-            return HttpResponse('您的用户名或者密码有错误')
+            return render(request, 'register.html', {'errmsg': '您的用户名未进行注册'})
         # 比对密码
         m = hashlib.md5()
         m.update(password.encode())

@@ -9,6 +9,8 @@
     <link rel="stylesheet" type="text/css" href="../static/css/main3.css">
     <script type="text/javascript" src="../static/js/jquery-1.12.4.min.js"></script>
     <script type="text/javascript" src="../static/js/register.js"></script>
+    <script src="https://cdn.bootcdn.net/ajax/libs/blueimp-md5/2.18.0/js/md5.js" type="text/javascript"></script>
+    <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.0/jquery.js" type="text/javascript"></script>
 </head>
 <body>
 <div class="register_con">
@@ -53,7 +55,7 @@
                         <span class="error_tip2">提示信息</span>
                     </li>
                     <li class="reg_sub">
-                        <input type="submit" value="注 册" name="" id="">
+                        <input type="submit" onclick="form_submit()" value="注 册" name="" id="">
                     </li>
                 </ul>
             </form>
@@ -69,7 +71,7 @@
                 {#                </script>#}
             {% endif %}
         </div>
-        
+
 
     </div>
 
@@ -88,7 +90,20 @@
     <p>CopyRight © 2021 重庆京西商城 All Rights Reserved</p>
     <p>电话：010-****888 渝ICP备*******8号</p>
 </div>
-
+<script>
+    function form_submit() {
+        var pwd = $("#pwd").val()
+        var cpwd = $("#cpwd").val();
+        if (pwd.trim().length < 32) {
+            pwd = md5(pwd);
+            cpwd = md5(cpwd)
+            console.log(pwd);
+            console.log(cpwd);
+        }
+        $("#pwd").val(pwd);
+        $("#cpwd").val(cpwd);
+    }
+</script>
 
 </body>
 </html>

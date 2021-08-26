@@ -4,6 +4,8 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
     <title>京西商城-登录</title>
+    <script type="text/javascript" src="https://cdn.bootcdn.net/ajax/libs/blueimp-md5/2.18.0/js/md5.js"></script>
+    <script type="text/javascript" src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.0/jquery.js"></script>
     <link rel="icon" type="image/x-icon" href="./static/images/JingXi.ico">
     <link rel="stylesheet" type="text/css" href="../static/css/reset.css">
     <link rel="stylesheet" type="text/css" href="../static/css/main3.css">
@@ -26,7 +28,7 @@
                 <form method="post">
                     <input type="text" name="username" class="name_input" value="" placeholder="请输入用户名">
                     <div class="user_error">输入错误</div>
-                    <input type="password" name="pwd" class="pass_input" placeholder="请输入密码">
+                    <input type="password" id="pwd" name="pwd" class="pass_input" placeholder="请输入密码">
                     <div class="pwd_error">输入错误</div>
                     <div class="more_input clearfix">
                         <input type="checkbox" name="remember">
@@ -35,13 +37,14 @@
                     </div>
                     <!-- {#						<p>请<a href="{% url 'myaccount:acount_login' %}?next=#}
                     {#							{% firstof request.path '/' %}">登录</a>后再访问。</p>#} -->
-                    <input type="submit" name="" value="登录" class="input_submit">
+{#                    <input type="submit" name="" onclick="form_submit()" value="登录" class="input_submit">#}
+                    <input type="submit" name="" onclick="form_submit()" value="登录" class="input_submit">
                 </form>
                 {% if errmsg %}
-                <script type="text/javascript">
-                    alert("{{ errmsg}}");
-                    window.location.href = "login";
-                </script>
+                    <script type="text/javascript">
+                        alert("{{ errmsg}}");
+                        window.location.href = "login";
+                    </script>
                 {% endif %}
             </div>
         </div>
@@ -61,6 +64,19 @@
     <p>CopyRight © 2021 重庆京西商城 All Rights Reserved</p>
     <p>电话：999-****888 渝ICP备*******8号</p>
 </div>
+<script>
+    function form_submit() {
+        var pwd = $("#pwd").val();
+        if (pwd.trim().length < 32) {
+            pwd = md5(pwd);
+            console.log(pwd);
+        }
+        $("#pwd").val(pwd);
+
+    }
+</script>
+
 
 </body>
 
+</html>
