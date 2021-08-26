@@ -30,11 +30,11 @@ urlpatterns = [
     path('order', c_views.orderplace_view),
     path('cart', c_views.cart_view),
     path('favorite', c_views.collect_view),
-    path('user_center_order',c_views.orderlist_view),
+    path('user_center_order', c_views.orderlist_view),
     # index 模块路由转发
     path('index', in_views.index_view),
     path('index_template', in_views.index_template_view),
-    re_path('list_template/?keyword=.', in_views.search_list_view),
+    re_path(r'list_template', in_views.search_list_view),
     # user 模块路由转发
     path('register', usr_views.reg_view, name='register'),
     path('login', usr_views.login_view),
@@ -44,7 +44,7 @@ urlpatterns = [
     path('merchant_register', usr_views.merchant_register_view),
     path('merchant', usr_views.merchant_view),
     path('merchant_order', usr_views.merchant_order_view),
-    path('merchant_object',usr_views.merchant_object_view),
+    path('merchant_object', usr_views.merchant_object_view),
 
     # goods 模块路由转发
     path('detail_template', goods_views.detail_view),

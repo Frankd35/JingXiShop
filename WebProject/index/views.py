@@ -55,17 +55,18 @@ def search_list_view(request):
     isLogin = usr_id != -1
     try:
         user = User.objects.get(id=usr_id)
-    except:
+    except Exception as e:
         user = None
-    # kw = request.GET.get('keyword')
-    kw = '测试'
-    # sort_mod = request.GET.get('...')
-    sort_mod = 'hot'
-
-    goodsList = Goods.objects.filter(name__contains=kw)
-    if sort_mod == 'price':
-        goodsList = sorted(goodsList, key=lambda x: x.price)
-    elif sort_mod == 'hot':
-        goodsList = sorted(goodsList, key=lambda x: x.searching_num)
-
-    return render(request, "list_template.html", {'isLogin': isLogin, 'user': user, 'goodsList': goodsList})
+    # 判断请求方式
+    kw = request.GET.get('keyword')
+    category_id = request.GET.get('category')
+    if kw:
+        goodsList = Goods.objects.filter(name__contains=kw)
+    elif category_id:
+        goodsList = Goods.objects.filter(category_id=int(category_id))
+    goodsList_price = sorted(goodsList, key=lambda x: x.price)
+    goodsList_hot = sorted(goodsList, key=lambda x: x.searching_num)
+    GoodsCategory = Category.objects.all()
+    return render(request, "list_template.html",
+                  {'isLogin': isLogin, 'user': user, 'goodsList': goodsList, 'goodsList_hot': goodsList_hot,
+                   'goodsList_price': goodsList_price, 'GoodsCategory': GoodsCategory})
