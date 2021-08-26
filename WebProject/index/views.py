@@ -60,13 +60,16 @@ def search_list_view(request):
     # 判断请求方式
     kw = request.GET.get('keyword')
     category_id = request.GET.get('category')
+    currentCategory = None
     if kw:
         goodsList = Goods.objects.filter(name__contains=kw)
     elif category_id:
         goodsList = Goods.objects.filter(category_id=int(category_id))
+        currentCategory = Category.objects.filter(id=int(category_id)).first()
     goodsList_price = sorted(goodsList, key=lambda x: x.price)
     goodsList_hot = sorted(goodsList, key=lambda x: x.searching_num)
     GoodsCategory = Category.objects.all()
     return render(request, "list_template.html",
                   {'isLogin': isLogin, 'user': user, 'goodsList': goodsList, 'goodsList_hot': goodsList_hot,
-                   'goodsList_price': goodsList_price, 'GoodsCategory': GoodsCategory})
+                   'goodsList_price': goodsList_price, 'GoodsCategory': GoodsCategory,
+                   'currentCategory': currentCategory})
