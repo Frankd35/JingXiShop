@@ -516,10 +516,11 @@ html,body{height:100%}
 	margin-bottom:10px;
 }
 
-.left_menu_con ul li{
-	line-height:40px;
-	text-align:center;
-	font-size:14px;
+.left_menu_con ul li {
+    line-height: 40px;
+    text-align: left;
+    margin-left: 70px;
+    font-size: 14px;
 }
 
 .left_menu_con ul li a{

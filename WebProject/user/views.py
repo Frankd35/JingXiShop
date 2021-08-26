@@ -145,8 +145,13 @@ def usr_info_view(request):
     if not isLogin:
         return HttpResponseRedirect('err_handling_page')  # not defined
     user = User.objects.get(id=usr_id)
-    # address 选择实现
-    return render(request, 'user_center_info2.html', {'user': user, 'address': None, 'isLogin': isLogin})
+    try:
+        default_addr = Address.objects.get(id=user.addr_id)
+    except Exception as e:
+        print(e)
+        default_addr = None
+    return render(request, 'user_center_info2.html',
+                  {'user': user, 'address': None, 'isLogin': isLogin, 'default_addr': default_addr})
 
 
 def usr_site_view(request):

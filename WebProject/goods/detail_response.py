@@ -18,7 +18,11 @@ def getCateList():
 
 
 def getCategory(category_id):
-    cateName = goods_model.Category.objects.filter(id=category_id).first().name
+    try:
+        cateName = goods_model.Category.objects.get(id=category_id).name
+    except Exception as e:
+        print(e)
+        cateName = None
     return cateName
 
 
@@ -78,3 +82,10 @@ def addCollect(uid, gid):
     if cart_model.Favorite.objects.filter(user_id=uid, goods_id=gid).count() < 1:
         cart_model.Favorite.objects.create(user_id=uid, goods_id=gid, goods_img=tempGoods.img)
     return None
+
+
+def editComment(uid, gid, text, mark):
+    if goods_model.Comment.objects.filter(user_id=uid, goods_id=gid).count() > 0:
+        return 0
+    goods_model.Comment.objects.create(user_id=uid, goods_id=gid, text=text, mark=mark)
+    return 1

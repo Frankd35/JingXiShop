@@ -1,3 +1,4 @@
+import json
 from django.shortcuts import render
 from user import models as user_model
 from django.http import JsonResponse, HttpResponseRedirect, HttpResponse
@@ -48,24 +49,37 @@ def detail_view(request):
     else:
         if user.id == -1:
             return HttpResponseRedirect('/login')
-        num = int(request.POST.get('num', -1))
-        gid = int(request.POST.get('gid', -1))
-        print("POST method, gid=%d, num=%d" % (gid, num))
-        if request.POST.getlist('buynow'):
-            if (num >= 0) and (gid >= 0):
-                errMsg = buyNow(user.id, gid, num)
-                if errMsg != "":
-                    return HttpResponse(errMsg)
-            return HttpResponseRedirect('/order')
-        elif request.POST.getlist('addcart'):
-            if (num >= 0) and (gid >= 0):
-                errMsg = addCart(user.id, gid, num)
-                if errMsg != "":
-                    return HttpResponse(errMsg)
-            return HttpResponseRedirect('/cart')
-        elif request.POST.getlist('addcollect'):
-            addCollect(user.id, gid)
-            return HttpResponseRedirect('/favorite')
+        # 判断是否是ajax发送来的POST请求
+        data = request.body.decode("utf-8")
+        json_data = json.loads(data)
+        print(json_data)
+        gid = int(json_data.get('gid', -1))
+        flag = str(json_data.get('flag', ''))
+        text = str(json_data.get('text', ''))
+        mark = float(json_data.get('mark', 1.0))
+        if flag == 'editComment':  # ajax发送的POST请求
+            print("新增评论")
+            res = editComment(user.id, gid, text, mark)
+            return JsonResponse({'res': res})
+        else:
+            num = int(request.POST.get('num', -1))
+            gid = int(request.POST.get('gid', -1))
+            print("POST method, gid=%d, num=%d" % (gid, num))
+            if request.POST.getlist('buynow'):
+                if (num >= 0) and (gid >= 0):
+                    errMsg = buyNow(user.id, gid, num)
+                    if errMsg != "":
+                        return HttpResponse(errMsg)
+                return HttpResponseRedirect('/order')
+            elif request.POST.getlist('addcart'):
+                if (num >= 0) and (gid >= 0):
+                    errMsg = addCart(user.id, gid, num)
+                    if errMsg != "":
+                        return HttpResponse(errMsg)
+                return HttpResponseRedirect('/cart')
+            elif request.POST.getlist('addcollect'):
+                addCollect(user.id, gid)
+                return HttpResponseRedirect('/favorite')
 
-        print("并没有取到POST的表单")
-        return HttpResponse("哈哈哈")
+            print("并没有取到POST的表单")
+            return HttpResponse("没有取到POST表单")
