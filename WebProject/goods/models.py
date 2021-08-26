@@ -31,4 +31,4 @@ class Comment(models.Model):
     createtime = models.DateTimeField(auto_now=True)
 
     def __str__(self):
-        return u"Comment : User %d -> Goods %d", (self.user_id, self.goods_id)
+        return u"Comment : User %d -> Goods %d" % (self.user_id, self.goods_id)
