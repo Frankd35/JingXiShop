@@ -168,7 +168,7 @@ html,body{height:100%}
 .breadcrumb span{line-height:40px;color:#666;padding:0 5px;}
 
 
-.main_wrap{width:1200px;margin:0 auto;}
+.main_wrap{display:flex;position:absolute;width:1200px;margin:0 auto;}
 .l_wrap{width:200px;}
 .r_wrap{width:980px;}
 
