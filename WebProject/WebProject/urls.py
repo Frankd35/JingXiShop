@@ -34,7 +34,7 @@ urlpatterns = [
     # index 模块路由转发
     path('index', in_views.index_view),
     path('index_template', in_views.index_template_view),
-    path('list_template', in_views.search_list_view),
+    path('list_template', in_views.list_template_view),
     # user 模块路由转发
     path('register', usr_views.reg_view, name='register'),
     path('login', usr_views.login_view),

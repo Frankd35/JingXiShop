@@ -6,10 +6,8 @@ from django.shortcuts import render
 
 # Create your views here.
 # from sympy.codegen.ast import none
-
-from user.models import User
-from goods.models import Category, Comment
-from goods.models import Goods
+from user.models import User, Shop
+from goods.models import Category, Comment, Goods
 
 
 def index_view(request):
@@ -38,7 +36,11 @@ def index_template_view(request):
     #     GoodsList = Goods.objects.filter(category_id__gte=category.id).order_by('category_id')
     #     tmp = [tmp, GoodsList]
     # tmp = chain(tmp)
-
+    # 新品推荐
+    newGoodsList = Goods.objects.all()
+    if len(newGoodsList) > 5:
+        newGoodsList = newGoodsList[len(newGoodsList) - 6: len(newGoodsList) - 1]
+    print(newGoodsList)
     # 商品
     GoodsList = Goods.objects.filter(category_id__gte=1, searching_num__lte=99999).order_by('category_id')
     # 介绍
@@ -46,10 +48,10 @@ def index_template_view(request):
     return render(request, 'index_template.html',
                   {'isLogin': isLogin, 'user': user, 'GoodsCategoryList': GoodsCategoryList,
                    'hotgoodsList': hotgoodsList, 'slideList': slideList, 'GoodsList': GoodsList,
-                   'bannerList': bannerList})
+                   'bannerList': bannerList, 'newGoodsList': newGoodsList})
 
 
-def search_list_view(request):
+def list_template_view(request):
     # 获取cookies里的当前登录用户id
     usr_id = int(request.session.get('uid', -1))
     isLogin = usr_id != -1
@@ -60,16 +62,43 @@ def search_list_view(request):
     # 判断请求方式
     kw = request.GET.get('keyword')
     category_id = request.GET.get('category')
+    goodsList = None
     currentCategory = None
+    # 新品推荐
+    newGoodsList = Goods.objects.all()
+    if len(newGoodsList) > 5:
+        newGoodsList = newGoodsList[len(newGoodsList) - 6: len(newGoodsList) - 1]
+
+    # 支持精确查询商品、店铺、类别
     if kw:
-        goodsList = Goods.objects.filter(name__contains=kw)
+        kw = kw.split()
+        goodsList = Goods.objects.filter(name__contains=kw[0])
+        # 找出关联度最高的
+        for i in kw:
+            goodsList = goodsList.filter(name__contains=i)
+        for gname in kw:
+            _by_name = Goods.objects.filter(name__contains=gname)
+            goodsList = goodsList | _by_name
+        for sname in kw:
+            _ = Shop.objects.filter(name__contains=sname)
+            for shop in _:
+                _by_shop = Goods.objects.filter(shop_id=shop.id)
+                goodsList = goodsList | _by_shop
+        for cname in kw:
+            _ = Category.objects.filter(name__contains=cname)
+            for category in _:
+                _by_category = Goods.objects.filter(category_id=category.id)
+                goodsList = goodsList | _by_category
+        goodsList.distinct()
     elif category_id:
         goodsList = Goods.objects.filter(category_id=int(category_id))
         currentCategory = Category.objects.filter(id=int(category_id)).first()
-    goodsList_price = sorted(goodsList, key=lambda x: x.price)
-    goodsList_hot = sorted(goodsList, key=lambda x: x.searching_num)
+    goodsList_price = None if not goodsList \
+        else sorted(goodsList, key=lambda x: x.price)
+    goodsList_hot = None if not goodsList \
+        else sorted(goodsList, key=lambda x: x.searching_num)
     GoodsCategory = Category.objects.all()
     return render(request, "list_template.html",
                   {'isLogin': isLogin, 'user': user, 'goodsList': goodsList, 'goodsList_hot': goodsList_hot,
                    'goodsList_price': goodsList_price, 'GoodsCategory': GoodsCategory,
-                   'currentCategory': currentCategory})
+                   'currentCategory': currentCategory, 'newGoodsList': newGoodsList})
