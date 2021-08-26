@@ -63,14 +63,14 @@ $(function() {
     $('.itxt').blur(function () {
         // 获取用户输入的数目
         count = Number($(this).val())
-        maxnum = Number($(this).attr('maxnum'))
-        // 校验count是否合法
-        if (isNaN(count) || count < 1) {
-            count = 1
-        }
-        if (count > maxnum){
-            count = maxnum
-        }
+        // maxnum = Number($(this).attr('maxnum'))
+        // // 校验count是否合法
+        // if (isNaN(count) || count < 1) {
+        //     count = 1
+        // }
+        // if (count > maxnum){
+        //     count = maxnum
+        // }
         // 重新设置商品的数目
         $(this).val(count)
         console.log("重新设置商品数量："+count)
