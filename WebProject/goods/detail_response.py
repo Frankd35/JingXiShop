@@ -18,7 +18,11 @@ def getCateList():
 
 
 def getCategory(category_id):
-    cateName = goods_model.Category.objects.filter(id=category_id).first().name
+    try:
+        cateName = goods_model.Category.objects.get(id=category_id).name
+    except Exception as e:
+        print(e)
+        cateName = None
     return cateName
 
 
