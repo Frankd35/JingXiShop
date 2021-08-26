@@ -4,13 +4,28 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>商家界面</title>
 <link rel="icon" type="image/x-icon" href="./static/images/JingXi.ico">
-<link rel="stylesheet" type="text/css" href="statics/css/global.css" />
+<script src="../static/js/jquery.min.js"></script>
 <script type="text/javascript" src="statics/js/jquery3.js"></script>
 <link rel="stylesheet" type="text/css" href="../static/css/reset.css">
 <link rel="stylesheet" type="text/css" href="../static/css/main3.css">
 <script>
-$(function(){
-})
+	$(function() {
+	   //搜索框输入商品类型，进去该商品类型列表，向后端传用户输入商品类型名称
+	   $(".input_btn").click(function () {
+        var type = $(".input_text").val();
+        var token = $('[name="csrfmiddlewaretoken"]').attr("value");
+        // 判断用户输入是否为空
+        if (type == '' || type == null) {
+            var aobj = document.getElementById("search1");
+            aobj.href = "";
+            alert('未输入商品名称！')
+        } else {
+            console.log(type)
+            window.location.href = "/list_template?keyword=" + type;
+        }
+
+    })
+   });
 </script>
 </head>
 <body style="background-color: rgb(253, 253, 253)">
