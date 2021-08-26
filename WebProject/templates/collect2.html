@@ -150,6 +150,22 @@
     <!--	删除收藏货物的ajax传输-->
 	<script>
 		 $(function() {
+		 		//搜索框输入商品类型，进去该商品类型列表，向后端传用户输入商品类型名称
+		        //搜索框输入商品类型，进去该商品类型列表，向后端传用户输入商品类型名称
+         $(".input_btn").click(function () {
+            var type = $(".input_text").val();
+            var token = $('[name="csrfmiddlewaretoken"]').attr("value");
+            // 判断用户输入是否为空
+            if (type == '' || type == null) {
+                var aobj = document.getElementById("search1");
+                aobj.href = "";
+                alert('未输入商品名称！')
+            } else {
+                console.log(type)
+                window.location.href = "/list_template?keyword=" + type;
+            }
+
+         })
      	 $(".del1 a").click(function() {
          	console.log("hhhh")
          	var deluse=$(this).attr('delUser');
