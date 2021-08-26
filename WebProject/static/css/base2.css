@@ -200,8 +200,6 @@ a.sub_page_name.fl {
     left: 327px;
 }
 footer a {
-	display: flex;
-	position: relative;
 	color: #666;
 }
 .service {
