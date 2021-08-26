@@ -143,7 +143,7 @@ def usr_info_view(request):
     isLogin = usr_id != -1
     # 若用户未登录
     if not isLogin:
-        return HttpResponseRedirect('err_handling_page')  # not defined
+        return HttpResponseRedirect('login')  # not defined
     user = User.objects.get(id=usr_id)
     try:
         default_addr = Address.objects.get(id=user.addr_id)
@@ -160,7 +160,7 @@ def usr_site_view(request):
     isLogin = usr_id != -1
     # 若用户未登录
     if not isLogin:
-        return HttpResponseRedirect('err_handling_page')  # not defined
+        return HttpResponseRedirect('login')  # not defined
     # 获取数据
     user = User.objects.get(id=usr_id)
     try:
@@ -230,7 +230,7 @@ def merchant_register_view(request):
     isLogin = usr_id != -1
     # 若用户未登录
     if not isLogin:
-        return HttpResponseRedirect('err_handling_page')  # not defined
+        return HttpResponseRedirect('login')  # not defined
     # 访问商家注册页
     if request.method == 'GET':
         # 检测商家状态
@@ -279,10 +279,10 @@ def merchant_view(request):
     isLogin = usr_id != -1
     # 若用户未登录
     if not isLogin:
-        return HttpResponseRedirect('err_handling_page')  # not defined
+        return HttpResponseRedirect('login')  # not defined
     # 检测是否商家
     if User.objects.get(id=usr_id).is_merchant != 2:
-        return render(request, 'merchant_register.html')
+        return HttpResponseRedirect('merchant_register')
     # 获取数据
     user = User.objects.get(id=usr_id)
     shop = Shop.objects.get(user_id=usr_id)
@@ -295,10 +295,10 @@ def merchant_object_view(request):
     isLogin = usr_id != -1
     # 若用户未登录
     if not isLogin:
-        return HttpResponseRedirect('err_handling_page')  # not defined
+        return HttpResponseRedirect('login')  # not defined
     # 检测是否商家
     if User.objects.get(id=usr_id).is_merchant != 2:
-        return render(request, 'merchant_register.html')
+        return HttpResponseRedirect('merchant_register')
     # 获取数据
     user = User.objects.get(id=usr_id)
     shop = Shop.objects.get(user_id=usr_id)
@@ -316,8 +316,22 @@ def merchant_object_view(request):
     except:
         goodsList = None
     if request.method == 'POST':
-        data = json.loads(request.body.decode("utf-8"))
-        print(data)
+        gid = int(json.loads(request.body.decode("utf-8")).get('id'))
+        flag = json.loads(request.body.decode("utf-8")).get('flag')
+        try:
+            if flag == 'updatenum':
+                Goods.objects.filter(id=gid).update(number=
+                    int(json.loads(request.body.decode("utf-8")).get('num')))
+            elif flag == 'puton':
+                # 更改数量啥的
+                Goods.objects.filter(id=gid).update(status=1)   # 设置为上架
+            elif flag == 'sub':
+                # 更改数量啥的
+                Goods.objects.filter(id=gid).update(status=0)   # 设置为下架
+            return JsonResponse({})
+        except Exception as e:
+            print(e)
+            return HttpResponseRedirect('merchant_object')
     return render(request, 'merchant_object.html',
                   {'isLogin': isLogin, 'user': user, 'shop': shop, 'goodsList': goodsList})
 

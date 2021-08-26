@@ -100,10 +100,10 @@
                             <li class="col02">{{ good.deal }}件</li>
                             <!-- <div class="clearfix">
                                 <li>
-                                    <a href="javascript:;" class="increment mins" goodid="{{ good.id }}"><b>-</b></a>
+                                    <a href="javascript:;" class="increment mins" goodid="{{ good.id }}" num="{{good.number}}"><b>-</b></a> -->
                                     <input autocomplete="off" type="text" goodid="{{ good.id }}"
                                            value="{{ good.number }}" minnum="1" class="itxt" maxnum={{ good.max_num }}>
-                                    <a href="javascript:;" class="increment plus" goodid="{{ good.id }}"
+                            <!--        <a href="javascript:;" class="increment plus" goodid="{{ good.id }}" num="{{good.number}}"
                                        maxnum="{{ good.max_num }}"><b>+</b></a>
                                 </li>
                             </div>

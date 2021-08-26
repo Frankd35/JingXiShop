@@ -8,7 +8,7 @@ $(function() {
         $.ajax({
         url:"/merchant_object",
         type:"POST",
-        data:JSON.stringify({'id':itGid,"csrfmiddlewaretoken": token}),
+        data:JSON.stringify({'id':itGid, flag:"puton", "csrfmiddlewaretoken": token}),
         dataType : "text",
         success: function(){
             window.location.reload()
@@ -23,7 +23,7 @@ $(function() {
         $.ajax({
         url:"/merchant_object",
         type:"POST",
-        data:JSON.stringify({'id':itGid,"csrfmiddlewaretoken": token}),
+        data:JSON.stringify({'id':itGid, flag:"putoff","csrfmiddlewaretoken": token}),
         dataType : "text",
         success: function(){
             window.location.reload()
@@ -60,29 +60,25 @@ $(function() {
     //     }
     //     })
     // });
-    // $('.itxt').blur(function () {
-    //     // 获取用户输入的数目
-    //     count = Number($(this).val())
-    //     // maxnum = Number($(this).attr('maxnum'))
-    //     // // 校验count是否合法
-    //     // if (isNaN(count) || count < 1) {
-    //     //     count = 1
-    //     // }
-    //     // if (count > maxnum){
-    //     //     count = maxnum
-    //     // }
-    //     // 重新设置商品的数目
-    //     $(this).val(count)
-    //     console.log("重新设置商品数量："+count)
-    //     var itGid=$(this).attr('goodid');
-    //     var token = $('[name="csrfmiddlewaretoken"]').attr("value");
-    //     $.ajax({
-    //     url:"/merchant_object",
-    //     type:"POST",
-    //     data:JSON.stringify({'gid':itGid,'flag':'updatenum', "csrfmiddlewaretoken": token, 'num': count}),
-    //     dataType : "text"
-    //     })
+     $('.itxt').blur(function () {
+         // 获取用户输入的数目
+         count = Number($(this).val())
+         // 重新设置商品的数目
+         $(this).val(count)
+         console.log("重新设置商品数量："+count)
+         var itGid=$(this).attr('goodid');
+         var token = $('[name="csrfmiddlewaretoken"]').attr("value");
+         $.ajax({
+         url:"/merchant_object",
+         type:"POST",
+         data:JSON.stringify({'id':itGid,'flag':'updatenum', "csrfmiddlewaretoken": token, 'num': count}),
+         dataType : "text",
+         success: function(data){
+            console.log('return successful')
+            window.location.reload()
+         }
+         })
 
-    // })
+       })
     
 });
