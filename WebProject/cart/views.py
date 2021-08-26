@@ -145,6 +145,16 @@ def orderlist_view(request):
     user = getLoginState(request)
     if user.id == -1:
         return HttpResponseRedirect('/login')
-    orderList = getOrderList(user.id)
-
-    return render(request,'orderlist2.html',{'orderList':orderList, 'user':user})
+    m = request.method
+    # GET请求， 加载页面
+    if m == 'GET':
+        orderList = getOrderList(user.id)
+        return render(request, 'orderlist2.html', {'orderList': orderList, 'user': user})
+    else:  # 接受ajax请求，确认收货
+        print("响应POST请求")
+        data = request.body.decode("utf-8")
+        json_data = json.loads(data)
+        print(json_data)
+        oid = int(json_data.get('oid', -1))
+        confirmOrder(oid)
+        return JsonResponse({"res": 1})

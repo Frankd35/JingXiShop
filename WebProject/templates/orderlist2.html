@@ -6,6 +6,9 @@
 	<link rel="icon" type="image/x-icon" href="./static/images/JingXi.ico">
 	<link rel="stylesheet" type="text/css" href="../static/css/reset.css">
 	<link rel="stylesheet" type="text/css" href="../static/css/main3.css">
+    <script src="../static/js/jquery.min.js"></script>
+    <script src="../static/js/base.js"></script>
+    <script src="../static/js/orderlist.js"></script>
 </head>
 <body><div data-v-7e2550d6="" class="odm_extension image_downloader_wrapper"><!----></div>
 	<div class="header_con">
@@ -66,7 +69,18 @@
 				<ul class="order_list_th w978 clearfix">
 					<li class="col01">{{good.time}}</li>
 					<li class="col02">订单号：{{good.order_id}}</li>
-					<li class="col02 stress">运送状态：{{ good.state }}</li>
+                    {% if good.state == "未发货" %}
+					    <li class="col02 stress" style="color: red">运送状态：{{ good.state }}</li>
+                    {% endif %}
+                    {% if good.state == "已发货" %}
+					    <li class="col02 stress" style="color: orange">运送状态：{{ good.state }}</li>
+                    {% endif %}
+                    {% if good.state == "已收货" %}
+                        <li class="col02 stress" style="color: #33cc00">运送状态：{{ good.state }}</li>
+                    {% endif %}
+                    {% if good.state != "已收货" %}
+                    <li class="deleteorder" style="width: 35%; text-align: right;"><a href="javascript:;" style="background: #ffffff; border-radius: 5px; color: red; border: solid red 1px; padding: 2px 3px;" oid="{{ good.order_id }}">确认收货</a></li>
+                    {% endif %}
 				</ul>
 
 				<table class="order_list_table w980">

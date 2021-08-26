@@ -73,17 +73,6 @@ $(function() {
         dataType : "text"
         })
     });
-    $(".del1 a").click(function() {
-        console.log("删除")
-        var itGid=$(this).attr('goodid');
-        var token = $('[name="csrfmiddlewaretoken"]').attr("value");
-        $.ajax({
-        url:"/cart",
-        type:"POST",
-        data:JSON.stringify({'gid':itGid,'flag':'delete', "csrfmiddlewaretoken": token}),
-        dataType : "text"
-        })
-    });
 
     $(".good-checkbox").click(function() {
         var itGid=$(this).attr('goodid');
@@ -165,9 +154,24 @@ $(function() {
         }
     });
     $(".del1 a").click(function() {
-        $(this).parent().parent().siblings().remove();
-        $(this).parent().parent().remove();
-        $(this).closest('.goods-list').remove();
+        var r = confirm("确认删除该商品？");
+        if (r == true) {
+            console.log("删除商品")
+            var itGid=$(this).attr('goodid');
+            var token = $('[name="csrfmiddlewaretoken"]').attr("value");
+            $(this).parent().parent().siblings().remove();
+            $(this).parent().parent().remove();
+            $(this).closest('.goods-list').remove();
+            $.ajax({
+            url:"/cart",
+            type:"POST",
+            data:JSON.stringify({'gid':itGid,'flag':'delete', "csrfmiddlewaretoken": token}),
+            dataType : "text"
+            })
+        } else {
+            console.log("取消删除")
+        }
+
         me_sum();
     });
     $(".sumbtn a").click(function (){
