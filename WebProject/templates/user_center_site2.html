@@ -10,11 +10,19 @@
     <script src="../static/js/base.js"></script>
     <script src="../static/js/user_site.js"></script>
 	<link rel="icon" sizes="32x32" mask href="../static/images/JingXi.ico">
+	<style>
+		span {
+    		margin-left: 18px;
+    		font-size: 14px;
+    		line-height: 30px;
+    		text-indent: 30px;
+	 	}
+	</style>
 </head>
 <body>
 	<div class="header_con">
 		<div class="header">
-			<div class="welcome fl">欢迎来到京西商城!</div>
+			<div class="welcome fl">欢迎来到京商城!</div>
 			<div class="fr">
 				{% if isLogin %}
 				<div class="login_btn fl">
@@ -96,7 +104,7 @@
 						<form method="POST" name="select_addr">
 						{% if addrlist%}
 						{% for addr in addrlist %}
-							<input type="checkbox" class="addr" name="addr" value="{{addr.id}}">{{ addr.text }} （{{ addr.name }} 收） {{ addr.tel }}
+							<input type="checkbox" class="addr" name="addr" value="{{addr.id}}"><span>{{ addr.text }} （{{ addr.name }} 收） {{ addr.tel }}</span>
 							
                         	<!-- <input type="submit" name="delete_addr" value="删除地址"><br> -->
 							

@@ -166,9 +166,9 @@ html,body{height:100%}
 .breadcrumb span{line-height:40px;color:#666;padding:0 5px;}
 
 
-.main_wrap{width:1200px;margin:0 auto;}
-.l_wrap{width:200px;}
-.r_wrap{width:980px;}
+.main_wrap{display:flex;position:relative;width:1200px;margin:0 auto;}
+.l_wrap{width:200px;display: flex;}
+.r_wrap{width:980px;display:flex;}
 
 
 /* 新品推荐样式 */
@@ -270,8 +270,8 @@ html,body{height:100%}
 
 .detail_tab li.active{border-top:2px solid rgb(225, 34, 40);position:relative;background-color:#fff;border-left:1px solid rgb(225, 34, 40);border-right:1px solid #37ab40;top:-1px;height:35px;}
 
-.tab_content dt{margin-top:10px;font-size:16px;color:#044d39}
-.tab_content dd{line-height:24px;margin-top:5px;}
+.tab_content dt{position:relative;margin-top:10px;font-size:16px;color:#044d39}
+.tab_content dd{position:relative;line-height:24px;margin-top:5px;}
 
 
 /* 登录页 */
@@ -575,6 +575,7 @@ div#onee {
 }
 
 .site_con{
+	display: flex;
 	background-color:#f9f9f9;
 	padding:10px 0;
 	margin-bottom:20px;

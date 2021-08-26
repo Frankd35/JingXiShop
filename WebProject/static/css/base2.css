@@ -184,6 +184,8 @@ header a {
 	background-color:#fff;
 } */
 footer {
+	position: relative;
+	display: flex;
     margin-top: 35px;
     height: 88px;
     background-color: #fff;
@@ -200,6 +202,8 @@ a.sub_page_name.fl {
     left: 327px;
 }
 footer a {
+	display: flex;
+	position: relative;
 	color: #666;
 }
 .service {
