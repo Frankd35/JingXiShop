@@ -3,6 +3,7 @@ $(function() {
     $("#put_on").click(function() {
         console.log("上架")
         var itGid=$(this).attr('good_operate1');
+        console.log(itGid)
         var token = $('[name="csrfmiddlewaretoken"]').attr("value");
         $.ajax({
         url:"/merchant_object",
