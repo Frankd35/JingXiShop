@@ -3,6 +3,7 @@
 <head>
 	<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
 	<title>京西商场-提交订单</title>
+	<link rel="icon" type="image/x-icon" href="./static/images/JingXi.ico">
 	<link rel="stylesheet" type="text/css" href="../static/css/reset.css">
 	<link rel="stylesheet" type="text/css" href="../static/css/main2.css">
 	<script src="../static/js/jquery.min.js"></script>
@@ -20,13 +21,13 @@
 			<!-- <div class="welcome fl">欢迎来到京西商场!</div> -->
 			<div class="fr">
 				<div class="login_info fl">
-					欢迎来到京西商场!
+					欢迎来到京西商城!
 				</div>
 				{% if user.isLogin %}
 				<div class="login_btn fl">
 					欢迎您：<em>{{ user.name }}</em>
                     <span>|</span>
-					<a href="logout">退出</a>
+					<a href="logout">退出登录</a>
 				</div>
                 {% else %}
 				<div class="login_btn fl">
