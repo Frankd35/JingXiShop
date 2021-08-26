@@ -77,13 +77,13 @@
         <input type="text" class="input_text fl" name="goods.type" id="search0" placeholder="搜索商品">
         <!-- 搜索商品类型 -->
         <a href="javascript:;" id="search1"><input type="submit" class="input_btn fr" value="搜索"></a>
-{#        <script type="javascript">#}
-{#            $('#search1').click(function (){#}
-{#                console.log("哈哈哈")#}
-{#                var keyword = $('#search0').val()#}
-{#                window.location = "/list_template?category=" + keyword#}
-{#            })#}
-{#        </script>#}
+        {#        <script type="javascript">#}
+        {#            $('#search1').click(function (){#}
+        {#                console.log("哈哈哈")#}
+        {#                var keyword = $('#search0').val()#}
+        {#                window.location = "/list_template?category=" + keyword#}
+        {#            })#}
+        {#        </script>#}
     </div>
     <div class="guest_cart fr">
         <a href="cart" class="cart_name fl">我的购物车</a>
@@ -102,7 +102,8 @@
                 {% for GoodsCategory in GoodsCategoryList %}
                     <!-- 展示六种商品类型 -->
                     <!--					// 点击商品类型，进入该商品类型商品列表，向后端传商品类型id-->
-                    <li><a href="list_template?category={{ GoodsCategory.id }}">{{ GoodsCategory.name }} &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&gt;</a></li>
+                    <li><a href="list_template?category={{ GoodsCategory.id }}">{{ GoodsCategory.name }} &nbsp;&nbsp;
+                        &nbsp;&nbsp;&nbsp;&gt;</a></li>
                 {% endfor %}
 
             </ul>
@@ -140,7 +141,7 @@
         <div class="prize_bar">
             <span class="show_pirze">¥<em>{{ good.price }}</em></span>
             {#                需要增加一个unite的参数  #}
-{#            <span class="show_unit">单  位：{{ good.unite }}g</span>#}
+            {#            <span class="show_unit">单  位：{{ good.unite }}g</span>#}
         </div>
         <div class="goods_num clearfix">
             <div class="num_name fl">数 量：</div>
@@ -156,35 +157,38 @@
         </div>
 
         <div class="total">总价：<em>{{ good.price }}元</em></div>
-{#        <div class="operate_btn">#}
-            <div class="detail_form">
+        {#        <div class="operate_btn">#}
+        <div class="detail_form">
             <!--				 //点击立即购买，进入结算界面，向后端传购买用户id,商品数量，商品id-->
             {#				<a href="shopcar2" class="buy_btn">立即购买</a>#}
             <form action="/detail_template" method="post">
                 <input name="gid" style="display: none" value="{{ good.id }}">
                 <input name="num" style="display: none" value="1" class="postvalue">
-                <input id="__buy_btn" class="__buy_btn" id="buy" type="submit" value="立即购买" name="buynow" style="display:inline-block;width:178px;height:38px;border:1px solid #c40000;font-size:14px;color:#c40000;line-height:38px;text-align:center;background-color:#ffeded;cursor:pointer;">
-                <input class="__add_cart" id="add_cart" type="submit" value="加入购物车"  name="addcart" style="display:inline-block;width:178px;height:38px;border:1px solid #c40000;font-size:14px;line-height:38px;text-align:center;background-color:#c40000;color:#fff;margin-left:10px;position:relative;z-index:10;cursor:pointer;">
-                <input class="__add_shou" id="add_shou" type="submit" value="加入收藏夹"  name="addcollect" style="display:inline-block;width:178px;height:38px;font-size:14px;line-height:38px;text-align:center;border:1px solid skyblue; background-color:orange;color:#fff;margin-left:10px;position:relative;z-index:10;cursor:pointer;">
+                <input id="__buy_btn" class="__buy_btn" id="buy" type="submit" value="立即购买" name="buynow"
+                       style="display:inline-block;width:178px;height:38px;border:1px solid #c40000;font-size:14px;color:#c40000;line-height:38px;text-align:center;background-color:#ffeded;cursor:pointer;">
+                <input class="__add_cart" id="add_cart" type="submit" value="加入购物车" name="addcart"
+                       style="display:inline-block;width:178px;height:38px;border:1px solid #c40000;font-size:14px;line-height:38px;text-align:center;background-color:#c40000;color:#fff;margin-left:10px;position:relative;z-index:10;cursor:pointer;">
+                <input class="__add_shou" id="add_shou" type="submit" value="加入收藏夹" name="addcollect"
+                       style="display:inline-block;width:178px;height:38px;font-size:14px;line-height:38px;text-align:center;border:1px solid skyblue; background-color:orange;color:#fff;margin-left:10px;position:relative;z-index:10;cursor:pointer;">
             </form>
             <!--				//点击加入购物车，向后端传加入购物车的用户id,商品数量，商品id-->
             {#            <a href="javascript" class="add_cart" id="add_cart" onclick="alert('添加成功！')">加入购物车</a>#}
 
-{#            <form action="/detail_template" method="post" name="addcart">#}
-{#                <input name="type" style="visibility: hidden" value="addcart">#}
-{#                <input name="gid" style="visibility: hidden" value="{{ good.id }}">#}
-{#                <input name="num" style="visibility: hidden" value="1" class="postvalue">#}
-{#                <input class="add_cart" id="add_cart" type="submit" value="加入购物车"  name="addcart">#}
-{#            </form>#}
-{##}
-{#            <!--				 //点击加入收藏夹，向后端传加入收藏夹的用户id,，商品id-->#}
+            {#            <form action="/detail_template" method="post" name="addcart">#}
+            {#                <input name="type" style="visibility: hidden" value="addcart">#}
+            {#                <input name="gid" style="visibility: hidden" value="{{ good.id }}">#}
+            {#                <input name="num" style="visibility: hidden" value="1" class="postvalue">#}
+            {#                <input class="add_cart" id="add_cart" type="submit" value="加入购物车"  name="addcart">#}
+            {#            </form>#}
+            {##}
+            {#            <!--				 //点击加入收藏夹，向后端传加入收藏夹的用户id,，商品id-->#}
             {#            <a href="javascript:;" class="add_shou" id="add_shou" onclick="alert('添加成功！')">加入收藏夹</a>#}
-{#            <form action="/detail_template" method="post" name="addcollect">#}
-{#                <input name="type" style="visibility: hidden" value="addcart">#}
-{#                <input name="gid" style="visibility: hidden" value="{{ good.id }}">#}
-{#                <input name="num" style="visibility: hidden" value="1" class="postvalue">#}
-{#                <input class="add_shou" id="add_shou" type="submit" value="加入收藏夹"  name="addcollect">#}
-{#            </form>#}
+            {#            <form action="/detail_template" method="post" name="addcollect">#}
+            {#                <input name="type" style="visibility: hidden" value="addcart">#}
+            {#                <input name="gid" style="visibility: hidden" value="{{ good.id }}">#}
+            {#                <input name="num" style="visibility: hidden" value="1" class="postvalue">#}
+            {#                <input class="add_shou" id="add_shou" type="submit" value="加入收藏夹"  name="addcollect">#}
+            {#            </form>#}
 
             <input class="max_num" style="display: none" value="{{ good.number }}">
         </div>
@@ -252,20 +256,35 @@
             </dl>
         </div>
         <div class="tab_content" id="tab_comment" style="display: none">
-            <dl>
-                <!-- 该商品评论 -->
+            <dl class="site_con">
+                <div class="form_group">
+                    <label style="font-size: 20px">您的评分：</label>
+                    <input type="text" class="score" name="score"
+                           style="width: 30px;height: 30px;line-height: 40px;border:2px solid orangered;margin-left: 15px">
+                </div>
+                <div class="form_group form_group2">
+                    <label style="font-size: 20px">您的评论：</label>
+                    <textarea  class="site_area" name="comment"
+                              style="width:300px;height:60px;line-height: 15px;border:2px solid orangered;margin-left: 15px;">
+                    </textarea>
+                </div>
+                <a href="javascript:;" class="submit_comment"
+                   style="display:inline-block;width:120px;height:38px;font-size:14px;line-height:38px;text-align:center;border:1px solid skyblue; background-color:orange;color:#fff;margin-left:320px;margin-top:20px;position:relative;z-index:10;cursor:pointer;"
+                   gid="{{ good.id }}">提交评论</a>
+            </dl>
+            <dl><!-- 该商品评论 -->
                 {% for comment in commentList %}
-
                     <dd class="num1">
-                        <img src="{{ comment.user_img }}" alt=""><span>&nbsp;{{ comment.user_id }}:<em>&nbsp;&nbsp;&nbsp;&nbsp;
+                        <img src="{{ comment.user_img }}" style="border: solid"
+                             alt=""><span>&nbsp;{{ comment.user_name }}:<em>&nbsp;&nbsp;&nbsp;&nbsp;
 					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{ comment.mark }}分</em></span>
                     </dd>
                     <dt class="num2">{{ comment.text }}</dt>
                     <dd class="num3">{{ comment.createtime }}</dd>
-
                 {% endfor %}
             </dl>
         </div>
+
 
     </div>
 </div>
@@ -301,6 +320,29 @@
         $('#tab_comment').show()
     })
 
+    function get_comment_scores() {
+        score = $('.score').val()
+        comment = $('.site_area').val()
+        console.log("score", score)
+        console.log("comment", comment)
+
+    }
+
+    $('.submit_comment').click(function () {
+        score = $('.score').val()
+        comment = $('.site_area').val()
+        console.log("score", score)
+        console.log("comment", comment)
+        var gid = $(this).attr('gid');
+        console.log("gid:", gid)
+        $.ajax({
+            url: "/detail_template",
+            type: "POST",
+            data: JSON.stringify({'flag': 'editComment', 'gid': gid, 'mark': score, 'text': comment}),
+            dataType: "text", async: true
+        })
+
+    })
     //update_goods_amount()
 
     // 计算商品的总价格
@@ -323,11 +365,11 @@
         count = parseInt($('.num_show').val())
         maxnum = parseInt($('.max_num').val())
         // 加1
-        if (count < maxnum){
-            count = count+1
-        // 重新设置商品的数目
-        $('.num_show').val(count)
-        $('.postvalue').val(count)
+        if (count < maxnum) {
+            count = count + 1
+            // 重新设置商品的数目
+            $('.num_show').val(count)
+            $('.postvalue').val(count)
         }
 
         // 更新商品的总价
@@ -340,7 +382,7 @@
         // 获取商品原有的数目
         count = $('.num_show').val()
         // 减1
-        count = parseInt(count)-1
+        count = parseInt(count) - 1
         if (count <= 0) {
             count = 1
         }
@@ -361,7 +403,7 @@
         if (isNaN(count) || count.trim().length == 0 || parseInt(count) <= 0) {
             count = 1
         }
-        if (count > maxnum){
+        if (count > maxnum) {
             count = maxnum
         }
         // 重新设置商品的数目
