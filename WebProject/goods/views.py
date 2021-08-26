@@ -1,6 +1,7 @@
 import json
 from django.shortcuts import render
 from user import models as user_model
+from goods.models import Goods
 from django.http import JsonResponse, HttpResponseRedirect, HttpResponse
 from .detail_response import *
 
@@ -43,9 +44,15 @@ def detail_view(request):
         commentList = getCommentList(goods_id)
         category = getCategory(good.category_id)
         cateList = getCateList()
+        # 新品推荐
+        newGoodsList = Goods.objects.filter(category_id=good.category_id)
+        if len(newGoodsList) > 5:
+            newGoodsList = newGoodsList[len(newGoodsList) - 6: len(newGoodsList) - 1]
+
         return render(request, 'detail_template.html',
                       {'user': user, 'isLogin': user.isLogin, 'good': good, 'shop': shop, 'commentList': commentList,
-                       'category': category, 'GoodsCategoryList': cateList})
+                       'category': category, 'GoodsCategoryList': cateList,
+                       'newGoodsList': newGoodsList})
     else:
         if user.id == -1:
             return HttpResponseRedirect('/login')

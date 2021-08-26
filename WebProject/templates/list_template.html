@@ -101,7 +101,7 @@
 				</ul>
 			</div>
 			<ul class="navlist fl">
-				<li><a href="">首页</a></li>
+				<li><a href="index_template">首页</a></li>
 				 <!-- 商品类型 6个-->
 			{% for category in GoodsCategory %}
 				<!--					// 点击商品类型，进入该商品类型商品列表，向后端传商品类型id-->
@@ -122,16 +122,16 @@
 		<div class="l_wrap fl clearfix">
 			<div class="new_goods">
 				<h3>新品推荐</h3>
-				<ul>
-					 <!-- 新品推荐商品 2-->
-{#                     {% for goods in new_goods %}#}
-{#                     <li>#}
-{#<!--						 点击新品推荐商品跳转商品详情界面，向后端传该商品id-->#}
-{#                         <a href="/detail_template?gid={{ goods.id }}"><img src="{{goods.img.url}}"></a>#}
-{#                         <h4><a href="/detail_template?gid={{ goods.id }}"></a></h4>#}
-{#                         <div class="prize">￥{{goods.price}}</div>#}
-{#                     </li>#}
-{#                     {% endfor %}#}
+            	<ul>
+					<!-- 新品推荐商品 2个-->
+					<!--					// 点击商品图片，进入该商品详情页，向后端传该商品id-->
+					{% for goods in newGoodsList %}
+						<li>
+							<a href="detail_template"><img src={{ goods.img }}></a>
+							<h4><a href="detail_template">{{ goods.name }}</a></h4>
+							<div class="prize">￥{{ goods.price }}</div>
+						</li>
+					{% endfor %}
 				</ul>
 			</div>
 		</div>
