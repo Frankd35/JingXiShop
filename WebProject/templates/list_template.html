@@ -1,223 +1,232 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
 <head>
-	<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
-	<title>京西商城-商品列表</title>
-	<link rel="icon" type="image/x-icon" href="./static/images/JingXi.ico">
-	<!-- <link rel="stylesheet" type="text/css" href="css/reset.css">
-	<link rel="stylesheet" type="text/css" href="css/mainzls.css"> -->
-	<link rel="stylesheet" type="text/css" href="../static/css/reset.css">
-	<link rel="stylesheet" type="text/css" href="../static/css/mainzls.css">
-	<script type="text/javascript" src="../static/js/jquery-1.12.4.min1.js"></script>
-	<script type="text/javascript" src="../static/js/w2.js"></script>
-	<script type="text/javascript" src="../static/js/slidezls.js"></script>
-	<script src="../static/js/detail.js"></script>
-	<script type="text/javascript" src="../static/js/login.js"></script>
+    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+    <title>京西商城-商品列表</title>
+    <link rel="icon" type="image/x-icon" href="./static/images/JingXi.ico">
+    <!-- <link rel="stylesheet" type="text/css" href="css/reset.css">
+    <link rel="stylesheet" type="text/css" href="css/mainzls.css"> -->
+    <link rel="stylesheet" type="text/css" href="../static/css/reset.css">
+    <link rel="stylesheet" type="text/css" href="../static/css/mainzls.css">
+    <script type="text/javascript" src="../static/js/jquery-1.12.4.min1.js"></script>
+    <script type="text/javascript" src="../static/js/w2.js"></script>
+    <script type="text/javascript" src="../static/js/slidezls.js"></script>
+    <script src="../static/js/detail.js"></script>
+    <script type="text/javascript" src="../static/js/login.js"></script>
 </head>
 <body>
-	<div class="header_con">
-		<div class="header">
-			<div class="welcome fl">欢迎来到京西商城!</div>
-			<div class="fr">
-			{% if isLogin %}
-                <div class="login_zls fl">
-                    <div class="login_btn1 fl">
-                        <!-- 传入用户头像 -->
-{#                        注意看这个图片的信息参数 需要把长宽调好 否则就会影响到下面的界面 #}
-                        {#                        <a href="#"><img src={{ user.img }} alt="">&nbsp;&nbsp;</a>#}
-                    </div>
-                    <div class="login_btn fl">
-                        <!-- 传入用户姓名 -->
-                        <p>欢迎您：<em>{{ user.name }}</em></p>
-                    </div>
+<div class="header_con">
+    <div class="header">
+        <div class="welcome fl">欢迎来到京西商城!</div>
+        <div class="fr">
+            {% if isLogin %}
+            <div class="login_zls fl">
+                <div class="login_btn1 fl">
+                    <!-- 传入用户头像 -->
+                    {# 注意看这个图片的信息参数 需要把长宽调好 否则就会影响到下面的界面 #}
+                    {# <a href="#"><img src={{ user.img }} alt="">&nbsp;&nbsp;</a>#}
                 </div>
                 <div class="login_btn fl">
-                    <span>|</span>
+                    <!-- 传入用户姓名 -->
+                    <p>欢迎您：<em>{{ user.name }}</em></p>
                 </div>
-                <div class="login_btn fl">
-                    <a href="logout">退出登录</a>
-                </div>
+            </div>
+            <div class="login_btn fl">
+                <span>|</span>
+            </div>
+            <div class="login_btn fl">
+                <a href="logout">退出登录</a>
+            </div>
 
             {% else %}
-                <div class="login_zls fl">
-                    <div class="login_btn fl">
-                        <a href="#"><img src="../static/images/my1.png" alt="">&nbsp;&nbsp;</a>
-                    </div>
-                    <div class="login_btn fl">
-                        <p>您还未登录..</p>
-                    </div>
-                    <div class="login_btn fl"><span>|</span></div>
-                </div>
-                <div class="login_btn1 fl">
-                    <a href="login">登录</a>
+            <div class="login_zls fl">
+                <div class="login_btn fl">
+                    <a href="#"><img src="../static/images/my1.png" alt="">&nbsp;&nbsp;</a>
                 </div>
                 <div class="login_btn fl">
-                    <span>|</span>
-                    <a href="register">注册</a>
+                    <p>您还未登录..</p>
                 </div>
+                <div class="login_btn fl"><span>|</span></div>
+            </div>
+            <div class="login_btn1 fl">
+                <a href="login">登录</a>
+            </div>
+            <div class="login_btn fl">
+                <span>|</span>
+                <a href="register">注册</a>
+            </div>
             {% endif %}
-				<div class="user_link fl">
-					<span>|</span>
-					<a href="user_center_info">用户中心</a>
-					<span>|</span>
-					<a href="cart">我的购物车</a>
-					<span>|</span>
-					<a href="user_center_order">我的订单</a>
-					<span>|</span>
-					<a href="favorite">收藏夹</a>
-				</div>
-			</div>
-		</div>		
-	</div>
+            <div class="user_link fl">
+                <span>|</span>
+                <a href="user_center_info">用户中心</a>
+                <span>|</span>
+                <a href="cart">我的购物车</a>
+                <span>|</span>
+                <a href="user_center_order">我的订单</a>
+                <span>|</span>
+                <a href="favorite">收藏夹</a>
+            </div>
+        </div>
+    </div>
+</div>
 
-	<div class="search_bar clearfix">
-		<a href="index_template" class="logo fl" title="京西"><img src="../static/images/jx.png"></a>
-		<div class="search_con fl">
-		  <!-- 搜索功能 -->
-<!--        //搜索框输入商品类型，进去该商品类型列表，向后端传用户输入商品类型名称-->
-	<input type="text" class="input_text fl" name="goods.type" placeholder="搜索商品">
-	<!-- 搜索商品类型 -->
-         <a href="javascript:;" id="search1"><input type="submit" class="input_btn fr" value="搜索"></a>
-		</div>
-		<div class="guest_cart fr">
-			<a href="shopcar2" class="cart_name fl">我的购物车</a>
-			<div class="goods_count fl">0</div>
-<!--			登录状态下获取用户购物车中商品数量-->
-			<div class="goods_count1 fl" id="show_count">{{ user.cart.goods_num}}</div>
-		</div>
-	</div>
+<div class="search_bar clearfix">
+    <a href="index_template" class="logo fl" title="京西"><img src="../static/images/jx.png"></a>
+    <div class="search_con fl">
+        <!-- 搜索功能 -->
+        <!--        //搜索框输入商品类型，进去该商品类型列表，向后端传用户输入商品类型名称-->
+        <input type="text" class="input_text fl" name="goods.type" placeholder="搜索商品">
+        <!-- 搜索商品类型 -->
+        <a href="javascript:;" id="search1"><input type="submit" class="input_btn fr" value="搜索"></a>
+    </div>
+    <div class="guest_cart fr">
+        <a href="shopcar2" class="cart_name fl">我的购物车</a>
+        <div class="goods_count fl">0</div>
+        <!--			登录状态下获取用户购物车中商品数量-->
+        <div class="goods_count1 fl" id="show_count">{{ user.cart.goods_num}}</div>
+    </div>
+</div>
 
-	<div class="navbar_con">
-		<div class="navbar clearfix">
-			<div class="subnav_con fl">
-				<h1>全部商品分类</h1>	
-				<span></span>			
-				<ul class="subnav">
-                    {% for category in GoodsCategory %}
-                    <!-- 展示六种商品类型 -->
-					<!--					// 点击商品类型，进入该商品类型商品列表，向后端传商品类型id-->
-			        <li><a href="/list_template?category={{ category.id }}" >{{category.name}} &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&gt;</a></li>
-                    {%endfor%}
-				</ul>
-			</div>
-			<ul class="navlist fl">
-				<li><a href="">首页</a></li>
-				 <!-- 商品类型 6个-->
-			{% for category in GoodsCategory %}
-				<!--					// 点击商品类型，进入该商品类型商品列表，向后端传商品类型id-->
-            <li class="interval">|</li> 
+<div class="navbar_con">
+    <div class="navbar clearfix">
+        <div class="subnav_con fl">
+            <h1>全部商品分类</h1>
+            <span></span>
+            <ul class="subnav">
+                {% for category in GoodsCategory %}
+                <!-- 展示六种商品类型 -->
+                <!--					// 点击商品类型，进入该商品类型商品列表，向后端传商品类型id-->
+                <li><a href="/list_template?category={{ category.id }}">{{category.name}} &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&gt;</a>
+                </li>
+                {%endfor%}
+            </ul>
+        </div>
+        <ul class="navlist fl">
+            <li><a href="">首页</a></li>
+            <!-- 商品类型 6个-->
+            {% for category in GoodsCategory %}
+            <!--					// 点击商品类型，进入该商品类型商品列表，向后端传商品类型id-->
+            <li class="interval">|</li>
             <li><a href="/list_template?category={{ category.id }}">{{category.name}}</a></li>
-            {%endfor%}   
-			</ul>
-		</div>
-	</div>
+            {%endfor%}
+        </ul>
+    </div>
+</div>
 
-	<div class="breadcrumb">
-		<a href="#">全部分类</a>
-		<span>></span>
-		<a href="/list_template?category={{ currentCategory.id }}">{{ currentCategory.name }}</a>
-	</div>
+<div class="breadcrumb">
+    <a href="#">全部分类</a>
+    <span>></span>
+    <a href="/list_template?category={{ currentCategory.id }}">{{ currentCategory.name }}</a>
+</div>
 
-	<div class="main_wrap clearfix">
-		<div class="l_wrap fl clearfix">
-			<div class="new_goods">
-				<h3>新品推荐</h3>
-				<ul>
-					 <!-- 新品推荐商品 2-->
-{#                     {% for goods in new_goods %}#}
-{#                     <li>#}
-{#<!--						 点击新品推荐商品跳转商品详情界面，向后端传该商品id-->#}
-{#                         <a href="/detail_template?gid={{ goods.id }}"><img src="{{goods.img.url}}"></a>#}
-{#                         <h4><a href="/detail_template?gid={{ goods.id }}"></a></h4>#}
-{#                         <div class="prize">￥{{goods.price}}</div>#}
-{#                     </li>#}
-{#                     {% endfor %}#}
-				</ul>
-			</div>
-		</div>
+<div class="main_wrap clearfix">
+    <div class="l_wrap fl clearfix">
+        <div class="new_goods">
+            <h3>新品推荐</h3>
+            <ul>
+                <!-- 新品推荐商品 2-->
+                {# {% for goods in new_goods %}#}
+                {#
+                <li>#}
+                    {#<!--						 点击新品推荐商品跳转商品详情界面，向后端传该商品id--> #}
+                    {# <a href="/detail_template?gid={{ goods.id }}"><img src="{{goods.img.url}}"></a>#}
+                    {# <h4><a href="/detail_template?gid={{ goods.id }}"></a></h4>#}
+                    {#
+                    <div class="prize">￥{{goods.price}}</div>
+                    #}
+                    {#
+                </li>
+                #}
+                {# {% endfor %}#}
+            </ul>
+        </div>
+    </div>
 
-		<div class="r_wrap fr clearfix">
-			<div class="sort_bar">
-                <!-- 选择对商品排序 -->
-<!--				点击后向后端传sort参数，参数值：fault 默认排序，price 价格 ，hot 人气,后端返回按照制定排序的商品列表-->
-					<div id="first" class="active">默认</div>
-					<div id="second">价格</div>
-					<div id="third">人气</div>
-			</div>
-              <!-- 默认排序商品：将该类型下的商品展示出来 每次展示5个-->
-			<ul class="goods_type_list clearfix"  id="default">
-				{% for goods in goodsList %}
-				<li>
-					<!--						 点击商品跳转商品详情界面，向后端传该商品id-->
-					<a href="/detail_template?gid={{ goods.id }}" class="tttt1"><img src="{{ goods.img }}"></a>
-					<h4><a href="/detail_template?gid={{ goods.id }}" class="tttt1">{{ goods.name }}</a></h4>
-					<div class="operate">
-						<span class="prize">￥{{ goods.price }}</span>
-						<span class="unit">{{ goods.price }}/{{ goods.unite }}</span>
-<!--						点击加入购物车，向后端传用户id,商品id,数量为1-->
-						<a href="" class="add_goods" title="加入购物车"></a>
-					</div>
-				</li>
-			</ul>
+    <div class="r_wrap fr clearfix">
+        <div class="sort_bar">
+            <!-- 选择对商品排序 -->
+            <!--				点击后向后端传sort参数，参数值：fault 默认排序，price 价格 ，hot 人气,后端返回按照制定排序的商品列表-->
+            <div id="first" class="active">默认</div>
+            <div id="second">价格</div>
+            <div id="third">人气</div>
+        </div>
+        <!-- 默认排序商品：将该类型下的商品展示出来 每次展示5个-->
+        <ul class="goods_type_list clearfix" id="default">
+            {% for goods in goodsList %}
+            <li>
+                <!--						 点击商品跳转商品详情界面，向后端传该商品id-->
+                <a href="/detail_template?gid={{ goods.id }}" class="tttt1"><img src="{{ goods.img }}"></a>
+                <h4><a href="/detail_template?gid={{ goods.id }}" class="tttt1">{{ goods.name }}</a></h4>
+                <div class="operate">
+                    <span class="prize">￥{{ goods.price }}</span>
+                    <span class="unit">{{ goods.price }}/{{ goods.unite }}</span>
+                    <!--						点击加入购物车，向后端传用户id,商品id,数量为1-->
+                    <a href="" class="add_goods" title="加入购物车"></a>
+                </div>
+            </li>
 			{% endfor %}
-<!--			按价格排序商品-->
-			<ul class="goods_type_list clearfix" id="price"  style="display: none">
-				{% for goods in goodsList_price %}
-				<li>
-					<!--						 点击商品跳转商品详情界面，向后端传该商品id-->
-					<a href="/detail_template?gid={{ goods.id }}" class="tttt1"><img src="{{ goods.img }}"></a>
-					<h4><a href="/detail_template?gid={{ goods.id }}" class="tttt1">{{ goods.name }}</a></h4>
-					<div class="operate">
-						<span class="prize">￥{{ goods.price }}</span>
-						<span class="unit">{{ goods.price }}/{{ goods.unite }}</span>
-<!--						点击加入购物车，向后端传用户id,商品id,数量为1-->
-						<a href="" class="add_goods" title="加入购物车"></a>
-					</div>
-				</li>
-				{% endfor %}
-			</ul>
-			<ul class="goods_type_list clearfix" id="hot"  style="display: none">
-				{% for goods in goodsList_hot %}
-				<li>
-					<!--						 点击商品跳转商品详情界面，向后端传该商品id-->
-					<a href="/detail_template?gid={{ goods.id }}" class="tttt1"><img src="{{ goods.img }}"></a>
-					<h4><a href="/detail_template?gid={{ goods.id }}" class="tttt1">{{ goods.name }}</a></h4>
-					<div class="operate">
-						<span class="prize">￥{{ goods.price }}</span>
-						<span class="unit">{{ goods.price }}/{{ goods.unite }}</span>
-<!--						点击加入购物车，向后端传用户id,商品id,数量为1-->
-						<a href="" class="add_goods" title="加入购物车"></a>
-					</div>
-				</li>
-				{% endfor %}
-			</ul>
+        </ul>
 
-			<div class="pagenation">
-				<a href="#">上一页</a>
-				<a href="#" class="active">1</a>
-				<a href="#">2</a>
-				<a href="#">3</a>
-				<a href="#">4</a>
-				<a href="#">5</a>
-				<a href="#">下一页></a>
-			</div>
-		</div>
-	</div>
+        <!--			按价格排序商品-->
+        <ul class="goods_type_list clearfix" id="price" style="display: none">
+            {% for goods in goodsList_price %}
+            <li>
+                <!--						 点击商品跳转商品详情界面，向后端传该商品id-->
+                <a href="/detail_template?gid={{ goods.id }}" class="tttt1"><img src="{{ goods.img }}"></a>
+                <h4><a href="/detail_template?gid={{ goods.id }}" class="tttt1">{{ goods.name }}</a></h4>
+                <div class="operate">
+                    <span class="prize">￥{{ goods.price }}</span>
+                    <span class="unit">{{ goods.price }}/{{ goods.unite }}</span>
+                    <!--						点击加入购物车，向后端传用户id,商品id,数量为1-->
+                    <a href="" class="add_goods" title="加入购物车"></a>
+                </div>
+            </li>
 
-	<div class="footer">
-		<div class="foot_link">
-			<a href="#">关于我们</a>
-			<span>|</span>
-			<a href="#">联系我们</a>
-			<span>|</span>
-			<a href="#">招聘人才</a>
-			<span>|</span>
-			<a href="#">友情链接</a>		
-		</div>
-		<p>CopyRight © 2016 北京天天生鲜信息技术有限公司 All Rights Reserved</p>
-		<p>电话：010-****888    京ICP备*******8号</p>
-	</div>
-	<script type="text/javascript">
+            {% endfor %}
+        </ul>
+        <ul class="goods_type_list clearfix" id="hot" style="display: none">
+            {% for goods in goodsList_hot %}
+            <li>
+                <!--						 点击商品跳转商品详情界面，向后端传该商品id-->
+                <a href="/detail_template?gid={{ goods.id }}" class="tttt1"><img src="{{ goods.img }}"></a>
+                <h4><a href="/detail_template?gid={{ goods.id }}" class="tttt1">{{ goods.name }}</a></h4>
+                <div class="operate">
+                    <span class="prize">￥{{ goods.price }}</span>
+                    <span class="unit">{{ goods.price }}/{{ goods.unite }}</span>
+                    <!--						点击加入购物车，向后端传用户id,商品id,数量为1-->
+                    <a href="" class="add_goods" title="加入购物车"></a>
+                </div>
+            </li>
+            {% endfor %}
+        </ul>
+
+        <div class="pagenation">
+            <a href="#">上一页</a>
+            <a href="#" class="active">1</a>
+            <a href="#">2</a>
+            <a href="#">3</a>
+            <a href="#">4</a>
+            <a href="#">5</a>
+            <a href="#">下一页></a>
+        </div>
+    </div>
+</div>
+
+<div class="footer">
+    <div class="foot_link">
+        <a href="#">关于我们</a>
+        <span>|</span>
+        <a href="#">联系我们</a>
+        <span>|</span>
+        <a href="#">招聘人才</a>
+        <span>|</span>
+        <a href="#">友情链接</a>
+    </div>
+    <p>CopyRight © 2016 北京天天生鲜信息技术有限公司 All Rights Reserved</p>
+    <p>电话：010-****888 京ICP备*******8号</p>
+</div>
+<script type="text/javascript">
 			$("#first").click(function() {
 			$("#first").addClass("active")
 			$("#second").removeClass("active")
@@ -324,6 +333,7 @@
                 dataType:"text"
             })
         })
-		</script>
+
+</script>
 </body>
 </html>
