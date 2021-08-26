@@ -516,10 +516,11 @@ html,body{height:100%}
 	margin-bottom:10px;
 }
 
-.left_menu_con ul li{
-	line-height:40px;
-	text-align:center;
-	font-size:14px;
+.left_menu_con ul li {
+    line-height: 40px;
+    text-align: left;
+    margin-left: 70px;
+    font-size: 14px;
 }
 
 .left_menu_con ul li a{
@@ -856,4 +857,8 @@ html,body{height:100%}
 	margin: 30px 0 0 50px;
 	border: 1px solid #ccc;
 	font-family:"微软雅黑"
+}
+
+.itxt {
+	text-align: center;
 }

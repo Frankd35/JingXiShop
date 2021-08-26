@@ -260,12 +260,13 @@
             <dl class="site_con">
                 <div class="form_group">
                     <label style="font-size: 20px">您的评分：</label>
-                    <input type="text" class="score" name="score"
+                    <input id="input" type="text" class="score" name="score"
                            style="width: 30px;height: 30px;line-height: 40px;border:2px solid orangered;margin-left: 15px">
                 </div>
                 <div class="form_group form_group2">
                     <label style="font-size: 20px">您的评论：</label>
-                    <textarea  class="site_area" name="comment" style="width:300px;height:60px;line-height: 15px;border:2px solid orangered;margin-left: 15px;"></textarea>
+                    <textarea class="site_area" name="comment"
+                              style="width:300px;height:60px;line-height: 15px;border:2px solid orangered;margin-left: 15px;"></textarea>
                 </div>
                 <a href="javascript:;" class="submit_comment"
                    style="display:inline-block;width:120px;height:38px;font-size:14px;line-height:38px;text-align:center;border:1px solid skyblue; background-color:orange;color:#fff;margin-left:320px;margin-top:20px;position:relative;z-index:10;cursor:pointer;"
@@ -332,13 +333,33 @@
         comment = $('.site_area').val()
         console.log("score", score)
         console.log("comment", comment)
+        var re = /^[0-5]+.?[0-9]*$/; //判断字符串是否为数字 //判断正整数 /^[1-9]+[0-9]*]*$/
+        var nubmer = document.getElementById("input").value;
+        if (!re.test(nubmer)) {
+            alert("请输入0-5以内数字");
+            document.getElementById("input").value = "";
+            return false;
+        }
         var gid = $(this).attr('gid');
         console.log("gid:", gid)
         $.ajax({
             url: "/detail_template",
             type: "POST",
             data: JSON.stringify({'flag': 'editComment', 'gid': gid, 'mark': score, 'text': comment}),
-            dataType: "text", async: true
+            dataType: "text", async: true,
+            success: function (data) {   //回调函数
+                console.log(data);
+                var data = JSON.parse(data);
+                console.log(data)
+                console.log(data.res)
+                if (data.res == 0) {
+                    msg = "您已经评论过这个商品，请勿重复评论"
+                    alert(msg)
+                }else{
+                    location.reload(true)
+                }
+            }
+
         })
 
     })
