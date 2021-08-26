@@ -6,6 +6,7 @@
 	<link rel="icon" type="image/x-icon" href="./static/images/JingXi.ico">
 	<link rel="stylesheet" type="text/css" href="../static/css/reset.css">
 	<link rel="stylesheet" type="text/css" href="../static/css/main3.css">
+	<script src="../static/js/jquery.min.js"></script>
 </head>
 <body><div data-v-7e2550d6="" class="odm_extension image_downloader_wrapper"><!----></div>
 	<div class="header_con">
@@ -107,6 +108,25 @@
 		<p>CopyRight © 2021 重庆京西科技有限公司 All Rights Reserved</p>
 		<p>电话：010-****888    京ICP备*******8号</p>
 	</div>
+	<script>
+		 	$(function() {
+		 		//搜索框输入商品类型，进去该商品类型列表，向后端传用户输入商品类型名称
+		        //搜索框输入商品类型，进去该商品类型列表，向后端传用户输入商品类型名称
+         	$(".input_btn").click(function () {
+            	var type = $(".input_text").val();
+            	var token = $('[name="csrfmiddlewaretoken"]').attr("value");
+            	// 判断用户输入是否为空
+            	if (type == '' || type == null) {
+                var aobj = document.getElementById("search1");
+                aobj.href = "";
+                alert('未输入商品名称！')
+            } else {
+                console.log(type)
+                window.location.href = "/list_template?keyword=" + type;
+            }
 
+         	})
+            });
+		</script>
 </body>
 </html>
