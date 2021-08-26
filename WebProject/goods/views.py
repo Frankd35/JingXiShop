@@ -50,6 +50,24 @@ def detail_view(request):
         if user.id == -1:
             return HttpResponseRedirect('/login')
         # 判断是否是ajax发送来的POST请求
+        num = int(request.POST.get('num', -1))
+        gid = int(request.POST.get('gid', -1))
+        print("POST method, gid=%d, num=%d" % (gid, num))
+        if request.POST.getlist('buynow'):
+            if (num >= 0) and (gid >= 0):
+                errMsg = buyNow(user.id, gid, num)
+                if errMsg != "":
+                    return HttpResponse(errMsg)
+            return HttpResponseRedirect('/order')
+        elif request.POST.getlist('addcart'):
+            if (num >= 0) and (gid >= 0):
+                errMsg = addCart(user.id, gid, num)
+                if errMsg != "":
+                    return HttpResponse(errMsg)
+            return HttpResponseRedirect('/cart')
+        elif request.POST.getlist('addcollect'):
+            addCollect(user.id, gid)
+            return HttpResponseRedirect('/favorite')
         data = request.body.decode("utf-8")
         json_data = json.loads(data)
         print(json_data)
@@ -61,25 +79,5 @@ def detail_view(request):
             print("新增评论")
             res = editComment(user.id, gid, text, mark)
             return JsonResponse({'res': res})
-        else:
-            num = int(request.POST.get('num', -1))
-            gid = int(request.POST.get('gid', -1))
-            print("POST method, gid=%d, num=%d" % (gid, num))
-            if request.POST.getlist('buynow'):
-                if (num >= 0) and (gid >= 0):
-                    errMsg = buyNow(user.id, gid, num)
-                    if errMsg != "":
-                        return HttpResponse(errMsg)
-                return HttpResponseRedirect('/order')
-            elif request.POST.getlist('addcart'):
-                if (num >= 0) and (gid >= 0):
-                    errMsg = addCart(user.id, gid, num)
-                    if errMsg != "":
-                        return HttpResponse(errMsg)
-                return HttpResponseRedirect('/cart')
-            elif request.POST.getlist('addcollect'):
-                addCollect(user.id, gid)
-                return HttpResponseRedirect('/favorite')
-
-            print("并没有取到POST的表单")
-            return HttpResponse("没有取到POST表单")
+        print("并没有取到POST的表单")
+        return HttpResponse("没有取到POST表单")
