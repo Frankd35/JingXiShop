@@ -315,7 +315,11 @@ def merchant_object_view(request):
             goodsList.append(_)
     except:
         goodsList = None
-    return render(request, 'merchant_object.html', {'isLogin': isLogin, 'user': user, 'shop': shop, 'goodsList': goodsList})
+    if request.method == 'POST':
+        data = json.loads(request.body.decode("utf-8"))
+        print(data)
+    return render(request, 'merchant_object.html',
+                  {'isLogin': isLogin, 'user': user, 'shop': shop, 'goodsList': goodsList})
 
 
 def merchant_order_view(request):
