@@ -12,13 +12,16 @@ $(function() {
     // 发送ajax POST 请求
     $(".col03 a").click(function() {
         console.log("加一")
-        var itGid=$(this).attr('good_operate');
+        var id=$(this).attr('good_operate');
         var token = $('[name="csrfmiddlewaretoken"]').attr("value");
         $.ajax({
-        url:"/user_center_site",
+        url:"/merchant_order",
         type:"POST",
-        data:JSON.stringify({'gid':itGid,"csrfmiddlewaretoken": token}),
-        dataType : "text"
+        data:JSON.stringify({'oid':id,"csrfmiddlewaretoken": token}),
+        dataType : "text",
+        success: function(){
+            window.location.reload()
+        }
         })
     });
 });
@@ -79,7 +82,7 @@ $(function() {
             <ul class="order_list_th w978 clearfix">
                 <li class="col01">{{order.time}}</li>
                 <li class="col02">订单号：{{order.order_id}}</li>
-                <li class="col02 stress">处理状态：{{ order.delivery_state }}</li>
+                <li class="col02 stress">处理状态：{{ order.state }}</li>
                 <li class="col03"><a href="javascript:;" good_operate="{{order.order_id}}">发货</a></li>
             </ul>
 

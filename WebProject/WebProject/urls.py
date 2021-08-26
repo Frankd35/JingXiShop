@@ -44,7 +44,7 @@ urlpatterns = [
     path('merchant_register', usr_views.merchant_register_view),
     path('merchant', usr_views.merchant_view),
     path('merchant_order', usr_views.merchant_order_view),
-
+    path('merchant_object',usr_views.merchant_object_view),
 
     # goods 模块路由转发
     path('detail_template', goods_views.detail_view),
