@@ -3,7 +3,11 @@
 <head>
     <meta charset="utf-8">
     <title>综合网购首选-正品低价、品质保障、配送及时、轻松购物！</title>
-    <link rel="shortcut icon" href="favicon.ico" type="../static/image/x-icon"/>
+    <link rel="icon" type="image/x-icon" href="./static/images/JingXi.ico">
+<!--    <link rel="icon" href="../static/image/JingXi.png" sizes="16x16">-->
+<!--    <link href="../static/image/JingXi.png" rel="icon" type="image/x-icon">-->
+<!--    <link rel="icon" href="../static/image/JingXi.ico" type="image/x-icon">-->
+<!--    <link rel="shortcut icon" href="JingXi.ico" type="../static/image"/>-->
     <link rel="stylesheet" type="text/css" href="../static/css/main2.css">
     <link rel="stylesheet" href="../static/css/normalize2.css" />
     <link rel="stylesheet" href="../static/css/base2.css" />
@@ -45,13 +49,13 @@
 		<div class="header">
 			<div class="fr">
 				<div class="login_info fl">
-					欢迎来到京西商场!
+					欢迎来到京西商城!
 				</div>
 				{% if user.isLogin %}
 				<div class="login_btn fl">
 					欢迎您：<em>{{ user.name }}</em>
                     <span>|</span>
-					<a href="logout">退出</a>
+					<a href="logout">退出登录</a>
 				</div>
                 {% else %}
 				<div class="login_btn fl">
