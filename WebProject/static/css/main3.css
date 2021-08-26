@@ -146,8 +146,6 @@ html,body{height:100%}
 
 /* 页面底部样式 */
 .footer{
-	display: flex;
-	position: relative;
 	border-top:2px solid rgb(201,25,37);
 	margin:30px 0;
 }

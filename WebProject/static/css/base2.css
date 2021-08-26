@@ -184,8 +184,6 @@ header a {
 	background-color:#fff;
 } */
 footer {
-	position: relative;
-	display: flex;
     margin-top: 35px;
     height: 88px;
     background-color: #fff;

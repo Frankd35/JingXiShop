@@ -166,7 +166,7 @@ html,body{height:100%}
 .breadcrumb span{line-height:40px;color:#666;padding:0 5px;}
 
 
-.main_wrap{display:flex;position:relative;width:1200px;margin:0 auto;}
+.main_wrap{width:1200px;margin:0 auto;}
 .l_wrap{width:200px;display: flex;}
 .r_wrap{width:980px;display:flex;}
 
