@@ -277,10 +277,9 @@ html,body{height:100%}
 
 .login_top{width:960px;height:130px;margin:0 auto;}
 .login_logo{display:block;width:193px;height:76px;margin-top:30px;}
-.login_form_bg{height:480px;background-color:rgba(156, 172, 187, 0.35)}
+.login_form_bg{height:480px;background-color:white}
 .no-mp{margin-top:0px;}
 .login_form_wrap{width:960px;height:480px;margin:0 auto;}
-.login_banner{width:381px;height:322px;background:url('../images/sightseeing1.jpg') no-repeat;margin-top:90px;}
 .slogan{width:40px;height:300px;font-size:30px;color:#f0f9e8;text-align:center;line-height:36px;margin:80px 0 0 120px}
 .login_form{width:368px;height:378px;border:1px solid #c6c6c5;background-color:#fff; margin-top:50px;}
 
@@ -554,7 +553,7 @@ html,body{height:100%}
 	margin:auto;
 	padding:10px 0;
 	height:150px;
-	overflow: scroll;
+/*	overflow: scroll;*/
 }
 
 .user_info_list li{
