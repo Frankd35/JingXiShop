@@ -18,7 +18,7 @@
             width: 249px;
             color: #fff;
             opacity: 0.1;
-            line-height: 289px;
+            line-height: 200px;
             line-height: middle;
             text-align: center;
             text-align: center;
@@ -28,6 +28,9 @@
         li:hover .tishi {
             visibility: visible;
             opacity: 1;
+        }
+        .toHand{
+            cursor:pointer;
         }
     </style>
 </head>
@@ -174,7 +177,7 @@
             {#            <a href="/list_template?gname={{ GoodsCategory.name }}" class="goods_more fr" id="fruit_more">查看更多 ></a>#}
         </div>
 
-        <div class="goods_con clearfix">
+        <a class="goods_con clearfix">
             <!--            //点击商品类型图片，进入该商品类型商品列表，向后端传该商品类型id-->
             <div class="goods_banner fl">
 <!--                {#                <a href="/list?category={{ }}">#}-->
@@ -193,12 +196,11 @@
                 {% for goods in GoodsList %}
                     {% if goods.category_id == GoodsCategory.id %}
                         <!--                // 点击商品图片，进入该商品详情页，向后端传该商品id-->
-                        <li>
-                            <div style="text-align:center" class="tishi">这里是提示框文字</div>
+                        <li class="toHand">
                             <h4><a href="detail_template">{{ goods.name }}</a></h4>
-                            <a href="/detail_template?gid={{ goods.id }}"><img src={{ goods.img }}></a>
-                            <div class="prize">¥{{ goods.price }}</div>
-
+                            <a href="/detail_template?gid={{ goods.id }}"><p class="tishi" ass>这里是提示框文字</p><img src={{ goods.img }}></a>
+<!--                            <a href="/detail_template?gid={{ goods.id }}" style="text-align:center" class="tishi"></a>-->
+                                <div class="prize">¥{{ goods.price }}</div>
                         </li>
                     {% endif %}
                 {% endfor %}
