@@ -1,7 +1,7 @@
 import hashlib
 import json
 import re
-from django.http import HttpResponse, HttpResponseRedirect
+from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
 from django.shortcuts import render
 
 import cart.orderlist_response
@@ -377,7 +377,7 @@ def manager_view(request):
     if request.method == 'GET':
         # 根据申请时间
         # 在提交商家注册的时候要把updatetime加上去
-        applyList = User.objects.filter(is_merchant__in=[1, 2]).order_by('is_merchant').order_by('updatetime')
+        applyList = User.objects.filter(is_merchant__in=[1, 2]).order_by('is_merchant')
         applySuccessList = User.objects.filter(is_merchant=2).order_by('updatetime')
         return render(request, 'user_center_manager.html',
                       {'isLogin': isLogin,
@@ -385,5 +385,13 @@ def manager_view(request):
                        'user': user,
                        'applyList': applyList,
                        'applySuccessList': applySuccessList,
-
                        })
+    else:  # 接受ajax请求，同意申请
+        print("响应POST请求")
+        data = request.body.decode("utf-8")
+        json_data = json.loads(data)
+        print(json_data)
+        aid = int(json_data.get('aid', -1))
+        print(aid)
+        User.objects.filter(id=aid).update(is_merchant=2)
+        return JsonResponse({"res": 1})

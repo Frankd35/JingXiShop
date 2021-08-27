@@ -9,7 +9,6 @@
     <link rel="stylesheet" type="text/css" href="../static/css/main3.css">
     <script src="../static/js/jquery.min.js"></script>
     <script src="../static/js/base.js"></script>
-    <script src="../static/js/orderlist.js"></script>
 </head>
 <body>
 <div data-v-7e2550d6="" class="odm_extension image_downloader_wrapper"><!----></div>
@@ -60,11 +59,11 @@
             <li><a href="user_center_info">· 个人信息</a></li>
             <li><a href="user_center_site">· 收藏夹</a></li>
             <li><a href="cart">· 购物车</a></li>
-            <li><a href="user_center_order" class="active">· 全部订单</a></li>
+            <li><a href="user_center_order">· 全部订单</a></li>
             <li><a href="user_center_site">· 收货地址</a></li>
             <li><a href="merchant_register">· 商家入驻</a></li>
             {% if  user.is_merchant == 3 %}
-                <li><a href="user_center_manager">· 管理店铺</a></li>
+                <li><a href="user_center_manager" class="active">· 管理店铺</a></li>
             {% endif %}
         </ul>
     </div>
@@ -72,7 +71,7 @@
         <h3 class="common_title2">全部订单</h3>
         {% for applyuser in applyList %}
             {% for shop in shopList %}
-                {% if user %}
+                {% if applyuser.id == shop.user_id %}
                     <ul class="order_list_th w978 clearfix">
                         <li class="col01">{{ shop.creattime }}</li>
                         <li class="col02">申请号：{{ applyuser.id }}</li>
@@ -83,7 +82,7 @@
                             <li class="col02 stress" style="color: orange">申请状态：已批准</li>
                         {% endif %}
                         {% if applyuser.is_merchant != 2 %}
-                            <li class="deleteorder" style="width: 35%; text-align: right;">
+                            <li class="agree" style="width: 35%; text-align: right;">
                                 <a href="javascript:;"
                                    style="background: #ffffff; border-radius: 5px; color: red; border: solid red 1px; padding: 2px 3px;"
                                    aid="{{ applyuser.id }}">同意申请</a>
@@ -97,13 +96,13 @@
                             <td width="55%">
                                 <ul class="order_goods_list clearfix">
                                     <li class="col01"><img src="{{ applyuser.img }}"></li>
-                                    <li class="col02">{{ applyuser.name }}<em>{{ shop.name }}</em></li>
-{#                                    <li class="col03">{{ good.num }}件</li>#}
-                                    <li class="col04">{{ shop.create_money }}元</li>
+                                    <li class="col02">{{ applyuser.name }}</li>
+                                    <li class="col03">{{ shop.name }}   </li>
+                                    <li class="col04">注册资金：{{ shop.create_money }}元</li>
                                 </ul>
                             </td>
                             {#<!--							申请说明-->#}
-                            <td width="30%" class="addr_td">{{shop.text }}</td>
+                            <td width="30%" class="addr_td">{{ shop.text }}</td>
                         </tr>
                         </tbody>
                     </table>
@@ -149,6 +148,27 @@
 
         })
     });
+
+    $('.agree a').click(function () {
+        var flag = confirm("同意申请")
+        if (flag) {
+            console.log("同意申请")
+            var aid = $(this).attr('aid')
+            console.log(aid)
+            $.ajax({
+                url: "/user_center_manager",
+                type: "POST",
+                data: JSON.stringify({'aid': aid, 'flag': 'agree'}),
+                dataType: "text", async: true,
+                success: function (data) {
+                    location.reload(true)
+                }
+            })
+        } else {
+            console.log("取消确认收货")
+        }
+    })
+
 </script>
 </body>
 </html>
