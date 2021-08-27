@@ -1,0 +1,148 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+	<title>京西商城-用户中心</title>
+	<link rel="icon" type="image/x-icon" href="./static/images/JingXi.ico">
+	<link rel="stylesheet" type="text/css" href="../static/css/reset.css">
+	<link rel="stylesheet" type="text/css" href="../static/css/main3.css">
+    <script src="../static/js/jquery.min.js"></script>
+    <script src="../static/js/base.js"></script>
+    <script src="../static/js/orderlist.js"></script>
+</head>
+<body><div data-v-7e2550d6="" class="odm_extension image_downloader_wrapper"><!----></div>
+	<div class="header_con">
+		<div class="header">
+			<div class="welcome fl">欢迎来到京西商城!</div>
+			<div class="fr">
+				{% if user.isLogin %}
+				<div class="login_btn fl">
+					欢迎您：<em>{{ user.name }}</em>
+                    <span>|</span>
+					<a href="logout">退出</a>
+				</div>
+                {% else %}
+				<div class="login_btn fl">
+					<a href="login">登录</a>
+					<span>|</span>
+					<a href="register">注册</a>
+				</div>
+                {% endif %}
+				<div class="user_link fl">
+					<span>|</span>
+					<a href="user_center_info">用户中心</a>
+					<span>|</span>
+					<a href="cart">我的购物车</a>
+					<span>|</span>
+					<a href="user_center_order">我的订单</a>
+                    <span>|</span>
+					<a href="favorite">收藏夹</a>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="search_bar clearfix">
+		<a href="index_template" class="logo fl"><img src="../static/images/jx.png"></a>
+		<div class="sub_page_name fl">|&nbsp;&nbsp;&nbsp;&nbsp;用户中心</div>
+		<div class="search_con fr">
+			<input type="text" class="input_text fl" name="" placeholder="搜索商品">
+			<input type="button" class="input_btn fr" name="" value="搜索">
+		</div>
+	</div>
+
+	<div class="main_con clearfix">
+		<div class="left_menu_con clearfix">
+			<h3>用户中心</h3>
+			<ul>
+				<li><a href="user_center_info">· 个人信息</a></li>
+				<li><a href="user_center_site">· 收藏夹</a></li>
+				<li><a href="cart">· 购物车</a></li>
+				<li><a href="user_center_order" class="active">· 全部订单</a></li>
+				<li><a href="user_center_site">· 收货地址</a></li>
+				<li><a href="merchant_register">· 商家入驻</a></li>
+                {% if  user.is_merchant == 3 %}
+                    <li><a href="user_center_manager">· 管理店铺</a></li>
+                {% endif %}
+			</ul>
+		</div>
+		<div class="right_content clearfix">
+				<h3 class="common_title2">全部订单</h3>
+				{% for apply in applyList %}
+				<ul class="order_list_th w978 clearfix">
+					<li class="col01">{{apply.updatetime}}</li>
+					<li class="col02">申请人：{{apply.name}}</li>
+                    {% if good.state == "未发货" %}
+					    <li class="col02 stress" style="color: red">运送状态：{{ good.state }}</li>
+                    {% endif %}
+                    {% if good.state == "已发货" %}
+					    <li class="col02 stress" style="color: orange">运送状态：{{ good.state }}</li>
+                    {% endif %}
+                    {% if good.state == "已收货" %}
+                        <li class="col02 stress" style="color: #33cc00">运送状态：{{ good.state }}</li>
+                    {% endif %}
+                    {% if good.state != "已收货" %}
+                    <li class="deleteorder" style="width: 35%; text-align: right;"><a href="javascript:;" style="background: #ffffff; border-radius: 5px; color: red; border: solid red 1px; padding: 2px 3px;" oid="{{ good.order_id }}">确认收货</a></li>
+                    {% endif %}
+				</ul>
+
+				<table class="order_list_table w980">
+					<tbody>
+						<tr>
+							<td width="55%">
+								<ul class="order_goods_list clearfix">
+									<li class="col01"><img src="{{good.img}}"></li>
+									<li class="col02">{{good.name}}<em>{{good.price}}元</em></li>
+									<li class="col03">{{good.num}}件</li>
+									<li class="col04">{{good.total_price}}元</li>
+								</ul>
+							</td>
+{#<!--							货物的地址-->#}
+							<td width="30%" class="addr_td">{{good.addr}} {{ good.per_name }}收</td>
+						</tr>
+					</tbody>
+				</table>
+				{% endfor %}
+				<div class="pagenation">
+					<a href="#">↑ 回到顶部</a>
+				</div>
+		</div>
+	</div>
+
+
+
+	<div class="footer">
+		<div class="foot_link">
+			<a href="#">关于我们</a>
+			<span>|</span>
+			<a href="#">联系我们</a>
+			<span>|</span>
+			<a href="#">招聘人才</a>
+			<span>|</span>
+			<a href="#">友情链接</a>
+		</div>
+		<p>CopyRight © 2021 重庆京西科技有限公司 All Rights Reserved</p>
+		<p>电话：010-****888    京ICP备*******8号</p>
+	</div>
+		<script>
+		 	$(function() {
+		 		//搜索框输入商品类型，进去该商品类型列表，向后端传用户输入商品类型名称
+		        //搜索框输入商品类型，进去该商品类型列表，向后端传用户输入商品类型名称
+         	$(".input_btn").click(function () {
+            	var type = $(".input_text").val();
+            	var token = $('[name="csrfmiddlewaretoken"]').attr("value");
+            	// 判断用户输入是否为空
+            	if (type == '' || type == null) {
+                var aobj = document.getElementById("search1");
+                aobj.href = "";
+                alert('未输入商品名称！')
+            } else {
+                console.log(type)
+                window.location.href = "/list_template?keyword=" + type;
+            }
+
+         	})
+            });
+		</script>
+</body>
+</html>
