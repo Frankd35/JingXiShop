@@ -97,7 +97,7 @@ $(function() {
                 <li class="col01">{{order.time}}</li>
                 <li class="col02">订单号：{{order.order_id}}</li>
                 <li class="col02 stress">处理状态：{{ order.state }}</li>
-                <li class="col03"><a href="javascript:;" good_operate="{{order.order_id}}">发货</a></li>
+                <li class="col03" id="confirmSend" style="margin-left:300px"><a href="javascript:;" good_operate="{{order.order_id}}" href="javascript:;" style="background: #ffffff; border-radius: 5px; color: red; border: solid red 1px; padding: 2px 3px;" oid="72">发货</a></li>
             </ul>
 
             <table class="order_list_table w980">
