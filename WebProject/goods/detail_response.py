@@ -50,7 +50,7 @@ def buyNow(uid, gid, num):
     cart_model.Cart.objects.all().update(is_chosen=0)
     tempGoods = goods_model.Goods.objects.filter(id=gid).first()
     if num > tempGoods.number:
-        errMsg = "所选商品数量超过该商品库存，请刷新页面重新选择..."
+        errMsg = "所选商品数量超过该商品库存，请回退页面重新选择..."
         return errMsg
     if cart_model.Cart.objects.filter(user_id=uid, goods_id=gid).count() > 0:
         cart_model.Cart.objects.filter(user_id=uid, goods_id=gid).update(goods_num=min(num, tempGoods.number),
@@ -66,7 +66,7 @@ def addCart(uid, gid, num):
     errMsg = ""
     tempGoods = goods_model.Goods.objects.filter(id=gid).first()
     if num > tempGoods.number:
-        errMsg = "所选商品数量超过该商品库存，请刷新页面重新选择..."
+        errMsg = "所选商品数量超过该商品库存，请回退页面重新选择..."
         return errMsg
     if cart_model.Cart.objects.filter(user_id=uid, goods_id=gid).count() > 0:
         cart_model.Cart.objects.filter(user_id=uid, goods_id=gid).update(goods_num=num)

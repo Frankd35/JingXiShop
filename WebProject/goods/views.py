@@ -7,15 +7,17 @@ from .detail_response import *
 
 
 class TempUser:
-    def __init__(self, id, name, img, isLogin, addr_id):
+    def __init__(self, id, name, img, isLogin, addr_id, is_merchant):
         self.id = id
         self.name = name
         self.img = img
         self.isLogin = isLogin
         self.addr_id = addr_id
+        self.is_merchant = is_merchant
 
 
 def getLoginState(request):
+    is_merchant = 0
     isLogin = False
     user_id = -1
     user_name = ""
@@ -27,8 +29,10 @@ def getLoginState(request):
         user_name = request.session.get('username')
         user_id = request.session.get('uid')
         user_img = request.session.get('userimg')
-        user_addr_id = user_model.User.objects.filter(id=user_id)[0].addr_id
-    return TempUser(user_id, user_name, user_img, isLogin, user_addr_id)
+        tempUser = user_model.User.objects.filter(id=user_id).first()
+        user_addr_id = tempUser.addr_id
+        is_merchant = tempUser.is_merchant
+    return TempUser(user_id, user_name, user_img, isLogin, user_addr_id, is_merchant)
 
 
 # Create your views here.
