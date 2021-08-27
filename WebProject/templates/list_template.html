@@ -149,7 +149,7 @@
 				{% for goods in goodsList %}
 				<li>
 					<!--						 点击商品跳转商品详情界面，向后端传该商品id-->
-					<a href="/detail_template?gid={{ goods.id }}" class="tttt1"><img src="{{ goods.img }}"></a>
+					<a href="/detail_template?gid={{ goods.id }}" class="tttt1"><img src="{{ goods.img }}" width="160" height="160"></a>
 					<h4><a href="/detail_template?gid={{ goods.id }}" class="tttt1">{{ goods.name }}</a></h4>
 					<div class="operate">
 						<span class="prize">￥{{ goods.price }}</span>
@@ -158,8 +158,9 @@
 						<a href="" class="add_goods" title="加入购物车"></a>
 					</div>
 				</li>
+				{% endfor %}
 			</ul>
-			{% endfor %}
+
 <!--			按价格排序商品-->
 			<ul class="goods_type_list clearfix" id="price"  style="display: none">
 				{% for goods in goodsList_price %}
@@ -192,15 +193,15 @@
 				{% endfor %}
 			</ul>
 
-			<div class="pagenation">
-				<a href="#">上一页</a>
-				<a href="#" class="active">1</a>
-				<a href="#">2</a>
-				<a href="#">3</a>
-				<a href="#">4</a>
-				<a href="#">5</a>
-				<a href="#">下一页></a>
-			</div>
+<!--			<div class="pagenation">-->
+<!--				<a href="#">上一页</a>-->
+<!--				<a href="#" class="active">1</a>-->
+<!--				<a href="#">2</a>-->
+<!--				<a href="#">3</a>-->
+<!--				<a href="#">4</a>-->
+<!--				<a href="#">5</a>-->
+<!--				<a href="#">下一页></a>-->
+<!--			</div>-->
 		</div>
 	</div>
 
