@@ -371,9 +371,19 @@ def manager_view(request):
         return HttpResponseRedirect('err_handling_page')  # not defined
     # 检测是否是管理员
     isManager = User.objects.get(id=usr_id).is_merchant == 3
+    # 获取申请人的信息
     user = User.objects.get(id=usr_id)
+    shopList = Shop.objects.all()
     if request.method == 'GET':
         # 根据申请时间
         # 在提交商家注册的时候要把updatetime加上去
-        applyList = User.objects.filter(is_merchant=1).order_by('updatetime')
-        return render(request, 'user_center_manager.html', {'isLogin': isLogin, 'user': user, 'applyList': applyList})
+        applyList = User.objects.filter(is_merchant__in=[1, 2]).order_by('is_merchant').order_by('updatetime')
+        applySuccessList = User.objects.filter(is_merchant=2).order_by('updatetime')
+        return render(request, 'user_center_manager.html',
+                      {'isLogin': isLogin,
+                       'shopList': shopList,
+                       'user': user,
+                       'applyList': applyList,
+                       'applySuccessList': applySuccessList,
+
+                       })
