@@ -243,7 +243,7 @@ def merchant_register_view(request):
             # 给出提示
             return HttpResponseRedirect('merchant')
         else:
-            render(request, 'merchant_register.html', {'errmsg': "is_merchant = {}\n状态错误，请联系管理员".format(state)})
+            return render(request, 'merchant_register.html', {'errmsg': "is_merchant = {}\n状态错误，请联系管理员".format(state)})
     # 提交注册请求
     elif request.method == 'POST':
         # 获取当前登录用户uid
