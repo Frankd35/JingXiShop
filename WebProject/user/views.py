@@ -321,13 +321,13 @@ def merchant_object_view(request):
         try:
             if flag == 'updatenum':
                 Goods.objects.filter(id=gid).update(number=
-                    int(json.loads(request.body.decode("utf-8")).get('num')))
+                                                    int(json.loads(request.body.decode("utf-8")).get('num')))
             elif flag == 'puton':
                 # 更改数量啥的
-                Goods.objects.filter(id=gid).update(status=1)   # 设置为上架
+                Goods.objects.filter(id=gid).update(status=1)  # 设置为上架
             elif flag == 'sub':
                 # 更改数量啥的
-                Goods.objects.filter(id=gid).update(status=0)   # 设置为下架
+                Goods.objects.filter(id=gid).update(status=0)  # 设置为下架
             return JsonResponse({})
         except Exception as e:
             print(e)
@@ -361,3 +361,19 @@ def merchant_order_view(request):
         return HttpResponseRedirect('merchant_order')
     return render(request, 'merchant_order.html',
                   {'isLogin': isLogin, 'user': user, 'orderList': orderList, 'shop': shop})
+
+
+def manager_view(request):
+    usr_id = int(request.session.get('uid', -1))
+    isLogin = usr_id != -1
+    # 若用户未登录
+    if not isLogin:
+        return HttpResponseRedirect('err_handling_page')  # not defined
+    # 检测是否是管理员
+    isManager = User.objects.get(id=usr_id).is_merchant == 3
+    user = User.objects.get(id=usr_id)
+    if request.method == 'GET':
+        # 根据申请时间
+        # 在提交商家注册的时候要把updatetime加上去
+        applyList = User.objects.filter(is_merchant=1).order_by('updatetime')
+        return render(request, 'user_center_manager.html', {'isLogin': isLogin, 'user': user, 'applyList': applyList})
