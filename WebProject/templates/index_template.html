@@ -120,8 +120,8 @@
     <div class="slide fl">
         <ul class="slide_pics">
             <!-- 轮播图 4张-->
-            {% for hotgoods in hotgoodsList %}
-                <li><img src="../static/images/sid1.png" alt="幻灯片"></li>
+            {% for slide in slideList %}
+                <li><img src="{{slide.img}}" alt="幻灯片"></li>
             {% endfor %}
         </ul>
         <div class="prev"></div>
