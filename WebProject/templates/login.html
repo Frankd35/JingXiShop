@@ -11,13 +11,71 @@
     <link rel="stylesheet" type="text/css" href="../static/css/main3.css">
 </head>
 <body>
-<div class="login_top clearfix">
-    <a href="index.html" class="login_logo"><img src="../static/images/jx.png" alt=""></a>
+
+
+
+<div class="register_con">
+    <div class="l_con fl">
+        <a href="index_template" class="reg_logo"><img src="../static/images/jx.png" alt=""></a>
+        <!-- </div> -->
+        <div class="reg_slogan">来京西 · 开心每一天</div>
+        <div class="reg_banner"></div>
+    </div>
+    <div class="login_form fr">
+        <div class="login_title clearfix">
+            <h1>用户登录</h1>
+            <a href={% url 'register' %}>立即注册</a>
+        </div>
+        <div class="form_input">
+            <form method="post">
+                <input type="text" name="username" class="name_input" value="" placeholder="请输入用户名">
+                <div class="user_error">输入错误</div>
+                <input type="password" id="pwd" name="pwd" class="pass_input" placeholder="请输入密码">
+                <div class="pwd_error">输入错误</div>
+                <div class="more_input clearfix">
+                    <input type="checkbox" name="remember">
+                    <label>记住用户名</label>
+                    <a href="#">忘记密码</a>
+                </div>
+                <input type="submit" name="" onclick="form_submit()" value="登录" class="input_submit">
+            </form>
+            {% if errmsg %}
+                <script type="text/javascript">
+                    alert("{{ errmsg}}");
+                    window.location.href = "login";
+                </script>
+            {% endif %}
+        </div>
+    </div>
+</div>
 </div>
 
-<div class="login_form_bg">
-    <div class="login_form_wrap clearfix">
-        <div class="slogan fl">日夜兼程 · 急速送达</div>
+<div class="footer no-mp">
+<div class="foot_link">
+    <a href="#">关于我们</a>
+    <span>|</span>
+    <a href="#">联系我们</a>
+    <span>|</span>
+    <a href="#">招聘人才</a>
+    <span>|</span>
+    <a href="#">友情链接</a>
+</div>
+<p>CopyRight © 2021 重庆京西商城 All Rights Reserved</p>
+<p>电话：999-****888 渝ICP备*******8号</p>
+</div>
+
+
+<!-- <div class="login_form_bg">
+    <div class="login_form_wrap clearfix"> -->
+        <!-- <div class="slogan fl">日夜兼程 · 急速送达</div> -->
+        <!-- <div class="l_con fl"> -->
+            <!-- <a class="reg_logo"><img src="../static/images/jx.png"></a> -->
+            <!-- <div class="reg_logo"> -->
+            <!-- <a href="index_template" class="reg_logo"><img src="../static/images/jx.png" alt=""></a> -->
+            <!-- </div> -->
+            <!-- <div class="reg_slogan">来京西 · 开心每一天</div>
+            <div class="reg_banner"></div>
+        </div>
         <div class="login_form fr">
             <div class="login_title clearfix">
                 <h1>用户登录</h1>
@@ -34,9 +92,6 @@
                         <label>记住用户名</label>
                         <a href="#">忘记密码</a>
                     </div>
-                    <!-- {#						<p>请<a href="{% url 'myaccount:acount_login' %}?next=#}
-                    {#							{% firstof request.path '/' %}">登录</a>后再访问。</p>#} -->
-{#                    <input type="submit" name="" onclick="form_submit()" value="登录" class="input_submit">#}
                     <input type="submit" name="" onclick="form_submit()" value="登录" class="input_submit">
                 </form>
                 {% if errmsg %}
@@ -62,7 +117,7 @@
     </div>
     <p>CopyRight © 2021 重庆京西商城 All Rights Reserved</p>
     <p>电话：999-****888 渝ICP备*******8号</p>
-</div>
+</div> -->
 <script>
     function form_submit() {
         var pwd = $("#pwd").val();
