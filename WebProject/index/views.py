@@ -75,9 +75,9 @@ def list_template_view(request):
         goodsList = Goods.objects.filter(name__contains=kw[0])
         # 找出关联度最高的
         for i in kw:
-            goodsList = goodsList.filter(name__contains=i)
+            goodsList = goodsList.filter(name__icontains=i)
         for gname in kw:
-            _by_name = Goods.objects.filter(name__contains=gname)
+            _by_name = Goods.objects.filter(name__icontains=gname)
             goodsList = goodsList | _by_name
         for sname in kw:
             _ = Shop.objects.filter(name__contains=sname)
