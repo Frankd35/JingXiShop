@@ -127,8 +127,8 @@
 					<!--					// 点击商品图片，进入该商品详情页，向后端传该商品id-->
 					{% for goods in newGoodsList %}
 						<li>
-							<a href="detail_template"><img src={{ goods.img }}></a>
-							<h4><a href="detail_template">{{ goods.name }}</a></h4>
+							<a href="detail_template?gid={{ goods.id }}"><img src={{ goods.img }}></a>
+							<h4><a href="detail_template?gid={{ goods.id }}">{{ goods.name }}</a></h4>
 							<div class="prize">￥{{ goods.price }}</div>
 						</li>
 					{% endfor %}
