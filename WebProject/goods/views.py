@@ -57,7 +57,7 @@ def detail_view(request):
         for i in newGoodsList:
             print('从高到低',i.searching_num)
         random.shuffle(newGoodsList)
-        newGoodsList = newGoodsList[:4]
+        newGoodsList = newGoodsList[:3]
         newGoodsList.append(randomGoods)
         return render(request, 'detail_template.html',
                       {'user': user, 'isLogin': user.isLogin, 'good': good, 'shop': shop, 'commentList': commentList,

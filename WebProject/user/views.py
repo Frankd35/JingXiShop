@@ -241,7 +241,7 @@ def merchant_register_view(request):
             return render(request, 'merchant_register.html', {'errmsg': "is_merchant = 1\n待管理员审核通过"})
         elif state == 2:  # 若已经是商家
             # 给出提示
-            return HttpResponseRedirect('merchant')
+            return HttpResponseRedirect('merchant_login')
         else:
             return render(request, 'merchant_register.html', {'errmsg': "is_merchant = {}\n状态错误，请联系管理员".format(state)})
     # 提交注册请求
@@ -275,25 +275,7 @@ def merchant_register_view(request):
 
 def merchant_login_view(request):
     if request.method == 'GET':
-        # 获取登录页面
-        if request.session.get('username') and request.session.get('uid'):
-            return HttpResponseRedirect('/index_template')
-            # return HttpResponse('已登录')
-        # 检查cookies
-        c_username = request.COOKIES.get('username')
-        c_uid = request.COOKIES.get('uid')
-        checked = 'unchecked'
-        # 按理来说 商家登录时已经logout了
-        # if c_username and c_uid:
-        #     # 回写session
-        #     request.session['username'] = c_username
-        #     request.session['uid'] = c_uid
-        #     checked = 'checked'
-        #     return HttpResponseRedirect('/index_template')
-        #     # return HttpResponse('已登录')
-
-        return render(request, 'merchant_login.html', {'username': c_username, 'checked': checked})
-
+        return render(request, 'merchant_login.html', {})
     elif request.method == 'POST':
         # 处理数据
         username = request.POST.get('username')

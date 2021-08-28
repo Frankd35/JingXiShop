@@ -45,15 +45,25 @@ def getOrderList(user_id):
 
 def getOrderList_shopvision(shop_id):
     orderList = []
-    tempOrderList = cart_model.Order.objects.filter(shop_id=shop_id)
-    for i in tempOrderList:
+    tempOrderList0 = cart_model.Order.objects.filter(shop_id=shop_id, delivery_state="已发货").order_by("-trade_time")
+    for i in tempOrderList0:
         tempGoods = goods_model.Goods.objects.filter(id=i.goods_id).first()
-        orderList.append(TempOrder(tempGoods.name, tempGoods.img, tempGoods.price
-                                   , i.goods_num, i.addr, i.delivery_state, i.id, i.trade_time, i.total_price,
-                                   i.per_name))
-    # print(orderList)
+        orderList.append(
+            TempOrder(tempGoods.name, tempGoods.img, tempGoods.price, i.goods_num, i.addr, i.delivery_state, i.id,
+                      i.trade_time, i.total_price, i.per_name))
+    tempOrderList1 = cart_model.Order.objects.filter(shop_id=shop_id, delivery_state="未发货").order_by("-trade_time")
+    for i in tempOrderList1:
+        tempGoods = goods_model.Goods.objects.filter(id=i.goods_id).first()
+        orderList.append(
+            TempOrder(tempGoods.name, tempGoods.img, tempGoods.price, i.goods_num, i.addr, i.delivery_state, i.id,
+                      i.trade_time, i.total_price, i.per_name))
+    tempOrderList2 = cart_model.Order.objects.filter(shop_id=shop_id, delivery_state="已收货").order_by("-trade_time")
+    for i in tempOrderList2:
+        tempGoods = goods_model.Goods.objects.filter(id=i.goods_id).first()
+        orderList.append(
+            TempOrder(tempGoods.name, tempGoods.img, tempGoods.price, i.goods_num, i.addr, i.delivery_state, i.id,
+                      i.trade_time, i.total_price, i.per_name))
     return orderList
-
 
 def confirmOrder(oid):
     print("订单确认收货")
