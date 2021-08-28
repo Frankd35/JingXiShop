@@ -16,26 +16,25 @@
             height: 180px;
             width: 180px;
             color: white;
-            opacity: 0.8;
+            opacity: 0.5;
             line-height: 200px;
-            line-height: middle;
+<!--            line-height: middle;-->
             text-align: center;
-<!--            visibility:hidden;-->
             display:none;
             text-align: center;
             position: absolute;
-            font-size: 20px;
+            font-size: 15px;
             background-color: #000;
             z-index: 1;
             margin-left: 34px
-
         }
         a:hover .tishi{
-            display:hidden;
+            display:block;
+            z-index: 1;
         }
-        a:hover .goodP{
+        .herea:hover img{
             opacity: 0.1;
-<!--            z-index: -1;-->
+            z-index: -1;
         }
         .toHand{
             cursor:pointer;
@@ -189,8 +188,8 @@
             <div class="goods_banner fl">
 <!--                {#                <a href="/list?category={{ }}">#}-->
                 {% for banner in bannerList %}
-                    {% if banner.category_id == GoodsCategory.id %}
-
+<!--                    {% if (banner.category_id|int) == (10+GoodsCategory.id|int) %}-->
+                        {% if banner.category_id == GoodsCategory.id %}
                         <a href="#">
                             <img id="bannerr" style="margin-bottom:55px" src="{{ banner.img }}">
                         </a>
@@ -206,7 +205,7 @@
                         <!--                // 点击商品图片，进入该商品详情页，向后端传该商品id-->
                         <li class="toHand">
                             <h4><a href="detail_template">{{ goods.name }}</a></h4>
-                            <a href="/detail_template?gid={{ goods.id }}"><p class="tishi" ass>{{ goods.name }}</p><img class="goodP" src={{ goods.img }}></a>
+                            <a href="/detail_template?gid={{ goods.id }}" class="herea"><p class="tishi">{{ goods.name }}</p><img class="goodP" src={{ goods.img }}></a>
 <!--                            <a href="/detail_template?gid={{ goods.id }}" style="text-align:center" class="tishi"></a>-->
                                 <div class="prize">¥{{ goods.price }}</div>
                         </li>
