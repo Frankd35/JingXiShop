@@ -9,6 +9,15 @@
     <script type="text/javascript" src="static/js/merchant_object.js"></script>
     <link rel="stylesheet" type="text/css" href="../static/css/reset.css">
     <link rel="stylesheet" type="text/css" href="../static/css/main3.css">
+    <style>
+        dl#aaa {
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            position: relative;
+            margin-left: 90px;
+        }
+    </style>
     <script>
         $(function() {
            //搜索框输入商品类型，进去该商品类型列表，向后端传用户输入商品类型名称
@@ -86,37 +95,50 @@
             <li class="col02 stress">商品库存：</li>
             <li class="col02"> 商品的成交量：</li>
             <li class="col03">商家操作：</li>
-            <!-- <li class="col03"><a href="javascript:;" good_operate="{{order.id}}">商家处理</a></li> -->
         </ul>
         {% for good in goodsList %}
             <table class="order_list_table w980">
                 <tbody>
                 <tr>
+                    {% if good.status == 0 %}
                     <td width="80%">
                         <ul class="order_goods_list clearfix">
                             <li class="col01"><dl style="position:absolute;">{{good.name}}</dl><img src="{{ good.img }}"></li>
-                            <li class="col02">{{ good.price }}元</li>
-                            <li class="col02">{{ good.number}}件</li>
+                            <!-- <li class="col02">{{ good.price }}元</li> -->
+                            
+                            <li class="col02">
+                                <input autocomplete="off" type="text" goodid="{{ good.id }}"
+                                    value="{{ good.price }}" minnum="1" class="iprice" >元
+                            </li>
+                            <li class="col02">{{ good.number }}件</li>
                             <li class="col02">{{ good.deal }}件</li>
-                            <!-- <div class="clearfix">
-                                <li>
-                                    <a href="javascript:;" class="increment mins" goodid="{{ good.id }}" num="{{good.number}}"><b>-</b></a> -->
-                                    <input autocomplete="off" type="text" goodid="{{ good.id }}"
-                                           value="{{ good.number }}" minnum="1" class="itxt" maxnum={{ good.max_num }}>商品库存量
-                            <!--        <a href="javascript:;" class="increment plus" goodid="{{ good.id }}" num="{{good.number}}"
-                                       maxnum="{{ good.max_num }}"><b>+</b></a>
-                                </li>
-                            </div>
-                            <li class="col02">{{ good.deal }}件</li>
-                             -->
+                                
                         </ul>
                     </td>
-                    {#<!--							商品上下架-->#}
+                   
                     <td width="30%" class="addr_td">
-                        <!-- {{order.addr}} {{ order.per_name }}收 -->
                         <dl class="col04" ><a id="put_on" href="javascript:;" good_operate1="{{ good.id }}" style="background: #ffffff; border-radius: 5px; color: red; border: solid red 1px; padding: 2px 3px; margin-bottom: 10px;">上架</a></dl><br>
+                        <!-- <dl class="col05"><a id="put_off" href="javascript:;" good_operate2="{{ good.id }}" style="background: #ffffff; border-radius: 5px; color: rgb(0, 217, 255); border: solid rgb(0, 204, 255) 1px; padding: 2px 3px; margin-top: 10px;">下架</a></dl> -->
+                    </td>
+                    {% else %}
+                    <td width="80%">
+                        <ul class="order_goods_list clearfix">
+                            <li class="col01"><dl style="position:absolute;width:100px" id="aaa">{{good.name}}</dl>
+                                <img style="position: relative;left:-40px;" src="{{ good.img }}"></li>
+                            <li class="col02">{{ good.price }}元</li>
+                            <li>
+                                <input autocomplete="off" type="text" goodid="{{ good.id }}"
+                                    value="{{ good.number }}" minnum="1" class="itxt" maxnum={{ good.max_num }}>商品库存量
+                            </li>
+                            <li class="col02">{{ good.deal }}件</li>
+                                
+                        </ul>
+                    </td>
+                    <td width="30%" class="addr_td">
+                        <!-- <dl class="col04" ><a id="put_on" href="javascript:;" good_operate1="{{ good.id }}" style="background: #ffffff; border-radius: 5px; color: red; border: solid red 1px; padding: 2px 3px; margin-bottom: 10px;">上架</a></dl><br> -->
                         <dl class="col05"><a id="put_off" href="javascript:;" good_operate2="{{ good.id }}" style="background: #ffffff; border-radius: 5px; color: rgb(0, 217, 255); border: solid rgb(0, 204, 255) 1px; padding: 2px 3px; margin-top: 10px;">下架</a></dl>
                     </td>
+                    {% endif %}
                 </tr>
                 </tbody>
             </table>

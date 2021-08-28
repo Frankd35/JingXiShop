@@ -10,7 +10,7 @@ $(function() {
         type:"POST",
         data:JSON.stringify({'id':itGid, flag:"puton", "csrfmiddlewaretoken": token}),
         dataType : "text",
-        success: function(){
+        success: function(data){
             window.location.reload()
         }
         })
@@ -25,41 +25,12 @@ $(function() {
         type:"POST",
         data:JSON.stringify({'id':itGid, flag:"putoff","csrfmiddlewaretoken": token}),
         dataType : "text",
-        success: function(){
+        success: function(data){
             window.location.reload()
         }
         })
     });
     
-    // $(".clearfix .mins").click(function() {
-    //     console.log("减少")
-    //     var itGid=$(this).attr('goodid');
-    //     var token = $('[name="csrfmiddlewaretoken"]').attr("value");
-    //     $.ajax({
-    //     url:"/merchant_object",
-    //     type:"POST",
-    //     data:JSON.stringify({'id':itGid,'flag':'sub',"csrfmiddlewaretoken": token}),
-    //     dataType : "text",
-    //     success: function(){
-    //         window.location.reload()
-    //     }
-    //     })
-    // });
-
-    // $(".clearfix .plus").click(function() {
-    //     console.log("增加")
-    //     var itGid=$(this).attr('goodid');
-    //     var token = $('[name="csrfmiddlewaretoken"]').attr("value");
-    //     $.ajax({
-    //     url:"/merchant_object",
-    //     type:"POST",
-    //     data:JSON.stringify({'id':itGid,'flag':'plus',"csrfmiddlewaretoken": token}),
-    //     dataType : "text",
-    //     success: function(){
-    //         window.location.reload()
-    //     }
-    //     })
-    // });
      $('.itxt').blur(function () {
          // 获取用户输入的数目
          count = Number($(this).val())
@@ -80,5 +51,25 @@ $(function() {
          })
 
        })
-    
+
+       $('.iprice').blur(function () {
+        // 获取用户输入的单价
+        count = Number($(this).val())
+        // 重新设置商品的单价
+        $(this).val(count)
+        console.log("重新设置商品单价："+count)
+        var itGid=$(this).attr('goodid');
+        var token = $('[name="csrfmiddlewaretoken"]').attr("value");
+        $.ajax({
+        url:"/merchant_object",
+        type:"POST",
+        data:JSON.stringify({'id':itGid,'flag':'updateprice', "csrfmiddlewaretoken": token, 'price': count}),
+        dataType : "text",
+        success: function(data){
+           console.log('return successful')
+           window.location.reload()
+        }
+        })
+
+      })
 });

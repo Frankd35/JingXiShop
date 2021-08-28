@@ -230,7 +230,7 @@ def merchant_register_view(request):
     isLogin = usr_id != -1
     # 若用户未登录
     if not isLogin:
-        return HttpResponseRedirect('login')  # not defined
+        return render(request, 'merchant_login.html', {'errmsg': '请先登录'})
     # 访问商家注册页
     if request.method == 'GET':
         # 检测商家状态
@@ -271,6 +271,53 @@ def merchant_register_view(request):
             # 提交申请失败
             return render(request, 'merchant_register.html', {'errmsg': e})
         return HttpResponseRedirect('merchant_register')
+
+
+def merchant_login_view(request):
+    if request.method == 'GET':
+        # 获取登录页面
+        if request.session.get('username') and request.session.get('uid'):
+            return HttpResponseRedirect('/index_template')
+            # return HttpResponse('已登录')
+        # 检查cookies
+        c_username = request.COOKIES.get('username')
+        c_uid = request.COOKIES.get('uid')
+        checked = 'unchecked'
+        # 按理来说 商家登录时已经logout了
+        # if c_username and c_uid:
+        #     # 回写session
+        #     request.session['username'] = c_username
+        #     request.session['uid'] = c_uid
+        #     checked = 'checked'
+        #     return HttpResponseRedirect('/index_template')
+        #     # return HttpResponse('已登录')
+
+        return render(request, 'login.html', {'username': c_username, 'checked': checked})
+
+    elif request.method == 'POST':
+        # 处理数据
+        username = request.POST.get('username')
+        password = request.POST.get('pwd')
+        # 校验数据
+        if not all([username, password]):
+            return render(request, 'merchant_login.html', {'errmsg': '数据不完整'})
+        try:
+            user = User.objects.get(name=username)
+        except Exception as e:
+            print('--login user error %s' % e)
+            return render(request, 'register.html', {'errmsg': '您的用户名未进行注册'})
+        # 比对密码
+        m = hashlib.md5()
+        m.update(password.encode())
+
+        if m.hexdigest() != user.pwd:
+            print("密码错误", m.hexdigest())
+            return render(request, 'merchant_login.html', {'errmsg': '您的用户名和密码有错误'})
+        # 记录会话状态
+        request.session['username'] = username
+        request.session['uid'] = user.id
+        request.session['userimg'] = user.img
+        return HttpResponseRedirect('merchant')
 
 
 def merchant_view(request):
@@ -325,9 +372,10 @@ def merchant_object_view(request):
             elif flag == 'puton':
                 # 更改数量啥的
                 Goods.objects.filter(id=gid).update(status=1)  # 设置为上架
-            elif flag == 'sub':
+            elif flag == 'putoff':
                 # 更改数量啥的
                 Goods.objects.filter(id=gid).update(status=0)  # 设置为下架
+                print('put off')
             return JsonResponse({})
         except Exception as e:
             print(e)
