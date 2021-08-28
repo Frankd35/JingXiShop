@@ -96,7 +96,7 @@
             <li class="col02"> 商品的成交量：</li>
             <li class="col03">商家操作：</li>
         </ul>
-        {% for good in goodsList %}
+        {% for good in perpage_data %}
             <table class="order_list_table w980">
                 <tbody>
                 <tr>
@@ -145,13 +145,19 @@
             </table>
         {% endfor %}
         <div class="pagenation">
-            <a href="#">&lt;上一页</a>
-            <a href="#" class="active">1</a>
-            <a href="#">2</a>
-            <a href="#">3</a>
-            <a href="#">4</a>
-            <a href="#">5</a>
-            <a href="#">下一页&gt;</a>
+            {% if perpage_data.has_previous %}
+            <a href="/merchant_object?pnum={{perpage_data.previous_page_number}}">上一页</a>
+            {% endif%}
+            {% for n in pagelist %}
+                    {% if n == now_page %}
+                        <a href="/merchant_object?pnum={{n}}" class="active">{{n}}</a>&emsp;
+                    {% else %}
+                        <a href="/merchant_object?pnum={{n}}">{{n}}</a>&emsp;
+                    {% endif %}
+            {% endfor %}
+            {% if perpage_data.has_next %}
+            <a href="/merchant_object?pnum={{perpage_data.next_page_number}}">下一页</a>
+            {% endif %}
         </div>
     </div>
 </div>

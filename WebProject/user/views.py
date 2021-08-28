@@ -241,7 +241,7 @@ def merchant_register_view(request):
             return render(request, 'merchant_register.html', {'errmsg': "is_merchant = 1\n待管理员审核通过"})
         elif state == 2:  # 若已经是商家
             # 给出提示
-            return HttpResponseRedirect('merchant_login')
+            return HttpResponseRedirect('merchant')
         else:
             return render(request, 'merchant_register.html', {'errmsg': "is_merchant = {}\n状态错误，请联系管理员".format(state)})
     # 提交注册请求
@@ -317,6 +317,21 @@ def merchant_view(request):
     shop = Shop.objects.get(user_id=usr_id)
     return render(request, "merchant2.html", {'isLogin': isLogin, 'user': user, 'shop': shop})
 
+# 初级分页
+def page(num,size=10):
+    # 接受页码
+    num = int(num)
+    # 获取总个数
+    totalRecords = Goods.objects.count()
+    # 总页数
+    totalPages = int(math.ceil(totalRecords*1.0/size));
+    # 是否越界
+    if num<1:
+        num = 1
+    if num>totalPages:
+        num = totalPages
+    showGoods = Goods.objects.all()[((num-1)*size):(num*size)]
+    return showGoods,num
 
 def merchant_object_view(request):
     # 获取cookies里的当前登录用户id
@@ -328,22 +343,53 @@ def merchant_object_view(request):
     # 检测是否商家
     if User.objects.get(id=usr_id).is_merchant != 2:
         return HttpResponseRedirect('merchant_register')
-    # 获取数据
-    user = User.objects.get(id=usr_id)
-    shop = Shop.objects.get(user_id=usr_id)
-    try:
-        tmp = Goods.objects.filter(shop_id=shop.id)[:10]
+
+    # 分页功能
+
+    m = request.method
+    # GET请求， 加载页面
+    if m == 'GET':
+        page_num = int(request.GET.get('pnum',1))
         goodsList = []
-        for good in tmp:
-            _ = good.__dict__
-            orders = Order.objects.filter(goods_id=good.id)
-            deal = 0
-            for order in orders:
-                deal += order.goods_num
-            _['deal'] = deal
-            goodsList.append(_)
-    except:
-        goodsList = None
+        # 获取数据
+        # totalRecords = Goods.objects.all()
+        user = User.objects.get(id=usr_id)
+        shop = Shop.objects.get(user_id=usr_id)
+        totalRecords = Goods.objects.filter(shop_id=shop.id)
+        pager = Paginator(totalRecords,10)
+        try:
+            perpage_data = pager.page(page_num)
+        except PageNotAnInteger:
+            perpage_data = pager.page(1)
+        except EmptyPage:
+            perpage_data = pager.page(pager.num_pages)
+
+        begin = (page_num-int(math.ceil(10.0/2)))
+        if begin < 1:
+            begin = 1
+        end = begin + 9
+        if end > pager.num_pages:
+            end = pager.num_pages
+        if end <= 10:
+            begin = 1
+        else:
+            begin = end - 9
+        pagelist = range(begin,end+1)
+        return render(request, 'merchant_object.html',
+                      {'isLogin': isLogin, 'user': user, 'shop': shop, 'perpage_data': perpage_data,'pagelist':pagelist,'now_page':page_num})
+    # try:
+    #     tmp = Goods.objects.filter(shop_id=shop.id)
+    #     goodsList = []
+    #     for good in tmp:
+    #         _ = good.__dict__
+    #         orders = Order.objects.filter(goods_id=good.id)
+    #         deal = 0
+    #         for order in orders:
+    #             deal += order.goods_num
+    #         _['deal'] = deal
+    #         goodsList.append(_)
+    # except:
+    #     goodsList = None
     if request.method == 'POST':
         gid = int(json.loads(request.body.decode("utf-8")).get('id'))
         flag = json.loads(request.body.decode("utf-8")).get('flag')
