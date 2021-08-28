@@ -103,7 +103,8 @@
                     {% if good.status == 0 %}
                     <td width="80%">
                         <ul class="order_goods_list clearfix">
-                            <li class="col01"><dl style="position:absolute;">{{good.name}}</dl><img src="{{ good.img }}"></li>
+                            <li class="col01"><dl style="position:absolute;width:100px" id="aaa">{{good.name}}</dl>
+                                <img style="position: relative;left:-40px;" src="{{ good.img }}"></li>
                             <!-- <li class="col02">{{ good.price }}元</li> -->
                             
                             <li class="col02">
