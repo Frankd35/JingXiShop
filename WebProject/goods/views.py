@@ -1,4 +1,5 @@
 import json
+import random
 from django.shortcuts import render
 from user import models as user_model
 from goods.models import Goods
@@ -50,9 +51,14 @@ def detail_view(request):
         cateList = getCateList()
         # 新品推荐
         newGoodsList = Goods.objects.filter(category_id=good.category_id)
-        if len(newGoodsList) > 5:
-            newGoodsList = newGoodsList[len(newGoodsList) - 6: len(newGoodsList) - 1]
-
+        randomGoods = newGoodsList[random.randint(0,len(newGoodsList)-1)]
+        newGoodsList = sorted(newGoodsList, key=lambda x: x.searching_num, reverse=True)
+        newGoodsList = newGoodsList[:10]
+        for i in newGoodsList:
+            print('从高到低',i.searching_num)
+        random.shuffle(newGoodsList)
+        newGoodsList = newGoodsList[:4]
+        newGoodsList.append(randomGoods)
         return render(request, 'detail_template.html',
                       {'user': user, 'isLogin': user.isLogin, 'good': good, 'shop': shop, 'commentList': commentList,
                        'category': category, 'GoodsCategoryList': cateList,

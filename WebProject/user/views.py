@@ -292,7 +292,7 @@ def merchant_login_view(request):
         #     return HttpResponseRedirect('/index_template')
         #     # return HttpResponse('已登录')
 
-        return render(request, 'login.html', {'username': c_username, 'checked': checked})
+        return render(request, 'merchant_login.html', {'username': c_username, 'checked': checked})
 
     elif request.method == 'POST':
         # 处理数据
@@ -350,7 +350,7 @@ def merchant_object_view(request):
     user = User.objects.get(id=usr_id)
     shop = Shop.objects.get(user_id=usr_id)
     try:
-        tmp = Goods.objects.filter(shop_id=shop.id)
+        tmp = Goods.objects.filter(shop_id=shop.id)[:10]
         goodsList = []
         for good in tmp:
             _ = good.__dict__
@@ -369,6 +369,9 @@ def merchant_object_view(request):
             if flag == 'updatenum':
                 Goods.objects.filter(id=gid).update(number=
                                                     int(json.loads(request.body.decode("utf-8")).get('num')))
+            elif flag == 'updateprice':
+                Goods.objects.filter(id=gid).update(price=
+                                                    int(json.loads(request.body.decode("utf-8")).get('price')))
             elif flag == 'puton':
                 # 更改数量啥的
                 Goods.objects.filter(id=gid).update(status=1)  # 设置为上架
