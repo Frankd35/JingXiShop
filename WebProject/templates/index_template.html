@@ -138,14 +138,17 @@
 </div>
 
 <div class="center_con clearfix">
-    <ul class="subnav fl" id="navi">
-        <!-- 商品类型 6个-->
-        {% for GoodsCategory in GoodsCategoryList %}
-            <li><a href="#model0{{ forloop.counter }}">{{ GoodsCategory.name }} &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&gt;</a>
-            </li>
-        {% endfor %}
-    </ul>
-
+    <div class="countdown-hd fl">
+				<h3>京西秒杀</h3>
+				<div class="hd_countdown">
+					<strong>14:00</strong>点场 倒计时
+					<div class="timer">
+						<span class="hour">1</span>
+						<span class="minute">2</span>
+						<span class="second">3</span>
+					</div>
+				</div>
+			</div>
     <div class="slide fl">
         <ul class="slide_pics">
             <!-- 轮播图 4张-->
