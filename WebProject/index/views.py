@@ -42,9 +42,14 @@ def index_template_view(request):
         newGoodsList = newGoodsList[len(newGoodsList) - 6: len(newGoodsList) - 1]
     print(newGoodsList)
     # 商品
-    GoodsList = Goods.objects.filter(category_id__gte=1, searching_num__lte=99999).order_by('category_id')
+    GoodsList=[];
+    # GoodsList1 = Goods.objects.filter(category_id__gte=1, searching_num__lte=99999).order_by('category_id')
     # 介绍
-    bannerList = Goods.objects.filter(category_id__gte=1, searching_num__gte=99999).order_by('category_id')
+    bannerList = Goods.objects.filter(category_id__gte=11)
+    for i in range(1,8,1):
+        GoodsList[i*4-4:i*4] = Goods.objects.filter(category_id=i).order_by('category_id')[0:5]
+
+
     return render(request, 'index_template.html',
                   {'isLogin': isLogin, 'user': user, 'GoodsCategoryList': GoodsCategoryList,
                    'hotgoodsList': hotgoodsList, 'slideList': slideList, 'GoodsList': GoodsList,
@@ -75,9 +80,9 @@ def list_template_view(request):
         goodsList = Goods.objects.filter(name__contains=kw[0])
         # 找出关联度最高的
         for i in kw:
-            goodsList = goodsList.filter(name__contains=i)
+            goodsList = goodsList.filter(name__icontains=i)
         for gname in kw:
-            _by_name = Goods.objects.filter(name__contains=gname)
+            _by_name = Goods.objects.filter(name__icontains=gname)
             goodsList = goodsList | _by_name
         for sname in kw:
             _ = Shop.objects.filter(name__contains=sname)

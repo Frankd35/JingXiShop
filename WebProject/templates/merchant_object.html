@@ -9,6 +9,15 @@
     <script type="text/javascript" src="static/js/merchant_object.js"></script>
     <link rel="stylesheet" type="text/css" href="../static/css/reset.css">
     <link rel="stylesheet" type="text/css" href="../static/css/main3.css">
+    <style>
+        dl#aaa {
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            position: relative;
+            margin-left: 90px;
+        }
+    </style>
     <script>
         $(function() {
            //搜索框输入商品类型，进去该商品类型列表，向后端传用户输入商品类型名称
@@ -114,7 +123,8 @@
                     {% else %}
                     <td width="80%">
                         <ul class="order_goods_list clearfix">
-                            <li class="col01"><dl style="position:absolute;">{{good.name}}</dl><img src="{{ good.img }}"></li>
+                            <li class="col01"><dl style="position:absolute;width:100px" id="aaa">{{good.name}}</dl>
+                                <img style="position: relative;left:-40px;" src="{{ good.img }}"></li>
                             <li class="col02">{{ good.price }}元</li>
                             <li>
                                 <input autocomplete="off" type="text" goodid="{{ good.id }}"

@@ -42,6 +42,7 @@ urlpatterns = [
     path('user_center_info', usr_views.usr_info_view),
     path('user_center_site', usr_views.usr_site_view),
     path('merchant_register', usr_views.merchant_register_view),
+    path('merchant_login', usr_views.merchant_login_view),
     path('merchant', usr_views.merchant_view),
     path('merchant_order', usr_views.merchant_order_view),
     path('merchant_object', usr_views.merchant_object_view),
