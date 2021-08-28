@@ -552,7 +552,7 @@ html,body{height:100%}
 	/*margin:10px 0 15px;*/
 	margin:auto;
 	padding:10px 0;
-	height:150px;
+	height:auto;
 /*	overflow: scroll;*/
 }
 

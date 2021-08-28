@@ -106,7 +106,16 @@ $(function() {
 				{% if order.state == "已收货" %}
 					<li class="col02 stress" style="color: #33cc00">处理状态：{{ order.state }}</li>
 				{% endif %}
+
+                {% if order.state == "未发货" %}
                 <li class="col03" id="confirmSend" style="margin-left:300px"><a href="javascript:;" good_operate="{{order.order_id}}" href="javascript:;" style="background: #ffffff; border-radius: 5px; color: red; border: solid red 1px; padding: 2px 3px;" oid="72">发货</a></li>
+                {% endif %}
+                {% if order.state == "已发货" %}
+                <li class="col03" id="confirmSend" style="margin-left:300px" style="color:orange">正在运输</li>
+                {% endif %}
+                {% if order.state == "已收货" %}
+                <li class="col03" id="confirmSend" style="margin-left:300px" style="color:#33cc00">订单完成</li>
+                {% endif %}
             </ul>
 
             <table class="order_list_table w980">
