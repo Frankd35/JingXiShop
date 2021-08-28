@@ -188,7 +188,6 @@
             <div class="goods_banner fl">
 <!--                {#                <a href="/list?category={{ }}">#}-->
                 {% for banner in bannerList %}
-<!--                    {% if (banner.category_id|int) == (10+GoodsCategory.id|int) %}-->
                         {% if banner.category_id == GoodsCategory.id %}
                         <a href="#">
                             <img id="bannerr" style="margin-bottom:55px" src="{{ banner.img }}">
