@@ -125,6 +125,7 @@ STATICFILES_DIRS = (
     ('css', os.path.join(STATIC_ROOT, 'css').replace('\\', '/')),
     ('js', os.path.join(STATIC_ROOT, 'js').replace('\\', '/')),
     ('images', os.path.join(STATIC_ROOT, 'images').replace('\\', '/')),
+    ('goods_img', os.path.join(STATIC_ROOT, 'goods_img').replace('\\', '/')),
 )
 STATIC_URL = '/static/'
 
