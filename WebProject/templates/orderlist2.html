@@ -81,7 +81,7 @@
                     {% if good.state == "已收货" %}
                         <li class="col02 stress" style="color: #33cc00">运送状态：{{ good.state }}</li>
                     {% endif %}
-                    {% if good.state != "已收货" %}
+                    {% if good.state == "已发货" %}
                     <li class="deleteorder" style="width: 35%; text-align: right;"><a href="javascript:;" style="background: #ffffff; border-radius: 5px; color: red; border: solid red 1px; padding: 2px 3px;" oid="{{ good.order_id }}">确认收货</a></li>
                     {% endif %}
 				</ul>
