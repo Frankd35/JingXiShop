@@ -102,7 +102,7 @@
                                 <li>
                                     <a href="javascript:;" class="increment mins" goodid="{{ good.id }}" num="{{good.number}}"><b>-</b></a> -->
                                     <input autocomplete="off" type="text" goodid="{{ good.id }}"
-                                           value="{{ good.number }}" minnum="1" class="itxt" maxnum={{ good.max_num }}>
+                                           value="{{ good.number }}" minnum="1" class="itxt" maxnum={{ good.max_num }}>商品库存量
                             <!--        <a href="javascript:;" class="increment plus" goodid="{{ good.id }}" num="{{good.number}}"
                                        maxnum="{{ good.max_num }}"><b>+</b></a>
                                 </li>
@@ -114,8 +114,8 @@
                     {#<!--							商品上下架-->#}
                     <td width="30%" class="addr_td">
                         <!-- {{order.addr}} {{ order.per_name }}收 -->
-                        <li class="col04"><a id="put_on" href="javascript:;" good_operate1="{{ good.id }}">上架</a></li>
-                        <li class="col05"><a id="put_off" href="javascript:;" good_operate2="{{ good.id }}">下架</a></li>
+                        <dl class="col04" ><a id="put_on" href="javascript:;" good_operate1="{{ good.id }}" style="background: #ffffff; border-radius: 5px; color: red; border: solid red 1px; padding: 2px 3px; margin-bottom: 10px;">上架</a></dl><br>
+                        <dl class="col05"><a id="put_off" href="javascript:;" good_operate2="{{ good.id }}" style="background: #ffffff; border-radius: 5px; color: rgb(0, 217, 255); border: solid rgb(0, 204, 255) 1px; padding: 2px 3px; margin-top: 10px;">下架</a></dl>
                     </td>
                 </tr>
                 </tbody>
