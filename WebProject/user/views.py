@@ -325,9 +325,10 @@ def merchant_object_view(request):
             elif flag == 'puton':
                 # 更改数量啥的
                 Goods.objects.filter(id=gid).update(status=1)  # 设置为上架
-            elif flag == 'sub':
+            elif flag == 'putoff':
                 # 更改数量啥的
                 Goods.objects.filter(id=gid).update(status=0)  # 设置为下架
+                print('put off')
             return JsonResponse({})
         except Exception as e:
             print(e)

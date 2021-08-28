@@ -10,7 +10,7 @@ $(function() {
         type:"POST",
         data:JSON.stringify({'id':itGid, flag:"puton", "csrfmiddlewaretoken": token}),
         dataType : "text",
-        success: function(){
+        success: function(data){
             window.location.reload()
         }
         })
@@ -25,7 +25,7 @@ $(function() {
         type:"POST",
         data:JSON.stringify({'id':itGid, flag:"putoff","csrfmiddlewaretoken": token}),
         dataType : "text",
-        success: function(){
+        success: function(data){
             window.location.reload()
         }
         })
