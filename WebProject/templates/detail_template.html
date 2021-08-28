@@ -199,14 +199,14 @@
 <div class="main_wrap clearfix">
     <div class="l_wrap fl clearfix">
         <div class="new_goods">
-            <h3>新品推荐</h3>
+            <h3>猜你喜欢</h3>
             <ul>
-                <!-- 新品推荐商品 2个-->
+                <!-- 新品推荐商品 6个-->
                 <!--					// 点击商品图片，进入该商品详情页，向后端传该商品id-->
                 {% for goods in newGoodsList %}
                     <li>
-                        <a href="detail_template"><img src={{ goods.img }}></a>
-                        <h4><a href="detail_template">{{ goods.name }}</a></h4>
+                        <a href="detail_template?gid={{ goods.id }}"><img src={{ goods.img }}></a>
+                        <h4><a href="detail_template?gid={{ goods.id }}">{{ goods.name }}</a></h4>
                         <div class="prize">￥{{ goods.price }}</div>
                     </li>
                 {% endfor %}
@@ -242,10 +242,10 @@
                     <div class="sky2">商品毛重：{{ good.unite }}g</div>
                     <div class="sky2">商品产地：其他</div>
                     <div class="sky2">货号：wz238748934030</div>
-                    <div class="sky2">品种：红颜草莓</div>
-                    <div class="sky2">包装形式：见状</div>
-                    <div class="sky2">原产：云南</div>
-                    <div class="sky2">国产/进口：国产</div>
+                    <div class="sky2">品种：</div>
+                    <div class="sky2">包装形式：</div>
+                    <div class="sky2">原产：</div>
+                    <div class="sky2">国产/进口：</div>
                 </div>
                 <div class="sky3">
                     <p>价格说明:<br>
@@ -257,30 +257,30 @@
             </dl>
         </div>
         <div class="tab_content" id="tab_comment" style="display: none; height: auto;">
-            <dl class="site_con">
+            <dl class="site_con" style="margin-left: 10px;">
                 <div class="form_group">
                     <label style="font-size: 20px">您的评分：</label>
                     <input id="input" type="text" class="score" name="score"
-                           style="width: 30px;height: 30px;line-height: 40px;border:2px solid orangered;margin-left: 15px">
+                           style="width: 30px;height: 30px;line-height: 40px;border:2px solid orangered;margin-left: 15px;border-radius: 8px;">
                 </div>
                 <div class="form_group form_group2">
                     <label style="font-size: 20px">您的评论：</label>
                     <textarea class="site_area" name="comment"
-                              style="width:300px;height:60px;line-height: 15px;border:2px solid orangered;margin-left: 15px;"></textarea>
+                              style="width:300px;height:60px;line-height: 15px;border:2px solid orangered;margin-left: 15px;resize: none;border-radius: 8px;"></textarea>
                 </div>
                 <a href="javascript:;" class="submit_comment"
-                   style="display:inline-block;width:120px;height:38px;font-size:14px;line-height:38px;text-align:center;border:1px solid skyblue; background-color:orange;color:#fff;margin-left:320px;margin-top:20px;position:relative;z-index:10;cursor:pointer;"
+                   style="display:inline-block;width:120px;height:38px;font-size:14px;line-height:38px;text-align:center;border:1px solid skyblue; background-color:orange;color:#fff;margin-left:320px;margin-top:20px;position:relative;z-index:10;cursor:pointer;border-radius: 8px;"
                    gid="{{ good.id }}">提交评论</a>
             </dl>
             <dl class="site_con"><!-- 该商品评论 -->
                 {% for comment in commentList %}
-                    <dd class="num1">
-                        <img src="{{ comment.user_img }}" style="border: solid"
-                             alt=""><span>&nbsp;{{ comment.user_name }}:<em>&nbsp;&nbsp;&nbsp;&nbsp;
-					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{ comment.mark }}分</em></span>
+                    <dd class="num1" style="margin-left: 10px; display: flex;align-items: center;">
+                        <img src="{{ comment.user_img }}" style="border: solid; height: 60px; width: 60px; border-radius: 30px;"
+                             alt=""><span style="margin-left: 10px;">&nbsp;{{ comment.user_name }}:<em>&nbsp&nbsp&nbsp&nbsp
+                        &nbsp;&nbsp;{{ comment.mark }}分</em></span>
                     </dd>
-                    <dt class="num2">{{ comment.text }}</dt>
-                    <dd class="num3">{{ comment.createtime }}</dd>
+                    <dt class="num2" style="margin-left: 10px;font-size: 15px;font-family: 幼圆,serif;">{{ comment.text }}</dt>
+                    <dd class="num3" style="border-bottom: solid 1px rgb(201,25,37);margin-left: 10px;margin-right: 10px;">{{ comment.createtime }}</dd>
                 {% endfor %}
             </dl>
         </div>
