@@ -3,7 +3,7 @@ from typing import List, Any
 
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
-
+import random
 # Create your views here.
 # from sympy.codegen.ast import none
 from user.models import User, Shop
@@ -51,11 +51,12 @@ def index_template_view(request):
         GoodsList[i*5-5:i*5] = Goods.objects.filter(category_id=i).order_by('category_id')[0:5]
     # 购物车商品计数
     cartCount = Cart.objects.filter(user_id=usr_id).count()
-
+    # 秒杀商品随机id
+    killId = random.randint(19, 623)
     return render(request, 'index_template.html',
                   {'isLogin': isLogin, 'user': user, 'GoodsCategoryList': GoodsCategoryList,
                    'hotgoodsList': hotgoodsList, 'slideList': slideList, 'GoodsList': GoodsList,
-                   'bannerList': bannerList, 'newGoodsList': newGoodsList, 'cartCount': cartCount})
+                   'bannerList': bannerList, 'newGoodsList': newGoodsList, 'cartCount': cartCount, 'killId': killId})
 
 
 def list_template_view(request):

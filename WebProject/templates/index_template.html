@@ -135,17 +135,20 @@
 </div>
 
 <div class="center_con clearfix">
-    <div class="countdown-hd fl">
-				<h3>京西秒杀</h3>
-				<div class="hd_countdown">
-					<strong>14:00</strong>点场 倒计时
-					<div class="timer">
-						<span class="hour">1</span>
-						<span class="minute">2</span>
-						<span class="second">3</span>
-					</div>
-				</div>
-			</div>
+    <a href="detail_template?gid={{ killId }}">
+        <div class="countdown-hd fl">
+                <h3>京西秒杀</h3>
+                <div class="hd_countdown">
+                    <strong>14:00</strong>点场 倒计时
+                    <div class="timer">
+                        <span class="hour">1</span>
+                        <span class="minute">2</span>
+                        <span class="second">3</span>
+                    </div>
+                </div>
+
+        </div>
+    </a>
     <div class="slide fl">
         <ul class="slide_pics">
             <!-- 轮播图 4张-->
@@ -184,12 +187,12 @@
         </div>
 
         <div class="goods_con clearfix">
-            <ul class="goods_list fl">
+            <ul class="goods_list fl" style="width: 1200px;">
                 <!-- 展示这一类型的商品 4个 -->
                 {% for goods in GoodsList %}
                     {% if goods.category_id == GoodsCategory.id %}
                         <!--                // 点击商品图片，进入该商品详情页，向后端传该商品id-->
-                        <li class="toHand" style="width: 239px;">
+                        <li class="toHand" style="width: 238px;">
                             <h4><a href="detail_template">{{ goods.name }}</a></h4>
                             <a href="/detail_template?gid={{ goods.id }}" class="herea"><p class="tishi">{{ goods.name }}</p><img class="goodP" src={{ goods.img }}></a>
 <!--                            <a href="/detail_template?gid={{ goods.id }}" style="text-align:center" class="tishi"></a>-->
