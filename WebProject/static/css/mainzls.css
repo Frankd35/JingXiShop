@@ -10,6 +10,7 @@
 	height: 260px;
 	margin-top: 5px;
 	background: url(../images/skill.png) no-repeat;
+	background-size: cover;
 	text-align: center;
 	color: #fff;
 }
@@ -128,7 +129,7 @@ html,body{height:100%}
 
 .navbar_con{height:40px;border-bottom:2px solid rgb(201,25,37)}
 .navbar{width:1200px;margin:0 auto;}
-.navbar h1{width:200px;height:40px;line-height:40px;text-align: center;font-size:14px;color:#fff;background-color:rgb(201,25,37);}
+.navbar h1{width:190px;height:40px;line-height:40px;text-align: center;font-size:14px;color:#fff;background-color:rgb(201,25,37);}
 
 .navbar .subnav_con{width:200px;height:40px;background-color:#39a93e;position:relative;cursor:pointer;}
 

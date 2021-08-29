@@ -48,7 +48,7 @@ def index_template_view(request):
     # 介绍
     bannerList = Goods.objects.filter(category_id__gte=11)
     for i in range(1,8,1):
-        GoodsList[i*4-4:i*4] = Goods.objects.filter(category_id=i).order_by('category_id')[0:5]
+        GoodsList[i*5-5:i*5] = Goods.objects.filter(category_id=i).order_by('category_id')[0:5]
     # 购物车商品计数
     cartCount = Cart.objects.filter(user_id=usr_id).count()
 
@@ -105,9 +105,7 @@ def list_template_view(request):
     goodsList_hot = None if not goodsList \
         else sorted(goodsList, key=lambda x: x.searching_num)
     GoodsCategory = Category.objects.all()
-    # 购物车商品计数
-    cartCount = Cart.objects.filter(user_id=usr_id).count()
     return render(request, "list_template.html",
                   {'isLogin': isLogin, 'user': user, 'goodsList': goodsList, 'goodsList_hot': goodsList_hot,
                    'goodsList_price': goodsList_price, 'GoodsCategory': GoodsCategory,
-                   'currentCategory': currentCategory, 'newGoodsList': newGoodsList, 'cartCount': cartCount})
+                   'currentCategory': currentCategory, 'newGoodsList': newGoodsList})
