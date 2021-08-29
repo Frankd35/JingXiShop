@@ -8,6 +8,7 @@ from django.shortcuts import render
 # from sympy.codegen.ast import none
 from user.models import User, Shop
 from goods.models import Category, Comment, Goods
+from cart.models import Cart
 
 
 def index_view(request):
@@ -48,12 +49,13 @@ def index_template_view(request):
     bannerList = Goods.objects.filter(category_id__gte=11)
     for i in range(1,8,1):
         GoodsList[i*4-4:i*4] = Goods.objects.filter(category_id=i).order_by('category_id')[0:5]
-
+    # 购物车商品计数
+    cartCount = Cart.objects.filter(user_id=usr_id).count()
 
     return render(request, 'index_template.html',
                   {'isLogin': isLogin, 'user': user, 'GoodsCategoryList': GoodsCategoryList,
                    'hotgoodsList': hotgoodsList, 'slideList': slideList, 'GoodsList': GoodsList,
-                   'bannerList': bannerList, 'newGoodsList': newGoodsList})
+                   'bannerList': bannerList, 'newGoodsList': newGoodsList, 'cartCount': cartCount})
 
 
 def list_template_view(request):
@@ -103,7 +105,9 @@ def list_template_view(request):
     goodsList_hot = None if not goodsList \
         else sorted(goodsList, key=lambda x: x.searching_num)
     GoodsCategory = Category.objects.all()
+    # 购物车商品计数
+    cartCount = Cart.objects.filter(user_id=usr_id).count()
     return render(request, "list_template.html",
                   {'isLogin': isLogin, 'user': user, 'goodsList': goodsList, 'goodsList_hot': goodsList_hot,
                    'goodsList_price': goodsList_price, 'GoodsCategory': GoodsCategory,
-                   'currentCategory': currentCategory, 'newGoodsList': newGoodsList})
+                   'currentCategory': currentCategory, 'newGoodsList': newGoodsList, 'cartCount': cartCount})

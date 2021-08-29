@@ -115,8 +115,7 @@
     <div class="guest_cart fr">
         <!-- 如果为登录状态，获取该用户购物车商品数量,否则为0 -->
         <a href="cart" class="cart_name fl">我的购物车</a>
-        <div class="goods_count fl" id="show_count1">0</div>
-        <div class="goods_count1 fl" id="show_count">{{ user.cart.goods_num }}</div>
+        <div class="goods_count fl" id="show_count1">{{ cartCount }}</div>
     </div>
 </div>
 
@@ -124,15 +123,13 @@
     <div class="navbar">
         <h1 class="fl">全部商品分类</h1>
         <ul class="navlist fl">
-            <li><a href="index">首页</a></li>
-
             <!-- 商品类型 6个-->
             {% for GoodsCategory in GoodsCategoryList %}
-                <li class="interval">|</li>
                 <!--                                    点击商品类型，进入该商品类型商品列表，向后端传商品类型id-->
-                <li><a href="/list_template?gname={{ GoodsCategory.name }}" godname="{{ GoodsCategory.name }}">{{ GoodsCategory.name }}</a></li>
-
+                <li><a href="/list_template?category={{ GoodsCategory.id }}" godname="{{ GoodsCategory.name }}">{{ GoodsCategory.name }}</a></li>
+                <li class="interval">|</li>
             {% endfor %}
+                <li><a href="/list_template?category=7">日用品</a></li>
         </ul>
     </div>
 </div>
@@ -153,7 +150,7 @@
         <ul class="slide_pics">
             <!-- 轮播图 4张-->
             {% for slide in slideList %}
-                <li><img src="{{slide.img}}" alt="幻灯片"></li>
+                <li><a href="{{ slide.text }}"><img src="{{slide.img}}" alt="幻灯片"></a></li>
             {% endfor %}
         </ul>
         <div class="prev"></div>
@@ -187,25 +184,12 @@
         </div>
 
         <div class="goods_con clearfix">
-            <!--            //点击商品类型图片，进入该商品类型商品列表，向后端传该商品类型id-->
-            <div class="goods_banner fl">
-<!--                {#                <a href="/list?category={{ }}">#}-->
-                {% for banner in bannerList %}
-                        {% if banner.category_id == GoodsCategory.id %}
-                        <a href="#">
-                            <img id="bannerr" style="margin-bottom:55px" src="{{ banner.img }}">
-                        </a>
-                    {% endif %}
-                {% endfor %}
-
-
-            </div>
             <ul class="goods_list fl">
                 <!-- 展示这一类型的商品 4个 -->
                 {% for goods in GoodsList %}
                     {% if goods.category_id == GoodsCategory.id %}
                         <!--                // 点击商品图片，进入该商品详情页，向后端传该商品id-->
-                        <li class="toHand">
+                        <li class="toHand" style="width: 239px;">
                             <h4><a href="detail_template">{{ goods.name }}</a></h4>
                             <a href="/detail_template?gid={{ goods.id }}" class="herea"><p class="tishi">{{ goods.name }}</p><img class="goodP" src={{ goods.img }}></a>
 <!--                            <a href="/detail_template?gid={{ goods.id }}" style="text-align:center" class="tishi"></a>-->

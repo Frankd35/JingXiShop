@@ -3,6 +3,7 @@ import random
 from django.shortcuts import render
 from user import models as user_model
 from goods.models import Goods
+from cart.models import Cart
 from django.http import JsonResponse, HttpResponseRedirect, HttpResponse
 from .detail_response import *
 
@@ -57,10 +58,12 @@ def detail_view(request):
         random.shuffle(newGoodsList)
         newGoodsList = newGoodsList[:3]
         newGoodsList.append(randomGoods)
+        # 购物车商品计数
+        cartCount = Cart.objects.filter(user_id=user.id).count()
         return render(request, 'detail_template.html',
                       {'user': user, 'isLogin': user.isLogin, 'good': good, 'shop': shop, 'commentList': commentList,
                        'category': category, 'GoodsCategoryList': cateList,
-                       'newGoodsList': newGoodsList})
+                       'newGoodsList': newGoodsList, 'cartCount': cartCount})
     else:
         if user.id == -1:
             return HttpResponseRedirect('/login')

@@ -89,8 +89,7 @@
     <div class="guest_cart fr">
         <a href="cart" class="cart_name fl">我的购物车</a>
         <!--			登录状态下获取用户购物车中商品数量-->
-        <div class="goods_count fl" id="show_count1">0</div>
-        <div class="goods_count1 fl" id="show_count">{{ user.cart.goods_num }}</div>
+        <div class="goods_count fl" id="show_count1">{{ cartCount }}</div>
     </div>
 </div>
 
@@ -217,7 +216,7 @@
     <div class="r_wrap fr clearfix">
         <ul class="detail_tab clearfix">
             <li class="jieshao">商品介绍</li>
-            <li class="pinglun">商品评论(99+)</li>
+            <li class="pinglun">商品评论</li>
         </ul>
 
         <div class="tab_content" id="tab_detail">
@@ -241,7 +240,7 @@
                     <div class="sky2">店铺评分：{{ shop.mark }}</div>
                     <div class="sky2">商品毛重：{{ good.unite }}g</div>
                     <div class="sky2">商品产地：其他</div>
-                    <div class="sky2">货号：wz238748934030</div>
+                    <div class="sky2">货号：{{ good.id }}</div>
                     <div class="sky2">品种：</div>
                     <div class="sky2">包装形式：</div>
                     <div class="sky2">原产：</div>
