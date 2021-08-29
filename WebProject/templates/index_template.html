@@ -177,7 +177,7 @@
         <div class="list_title clearfix">
             <div style="display: flex; align-items: center;">
                 <h3 class="fl" id="model0{{ forloop.counter }}" style="width: 10%;"><a href="list_template?category={{ GoodsCategory.id }}" style="color: rgb(201,25,37)">{{ GoodsCategory.name }}</a></h3>
-                <a href="list_template?category={{ GoodsCategory.id }}" style="width:90%; text-align: right; margin-right: 10px;">查看更多 >></a>
+                <a href="list_template?category={{ GoodsCategory.id }}" style="width:90%; text-align: right; margin-right: 10px;" class="goods_more fr" id="fruit_more">查看更多 >></a>
             </div>
             <div class="subtitle fl">
                 <!-- 实例链接 -->
@@ -186,7 +186,7 @@
                 {#                {% endfor %}#}
             </div>
             <!--            // 点击更多，进入该商品类型商品列表，向后端传该商品类型id-->
-            {#            <a href="/list_template?gname={{ GoodsCategory.name }}" class="goods_more fr" id="fruit_more">查看更多 ></a>#}
+            {#            <a href="/list_template?gname={{ GoodsCategory.name }}" class="goods_more fr" id="fruit_m1ore">查看更多 ></a>#}
         </div>
 
         <div class="goods_con clearfix">
