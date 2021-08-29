@@ -175,7 +175,10 @@
     <div class="list_model">
 
         <div class="list_title clearfix">
-            <h3 class="fl" id="model0{{ forloop.counter }}">{{ GoodsCategory.name }}</h3>
+            <div style="display: flex; align-items: center;">
+                <h3 class="fl" id="model0{{ forloop.counter }}" style="width: 10%;"><a href="list_template?category={{ GoodsCategory.id }}" style="color: rgb(201,25,37)">{{ GoodsCategory.name }}</a></h3>
+                <a href="list_template?category={{ GoodsCategory.id }}" style="width:90%; text-align: right; margin-right: 10px;">查看更多 >></a>
+            </div>
             <div class="subtitle fl">
                 <!-- 实例链接 -->
                 {#                {% for kind in GoodsCategory.kands %}#}
