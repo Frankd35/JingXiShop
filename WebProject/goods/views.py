@@ -49,13 +49,11 @@ def detail_view(request):
         commentList = getCommentList(goods_id)
         category = getCategory(good.category_id)
         cateList = getCateList()
-        # 新品推荐
+        # 猜你喜欢
         newGoodsList = Goods.objects.filter(category_id=good.category_id)
         randomGoods = newGoodsList[random.randint(0,len(newGoodsList)-1)]
         newGoodsList = sorted(newGoodsList, key=lambda x: x.searching_num, reverse=True)
         newGoodsList = newGoodsList[:10]
-        for i in newGoodsList:
-            print('从高到低',i.searching_num)
         random.shuffle(newGoodsList)
         newGoodsList = newGoodsList[:3]
         newGoodsList.append(randomGoods)

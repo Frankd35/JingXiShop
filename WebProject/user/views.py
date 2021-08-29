@@ -1,14 +1,14 @@
 import hashlib
 import json
 import re
+import math
 from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
 from django.shortcuts import render
-
+from django.core.paginator import Paginator,PageNotAnInteger,EmptyPage
 import cart.orderlist_response
 from cart.models import Order
 from goods.models import Goods
 from .models import User, Address, Shop
-
 
 # Create your views here.
 
@@ -355,7 +355,20 @@ def merchant_object_view(request):
         # totalRecords = Goods.objects.all()
         user = User.objects.get(id=usr_id)
         shop = Shop.objects.get(user_id=usr_id)
-        totalRecords = Goods.objects.filter(shop_id=shop.id)
+        try:
+            tmp = Goods.objects.filter(shop_id=shop.id)
+            goodsList = []
+            for good in tmp:
+                _ = good.__dict__
+                orders = Order.objects.filter(goods_id=good.id)
+                deal = 0
+                for order in orders:
+                    deal += order.goods_num
+                _['deal'] = deal
+                goodsList.append(_)
+        except:
+            goodsList = None
+        totalRecords = goodsList
         pager = Paginator(totalRecords,10)
         try:
             perpage_data = pager.page(page_num)
@@ -377,19 +390,7 @@ def merchant_object_view(request):
         pagelist = range(begin,end+1)
         return render(request, 'merchant_object.html',
                       {'isLogin': isLogin, 'user': user, 'shop': shop, 'perpage_data': perpage_data,'pagelist':pagelist,'now_page':page_num})
-    # try:
-    #     tmp = Goods.objects.filter(shop_id=shop.id)
-    #     goodsList = []
-    #     for good in tmp:
-    #         _ = good.__dict__
-    #         orders = Order.objects.filter(goods_id=good.id)
-    #         deal = 0
-    #         for order in orders:
-    #             deal += order.goods_num
-    #         _['deal'] = deal
-    #         goodsList.append(_)
-    # except:
-    #     goodsList = None
+
     if request.method == 'POST':
         gid = int(json.loads(request.body.decode("utf-8")).get('id'))
         flag = json.loads(request.body.decode("utf-8")).get('flag')
