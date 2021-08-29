@@ -47,7 +47,7 @@ def index_template_view(request):
     # 介绍
     bannerList = Goods.objects.filter(category_id__gte=11)
     for i in range(1,8,1):
-        GoodsList[i*4-4:i*4] = Goods.objects.filter(category_id=i).order_by('category_id')[0:5]
+        GoodsList[i*5-5:i*5] = Goods.objects.filter(category_id=i).order_by('category_id')[0:5]
 
 
     return render(request, 'index_template.html',
