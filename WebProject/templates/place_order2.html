@@ -111,17 +111,17 @@
 
 	<div class="common_list_con clearfix">
 		<ul class="goods_list_th clearfix">
-			<li class="col01">商品名称</li>
+			<li class="col01" style="width:27%; text-align: right;">商品名称</li>
 			<!-- <li class="col02">商品单位</li> -->
-			<li class="col03">商品价格</li>
-			<li class="col04">数量</li>
-			<li class="col05">小计</li>		
+			<li class="col03" style="width: 20%; text-align: right;">商品价格</li>
+			<li class="col04" style="width: 19%; text-align: right;">数量</li>
+			<li class="col05" style="width: 15%; text-align: right;">小计</li>		
 		</ul>
 		{% for good in goodsList %}
 		<ul class="goods_list_td clearfix">
 			<li class="col01">{{ forloop.counter }}</li>
 			<li class="col02"><img src="{{ good.img }}"></li>
-			<li class="col03">{{ good.name }}</li>
+			<li class="col03" style="overflow: hidden;text-overflow: ellipsis;white-space: nowrap;position: relative;margin-left: 90px;">{{ good.name }}</li>
 			<li class="col05">{{ good.price }}元</li>
 			<li class="col06">{{ good.num }}</li>
 			<li class="col07">{{ good.total_price }}元</li>
