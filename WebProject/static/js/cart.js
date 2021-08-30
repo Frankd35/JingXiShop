@@ -22,6 +22,10 @@ $(function() {
         data:JSON.stringify({'gid':itGid,'flag':'updatenum', "csrfmiddlewaretoken": token, 'num': count}),
         dataType : "text"
         })
+        // 单个商品数量
+        goodprice = Number($(this).attr('goodprice'))
+        // 更新单个商品总价
+        $("#sumPrice").html((goodprice*count).toFixed(2))
         // 更新商品的总价
         me_sum();
     })
