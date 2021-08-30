@@ -4,6 +4,8 @@ from typing import List, Any
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
 import random
+from django.core.paginator import Paginator,PageNotAnInteger,EmptyPage
+import math
 # Create your views here.
 # from sympy.codegen.ast import none
 from user.models import User, Shop
@@ -62,6 +64,8 @@ def index_template_view(request):
 def list_template_view(request):
     # 获取cookies里的当前登录用户id
     usr_id = int(request.session.get('uid', -1))
+    page_num = int(request.GET.get('pnum', 1))
+    searcondi = int(request.GET.get('condi', 1))
     isLogin = usr_id != -1
     try:
         user = User.objects.get(id=usr_id)
@@ -69,6 +73,7 @@ def list_template_view(request):
         user = None
     # 判断请求方式
     kw = request.GET.get('keyword')
+    kw1 = kw
     category_id = request.GET.get('category')
     goodsList = None
     currentCategory = None
@@ -76,7 +81,15 @@ def list_template_view(request):
     newGoodsList = Goods.objects.all()
     if len(newGoodsList) > 5:
         newGoodsList = newGoodsList[len(newGoodsList) - 6: len(newGoodsList) - 1]
-
+    m = request.method
+    if m == 'POST':
+        data = request.body.decode("utf-8")
+        json_data = json.loads(data)
+        print(json_data)
+        kw1 = int(json_data.get('keyword', -1))
+        page_num = int(json_data.get('pnum', 1))
+        searcondi = int(json_data.get('condi', 1))
+        print(searcondi)
     # 支持精确查询商品、店铺、类别
     if kw:
         kw = kw.split()
@@ -108,7 +121,53 @@ def list_template_view(request):
     GoodsCategory = Category.objects.all()
     # 购物车商品计数
     cartCount = Cart.objects.filter(user_id=usr_id).count()
+    # 默认
+    totalRecords = goodsList
+    print("hello")
+    print(kw)
+    pager = Paginator(totalRecords, 20)
+    try:
+        perpage_data = pager.page(page_num)
+    except PageNotAnInteger:
+        perpage_data = pager.page(1)
+    except EmptyPage:
+        perpage_data = pager.page(pager.num_pages)
+    # 价格
+    totalRecords = goodsList_price
+    print("hello")
+    print(kw)
+    pager = Paginator(totalRecords, 20)
+    try:
+        goodsList_price = pager.page(page_num)
+    except PageNotAnInteger:
+        goodsList_price = pager.page(1)
+    except EmptyPage:
+        goodsList_price = pager.page(pager.num_pages)
+    # 人气
+    totalRecords = goodsList_hot
+    print("hello")
+    print(kw)
+    pager = Paginator(totalRecords, 20)
+    try:
+        goodsList_hot = pager.page(page_num)
+    except PageNotAnInteger:
+        goodsList_hot = pager.page(1)
+    except EmptyPage:
+        goodsList_hot = pager.page(pager.num_pages)
+
+    begin = (page_num - int(math.ceil(10.0 / 2)))
+    if begin < 1:
+        begin = 1
+    end = begin + 9
+    if end > pager.num_pages:
+        end = pager.num_pages
+    if end <= 10:
+        begin = 1
+    else:
+        begin = end - 9
+    pagelist = range(begin, end + 1)
     return render(request, "list_template.html",
-                  {'isLogin': isLogin, 'user': user, 'goodsList': goodsList, 'goodsList_hot': goodsList_hot,
+                  {'isLogin': isLogin, 'user': user, 'goodsList_hot': goodsList_hot,
                    'goodsList_price': goodsList_price, 'GoodsCategory': GoodsCategory,
-                   'currentCategory': currentCategory, 'newGoodsList': newGoodsList, 'cartCount': cartCount})
+                   'currentCategory': currentCategory, 'newGoodsList': newGoodsList, 'cartCount': cartCount,
+                   'perpage_data': perpage_data,'pagelist':pagelist,'now_page':page_num,'kw':kw1,'c':searcondi})

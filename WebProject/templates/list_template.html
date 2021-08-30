@@ -9,10 +9,21 @@
 	<link rel="stylesheet" type="text/css" href="../static/css/reset.css">
 	<link rel="stylesheet" type="text/css" href="../static/css/mainzls.css">
 	<script type="text/javascript" src="../static/js/jquery-1.12.4.min1.js"></script>
+	<script src="../static/js/jquery.min.js"></script>
 	<script type="text/javascript" src="../static/js/w2.js"></script>
 	<script type="text/javascript" src="../static/js/slidezls.js"></script>
 	<script src="../static/js/detail.js"></script>
 	<script type="text/javascript" src="../static/js/login.js"></script>
+	<style>
+		.sort_bar a {
+			display: inline-block;
+			height: 30px;
+			line-height: 30px;
+			padding: 0 20px;
+			float: left;
+			color:#000;
+		}
+	</style>
 </head>
 <body>
 	<div class="header_con">
@@ -138,13 +149,21 @@
 			<div class="sort_bar">
                 <!-- 选择对商品排序 -->
 <!--				点击后向后端传sort参数，参数值：fault 默认排序，price 价格 ，hot 人气,后端返回按照制定排序的商品列表-->
-					<div id="first" class="active">默认</div>
-					<div id="second">价格</div>
-					<div id="third">人气</div>
+					<a href="/list_template?keyword={{kw}}&pnum=1&condi=1" id="first" kw1="{{kw}}" n1="{{now_page}}">默认</a>
+					<a href="/list_template?keyword={{kw}}&pnum=1&condi=2" id="second" kw2="{{kw}}" n2="{{now_page}}">价格</a>
+					<a href="/list_template?keyword={{kw}}&pnum=1&condi=3" id="third" kw3="{{kw}}" n3="{{now_page}}">人气</a>
 			</div>
               <!-- 默认排序商品：将该类型下的商品展示出来 每次展示5个-->
+			{% if c == 1 %}
+
+			<script type="text/javascript">
+				$("#first").addClass("active")
+				$("#second").removeClass("active")
+				$("#third").removeClass("active")
+			</script>
+
 			<ul class="goods_type_list clearfix"  id="default">
-				{% for goods in goodsList %}
+				{% for goods in perpage_data %}
 				<li>
 					<!--						 点击商品跳转商品详情界面，向后端传该商品id-->
 					<a href="/detail_template?gid={{ goods.id }}" class="tttt1"><img src="{{ goods.img }}" width="160" height="160"></a>
@@ -158,9 +177,16 @@
 				</li>
 				{% endfor %}
 			</ul>
+			{% endif %}
 
+			{% if c == 2 %}
+			<script type="text/javascript">
+				$("#first").removeClass("active")
+				$("#second").addClass("active")
+				$("#third").removeClass("active")
+			</script>
 <!--			按价格排序商品-->
-			<ul class="goods_type_list clearfix" id="price"  style="display: none">
+			<ul class="goods_type_list clearfix" id="price">
 				{% for goods in goodsList_price %}
 				<li>
 					<!--						 点击商品跳转商品详情界面，向后端传该商品id-->
@@ -175,7 +201,14 @@
 				</li>
 				{% endfor %}
 			</ul>
-			<ul class="goods_type_list clearfix" id="hot"  style="display: none">
+			{% endif %}
+			{% if c == 3 %}
+			<script type="text/javascript">
+				$("#first").removeClass("active")
+				$("#second").removeClass("active")
+				$("#third").addClass("active")
+			</script>
+			<ul class="goods_type_list clearfix" id="hot">
 				{% for goods in goodsList_hot %}
 				<li>
 					<!--						 点击商品跳转商品详情界面，向后端传该商品id-->
@@ -190,16 +223,22 @@
 				</li>
 				{% endfor %}
 			</ul>
-
-<!--			<div class="pagenation">-->
-<!--				<a href="#">上一页</a>-->
-<!--				<a href="#" class="active">1</a>-->
-<!--				<a href="#">2</a>-->
-<!--				<a href="#">3</a>-->
-<!--				<a href="#">4</a>-->
-<!--				<a href="#">5</a>-->
-<!--				<a href="#">下一页></a>-->
-<!--			</div>-->
+			{% endif %}
+			<div class="pagenation">
+				{% if perpage_data.has_previous %}
+				<a href="/list_template?keyword={{kw}}&pnum={{perpage_data.previous_page_number}}&condi={{c}}">上一页</a>
+				{% endif%}
+				{% for n in pagelist %}
+						{% if n == now_page %}
+							<a href="/list_template?keyword={{kw}}&pnum={{n}}&condi={{c}}" class="active">{{n}}</a>&emsp;
+						{% else %}
+							<a href="/list_template?keyword={{kw}}&pnum={{n}}&condi={{c}}">{{n}}</a>&emsp;
+						{% endif %}
+				{% endfor %}
+				{% if perpage_data.has_next %}
+				<a href="/list_template?keyword={{kw}}&pnum={{perpage_data.next_page_number}}&condi={{c}}">下一页</a>
+				{% endif %}
+			</div>
 		</div>
 	</div>
 
@@ -213,33 +252,64 @@
 			<span>|</span>
 			<a href="#">友情链接</a>		
 		</div>
-		<p>CopyRight © 2016 北京天天生鲜信息技术有限公司 All Rights Reserved</p>
+		<p>CopyRight © 2021 重庆京西科技有限公司 All Rights Reserved</p>
 		<p>电话：010-****888    京ICP备*******8号</p>
 	</div>
 	<script type="text/javascript">
 			$("#first").click(function() {
+			var kww=$(this).attr('kw1');
+			var nn=$(this).attr('n1');
+			console.log(kww)
 			$("#first").addClass("active")
 			$("#second").removeClass("active")
 			$("#third").removeClass("active")
-			$("#default").show();
-			$("#price").hide();
-			$("#hot").hide();
+<!--			$("#default").show();-->
+<!--			$("#price").hide();-->
+<!--			$("#hot").hide();-->
+			var token = $('[name="csrfmiddlewaretoken"]').attr("value");
+            $.ajax({
+                url:"/list_template",
+                type:"POST",
+                data:JSON.stringify({'keyword':kww,'pnum':1,'condi':1}),
+                dataType : "text"
+            })
+<!--			window.location.href = "/list_template?keyword="+kww+"&pnum="+nn+"&condi=1";-->
 		})
 		$("#second").click(function() {
+			var kww=$(this).attr('kw2');
+			var nn=$(this).attr('n2');
 			$("#first").removeClass("active")
 			$("#second").addClass("active")
 			$("#third").removeClass("active")
-			$("#default").hide();
-			$("#price").show();
-			$("#hot").hide();
+<!--			$("#default").hide();-->
+<!--			$("#price").show();-->
+<!--			$("#hot").hide();-->
+			var token = $('[name="csrfmiddlewaretoken"]').attr("value");
+            $.ajax({
+                url:"/list_template",
+                type:"POST",
+                data:JSON.stringify({'keyword':kww,'pnum':1,'condi':2}),
+                dataType : "text"
+            })
+<!--			window.location.href = "/list_template?keyword="+kww+"&pnum="+nn+"&condi=1";-->
 		})
 		$("#third").click(function() {
+			var kww=$(this).attr('kw3');
+			var nn=$(this).attr('n3');
 			$("#third").addClass("active")
 			$("#second").removeClass("active")
 			$("#first").removeClass("active")
-			$("#default").hide();
-			$("#price").hide();
-			$("#hot").show();
+<!--			$("#default").hide();-->
+<!--			$("#price").hide();-->
+<!--			$("#hot").show();-->
+			var token = $('[name="csrfmiddlewaretoken"]').attr("value");
+            $.ajax({
+                url:"/list_template",
+                type:"POST",
+                data:JSON.stringify({'keyword':kww,'pnum':1,'condi':3}),
+                dataType : "text"
+            })
+<!--			window.location.href = "/list_template?keyword="+kww+"&pnum="+nn+"&condi=1";-->
 		})
 
 		//搜索框输入商品类型，进去该商品类型列表，向后端传用户输入商品类型名称

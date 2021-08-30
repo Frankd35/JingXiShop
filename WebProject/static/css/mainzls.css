@@ -342,7 +342,7 @@ html,body{height:100%}
 .sort_bar a:hover {
 	background-color:skyblue;
 } */
-.sort_bar div{display:inline-block;height:30px;line-height:30px;padding:0 20px;float:left;color:#000}
+.sort_bar a{display:inline-block;height:30px;line-height:30px;padding:0 20px;float:left;color:#000}
 .sort_bar .active{color:rgb(201, 25, 37);}
 
 .sort_bar div:hover {
