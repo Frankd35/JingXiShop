@@ -69,7 +69,9 @@
 				<li><a href="cart">· 购物车</a></li>
 				<li><a href="user_center_order" class="active">· 全部订单</a></li>
 				<li><a href="user_center_site">· 收货地址</a></li>
-				<!-- <li><a href="merchant_register">· 商家入驻</a></li> -->
+				{% if user.is_merchant == 0 %}
+					<li><a href="merchant_register">· 商家入驻</a></li>
+				{% endif %}
                 {% if  user.is_merchant == 3 %}
                     <li><a href="user_center_manager">· 管理店铺</a></li>
                 {% endif %}

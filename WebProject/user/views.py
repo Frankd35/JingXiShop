@@ -270,7 +270,7 @@ def merchant_register_view(request):
             print(e)
             # 提交申请失败
             return render(request, 'merchant_register.html', {'errmsg': e})
-        return HttpResponseRedirect('merchant_register')
+        return render(request, 'merchant_register', {'success':True})
 
 
 def merchant_login_view(request):
