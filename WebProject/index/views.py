@@ -87,7 +87,7 @@ def list_template_view(request):
         data = request.body.decode("utf-8")
         json_data = json.loads(data)
         print(json_data)
-        kw1 = int(json_data.get('keyword', -1))
+        kw1 = int(json_data.get('keyword', 1))
         page_num = int(json_data.get('pnum', 1))
         searcondi = int(json_data.get('condi', 1))
         print(searcondi)
@@ -127,6 +127,7 @@ def list_template_view(request):
     print("hello")
     print(kw)
     pager = Paginator(totalRecords, 20)
+    print('pager',pager)
     try:
         perpage_data = pager.page(page_num)
     except PageNotAnInteger:
@@ -139,22 +140,23 @@ def list_template_view(request):
     print(kw)
     pager = Paginator(totalRecords, 20)
     try:
-        goodsList_price = pager.page(page_num)
+        print('page_num',page_num)
+        goodsList_price1 = pager.page(page_num)
     except PageNotAnInteger:
-        goodsList_price = pager.page(1)
+        goodsList_price1 = pager.page(1)
     except EmptyPage:
-        goodsList_price = pager.page(pager.num_pages)
+        goodsList_price1 = pager.page(pager.num_pages)
     # 人气
     totalRecords = goodsList_hot
     print("hello")
     print(kw)
     pager = Paginator(totalRecords, 20)
     try:
-        goodsList_hot = pager.page(page_num)
+        goodsList_hot1 = pager.page(page_num)
     except PageNotAnInteger:
-        goodsList_hot = pager.page(1)
+        goodsList_hot1 = pager.page(1)
     except EmptyPage:
-        goodsList_hot = pager.page(pager.num_pages)
+        goodsList_hot1 = pager.page(pager.num_pages)
 
     begin = (page_num - int(math.ceil(10.0 / 2)))
     if begin < 1:
@@ -168,7 +170,7 @@ def list_template_view(request):
         begin = end - 9
     pagelist = range(begin, end + 1)
     return render(request, "list_template.html",
-                  {'isLogin': isLogin, 'user': user, 'goodsList_hot': goodsList_hot,
-                   'goodsList_price': goodsList_price, 'GoodsCategory': GoodsCategory,
+                  {'isLogin': isLogin, 'user': user, 'goodsList_hot': goodsList_hot1,
+                   'goodsList_price': goodsList_price1, 'GoodsCategory': GoodsCategory,
                    'currentCategory': currentCategory, 'newGoodsList': newGoodsList, 'cartCount': cartCount,
                    'perpage_data': perpage_data,'pagelist':pagelist,'now_page':page_num,'kw':kw1,'c':searcondi})

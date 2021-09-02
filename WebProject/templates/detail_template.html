@@ -113,10 +113,24 @@
 
             <!-- 商品类型 6个-->
             <!--				// 点击商品类型，进入该商品类型商品列表，向后端传商品类型id-->
-            {% for GoodsCategory in GoodsCategoryList %}
+<!--            {% for GoodsCategory in GoodsCategoryList %}-->
+<!--                <li class="interval">|</li>-->
+<!--                <li><a href="list_template?category={{ GoodsCategory.id }}">{{ GoodsCategory.name }}</a></li>-->
+<!--            {% endfor %}-->
                 <li class="interval">|</li>
-                <li><a href="list_template?category={{ GoodsCategory.id }}">{{ GoodsCategory.name }}</a></li>
-            {% endfor %}
+				<li><a href="/list_template?keyword=食品">食品</a></li>
+				<li class="interval">|</li>
+				<li><a href="/list_template?keyword=生鲜">生鲜</a></li>
+				<li class="interval">|</li>
+				<li><a href="/list_template?keyword=服装">服装</a></li>
+				<li class="interval">|</li>
+				<li><a href="/list_template?keyword=首饰">首饰</a></li>
+				<li class="interval">|</li>
+				<li><a href="/list_template?keyword=电玩">电玩</a></li>
+				<li class="interval">|</li>
+				<li><a href="/list_template?keyword=洗护">洗护</a></li>
+				<li class="interval">|</li>
+				<li><a href="/list_template?keyword=日用品">日用品</a></li>
         </ul>
     </div>
 </div>
@@ -127,6 +141,7 @@
     <!-- 该商品所属类型 -->
     <!--		// 点击商品类型，进入该商品类型商品列表，向后端传商品类型id-->
     <a href="list_template?category={{ good.category_id }}">{{ category }}</a>
+<!--    <a href="/list_template?keyword={{kw}}">{{ kw }}</a>-->
     <span>></span>
     <a href="">商品详情</a>
 </div>

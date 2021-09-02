@@ -102,21 +102,36 @@
 				<h1>全部商品分类</h1>	
 				<span></span>			
 				<ul class="subnav">
-                    {% for category in GoodsCategory %}
-                    <!-- 展示六种商品类型 -->
-					<!--					// 点击商品类型，进入该商品类型商品列表，向后端传商品类型id-->
-			        <li><a href="/list_template?category={{ category.id }}" >{{category.name}} &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&gt;</a></li>
-                    {%endfor%}
+<!--                    {% for category in GoodsCategory %}-->
+<!--                    &lt;!&ndash; 展示六种商品类型 &ndash;&gt;-->
+<!--					&lt;!&ndash;					// 点击商品类型，进入该商品类型商品列表，向后端传商品类型id&ndash;&gt;-->
+<!--			        <li><a href="/list_template?category={{ category.id }}" >{{category.name}} &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&gt;</a></li>-->
+<!--                    {%endfor%}-->
+
 				</ul>
 			</div>
 			<ul class="navlist fl">
 				<li><a href="index_template">首页</a></li>
 				 <!-- 商品类型 6个-->
-			{% for category in GoodsCategory %}
-				<!--					// 点击商品类型，进入该商品类型商品列表，向后端传商品类型id-->
-            <li class="interval">|</li> 
-            <li><a href="/list_template?category={{ category.id }}">{{category.name}}</a></li>
-            {%endfor%}   
+<!--			{% for category in GoodsCategory %}-->
+<!--				&lt;!&ndash;					// 点击商品类型，进入该商品类型商品列表，向后端传商品类型id&ndash;&gt;-->
+<!--            <li class="interval">|</li> -->
+<!--            <li><a href="/list_template?category={{ category.id }}">{{category.name}}</a></li>-->
+<!--            {%endfor%}   -->
+				<li class="interval">|</li>
+				<li><a href="/list_template?keyword=食品">食品</a></li>
+				<li class="interval">|</li>
+				<li><a href="/list_template?keyword=生鲜">生鲜</a></li>
+				<li class="interval">|</li>
+				<li><a href="/list_template?keyword=服装">服装</a></li>
+				<li class="interval">|</li>
+				<li><a href="/list_template?keyword=首饰">首饰</a></li>
+				<li class="interval">|</li>
+				<li><a href="/list_template?keyword=电玩">电玩</a></li>
+				<li class="interval">|</li>
+				<li><a href="/list_template?keyword=洗护">洗护</a></li>
+				<li class="interval">|</li>
+				<li><a href="/list_template?keyword=日用品">日用品</a></li>
 			</ul>
 		</div>
 	</div>
@@ -124,7 +139,7 @@
 	<div class="breadcrumb">
 		<a href="#">全部分类</a>
 		<span>></span>
-		<a href="/list_template?category={{ currentCategory.id }}">{{ currentCategory.name }}</a>
+		<a href="/list_template?keyword={{kw}}">{{ kw }}</a>
 	</div>
 
 	<div class="main_wrap clearfix">
