@@ -87,7 +87,7 @@ def list_template_view(request):
         data = request.body.decode("utf-8")
         json_data = json.loads(data)
         print(json_data)
-        kw1 = int(json_data.get('keyword', 1))
+        kw1 = int(json_data.get('keyword', -1))
         page_num = int(json_data.get('pnum', 1))
         searcondi = int(json_data.get('condi', 1))
         print(searcondi)
@@ -122,55 +122,56 @@ def list_template_view(request):
     GoodsCategory = Category.objects.all()
     # 购物车商品计数
     cartCount = Cart.objects.filter(user_id=usr_id).count()
-    # 默认
-    totalRecords = goodsList
-    print("hello")
-    print(kw)
-    pager = Paginator(totalRecords, 20)
-    print('pager',pager)
     try:
-        perpage_data = pager.page(page_num)
-    except PageNotAnInteger:
-        perpage_data = pager.page(1)
-    except EmptyPage:
-        perpage_data = pager.page(pager.num_pages)
-    # 价格
-    totalRecords = goodsList_price
-    print("hello")
-    print(kw)
-    pager = Paginator(totalRecords, 20)
-    try:
-        print('page_num',page_num)
-        goodsList_price1 = pager.page(page_num)
-    except PageNotAnInteger:
-        goodsList_price1 = pager.page(1)
-    except EmptyPage:
-        goodsList_price1 = pager.page(pager.num_pages)
-    # 人气
-    totalRecords = goodsList_hot
-    print("hello")
-    print(kw)
-    pager = Paginator(totalRecords, 20)
-    try:
-        goodsList_hot1 = pager.page(page_num)
-    except PageNotAnInteger:
-        goodsList_hot1 = pager.page(1)
-    except EmptyPage:
-        goodsList_hot1 = pager.page(pager.num_pages)
+        # 默认
+        totalRecords = goodsList
+        pager = Paginator(totalRecords, 20)
+        try:
+            perpage_data = pager.page(page_num)
+        except PageNotAnInteger:
+            perpage_data = pager.page(1)
+        except EmptyPage:
+            perpage_data = pager.page(pager.num_pages)
 
-    begin = (page_num - int(math.ceil(10.0 / 2)))
-    if begin < 1:
-        begin = 1
-    end = begin + 9
-    if end > pager.num_pages:
-        end = pager.num_pages
-    if end <= 10:
-        begin = 1
-    else:
-        begin = end - 9
-    pagelist = range(begin, end + 1)
+        # 价格
+        totalRecords = goodsList_price
+        print("hello")
+        print(kw)
+        pager = Paginator(totalRecords, 20)
+        try:
+            goodsList_price = pager.page(page_num)
+        except PageNotAnInteger:
+            goodsList_price = pager.page(1)
+        except EmptyPage:
+            goodsList_price = pager.page(pager.num_pages)
+
+        # 人气
+        totalRecords = goodsList_hot
+        print("hello")
+        print(kw)
+        pager = Paginator(totalRecords, 20)
+        try:
+            goodsList_hot = pager.page(page_num)
+        except PageNotAnInteger:
+            goodsList_hot = pager.page(1)
+        except EmptyPage:
+            goodsList_hot = pager.page(pager.num_pages)
+        begin = (page_num - int(math.ceil(10.0 / 2)))
+        if begin < 1:
+            begin = 1
+        end = begin + 9
+        if end > pager.num_pages:
+            end = pager.num_pages
+        if end <= 10:
+            begin = 1
+        else:
+            begin = end - 9
+        pagelist = range(begin, end + 1)
+    except Exception as e:
+        print(e)
+        perpage_data = goodsList_hot = goodsList_price = pagelist = None
     return render(request, "list_template.html",
-                  {'isLogin': isLogin, 'user': user, 'goodsList_hot': goodsList_hot1,
-                   'goodsList_price': goodsList_price1, 'GoodsCategory': GoodsCategory,
+                  {'isLogin': isLogin, 'user': user, 'goodsList_hot': goodsList_hot,
+                   'goodsList_price': goodsList_price, 'GoodsCategory': GoodsCategory,
                    'currentCategory': currentCategory, 'newGoodsList': newGoodsList, 'cartCount': cartCount,
                    'perpage_data': perpage_data,'pagelist':pagelist,'now_page':page_num,'kw':kw1,'c':searcondi})
